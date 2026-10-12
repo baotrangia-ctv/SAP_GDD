@@ -27,10 +27,10 @@ function changesPage(){
 function petDetail(id){
   const row=table("Pet.csv").rows.find(x=>x.ID===String(id));if(!row)return;
   const box=document.createElement("div");box.className="modal-backdrop";box.id="pet-modal";
-  box.innerHTML='<section class="modal" role="dialog" aria-modal="true" aria-label="Pet config"><button class="modal-close" data-action="close">Đóng</button><p class="eyebrow">PET CONFIG · ID '+esc(row.ID)+'</p><h2>'+esc(row.Name)+'</h2>'+rarity(row.Rarity)+'<dl>'+Object.keys(row).map(k=>"<dt>"+esc(k)+"</dt><dd>"+esc(row[k]||"—")+"</dd>").join("")+"</dl></section>";
+  box.innerHTML='<section class="modal" role="dialog" aria-modal="true" aria-label="Pet config"><button class="modal-close" data-action="close">Đóng</button><p class="eyebrow">PET CONFIG · ID '+esc(row.ID)+'</p><div class="pet-detail-title">'+petImageHtml(row,'pet-portrait')+'<div><h2>'+esc(row.Name)+'</h2>'+rarity(row.Rarity)+'</div></div><dl>'+Object.keys(row).map(k=>"<dt>"+esc(k)+"</dt><dd>"+esc(row[k]||"—")+"</dd>").join("")+"</dl></section>";
   document.body.appendChild(box);
 }
-function go(page){if(!pages[page])return;s.page=page;document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));document.getElementById("sidebar").classList.remove("open");root.innerHTML=({overview:overview,progression:progression,economy:economy,cadence:cadence,config:configPage,changes:changesPage}[page])();updateMeta();if(page==="config")updateConfig()}
+function go(page){if(!pages[page])return;s.page=page;document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));document.getElementById("sidebar").classList.remove("open");root.innerHTML=({overview:overview,progression:progression,economy:economy,cadence:cadence,spawn:spawnPage,config:configPage,changes:changesPage}[page])();updateMeta();if(page==="config")updateConfig();if(page==="spawn")updateSpawnAnalysis()}
 function updateConfig(){
   const x=configRows(),b=document.getElementById("config-rows");if(!b)return;
   b.innerHTML=x.body||'<tr><td class="empty" colspan="'+Math.max(1,x.file.headers.length)+'">Không có dòng khớp.</td></tr>';
@@ -54,4 +54,3 @@ document.addEventListener("change",e=>{
 });
 document.getElementById("menu-toggle").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
 fetch("./data/config-snapshot.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(d=>{s.data=d;go("overview")}).catch(err=>{root.innerHTML=note("Không đọc được snapshot",err.message+" · Chạy tools/sync-source-data.mjs rồi serve dist qua HTTP.","","review")});
-

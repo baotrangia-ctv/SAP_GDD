@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, copyFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
@@ -35,6 +35,7 @@ const codeFiles = [
   "Assets/Scripts/Configs/RebirthConfigs.fcg",
   "Assets/Scripts/Configs/FeatureUnlockConfigs.fcg",
   "Assets/Scripts/Configs/DailyPoolConfigs.fcg",
+  "Assets/Scripts/Manager/ActivitiesManager.fcg",
   "Assets/Scripts/Configs/GlobalConfigs.fcg",
   "Assets/Scripts/Configs/WeatherConfigs.fcg",
   "Assets/Scripts/Configs/DustHuntConfigs.fcg",
@@ -115,6 +116,7 @@ const petConfig = code["Assets/Scripts/Configs/PetConfigs.fcg"];
 const rebirthConfig = code["Assets/Scripts/Configs/RebirthConfigs.fcg"];
 const unlockConfig = code["Assets/Scripts/Configs/FeatureUnlockConfigs.fcg"];
 const dailyConfig = code["Assets/Scripts/Configs/DailyPoolConfigs.fcg"];
+const activitiesConfig = code["Assets/Scripts/Manager/ActivitiesManager.fcg"];
 const weatherConfig = code["Assets/Scripts/Configs/WeatherConfigs.fcg"];
 const dustConfig = code["Assets/Scripts/Configs/DustHuntConfigs.fcg"];
 const paradeManager = code["Assets/Scripts/Manager/PetParadeManager.fcg"];
@@ -140,6 +142,9 @@ const loadedPetIds = new Set();
 for (let id = 1; id <= (Number(constant(petConfig, "PET_COUNT")) || 0); id += 1) loadedPetIds.add(id);
 for (let id = 1; id <= (Number(constant(petConfig, "SECRET_FUSION_PET_COUNT")) || 0); id += 1) loadedPetIds.add(1000 + id);
 for (let id = 1; id <= (Number(constant(petConfig, "LUCKY_BOX_COUNT")) || 0); id += 1) loadedPetIds.add(6000 + id);
+const roadSpawnPetIds = new Set();
+for (let id = 1; id <= (Number(constant(petConfig, "PET_COUNT")) || 0); id += 1) roadSpawnPetIds.add(id);
+for (let id = 1; id <= (Number(constant(petConfig, "LUCKY_BOX_COUNT")) || 0); id += 1) roadSpawnPetIds.add(6000 + id);
 const petRowsOutsideRuntimeRanges = (petCsv?.rows ?? []).filter((row) => !loadedPetIds.has(Number(row.ID))).map((row) => ({ id: row.ID, name: row.Name, rarity: row.Rarity }));
 if (petRowsOutsideRuntimeRanges.length) findings.push({
   kind: "config_coverage",
@@ -165,6 +170,45 @@ if (/30\s+level/i.test(docsRebirth) && rebirthRows.length !== 30) findings.push(
 });
 const rebirthCountIsDynamic = /_RebirthCount\s*\+=\s*1/.test(rebirthConfig);
 const globalTrackingDisabled = /\/\/\s*start TrackingGlobalMilestones\(player\)/.test(tracking);
+const userRefreshBody = (paradeManager.match(/async func UpdateUsers\([\s\S]*?\n    }/) || [""])[0];
+const paradePoolWeights = [1, 2, 3, 4, 5].map((i) => Number(constant(paradeManager, "POOL_" + i + "_WEIGHT")) || 0);
+const weekendPredicate = (paradeManager.match(/func ShouldApplyWeekendSpawnMultiplier\([\s\S]*?\n    }/) || [""])[0];
+const cycleDayBody = (activitiesConfig.match(/func GetCycleDayByDate\([\s\S]*?\n    }/) || [""])[0];
+const cycleDayFormula = cycleDayBody.match(/return\s+([^\n]+)/)?.[1]?.trim() || "((dayIndex + 3) % DAYS_PER_WEEK) + 1";
+const rebirthBands = [
+  { label: "RB 0–5", min: 0, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_1_USER")) || 5, weightColumn: "Weight1", playerType: "Type1User" },
+  { label: "RB 6–10", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_1_USER")) || 5) + 1, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_2_USER")) || 10, weightColumn: "Weight2", playerType: "Type2User" },
+  { label: "RB 11–15", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_2_USER")) || 10) + 1, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_3_USER")) || 15, weightColumn: "Weight3", playerType: "Type3User" },
+  { label: "RB 16–20", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_3_USER")) || 15) + 1, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_4_USER")) || 20, weightColumn: "Weight4", playerType: "Type4User" },
+  { label: "RB 21+", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_4_USER")) || 20) + 1, max: null, weightColumn: "Weight5", playerType: "Type5User" }
+].map((band, index) => ({ ...band, poolWeight: paradePoolWeights[index] }));
+const petSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Pets");
+const iconSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Icons");
+const petOutputRoot = path.resolve("dist", "assets", "pets");
+const actionOutputRoot = path.resolve("dist", "assets", "actions");
+mkdirSync(petOutputRoot, { recursive: true });
+mkdirSync(actionOutputRoot, { recursive: true });
+const iconAliases = { ARCTICFOX: "ARTICFOX" };
+const petIcons = {};
+const missingPetIcons = [];
+for (const row of petCsv?.rows ?? []) {
+  const name = String(row.Name ?? "").trim();
+  const sourceName = iconAliases[name] || name;
+  const sourcePath = path.join(petSpriteRoot, sourceName + ".png");
+  if (!name || !existsSync(sourcePath)) { missingPetIcons.push({ id: row.ID, name }); continue; }
+  const outputName = sourceName + ".png";
+  copyFileSync(sourcePath, path.join(petOutputRoot, outputName));
+  petIcons[String(row.ID)] = "./assets/pets/" + outputName;
+}
+const actionIconNames = ["ActivitiesIcon", "RebirthIcon", "LeaderboardIcon", "Road3DIcon", "BoostSpawnIcon", "CollectionIcon", "BaseIcon"];
+const actionIcons = {};
+for (const name of actionIconNames) {
+  const sourcePath = path.join(iconSpriteRoot, name + ".png");
+  if (!existsSync(sourcePath)) continue;
+  copyFileSync(sourcePath, path.join(actionOutputRoot, name + ".png"));
+  actionIcons[name] = "./assets/actions/" + name + ".png";
+}
+const guaranteeMythicIds = (petCsv?.rows ?? []).filter((row) => roadSpawnPetIds.has(Number(row.ID)) && row.Rarity === "MYTHIC" && Number(row.GuaranteeWeight) > 0).map((row) => Number(row.ID));
 const versionCode = {
   petCount: Number(constant(petConfig, "PET_COUNT")),
   secretFusionPetCount: Number(constant(petConfig, "SECRET_FUSION_PET_COUNT")),
@@ -182,6 +226,19 @@ const versionCode = {
     normal: Number(constant(dailyConfig, "DEFAULT_MODIFIER")),
     down: Number(constant(dailyConfig, "DOWN_MODIFIER"))
   },
+  roadSpawnPetCount: roadSpawnPetIds.size,
+  roadSpawnPetIds: [...roadSpawnPetIds].sort((a, b) => a - b),
+  secretFusionPetsInRoadSpawn: false,
+  rebirthBands,
+  paradePoolWeights,
+  paradePoolMaxCount: Number(constant(paradeManager, "MAX_POOL_PET_COUNT")) || 400,
+  paradePoolMinCount: Number(constant(paradeManager, "MIN_POOL_PET_COUNT")) || 60,
+  weekendEligiblePlayerTypes: [...weekendPredicate.matchAll(/userType\s*!=\s*"([^"]+)"/g)].map((match) => match[1]),
+  weekendEligibleRarities: [...weekendPredicate.matchAll(/petRarity\s*==\s*RarityEnum\.([A-Za-z]+)/g)].map((match) => match[1].toUpperCase()),
+  guaranteeMythicIds,
+  cycleDayNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+  cycleDayFormula,
+  paradePoolsRefreshOnPlayerJoin: /^\s*UpdatePools\(\)/m.test(userRefreshBody),
   dailyModifierAppliedInProduction: productionHasDailyModifier,
   debugNoteClaimsNoDailyModifier: debugClaimsNoModifier,
   weatherCycleMinutesFromTable: weatherMinutes,
@@ -204,6 +261,7 @@ const output = {
     { path: "Assets/CSV/Compensate/*", reason: "Player compensation exports are excluded." }
   ],
   tables,
+  visualAssets: { petIcons, missingPetIcons, iconAliases, actionIcons },
   recentCommits,
   codeFacts: versionCode,
   findings

@@ -8,7 +8,13 @@ Run from this folder:
 
     node tools/sync-source-data.mjs --project-root "D:\Craftland\StealAPet"
 
-The generator mirrors an allowlist of balance and progression CSVs into dist/data/config-snapshot.json. It excludes operational gift-code and compensation exports. It does not edit game files.
+The generator mirrors an allowlist of balance and progression CSVs into dist/data/config-snapshot.json, and copies the Pet.csv icon art plus selected action icons into dist/assets. It excludes operational gift-code and compensation exports. It does not edit game files.
+
+## Pet Parade spawn explorer
+
+Use **Pet spawn lab** to inspect the weekday modifier for each road pet and its chance within each player-Rebirth pool. Edit the five player counts to see the code's 60-slot room mix, and toggle Weekend Event independently from the weekday. The default six-player cohort is an editable example, not match telemetry.
+
+The model follows `PetParadeManager.CalculateRoadSpawnWeights`, `GetPetsCount`, and the Mythic guarantee replacement performed while refreshing pools. It shows expected probabilities from the current CSV/code snapshot; it does not reproduce a finite 400-entry pool or a live match's observed counts. Road candidates are normal pet IDs plus Lucky Box IDs; Secret Fusion IDs are loaded for other systems but are not appended to the road-spawn list.
 
 Serve the site locally:
 
