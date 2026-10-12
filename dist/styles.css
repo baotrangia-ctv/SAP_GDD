@@ -390,6 +390,8 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 .system-name-cell small,.system-lucky-pet small,.system-cell-sub { display:block; color:#7589a2; font-size:9px; margin-top:2px; }
 .system-name-mark,.weather-mark { display:grid; place-items:center; flex:0 0 32px; width:32px; height:32px; border-radius:10px; color:#c1aaff; background:#282541; font-size:17px; }
 .weather-mark { color:#9ce0ed; background:#18313e; }
+.system-icon { display:block; width:29px; height:29px; object-fit:contain; filter:drop-shadow(0 2px 5px rgba(0,0,0,.24)); }
+.system-icon-fallback { display:grid; place-items:center; width:100%; height:100%; font-size:16px; font-weight:800; }
 .system-chance-cell { display:grid; gap:5px; min-width:100px; }
 .system-chance-cell strong { color:#e7f5ef; font-size:12px; }
 .system-chance-cell small { display:block; color:#7487a0; font-size:8px; }
@@ -422,7 +424,9 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 .weather-summary-row>b small { display:inline; margin-left:3px; }
 .effect-chip-list { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
 .effect-chip { display:inline-flex; align-items:center; gap:5px; border:1px solid #2d4352; border-radius:8px; padding:5px 7px; color:#d3e4ef; background:#142533; }
-.effect-chip i { color:#8bd3df; font-size:10px; font-style:normal; }
+.effect-chip .system-icon { width:24px; height:24px; flex:0 0 24px; }
+.weather-effect-table-name { display:flex; align-items:center; gap:8px; min-width:135px; }
+.weather-effect-table-name .system-icon { width:28px; height:28px; flex:0 0 28px; }
 .effect-chip b { font-size:9px; }
 .effect-chip small { color:#95c8bd; font-size:8px; }
 .weather-wave-table { max-height:420px; }

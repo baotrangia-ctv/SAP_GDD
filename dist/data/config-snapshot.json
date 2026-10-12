@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T09:31:18.298Z",
+  "generatedAt": "2026-10-12T09:46:43.290Z",
   "sourceLabel": "StealAPet repository",
   "sourceBranch": "update-3.1.0",
   "sourceCommit": "6c97297b4eea73e3ff3c04622d86232524e1b696",
@@ -25897,7 +25897,31 @@
       "BoostSpawnIcon": "./assets/actions/BoostSpawnIcon.png",
       "CollectionIcon": "./assets/actions/CollectionIcon.png",
       "BaseIcon": "./assets/actions/BaseIcon.png"
-    }
+    },
+    "mutationIcons": {
+      "2": "./assets/system-icons/Golden.png",
+      "3": "./assets/system-icons/Frozen.png",
+      "4": "./assets/system-icons/Magma.png",
+      "5": "./assets/system-icons/Clover.png",
+      "6": "./assets/system-icons/Fossilized.png",
+      "7": "./assets/system-icons/Sweetheart.png",
+      "8": "./assets/system-icons/Crystalline.png",
+      "9": "./assets/system-icons/Webbed.png",
+      "10": "./assets/system-icons/Football.png",
+      "11": "./assets/system-icons/Radioactive.png"
+    },
+    "weatherEffectIcons": {
+      "1": "./assets/system-icons/Soaked.png",
+      "2": "./assets/system-icons/Frost.png",
+      "3": "./assets/system-icons/Gale.png",
+      "4": "./assets/system-icons/Thundered.png",
+      "5": "./assets/system-icons/Eclipse.png",
+      "6": "./assets/system-icons/Prismatic.png",
+      "7": "./assets/system-icons/Vortex.png",
+      "8": "./assets/system-icons/Sequin.png",
+      "9": "./assets/system-icons/Sparkle.png"
+    },
+    "missingSystemIcons": []
   },
   "recentCommits": [
     {

@@ -24,6 +24,9 @@ const systemPct = value => {
 const systemNum = value => Number(value || 0).toLocaleString("en-US");
 const systemOptions = (values, selected) => values.map(value => '<option value="' + esc(value) + '"' + (String(value) === String(selected) ? " selected" : "") + '>' + esc(pretty(value)) + "</option>").join("");
 const systemColor = rarityName => colors[rarityName] || "#82e0ba";
+const systemIcon = (icons, id, fallback) => icons?.[String(id)]
+  ? '<img class="system-icon" src="' + esc(icons[String(id)]) + '" alt="" aria-hidden="true" loading="lazy">'
+  : '<span class="system-icon-fallback" aria-hidden="true">' + fallback + '</span>';
 
 function systemChance(basePercent, rules, petRarity, isSecret) {
   const factors = rules?.rarityMultiplier || {};
@@ -85,7 +88,7 @@ function updateMutagenPage() {
       const pct = chance * 100;
       return '<td><div class="system-chance-cell"><div><strong>' + systemPct(chance) + '</strong><small>Base ' + esc(row.Chance) + '% · ID ' + esc(row.ID) + '</small></div><span class="system-bar"><i style="width:' + Math.min(100, pct / 0.75) + '%;--bar-color:' + systemColor(tier) + '"></i></span></div></td>';
     }).join("");
-    return '<tr><td><span class="system-name-cell"><span class="system-name-mark">✧</span><span><strong>' + esc(group.mutation.Name) + '</strong><small>Tier ' + esc(group.mutation.Tier || "—") + ' · multiplier ' + esc(group.mutation.Multiplier || "—") + '×</small></span></span></td>' + cells + '</tr>';
+    return '<tr><td><span class="system-name-cell"><span class="system-name-mark">' + systemIcon(s.data.visualAssets?.mutationIcons, group.mutation.ID, "✧") + '</span><span><strong>' + esc(group.mutation.Name) + '</strong><small>Tier ' + esc(group.mutation.Tier || "—") + ' · multiplier ' + esc(group.mutation.Multiplier || "—") + '×</small></span></span></td>' + cells + '</tr>';
   }).join("");
   const mutateCosts = t("MutateCost.csv").rows;
   const costRows = mutateCosts.map(row => '<tr><td>' + esc(row.RankMin) + '–' + esc(row.RankMax) + '</td><td class="num">' + esc(systemNum(row.Cost)) + '</td><td class="num">' + esc((costFactor).toFixed(2)) + '×</td></tr>').join("");
@@ -128,7 +131,7 @@ function updateWeatherDropPage() {
     .sort((a, b) => n(a.WeatherEffect) - n(b.WeatherEffect) || systemTierRarities.indexOf(a.Rarity) - systemTierRarities.indexOf(b.Rarity));
   const unmappedWeatherGenEffects = [...new Set(gens.filter(row => !row.effect).map(row => String(row.WeatherEffect)))];
   const weatherGenMappingNote = unmappedWeatherGenEffects.length ? '<div class="callout review system-mapping-note"><div class="callout-title">Effect mapping cần đối chiếu</div><p>WeatherGen.csv có WeatherEffect ID ' + esc(unmappedWeatherGenEffects.join(", ")) + ', nhưng các ID này không có dòng tương ứng trong weatherEffects.csv snapshot.</p><span class="source-ref">WeatherGen.csv · weatherEffects.csv</span></div>' : "";
-  const genRows = gens.map(row => '<tr><td class="mono">' + esc(row.ID) + '</td><td><span class="system-name-cell"><span class="weather-mark">☂</span><span><strong>' + esc(row.effect?.Name || ("Effect " + row.WeatherEffect)) + '</strong><small>Weather effect ' + esc(row.WeatherEffect) + '</small></span></span></td><td>' + rarity(row.Rarity) + '</td><td class="num">' + esc(row.Chance) + '%</td><td class="num system-final-chance">' + systemPct(row.final) + '</td><td><span class="system-bar"><i style="width:' + Math.min(100, row.final * 100 / 0.75) + '%;--bar-color:' + systemColor(row.Rarity) + '"></i></span></td></tr>').join("");
+  const genRows = gens.map(row => '<tr><td class="mono">' + esc(row.ID) + '</td><td><span class="system-name-cell"><span class="weather-mark">' + systemIcon(s.data.visualAssets?.weatherEffectIcons, row.effect?.ID ?? row.WeatherEffect, "?") + '</span><span><strong>' + esc(row.effect?.Name || ("Effect " + row.WeatherEffect)) + '</strong><small>Weather effect ' + esc(row.WeatherEffect) + '</small></span></span></td><td>' + rarity(row.Rarity) + '</td><td class="num">' + esc(row.Chance) + '%</td><td class="num system-final-chance">' + systemPct(row.final) + '</td><td><span class="system-bar"><i style="width:' + Math.min(100, row.final * 100 / 0.75) + '%;--bar-color:' + systemColor(row.Rarity) + '"></i></span></td></tr>').join("");
 
   const weatherById = new Map(t("weather.csv").rows.map(row => [String(row.ID), row]));
   const effectNameById = new Map(effects.map(row => [String(row.ID), row.Name]));
@@ -158,8 +161,8 @@ function updateWeatherDropPage() {
     const start = waves.slice(0, index).reduce((sum, wave) => sum + n(wave.Duration), 0);
     return '<tr><td class="mono">' + esc(row.ID) + '</td><td>' + esc(pretty(name)) + '</td><td class="num">' + start + '–' + (start + n(row.Duration)) + 'm</td><td class="num">' + esc(row.Duration) + 'm</td></tr>';
   }).join("");
-  const effectRows = effects.map(row => '<tr><td><strong>' + esc(row.Name) + '</strong><small class="system-cell-sub">Effect ' + esc(row.ID) + '</small></td><td class="num">' + systemPct(n(row.Chance)) + '</td><td class="num">' + esc(row.MultiplierPrice) + '×</td><td class="num">' + esc(row.LvUpCostMultiplier) + '×</td></tr>').join("");
-  const weatherEffectChances = effects.map(row => '<span class="effect-chip"><i>☁</i><b>' + esc(row.Name) + '</b><small>' + systemPct(n(row.Chance)) + '</small></span>').join("");
+  const effectRows = effects.map(row => '<tr><td><span class="weather-effect-table-name">' + systemIcon(s.data.visualAssets?.weatherEffectIcons, row.ID, "?") + '<span><strong>' + esc(row.Name) + '</strong><small class="system-cell-sub">Effect ' + esc(row.ID) + '</small></span></span></td><td class="num">' + systemPct(n(row.Chance)) + '</td><td class="num">' + esc(row.MultiplierPrice) + '×</td><td class="num">' + esc(row.LvUpCostMultiplier) + '×</td></tr>').join("");
+  const weatherEffectChances = effects.map(row => '<span class="effect-chip">' + systemIcon(s.data.visualAssets?.weatherEffectIcons, row.ID, "?") + '<b>' + esc(row.Name) + '</b><small>' + systemPct(n(row.Chance)) + '</small></span>').join("");
 
     root.innerHTML = '<section class="panel system-data-panel"><div class="panel-head"><div><h2 class="panel-title">Weathergen · xác suất dùng theo config</h2><p class="panel-sub">Target pet: ' + esc(pretty(targetPetRarity)) + (isSecret ? ' · Secret Fusion' : '') + ' · tỉ lệ sau modifier được tính từ WeatherGenConfigs.</p></div><span class="tag">' + esc(gens.length) + ' item rows</span></div><div class="table-wrap"><table class="system-data-table"><thead><tr><th>ID</th><th>Hiệu ứng</th><th>Item tier</th><th class="num">Base</th><th class="num">Final use chance</th><th>Scale</th></tr></thead><tbody>' + genRows + '</tbody></table></div></section>' + weatherGenMappingNote +
     '<section class="panel weather-cycle-panel"><div class="panel-head"><div><h2 class="panel-title">Weather Drop · lịch weather theo wave</h2><p class="panel-sub">Thứ tự sort theo wave ID, đúng index runtime. Mỗi segment có độ dài tỉ lệ với Duration.</p></div><strong class="cycle-total">' + totalMinutes + '<small> phút / cycle</small></strong></div><div class="weather-cycle-strip" role="img" aria-label="Weather cycle gồm ' + waves.length + ' wave, tổng ' + totalMinutes + ' phút">' + segmentHtml + '</div><div class="weather-summary-list">' + weatherSummary + '</div></section>' +

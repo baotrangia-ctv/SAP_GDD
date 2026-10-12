@@ -8,7 +8,7 @@ Run from this folder:
 
     node tools/sync-source-data.mjs --project-root "D:\Craftland\StealAPet"
 
-The generator mirrors an allowlist of balance and progression CSVs into dist/data/config-snapshot.json, and copies the Pet.csv icon art plus selected action icons into dist/assets. It excludes operational gift-code and compensation exports. It does not edit game files.
+The generator mirrors an allowlist of balance and progression CSVs into dist/data/config-snapshot.json, and copies Pet.csv art, selected action icons, and the mutation/weather-effect sprites referenced by config into dist/assets. It excludes operational gift-code and compensation exports. It does not edit game files.
 
 ## Pet Parade spawn explorer
 
@@ -22,7 +22,7 @@ The model follows `PetParadeManager.CalculateRoadSpawnWeights`, `GetPetsCount`, 
 - **Weather Drop / Weathergen** shows item-use chance after pet modifiers, the separate natural weather-effect chance, and the `weatherWaves.csv` cycle sorted by runtime wave ID. The UI labels these as different rolls; `WeatherGen.csv Chance` is not a world item-drop rate.
 - **Lucky Box** normalizes `DrawWeight` inside each `BoxID`, joins rewards to pet names/art/rarity, and shows the per-rarity and per-pet odds. It also surfaces the Giftbox Storm road counts from `LuckyBoxManager`.
 
-These pages are read-only views of repository CSV and FC config logic. Derived rules are refreshed from `MutagenConfigs.fcg`, `WeatherGenConfigs.fcg`, `WeatherConfigs.fcg`, `LuckyBoxConfigs.fcg`, `LuckyBoxManager.fcg`, and `WeatherManager.fcg` by the same sync script.
+These pages are read-only views of repository CSV and FC config logic. Mutation and WeatherGen rows use the matching sprite from `Assets/Sprites/Mutations`; weather-effect sprites are joined by the `weatherEffects.csv` icon key. Derived rules are refreshed from `MutagenConfigs.fcg`, `WeatherGenConfigs.fcg`, `WeatherConfigs.fcg`, `LuckyBoxConfigs.fcg`, `LuckyBoxManager.fcg`, and `WeatherManager.fcg` by the same sync script.
 
 Serve the site locally:
 

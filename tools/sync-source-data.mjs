@@ -214,10 +214,13 @@ const rebirthBands = [
 ].map((band, index) => ({ ...band, poolWeight: paradePoolWeights[index] }));
 const petSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Pets");
 const iconSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Icons");
+const mutationSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Mutations");
 const petOutputRoot = path.resolve("dist", "assets", "pets");
 const actionOutputRoot = path.resolve("dist", "assets", "actions");
+const systemIconOutputRoot = path.resolve("dist", "assets", "system-icons");
 mkdirSync(petOutputRoot, { recursive: true });
 mkdirSync(actionOutputRoot, { recursive: true });
+mkdirSync(systemIconOutputRoot, { recursive: true });
 const iconAliases = { ARCTICFOX: "ARTICFOX" };
 const petIcons = {};
 const missingPetIcons = [];
@@ -237,6 +240,27 @@ for (const name of actionIconNames) {
   if (!existsSync(sourcePath)) continue;
   copyFileSync(sourcePath, path.join(actionOutputRoot, name + ".png"));
   actionIcons[name] = "./assets/actions/" + name + ".png";
+}
+const mutationIcons = {};
+const weatherEffectIcons = {};
+const missingSystemIcons = [];
+function copySystemIcon(iconName, id, target) {
+  const name = String(iconName ?? "").trim();
+  const sourcePath = path.join(mutationSpriteRoot, name + ".png");
+  if (!name || !existsSync(sourcePath)) {
+    missingSystemIcons.push({ id: String(id), name });
+    return;
+  }
+  const outputName = name + ".png";
+  copyFileSync(sourcePath, path.join(systemIconOutputRoot, outputName));
+  target[String(id)] = "./assets/system-icons/" + outputName;
+}
+for (const row of byName.get("mutation.csv")?.rows ?? []) {
+  if (String(row.Name).toLowerCase() === "normal") continue;
+  copySystemIcon(row.Name, row.ID, mutationIcons);
+}
+for (const row of byName.get("weatherEffects.csv")?.rows ?? []) {
+  copySystemIcon(row.Icon || row.Name, row.ID, weatherEffectIcons);
 }
 const guaranteeMythicIds = (petCsv?.rows ?? []).filter((row) => roadSpawnPetIds.has(Number(row.ID)) && row.Rarity === "MYTHIC" && Number(row.GuaranteeWeight) > 0).map((row) => Number(row.ID));
 const versionCode = {
@@ -301,7 +325,7 @@ const output = {
     { path: "Assets/CSV/Compensate/*", reason: "Player compensation exports are excluded." }
   ],
   tables,
-  visualAssets: { petIcons, missingPetIcons, iconAliases, actionIcons },
+  visualAssets: { petIcons, missingPetIcons, iconAliases, actionIcons, mutationIcons, weatherEffectIcons, missingSystemIcons },
   recentCommits,
   codeFacts: versionCode,
   findings
