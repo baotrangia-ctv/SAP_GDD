@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T03:46:29.189Z",
+  "generatedAt": "2026-10-12T09:31:18.298Z",
   "sourceLabel": "StealAPet repository",
   "sourceBranch": "update-3.1.0",
   "sourceCommit": "6c97297b4eea73e3ff3c04622d86232524e1b696",
@@ -26196,6 +26196,49 @@
     "debugNoteClaimsNoDailyModifier": true,
     "weatherCycleMinutesFromTable": 66,
     "weatherDurationUnitVerifiedByCode": true,
+    "weatherRollPicksUniformEffect": true,
+    "mutagenChanceRules": {
+      "min": 0.02,
+      "max": 0.75,
+      "levelMultiplier": 1.04,
+      "useCostMultiplier": 1,
+      "secretMultiplier": 0.55,
+      "rarityMultiplier": {
+        "COMMON": 1,
+        "RARE": 0.95,
+        "EPIC": 0.9,
+        "LEGENDARY": 0.8,
+        "MYTHIC": 0.7,
+        "APEX": 0.45,
+        "LIMITED": 0.45
+      }
+    },
+    "weatherGenChanceRules": {
+      "min": 0.02,
+      "max": 0.75,
+      "levelMultiplier": 1.04,
+      "useCostMultiplier": 1,
+      "secretMultiplier": 0.55,
+      "rarityMultiplier": {
+        "COMMON": 1,
+        "RARE": 0.9,
+        "EPIC": 0.8,
+        "LEGENDARY": 0.75,
+        "MYTHIC": 0.5,
+        "APEX": 0.2,
+        "LIMITED": 0.2
+      }
+    },
+    "luckyBoxDrawIsWeighted": true,
+    "luckyBoxManagerMakesSingleDraw": true,
+    "luckyBoxRewardIdFormula": "LUCKY_BOX_START_INDEX * 10 + petId - LUCKY_BOX_START_INDEX",
+    "luckyBoxStartIndex": 6000,
+    "luckyBoxStormSpawnCounts": [
+      5,
+      5,
+      5
+    ],
+    "luckyBoxRandomPreviewCount": 8,
     "dustHuntDurations": [
       {
         "isAppear": "0",

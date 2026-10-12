@@ -38,6 +38,11 @@ const codeFiles = [
   "Assets/Scripts/Manager/ActivitiesManager.fcg",
   "Assets/Scripts/Configs/GlobalConfigs.fcg",
   "Assets/Scripts/Configs/WeatherConfigs.fcg",
+  "Assets/Scripts/Configs/MutagenConfigs.fcg",
+  "Assets/Scripts/Configs/WeatherGenConfigs.fcg",
+  "Assets/Scripts/Configs/LuckyBoxConfigs.fcg",
+  "Assets/Scripts/Manager/WeatherManager.fcg",
+  "Assets/Scripts/Manager/LuckyBoxManager.fcg",
   "Assets/Scripts/Configs/DustHuntConfigs.fcg",
   "Assets/Scripts/Manager/PetParadeManager.fcg",
   "Assets/Scripts/Manager/TrackingManager.fcg",
@@ -109,6 +114,20 @@ function parseFeatureUnlocks(text) {
   }
   return result;
 }
+function parseChanceRules(text) {
+  const rarityMultiplier = {};
+  for (const match of text.matchAll(/RarityEnum\.(Common|Rare|Epic|Legendary|Mythic|Apex|Limited)\s*:\s*([0-9.]+)/g)) {
+    rarityMultiplier[match[1].toUpperCase()] = Number(match[2]);
+  }
+  return {
+    min: Number(constant(text, "MUTATE_MIN_CHANCE")),
+    max: Number(constant(text, "MUTATE_MAX_CHANCE")),
+    levelMultiplier: Number(constant(text, "LEVEL_MULTIPLIER")),
+    useCostMultiplier: Number(constant(text, "MUTAGEN_USE_COST_MULTIPLIER")),
+    secretMultiplier: Number(constant(text, "SECRET_MULTIPLIER")),
+    rarityMultiplier
+  };
+}
 const tables = csvFiles.map(parseCsvFile);
 const byName = new Map(tables.map((t) => [path.basename(t.path), t]));
 const code = Object.fromEntries(codeFiles.map((rel) => [rel, readSource(rel)]));
@@ -118,6 +137,11 @@ const unlockConfig = code["Assets/Scripts/Configs/FeatureUnlockConfigs.fcg"];
 const dailyConfig = code["Assets/Scripts/Configs/DailyPoolConfigs.fcg"];
 const activitiesConfig = code["Assets/Scripts/Manager/ActivitiesManager.fcg"];
 const weatherConfig = code["Assets/Scripts/Configs/WeatherConfigs.fcg"];
+const mutagenConfig = code["Assets/Scripts/Configs/MutagenConfigs.fcg"];
+const weatherGenConfig = code["Assets/Scripts/Configs/WeatherGenConfigs.fcg"];
+const luckyBoxConfig = code["Assets/Scripts/Configs/LuckyBoxConfigs.fcg"];
+const weatherManager = code["Assets/Scripts/Manager/WeatherManager.fcg"];
+const luckyBoxManager = code["Assets/Scripts/Manager/LuckyBoxManager.fcg"];
 const dustConfig = code["Assets/Scripts/Configs/DustHuntConfigs.fcg"];
 const paradeManager = code["Assets/Scripts/Manager/PetParadeManager.fcg"];
 const debugHud = code["Assets/GMT/Scripts/HudDebug.fcg"];
@@ -175,6 +199,12 @@ const paradePoolWeights = [1, 2, 3, 4, 5].map((i) => Number(constant(paradeManag
 const weekendPredicate = (paradeManager.match(/func ShouldApplyWeekendSpawnMultiplier\([\s\S]*?\n    }/) || [""])[0];
 const cycleDayBody = (activitiesConfig.match(/func GetCycleDayByDate\([\s\S]*?\n    }/) || [""])[0];
 const cycleDayFormula = cycleDayBody.match(/return\s+([^\n]+)/)?.[1]?.trim() || "((dayIndex + 3) % DAYS_PER_WEEK) + 1";
+const luckyBoxRewardIdFormula = petConfig.match(/func GetLuckyBoxRewardBoxId\([\s\S]*?return\s+([^\n]*LUCKY_BOX_START_INDEX[^\n]*)/)?.[1]?.trim() || null;
+const luckyBoxDrawIsWeighted = /GetRandomWeightedIndex\(_BoxId2Weights\[boxId\]\)/.test(luckyBoxConfig);
+const luckyBoxManagerMakesSingleDraw = /var resultPetId int = LuckyBoxConfigs\.GetRandomPetIdByBoxId\(boxId\)/.test(luckyBoxManager);
+const luckyBoxStormSpawnCounts = [1, 2, 3].map((i) => Number(constant(luckyBoxManager, "GIFTBOX_STORM_LUCKY_BOX_" + i + "_COUNT")) || 0);
+const weatherRollPicksUniformEffect = /Math\.RandomInt\(0,\s*List\.Length\(weatherEffects\)\)/.test(weatherManager);
+const weatherWaveDurationUsesMinutes = /func GetWeatherWaveDurationSeconds\(waveId int\) int\s*\{\s*return GetWeatherWaveDuration\(waveId\)\s*\*\s*SECONDS_PER_MINUTE/.test(weatherConfig);
 const rebirthBands = [
   { label: "RB 0–5", min: 0, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_1_USER")) || 5, weightColumn: "Weight1", playerType: "Type1User" },
   { label: "RB 6–10", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_1_USER")) || 5) + 1, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_2_USER")) || 10, weightColumn: "Weight2", playerType: "Type2User" },
@@ -242,7 +272,17 @@ const versionCode = {
   dailyModifierAppliedInProduction: productionHasDailyModifier,
   debugNoteClaimsNoDailyModifier: debugClaimsNoModifier,
   weatherCycleMinutesFromTable: weatherMinutes,
-  weatherDurationUnitVerifiedByCode: /GetWeatherWaveDuration\(waveId\)\s*\*\s*SECONDS_PER_MINUTE/.test(weatherConfig),
+  weatherDurationUnitVerifiedByCode: weatherWaveDurationUsesMinutes,
+  weatherRollPicksUniformEffect,
+  mutagenChanceRules: parseChanceRules(mutagenConfig),
+  weatherGenChanceRules: parseChanceRules(weatherGenConfig),
+  luckyBoxDrawIsWeighted,
+  luckyBoxManagerMakesSingleDraw,
+  luckyBoxRewardIdFormula,
+  luckyBoxStartIndex: Number(constant(petConfig, "LUCKY_BOX_START_INDEX")),
+  luckyBoxCount: Number(constant(petConfig, "LUCKY_BOX_COUNT")),
+  luckyBoxStormSpawnCounts,
+  luckyBoxRandomPreviewCount: Number(constant(luckyBoxManager, "RANDOM_PREVIEW_COUNT")),
   dustHuntDurations: (dustWaves?.rows ?? []).map((row) => ({ isAppear: row.IsAppear, rawDuration: row.Duration })),
   dustHuntDurationUnitAmbiguous: /GetDustHuntWaveDurationSeconds\(waveId int\) int\s*\{\s*return GetDustHuntWaveDuration\(waveId\)/.test(dustConfig),
   featureUnlocks: parseFeatureUnlocks(unlockConfig),

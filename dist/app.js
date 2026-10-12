@@ -1,5 +1,5 @@
 "use strict";
-const pages = {overview:"Tổng quan",progression:"Tiến trình & nhịp chơi",economy:"Cân bằng & roster",cadence:"Nhịp thế giới",spawn:"Pet spawn lab",config:"Config explorer",changes:"Ba commit gần nhất"};
+const pages = {overview:"Tổng quan",progression:"Tiến trình & nhịp chơi",economy:"Cân bằng & roster",cadence:"Nhịp thế giới",spawn:"Pet spawn lab",config:"Config explorer",changes:"Ba commit gần nhất",mutagen:"Mutagen",weatherdrop:"Weather Drop",luckybox:"Lucky Box"};
 const colors={COMMON:"#84e1a4",RARE:"#6bcdf2",EPIC:"#c49cf8",LEGENDARY:"#ffd16f",MYTHIC:"#ff8585",APEX:"#ff9c62",LIMITED:"#c8d66d"};
 const s={data:null,page:"overview",petSearch:"",rarity:"all",sort:"Price",configFile:"",configSearch:"",offset:0,metric:"NextLevelMoney",day:1};
 const root=document.getElementById("content");

@@ -35,6 +35,7 @@ a { color: inherit; text-decoration: none; }
 .brand small { display:block; color:var(--muted); margin-top:2px; font-size:11px; }
 .nav-label { margin: 1px 10px 11px; font-size: 10px; font-weight: 750; letter-spacing: .14em; color:#687a92; }
 .nav-list { display:grid; gap:5px; }
+.system-nav-label { margin-top:20px; }
 .nav-item { border:0; background:transparent; display:flex; align-items:center; width:100%; gap:12px; text-align:left; color:#9cacc1; border-radius:11px; padding:11px 12px; cursor:pointer; transition: .16s ease; }
 .nav-item:hover { background:#192638; color:#edf3fb; }
 .nav-item.active { background:linear-gradient(90deg,rgba(130,224,186,.16),rgba(130,224,186,.05)); color:#d9fff0; box-shadow:inset 2px 0 var(--mint); }
@@ -362,8 +363,106 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 @media (max-width:420px) {
   .week-ribbon { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .cohort-grid { grid-template-columns:1fr; }
-  .spawn-toggle-row { align-items:flex-start; flex-direction:column; }
+.spawn-toggle-row { align-items:flex-start; flex-direction:column; }
   .spawn-hero { margin-left:-3px; margin-right:-3px; }
   .quota-row { grid-template-columns:83px minmax(45px,1fr) 47px; gap:7px; }
   .spawn-heatmap { min-width:480px; }
+}
+
+.system-nav-label { margin-top:19px; }
+.sidebar { overflow-y:auto; }
+.system-controls-panel,.system-data-panel,.weather-cycle-panel,.system-footnote-panel { margin-bottom:14px; }
+.system-mapping-note { margin:0 0 14px; }
+.system-controls { display:flex; align-items:flex-end; flex-wrap:wrap; gap:12px; }
+.system-control { display:grid; gap:5px; min-width:170px; color:#8294aa; font-size:10px; font-weight:700; }
+.system-control select,.system-control input { min-height:38px; border:1px solid #32445b; border-radius:9px; background:#111b29; color:#e3edf7; padding:8px 10px; outline:none; }
+.system-control select:focus,.system-control input:focus { border-color:#6bc9a7; box-shadow:0 0 0 2px rgba(130,224,186,.12); }
+.system-level-control { max-width:135px; }
+.system-check { display:flex; align-items:center; gap:8px; min-height:38px; padding:0 12px; border:1px solid #32445b; border-radius:9px; color:#c6d3e1; background:#111b29; font-size:11px; cursor:pointer; }
+.system-check input { accent-color:#69d4a9; }
+.system-section-grid { align-items:start; }
+.system-matrix,.system-data-table,.system-compact-table { min-width:620px; width:100%; border-collapse:collapse; }
+.system-matrix th,.system-data-table th,.system-compact-table th { padding:9px 10px; color:#8798ad; font-size:9px; text-align:left; white-space:nowrap; border-bottom:1px solid #2b3a4e; }
+.system-matrix td,.system-data-table td,.system-compact-table td { padding:8px 10px; border-bottom:1px solid #233248; font-size:10px; vertical-align:middle; }
+.system-matrix tr:last-child td,.system-data-table tr:last-child td,.system-compact-table tr:last-child td { border-bottom:0; }
+.system-name-cell { display:flex; align-items:center; gap:9px; min-width:135px; }
+.system-name-cell strong,.system-lucky-pet strong { display:block; color:#e0eaf5; font-size:10px; }
+.system-name-cell small,.system-lucky-pet small,.system-cell-sub { display:block; color:#7589a2; font-size:9px; margin-top:2px; }
+.system-name-mark,.weather-mark { display:grid; place-items:center; flex:0 0 32px; width:32px; height:32px; border-radius:10px; color:#c1aaff; background:#282541; font-size:17px; }
+.weather-mark { color:#9ce0ed; background:#18313e; }
+.system-chance-cell { display:grid; gap:5px; min-width:100px; }
+.system-chance-cell strong { color:#e7f5ef; font-size:12px; }
+.system-chance-cell small { display:block; color:#7487a0; font-size:8px; }
+.system-bar { display:block; height:7px; min-width:74px; overflow:hidden; border-radius:99px; background:#263448; }
+.system-bar i { display:block; height:100%; min-width:2px; border-radius:inherit; background:var(--bar-color,#82e0ba); box-shadow:0 0 10px color-mix(in srgb,var(--bar-color,#82e0ba) 44%,transparent); }
+.system-final-chance { color:#baf5d9 !important; font-weight:750; white-space:nowrap; }
+.system-explain { margin-bottom:14px; }
+.system-rule-line { display:flex; align-items:center; justify-content:space-between; gap:14px; padding-bottom:12px; border-bottom:1px solid #2b3a4e; }
+.system-rule-line strong { color:#ddede7; font-size:11px; }
+.system-rule-line span { color:#92a7bc; font:10px ui-monospace,SFMono-Regular,Consolas,monospace; text-align:right; }
+.system-rarity-factors { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+.system-rarity-factors>span { display:flex; align-items:center; gap:6px; padding:5px 7px; border:1px solid #293a4d; border-radius:8px; background:#111b29; }
+.system-rarity-factors b { color:#b8c8d9; font-size:9px; }
+.system-footnote { margin:11px 0 0; color:#8294aa; font-size:10px; line-height:1.55; }
+.system-footnote-panel { padding:15px 18px; }
+.system-footnote-panel .system-rule-line { border:0; padding:0; }
+.system-controls-panel .inline-note { margin:11px 0 0; }
+.weather-cycle-panel { overflow:hidden; }
+.cycle-total { display:block; color:#d5f3e5; font-size:23px; white-space:nowrap; }
+.cycle-total small { display:block; color:#7d91a8; font-size:9px; font-weight:500; text-align:right; }
+.weather-cycle-strip { display:flex; height:18px; overflow:hidden; border:1px solid #34475a; border-radius:7px; background:#101927; }
+.weather-cycle-segment { display:block; flex:0 0 auto; height:100%; background:var(--wave-color); border-right:1px solid rgba(12,21,32,.6); }
+.weather-summary-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 20px; margin-top:15px; }
+.weather-summary-row { display:grid; grid-template-columns:minmax(105px,1fr) minmax(55px,1.4fr) auto; gap:9px; align-items:center; }
+.weather-summary-row strong { display:block; color:#d5e3f0; font-size:9px; }
+.weather-summary-row small { display:block; color:#71849c; font-size:8px; }
+.weather-summary-bar { display:block; height:6px; overflow:hidden; border-radius:99px; background:#263448; }
+.weather-summary-bar i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#61c8aa,#7ad0dd); }
+.weather-summary-row>b { color:#d6e8e0; text-align:right; font-size:9px; white-space:nowrap; }
+.weather-summary-row>b small { display:inline; margin-left:3px; }
+.effect-chip-list { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.effect-chip { display:inline-flex; align-items:center; gap:5px; border:1px solid #2d4352; border-radius:8px; padding:5px 7px; color:#d3e4ef; background:#142533; }
+.effect-chip i { color:#8bd3df; font-size:10px; font-style:normal; }
+.effect-chip b { font-size:9px; }
+.effect-chip small { color:#95c8bd; font-size:8px; }
+.weather-wave-table { max-height:420px; }
+.weather-wave-table .system-compact-table { min-width:400px; }
+.luckybox-config-card { display:grid; grid-template-columns:72px 1fr auto; gap:16px; align-items:center; margin-bottom:14px; background:radial-gradient(ellipse at 10% 0%,rgba(239,190,100,.11),transparent 35%),linear-gradient(120deg,#1a2635,#151e2d); }
+.luckybox-selected-art { display:grid; place-items:center; width:70px; height:70px; border:1px solid #57472f; border-radius:16px; background:#2b271f; }
+.pet-thumb.luckybox-art { width:57px; height:57px; flex-basis:57px; border-radius:12px; }
+.luckybox-art-fallback { color:#f0c76f; font-size:30px; }
+.luckybox-selected-copy .eyebrow { margin-bottom:3px; color:#f0c76f; }
+.luckybox-selected-copy h2 { margin:0; font-size:19px; }
+.luckybox-selected-copy p:last-child { margin:4px 0 0; color:#8d9db0; font-size:10px; }
+.luckybox-event-badge { display:grid; grid-template-columns:30px auto; align-items:center; column-gap:8px; padding:9px 12px; border:1px solid #4d432e; border-radius:12px; background:#28241d; }
+.luckybox-event-badge>span { grid-row:span 2; font-size:23px; }
+.luckybox-event-badge strong { color:#f3d292; font-size:10px; }
+.luckybox-event-badge small { color:#aa9a7a; font-size:8px; }
+.system-search-control { min-width:min(280px,100%); }
+.luckybox-rarity-list { display:grid; gap:11px; }
+.luckybox-rarity-row { display:grid; grid-template-columns:100px minmax(55px,1fr) 55px; gap:9px; align-items:center; }
+.luckybox-rarity-row>strong { color:#e4efe9; text-align:right; font-size:10px; }
+.luckybox-pool-stats { display:grid; gap:8px; }
+.luckybox-pool-stats>div { display:flex; justify-content:space-between; gap:10px; padding-bottom:7px; border-bottom:1px solid #263549; }
+.luckybox-pool-stats span { color:#8395ab; font-size:9px; }
+.luckybox-pool-stats strong { color:#dcefe6; font-size:11px; }
+.luckybox-top-pet { display:flex; align-items:center; gap:10px; margin-top:10px; padding-top:9px; }
+.luckybox-top-pet>span { display:grid; grid-template-columns:1fr auto; flex:1; gap:2px 6px; }
+.luckybox-top-pet small { grid-column:span 2; color:#798da3; font-size:8px; }
+.luckybox-top-pet strong { color:#dce9f5; font-size:10px; }
+.luckybox-top-pet em { color:#a7edca; font-size:10px; font-style:normal; }
+.luckybox-table tr[data-pet] { cursor:pointer; }
+.luckybox-table tr[data-pet]:hover { background:rgba(130,224,186,.06); }
+.empty-cell { color:#7588a0; font-size:10px; }
+@media (max-width:1100px) {
+  .system-section-grid,.luckybox-results-grid { grid-template-columns:1fr; }
+}
+@media (max-width:760px) {
+  .weather-summary-list { grid-template-columns:1fr; }
+  .luckybox-config-card { grid-template-columns:60px 1fr; gap:12px; }
+  .luckybox-selected-art { width:60px; height:60px; }
+  .pet-thumb.luckybox-art { width:48px; height:48px; flex-basis:48px; }
+  .luckybox-event-badge { grid-column:1/-1; justify-self:start; }
+  .system-rule-line { align-items:flex-start; flex-direction:column; }
+  .system-rule-line span { text-align:left; }
 }
