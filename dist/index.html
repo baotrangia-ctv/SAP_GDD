@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Steal A Pet balance, pacing, and configuration design snapshot.">
+  <title>Steal A Pet — Balance & Pacing GDD</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./app.js"></script>
+  <script defer src="./app-extra.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Steal A Pet Balance Lab home" data-page-link="overview">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 42 42"><path d="M13.2 18.1c-2.2 0-3.9-2.2-3.9-4.8 0-2.1 1.1-3.6 2.8-3.6 2.2 0 4 2.5 4 5.1 0 1.9-1.2 3.3-2.9 3.3Zm15.6 0c2.2 0 3.9-2.2 3.9-4.8 0-2.1-1.1-3.6-2.8-3.6-2.2 0-4 2.5-4 5.1 0 1.9 1.2 3.3 2.9 3.3ZM7.8 25c-2 0-3.3-1.7-3.3-3.9s1-3.7 2.6-3.7c2 0 3.8 2.3 3.8 4.7 0 1.7-1.3 2.9-3.1 2.9Zm26.4 0c2 0 3.3-1.7 3.3-3.9s-1-3.7-2.6-3.7c-2 0-3.8 2.3-3.8 4.7 0 1.7 1.3 2.9 3.1 2.9ZM21 18.1c-6.5 0-12 7.4-12 12.5 0 3.2 2.3 5.1 5 5.1 2.5 0 4-1.5 7-1.5s4.5 1.5 7 1.5c2.7 0 5-1.9 5-5.1 0-5.1-5.5-12.5-12-12.5Z"/></svg>
+        </span>
+        <span><strong>STEAL A PET</strong><small>Balance lab · GDD</small></span>
+      </a>
+
+      <div class="nav-label">DESIGN REVIEW</div>
+      <nav class="nav-list" aria-label="GDD sections">
+        <button class="nav-item active" data-page="overview"><span class="nav-glyph">◈</span><span>Overview</span></button>
+        <button class="nav-item" data-page="progression"><span class="nav-glyph">⌁</span><span>Progression & pacing</span></button>
+        <button class="nav-item" data-page="economy"><span class="nav-glyph">◎</span><span>Balance & roster</span></button>
+        <button class="nav-item" data-page="cadence"><span class="nav-glyph">◷</span><span>World cadence</span></button>
+        <button class="nav-item" data-page="config"><span class="nav-glyph">▤</span><span>Config explorer</span></button>
+        <button class="nav-item" data-page="changes"><span class="nav-glyph">↗</span><span>Recent changes</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="source-chip"><span class="pulse"></span><span>Repository snapshot</span></div>
+        <div class="side-note">A source-linked view of live config.<br>Minutes-to-goal are not simulated.</div>
+      </div>
+    </aside>
+
+    <div class="main-shell">
+      <header class="topbar">
+        <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation">☰</button>
+        <div class="crumbs"><span>Steal A Pet</span><span class="slash">/</span><strong id="crumb-current">Overview</strong></div>
+        <div class="top-meta"><span class="branch-pill" id="branch-pill">Loading source…</span><span class="top-dot"></span><span id="source-short">—</span></div>
+      </header>
+
+      <main id="content" class="content" tabindex="-1">
+        <div class="loading-state"><span class="loader"></span><span>Reading the config snapshot…</span></div>
+      </main>
+
+      <footer class="page-footer">
+        <span>GDD snapshot · Steal A Pet</span>
+        <span id="footer-source">Source-linked · values are not proposals</span>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
+
