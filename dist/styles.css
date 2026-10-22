@@ -26,7 +26,7 @@ a { color: inherit; text-decoration: none; }
 .app-shell { min-height: 100vh; }
 .sidebar {
   position: fixed; inset: 0 auto 0 0; z-index: 20; width: 248px; padding: 26px 16px 20px;
-  display: flex; flex-direction: column; background: #101927; border-right: 1px solid #243348;
+  display: flex; flex-direction: column; overflow-y:auto; background: #101927; border-right: 1px solid #243348;
 }
 .brand { display:flex; align-items:center; gap: 12px; padding: 3px 9px 29px; }
 .brand-mark { width: 40px; height: 40px; display:grid; place-items:center; border-radius: 13px; background: linear-gradient(145deg,#9cf0c6,#51caa0); box-shadow: 0 8px 24px rgba(67,201,154,.21); }

@@ -8,7 +8,9 @@ Run from this folder:
 
     node tools/sync-source-data.mjs --project-root "D:\Craftland\StealAPet"
 
-The generator mirrors an allowlist of balance and progression CSVs into dist/data/config-snapshot.json, and copies Pet.csv art, selected action icons, and the mutation/weather-effect sprites referenced by config into dist/assets. It excludes operational gift-code and compensation exports. It does not edit game files.
+The generator reads an allowlist of balance/progression CSVs and `.fcg` rules from the game checkout, then writes the snapshot and derived JSON under this project's `dist/data/`. It excludes operational gift-code and compensation exports. Existing GDD-local art is referenced when present; sync does not read or write game assets, and never writes into the game checkout.
+
+See [CLAUDE.md](CLAUDE.md) for the read-only source boundary, output guard, project map, and change workflow. Design rulings and open engineering follow-ups live in `design/`.
 
 ## Pet Parade spawn explorer
 

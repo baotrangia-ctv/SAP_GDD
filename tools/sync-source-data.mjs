@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync, existsSync, copyFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
 const args = process.argv.slice(2);
@@ -10,8 +11,10 @@ if (rootAt < 0 || !args[rootAt + 1]) {
   process.exit(64);
 }
 const sourceRoot = path.resolve(args[rootAt + 1]);
+const gddRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const protectedGameRoot = path.resolve("D:\\Craftland\\StealAPet");
 const csvRoot = path.join(sourceRoot, "Assets", "CSV");
-const outPath = path.resolve("dist", "data", "config-snapshot.json");
+const outPath = outputPath("dist", "data", "config-snapshot.json");
 const csvFiles = [
   "Pet.csv", "mutation.csv", "rebirth.csv", "PassivePet.csv", "GlobalConfigs.csv",
   "weather.csv", "weatherEffects.csv", "weatherWaves.csv", "WeatherGen.csv",
@@ -49,6 +52,24 @@ const codeFiles = [
   "Assets/GMT/Scripts/HudDebug.fcg"
 ];
 const typeTokens = new Set(["int", "string", "float", "bool", "double", "long", "object", "datatype"]);
+function isWithin(parent, candidate) {
+  const relative = path.relative(parent, candidate);
+  return relative === "" || (!relative.startsWith(".." + path.sep) && relative !== ".." && !path.isAbsolute(relative));
+}
+function outputPath(...parts) {
+  const absolute = path.resolve(gddRoot, ...parts);
+  if (isWithin(protectedGameRoot, absolute)) throw new Error("Refusing output under protected game project: " + absolute);
+  if (!isWithin(gddRoot, absolute)) throw new Error("Refusing output outside GDD project: " + absolute);
+  return absolute;
+}
+function ensureOutputDir(dir) {
+  mkdirSync(outputPath(path.relative(gddRoot, dir)), { recursive: true });
+}
+function writeOutput(file, data) {
+  const destination = outputPath(path.relative(gddRoot, file));
+  ensureOutputDir(path.dirname(destination));
+  writeFileSync(destination, data);
+}
 function parseCsv(text) {
   const rows = [];
   let row = [], field = "", quoted = false;
@@ -77,15 +98,23 @@ function runGit(...gitArgs) {
   return result.status === 0 ? result.stdout.trim() : "";
 }
 function readSource(rel) {
+  if (!rel.toLowerCase().endsWith(".fcg")) throw new Error("Only .fcg source files may be read: " + rel);
   const absolute = path.join(sourceRoot, rel);
   return existsSync(absolute) ? readFileSync(absolute, "utf8").replace(/^\uFEFF/, "") : "";
 }
 function parseCsvFile(rel) {
+  if (!rel.toLowerCase().endsWith(".csv")) throw new Error("Only CSV config files may be read: " + rel);
   const absolute = path.join(csvRoot, rel);
   if (!existsSync(absolute)) return { path: "Assets/CSV/" + rel.replaceAll("\\", "/"), missing: true, rows: [], headers: [] };
   const raw = readFileSync(absolute);
   const parsed = parseCsv(raw.toString("utf8"));
-  const headers = (parsed[0] || []).map((h, i) => String(h || ("column_" + (i + 1))).trim());
+  const headerCounts = new Map();
+  const headers = (parsed[0] || []).map((h, i) => {
+    const base = String(h || ("column_" + (i + 1))).trim();
+    const count = (headerCounts.get(base) || 0) + 1;
+    headerCounts.set(base, count);
+    return count === 1 ? base : base + "_" + count;
+  });
   const records = parsed.slice(1).filter((r) => !isTypeRow(r)).map((r) => {
     const item = {};
     headers.forEach((h, i) => { item[h] = String(r[i] ?? "").trim(); });
@@ -185,13 +214,6 @@ if (productionHasDailyModifier && debugClaimsNoModifier) findings.push({
   title: "Pet Parade debug note conflicts with production code",
   detail: "HudDebug's rate-test output says production road spawn does not apply the daily modifier, while PetParadeManager.CalculateRoadSpawnWeights multiplies by DailyPoolConfigs.GetDailyModifier(petId). Confirm the note against the shipped build."
 });
-const docsRebirth = readSource("Docs/BusinessLogic/40-rebirth-rewards.md");
-if (/30\s+level/i.test(docsRebirth) && rebirthRows.length !== 30) findings.push({
-  kind: "documentation_drift",
-  severity: "review",
-  title: "Rebirth documentation count differs from the checkout",
-  detail: "The domain note describes 30 rows; RebirthConfigs reads the CSV and increments its count for each data row. The checked-in rebirth.csv currently contains " + rebirthRows.length + " data rows."
-});
 const rebirthCountIsDynamic = /_RebirthCount\s*\+=\s*1/.test(rebirthConfig);
 const globalTrackingDisabled = /\/\/\s*start TrackingGlobalMilestones\(player\)/.test(tracking);
 const userRefreshBody = (paradeManager.match(/async func UpdateUsers\([\s\S]*?\n    }/) || [""])[0];
@@ -212,55 +234,43 @@ const rebirthBands = [
   { label: "RB 16–20", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_3_USER")) || 15) + 1, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_4_USER")) || 20, weightColumn: "Weight4", playerType: "Type4User" },
   { label: "RB 21+", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_4_USER")) || 20) + 1, max: null, weightColumn: "Weight5", playerType: "Type5User" }
 ].map((band, index) => ({ ...band, poolWeight: paradePoolWeights[index] }));
-const petSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Pets");
-const iconSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Icons");
-const mutationSpriteRoot = path.join(sourceRoot, "Assets", "Sprites", "Mutations");
-const petOutputRoot = path.resolve("dist", "assets", "pets");
-const actionOutputRoot = path.resolve("dist", "assets", "actions");
-const systemIconOutputRoot = path.resolve("dist", "assets", "system-icons");
-mkdirSync(petOutputRoot, { recursive: true });
-mkdirSync(actionOutputRoot, { recursive: true });
-mkdirSync(systemIconOutputRoot, { recursive: true });
+const petOutputRoot = outputPath("dist", "assets", "pets");
+const actionOutputRoot = outputPath("dist", "assets", "actions");
+const systemIconOutputRoot = outputPath("dist", "assets", "system-icons");
 const iconAliases = { ARCTICFOX: "ARTICFOX" };
 const petIcons = {};
 const missingPetIcons = [];
 for (const row of petCsv?.rows ?? []) {
   const name = String(row.Name ?? "").trim();
   const sourceName = iconAliases[name] || name;
-  const sourcePath = path.join(petSpriteRoot, sourceName + ".png");
-  if (!name || !existsSync(sourcePath)) { missingPetIcons.push({ id: row.ID, name }); continue; }
   const outputName = sourceName + ".png";
-  copyFileSync(sourcePath, path.join(petOutputRoot, outputName));
+  if (!name || !existsSync(path.join(petOutputRoot, outputName))) { missingPetIcons.push({ id: row.ID, name }); continue; }
   petIcons[String(row.ID)] = "./assets/pets/" + outputName;
 }
 const actionIconNames = ["ActivitiesIcon", "RebirthIcon", "LeaderboardIcon", "Road3DIcon", "BoostSpawnIcon", "CollectionIcon", "BaseIcon"];
 const actionIcons = {};
 for (const name of actionIconNames) {
-  const sourcePath = path.join(iconSpriteRoot, name + ".png");
-  if (!existsSync(sourcePath)) continue;
-  copyFileSync(sourcePath, path.join(actionOutputRoot, name + ".png"));
+  if (!existsSync(path.join(actionOutputRoot, name + ".png"))) continue;
   actionIcons[name] = "./assets/actions/" + name + ".png";
 }
 const mutationIcons = {};
 const weatherEffectIcons = {};
 const missingSystemIcons = [];
-function copySystemIcon(iconName, id, target) {
+function referenceSystemIcon(iconName, id, target) {
   const name = String(iconName ?? "").trim();
-  const sourcePath = path.join(mutationSpriteRoot, name + ".png");
-  if (!name || !existsSync(sourcePath)) {
+  if (!name || !existsSync(path.join(systemIconOutputRoot, name + ".png"))) {
     missingSystemIcons.push({ id: String(id), name });
     return;
   }
   const outputName = name + ".png";
-  copyFileSync(sourcePath, path.join(systemIconOutputRoot, outputName));
   target[String(id)] = "./assets/system-icons/" + outputName;
 }
 for (const row of byName.get("mutation.csv")?.rows ?? []) {
   if (String(row.Name).toLowerCase() === "normal") continue;
-  copySystemIcon(row.Name, row.ID, mutationIcons);
+  referenceSystemIcon(row.Name, row.ID, mutationIcons);
 }
 for (const row of byName.get("weatherEffects.csv")?.rows ?? []) {
-  copySystemIcon(row.Icon || row.Name, row.ID, weatherEffectIcons);
+  referenceSystemIcon(row.Icon || row.Name, row.ID, weatherEffectIcons);
 }
 const guaranteeMythicIds = (petCsv?.rows ?? []).filter((row) => roadSpawnPetIds.has(Number(row.ID)) && row.Rarity === "MYTHIC" && Number(row.GuaranteeWeight) > 0).map((row) => Number(row.ID));
 const versionCode = {
@@ -330,7 +340,7 @@ const output = {
   codeFacts: versionCode,
   findings
 };
-writeFileSync(outPath, JSON.stringify(output, null, 2) + "\n", "utf8");
+writeOutput(outPath, JSON.stringify(output, null, 2) + "\n", "utf8");
 console.log("Wrote " + path.relative(process.cwd(), outPath) + " from " + tables.filter((t) => !t.missing).length + " CSV tables; source " + versionCode.sourceCommit.slice(0, 8) + ".");
 
 

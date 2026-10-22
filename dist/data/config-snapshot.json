@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T04:35:26.340Z",
+  "generatedAt": "2026-10-22T10:28:07.715Z",
   "sourceLabel": "StealAPet repository",
   "sourceBranch": "dev",
   "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
@@ -23505,161 +23505,309 @@
       "rows": [
         {
           "IDPET": "3",
-          "Weight": "0"
+          "Weight": "362046",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "8",
-          "Weight": "0"
+          "Weight": "362045",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1001",
-          "Weight": "0"
+          "Weight": "13409",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "10",
-          "Weight": "0"
+          "Weight": "61364",
+          "Weight_2": "219682",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "15",
-          "Weight": "0"
+          "Weight": "61364",
+          "Weight_2": "219682",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "16",
-          "Weight": "0"
+          "Weight": "61363",
+          "Weight_2": "219682",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "53",
-          "Weight": "0"
+          "Weight": "61363",
+          "Weight_2": "219682",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1008",
-          "Weight": "0"
+          "Weight": "2273",
+          "Weight_2": "8136",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1013",
-          "Weight": "0"
+          "Weight": "2273",
+          "Weight_2": "8136",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "18",
-          "Weight": "0"
+          "Weight": "6027",
+          "Weight_2": "48214",
+          "Weight_3": "472018",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "20",
-          "Weight": "0"
+          "Weight": "6027",
+          "Weight_2": "48214",
+          "Weight_3": "472018",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1003",
-          "Weight": "0"
+          "Weight": "223",
+          "Weight_2": "1786",
+          "Weight_3": "17482",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1014",
-          "Weight": "0"
+          "Weight": "223",
+          "Weight_2": "1786",
+          "Weight_3": "17482",
+          "Weight_4": "0",
+          "Weight_5": "0"
         },
         {
           "IDPET": "29",
-          "Weight": "0"
+          "Weight": "0",
+          "Weight_2": "2411",
+          "Weight_3": "9643",
+          "Weight_4": "477080",
+          "Weight_5": "0"
         },
         {
           "IDPET": "65",
-          "Weight": "0"
+          "Weight": "0",
+          "Weight_2": "2411",
+          "Weight_3": "9643",
+          "Weight_4": "477080",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1004",
-          "Weight": "0"
+          "Weight": "0",
+          "Weight_2": "89",
+          "Weight_3": "357",
+          "Weight_4": "17670",
+          "Weight_5": "0"
         },
         {
           "IDPET": "1015",
-          "Weight": "0"
+          "Weight": "0",
+          "Weight_2": "89",
+          "Weight_3": "357",
+          "Weight_4": "17670",
+          "Weight_5": "0"
         },
         {
           "IDPET": "72",
-          "Weight": "457138"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "466",
+          "Weight_4": "4655",
+          "Weight_5": "457138"
         },
         {
           "IDPET": "77",
-          "Weight": "457138"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "466",
+          "Weight_4": "4655",
+          "Weight_5": "457138"
         },
         {
           "IDPET": "1025",
-          "Weight": "16931"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "17",
+          "Weight_4": "173",
+          "Weight_5": "16931"
         },
         {
           "IDPET": "1027",
-          "Weight": "16931"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "17",
+          "Weight_4": "173",
+          "Weight_5": "16931"
         },
         {
           "IDPET": "1029",
-          "Weight": "16931"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "17",
+          "Weight_4": "172",
+          "Weight_5": "16931"
         },
         {
           "IDPET": "1030",
-          "Weight": "16931"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "17",
+          "Weight_4": "172",
+          "Weight_5": "16931"
         },
         {
           "IDPET": "88",
-          "Weight": "2809"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "78",
+          "Weight_5": "2809"
         },
         {
           "IDPET": "91",
-          "Weight": "2809"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "78",
+          "Weight_5": "2809"
         },
         {
           "IDPET": "92",
-          "Weight": "2809"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "78",
+          "Weight_5": "2809"
         },
         {
           "IDPET": "94",
-          "Weight": "2809"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "78",
+          "Weight_5": "2809"
         },
         {
           "IDPET": "100",
-          "Weight": "2809"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "78",
+          "Weight_5": "2809"
         },
         {
           "IDPET": "110",
-          "Weight": "937"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "26",
+          "Weight_5": "937"
         },
         {
           "IDPET": "111",
-          "Weight": "937"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "26",
+          "Weight_5": "937"
         },
         {
           "IDPET": "114",
-          "Weight": "208"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "6",
+          "Weight_5": "208"
         },
         {
           "IDPET": "113",
-          "Weight": "937"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "26",
+          "Weight_5": "937"
         },
         {
           "IDPET": "112",
-          "Weight": "208"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "6",
+          "Weight_5": "208"
         },
         {
           "IDPET": "1048",
-          "Weight": "312"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "9",
+          "Weight_5": "312"
         },
         {
           "IDPET": "1049",
-          "Weight": "312"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "8",
+          "Weight_5": "312"
         },
         {
           "IDPET": "1035",
-          "Weight": "104"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "3",
+          "Weight_5": "104"
         },
         {
           "IDPET": "118",
-          "Weight": "0"
+          "Weight": "0",
+          "Weight_2": "0",
+          "Weight_3": "0",
+          "Weight_4": "0",
+          "Weight_5": "0"
         }
       ],
       "rowCount": 37,
       "headers": [
         "IDPET",
         "Weight",
-        "Weight",
-        "Weight",
-        "Weight",
-        "Weight"
+        "Weight_2",
+        "Weight_3",
+        "Weight_4",
+        "Weight_5"
       ],
       "sha256": "ab8d8f31573e8407f12c7bdcb4557c5e91a1e4af543f56c86504f08eade48c0f",
       "bytes": 855
@@ -24203,169 +24351,325 @@
       "rows": [
         {
           "IDPET": "52",
-          "Weight": "220725"
+          "Weight": "429107",
+          "Weight_2": "385618",
+          "Weight_3": "333161",
+          "Weight_4": "273471",
+          "Weight_5": "220725"
         },
         {
           "IDPET": "1012",
-          "Weight": "8175"
+          "Weight": "15893",
+          "Weight_2": "14282",
+          "Weight_3": "12339",
+          "Weight_4": "10129",
+          "Weight_5": "8175"
         },
         {
           "IDPET": "12",
-          "Weight": "92195"
+          "Weight": "98781",
+          "Weight_2": "98781",
+          "Weight_3": "97134",
+          "Weight_4": "95488",
+          "Weight_5": "92195"
         },
         {
           "IDPET": "13",
-          "Weight": "92195"
+          "Weight": "98780",
+          "Weight_2": "98780",
+          "Weight_3": "97134",
+          "Weight_4": "95488",
+          "Weight_5": "92195"
         },
         {
           "IDPET": "17",
-          "Weight": "92195"
+          "Weight": "98780",
+          "Weight_2": "98780",
+          "Weight_3": "97134",
+          "Weight_4": "95488",
+          "Weight_5": "92195"
         },
         {
           "IDPET": "1002",
-          "Weight": "3415"
+          "Weight": "3659",
+          "Weight_2": "3659",
+          "Weight_3": "3598",
+          "Weight_4": "3536",
+          "Weight_5": "3415"
         },
         {
           "IDPET": "23",
-          "Weight": "36667"
+          "Weight": "25000",
+          "Weight_2": "28334",
+          "Weight_3": "30834",
+          "Weight_4": "33334",
+          "Weight_5": "36667"
         },
         {
           "IDPET": "24",
-          "Weight": "36667"
+          "Weight": "25000",
+          "Weight_2": "28334",
+          "Weight_3": "30834",
+          "Weight_4": "33334",
+          "Weight_5": "36667"
         },
         {
           "IDPET": "25",
-          "Weight": "36667"
+          "Weight": "25000",
+          "Weight_2": "28333",
+          "Weight_3": "30833",
+          "Weight_4": "33333",
+          "Weight_5": "36667"
         },
         {
           "IDPET": "26",
-          "Weight": "36667"
+          "Weight": "25000",
+          "Weight_2": "28333",
+          "Weight_3": "30833",
+          "Weight_4": "33333",
+          "Weight_5": "36667"
         },
         {
           "IDPET": "27",
-          "Weight": "36666"
+          "Weight": "25000",
+          "Weight_2": "28333",
+          "Weight_3": "30833",
+          "Weight_4": "33333",
+          "Weight_5": "36666"
         },
         {
           "IDPET": "57",
-          "Weight": "36666"
+          "Weight": "25000",
+          "Weight_2": "28333",
+          "Weight_3": "30833",
+          "Weight_4": "33333",
+          "Weight_5": "36666"
         },
         {
           "IDPET": "37",
-          "Weight": "40000"
+          "Weight": "18750",
+          "Weight_2": "22500",
+          "Weight_3": "26250",
+          "Weight_4": "32500",
+          "Weight_5": "40000"
         },
         {
           "IDPET": "33",
-          "Weight": "40000"
+          "Weight": "18750",
+          "Weight_2": "22500",
+          "Weight_3": "26250",
+          "Weight_4": "32500",
+          "Weight_5": "40000"
         },
         {
           "IDPET": "55",
-          "Weight": "40000"
+          "Weight": "18750",
+          "Weight_2": "22500",
+          "Weight_3": "26250",
+          "Weight_4": "32500",
+          "Weight_5": "40000"
         },
         {
           "IDPET": "58",
-          "Weight": "40000"
+          "Weight": "18750",
+          "Weight_2": "22500",
+          "Weight_3": "26250",
+          "Weight_4": "32500",
+          "Weight_5": "40000"
         },
         {
           "IDPET": "47",
-          "Weight": "8397"
+          "Weight": "2388",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8397"
         },
         {
           "IDPET": "44",
-          "Weight": "8397"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8397"
         },
         {
           "IDPET": "50",
-          "Weight": "8397"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8397"
         },
         {
           "IDPET": "51",
-          "Weight": "8397"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8397"
         },
         {
           "IDPET": "60",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "69",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "70",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "73",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7162",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "78",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7161",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "79",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7161",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "80",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7161",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "81",
-          "Weight": "8396"
+          "Weight": "2387",
+          "Weight_2": "3128",
+          "Weight_3": "4939",
+          "Weight_4": "7161",
+          "Weight_5": "8396"
         },
         {
           "IDPET": "82",
-          "Weight": "622"
+          "Weight": "177",
+          "Weight_2": "232",
+          "Weight_3": "366",
+          "Weight_4": "530",
+          "Weight_5": "622"
         },
         {
           "IDPET": "1011",
-          "Weight": "311"
+          "Weight": "89",
+          "Weight_2": "116",
+          "Weight_3": "183",
+          "Weight_4": "265",
+          "Weight_5": "311"
         },
         {
           "IDPET": "1023",
-          "Weight": "311"
+          "Weight": "89",
+          "Weight_2": "116",
+          "Weight_3": "183",
+          "Weight_4": "265",
+          "Weight_5": "311"
         },
         {
           "IDPET": "101",
-          "Weight": "2308"
+          "Weight": "231",
+          "Weight_2": "508",
+          "Weight_3": "2308",
+          "Weight_4": "2308",
+          "Weight_5": "2308"
         },
         {
           "IDPET": "107",
-          "Weight": "2308"
+          "Weight": "231",
+          "Weight_2": "508",
+          "Weight_3": "2308",
+          "Weight_4": "2308",
+          "Weight_5": "2308"
         },
         {
           "IDPET": "108",
-          "Weight": "2308"
+          "Weight": "231",
+          "Weight_2": "508",
+          "Weight_3": "2308",
+          "Weight_4": "2308",
+          "Weight_5": "2308"
         },
         {
           "IDPET": "109",
-          "Weight": "2308"
+          "Weight": "231",
+          "Weight_2": "508",
+          "Weight_3": "2308",
+          "Weight_4": "2308",
+          "Weight_5": "2308"
         },
         {
           "IDPET": "1050",
-          "Weight": "256"
+          "Weight": "26",
+          "Weight_2": "56",
+          "Weight_3": "256",
+          "Weight_4": "256",
+          "Weight_5": "256"
         },
         {
           "IDPET": "1051",
-          "Weight": "256"
+          "Weight": "25",
+          "Weight_2": "56",
+          "Weight_3": "256",
+          "Weight_4": "256",
+          "Weight_5": "256"
         },
         {
           "IDPET": "1034",
-          "Weight": "85"
+          "Weight": "8",
+          "Weight_2": "19",
+          "Weight_3": "85",
+          "Weight_4": "85",
+          "Weight_5": "85"
         },
         {
           "IDPET": "117",
-          "Weight": "171"
+          "Weight": "17",
+          "Weight_2": "37",
+          "Weight_3": "171",
+          "Weight_4": "171",
+          "Weight_5": "171"
         }
       ],
       "rowCount": 39,
       "headers": [
         "IDPET",
         "Weight",
-        "Weight",
-        "Weight",
-        "Weight",
-        "Weight"
+        "Weight_2",
+        "Weight_3",
+        "Weight_4",
+        "Weight_5"
       ],
       "sha256": "da0b595527d3ad4b93d53e1966161c3dd2f44e0623da72e19063baac752940a8",
       "bytes": 1249
@@ -26575,12 +26879,6 @@
       "severity": "review",
       "title": "Pet Parade debug note conflicts with production code",
       "detail": "HudDebug's rate-test output says production road spawn does not apply the daily modifier, while PetParadeManager.CalculateRoadSpawnWeights multiplies by DailyPoolConfigs.GetDailyModifier(petId). Confirm the note against the shipped build."
-    },
-    {
-      "kind": "documentation_drift",
-      "severity": "review",
-      "title": "Rebirth documentation count differs from the checkout",
-      "detail": "The domain note describes 30 rows; RebirthConfigs reads the CSV and increments its count for each data row. The checked-in rebirth.csv currently contains 27 data rows."
     }
   ]
 }
