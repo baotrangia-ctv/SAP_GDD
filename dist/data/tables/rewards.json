@@ -1,0 +1,1226 @@
+{
+  "path": "Assets/CSV/reward.csv",
+  "rows": [
+    {
+      "ID": "1",
+      "TypeReward": "1",
+      "Value": "58;5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "2",
+      "TypeReward": "2",
+      "Value": "50100",
+      "Quantity": "1"
+    },
+    {
+      "ID": "3",
+      "TypeReward": "3",
+      "Value": "10",
+      "Quantity": "1"
+    },
+    {
+      "ID": "4",
+      "TypeReward": "2",
+      "Value": "50100",
+      "Quantity": "1"
+    },
+    {
+      "ID": "5",
+      "TypeReward": "3",
+      "Value": "20",
+      "Quantity": "1"
+    },
+    {
+      "ID": "6",
+      "TypeReward": "1",
+      "Value": "48;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "7",
+      "TypeReward": "1",
+      "Value": "44;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "8",
+      "TypeReward": "4",
+      "Value": "MYTHIC;5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "9",
+      "TypeReward": "2",
+      "Value": "50100",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10",
+      "TypeReward": "3",
+      "Value": "200",
+      "Quantity": "1"
+    },
+    {
+      "ID": "11",
+      "TypeReward": "5",
+      "Value": "1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "12",
+      "TypeReward": "5",
+      "Value": "4",
+      "Quantity": "1"
+    },
+    {
+      "ID": "13",
+      "TypeReward": "5",
+      "Value": "8",
+      "Quantity": "1"
+    },
+    {
+      "ID": "14",
+      "TypeReward": "5",
+      "Value": "24",
+      "Quantity": "1"
+    },
+    {
+      "ID": "15",
+      "TypeReward": "4",
+      "Value": "MYTHIC;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "16",
+      "TypeReward": "5",
+      "Value": "0.5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "17",
+      "TypeReward": "5",
+      "Value": "2",
+      "Quantity": "1"
+    },
+    {
+      "ID": "18",
+      "TypeReward": "4",
+      "Value": "LEGENDARY;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "19",
+      "TypeReward": "4",
+      "Value": "EPIC;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20",
+      "TypeReward": "1",
+      "Value": "40;3",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21",
+      "TypeReward": "3",
+      "Value": "24",
+      "Quantity": "1"
+    },
+    {
+      "ID": "22",
+      "TypeReward": "5",
+      "Value": "2",
+      "Quantity": "1"
+    },
+    {
+      "ID": "23",
+      "TypeReward": "3",
+      "Value": "999",
+      "Quantity": "1"
+    },
+    {
+      "ID": "24",
+      "TypeReward": "3",
+      "Value": "5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "25",
+      "TypeReward": "1",
+      "Value": "51;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "26",
+      "TypeReward": "1",
+      "Value": "61;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "27",
+      "TypeReward": "1",
+      "Value": "49;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "28",
+      "TypeReward": "1",
+      "Value": "56;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "29",
+      "TypeReward": "1",
+      "Value": "62;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "30",
+      "TypeReward": "1",
+      "Value": "1016;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "31",
+      "TypeReward": "1",
+      "Value": "35;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "32",
+      "TypeReward": "1",
+      "Value": "37;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "33",
+      "TypeReward": "1",
+      "Value": "38;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "34",
+      "TypeReward": "1",
+      "Value": "1026;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "35",
+      "TypeReward": "2",
+      "Value": "21000",
+      "Quantity": "1"
+    },
+    {
+      "ID": "36",
+      "TypeReward": "2",
+      "Value": "30010",
+      "Quantity": "1"
+    },
+    {
+      "ID": "37",
+      "TypeReward": "3",
+      "Value": "20",
+      "Quantity": "1"
+    },
+    {
+      "ID": "38",
+      "TypeReward": "7",
+      "Value": "10",
+      "Quantity": "1"
+    },
+    {
+      "ID": "39",
+      "TypeReward": "7",
+      "Value": "50",
+      "Quantity": "1"
+    },
+    {
+      "ID": "40",
+      "TypeReward": "2",
+      "Value": "30020",
+      "Quantity": "1"
+    },
+    {
+      "ID": "41",
+      "TypeReward": "5",
+      "Value": "12",
+      "Quantity": "1"
+    },
+    {
+      "ID": "43",
+      "TypeReward": "7",
+      "Value": "400",
+      "Quantity": "1"
+    },
+    {
+      "ID": "44",
+      "TypeReward": "7",
+      "Value": "800",
+      "Quantity": "1"
+    },
+    {
+      "ID": "45",
+      "TypeReward": "7",
+      "Value": "1500",
+      "Quantity": "1"
+    },
+    {
+      "ID": "46",
+      "TypeReward": "5",
+      "Value": "3",
+      "Quantity": "1"
+    },
+    {
+      "ID": "47",
+      "TypeReward": "5",
+      "Value": "5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "48",
+      "TypeReward": "5",
+      "Value": "6",
+      "Quantity": "1"
+    },
+    {
+      "ID": "49",
+      "TypeReward": "5",
+      "Value": "7",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50",
+      "TypeReward": "5",
+      "Value": "9",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51",
+      "TypeReward": "5",
+      "Value": "10",
+      "Quantity": "1"
+    },
+    {
+      "ID": "52",
+      "TypeReward": "5",
+      "Value": "11",
+      "Quantity": "1"
+    },
+    {
+      "ID": "53",
+      "TypeReward": "5",
+      "Value": "13",
+      "Quantity": "1"
+    },
+    {
+      "ID": "54",
+      "TypeReward": "5",
+      "Value": "14",
+      "Quantity": "1"
+    },
+    {
+      "ID": "55",
+      "TypeReward": "5",
+      "Value": "15",
+      "Quantity": "1"
+    },
+    {
+      "ID": "56",
+      "TypeReward": "5",
+      "Value": "16",
+      "Quantity": "1"
+    },
+    {
+      "ID": "57",
+      "TypeReward": "5",
+      "Value": "17",
+      "Quantity": "1"
+    },
+    {
+      "ID": "58",
+      "TypeReward": "5",
+      "Value": "18",
+      "Quantity": "1"
+    },
+    {
+      "ID": "59",
+      "TypeReward": "5",
+      "Value": "19",
+      "Quantity": "1"
+    },
+    {
+      "ID": "60",
+      "TypeReward": "5",
+      "Value": "20",
+      "Quantity": "1"
+    },
+    {
+      "ID": "61",
+      "TypeReward": "5",
+      "Value": "21",
+      "Quantity": "1"
+    },
+    {
+      "ID": "62",
+      "TypeReward": "5",
+      "Value": "22",
+      "Quantity": "1"
+    },
+    {
+      "ID": "63",
+      "TypeReward": "5",
+      "Value": "23",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10009",
+      "TypeReward": "2",
+      "Value": "30020",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10010",
+      "TypeReward": "5",
+      "Value": "0.5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10011",
+      "TypeReward": "7",
+      "Value": "20",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10012",
+      "TypeReward": "5",
+      "Value": "1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10013",
+      "TypeReward": "4",
+      "Value": "LEGENDARY;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10014",
+      "TypeReward": "7",
+      "Value": "50",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10015",
+      "TypeReward": "4",
+      "Value": "MYTHIC;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10016",
+      "TypeReward": "7",
+      "Value": "100",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10017",
+      "TypeReward": "9",
+      "Value": "2",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10018",
+      "TypeReward": "9",
+      "Value": "3",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10019",
+      "TypeReward": "10",
+      "Value": "6",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10020",
+      "TypeReward": "10",
+      "Value": "9",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10021",
+      "TypeReward": "10",
+      "Value": "10",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10022",
+      "TypeReward": "10",
+      "Value": "4",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10023",
+      "TypeReward": "10",
+      "Value": "1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10024",
+      "TypeReward": "10",
+      "Value": "7",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10025",
+      "TypeReward": "10",
+      "Value": "16",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10026",
+      "TypeReward": "1",
+      "Value": "44;3",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10027",
+      "TypeReward": "2",
+      "Value": "30050",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10028",
+      "TypeReward": "10",
+      "Value": "4",
+      "Quantity": "5"
+    },
+    {
+      "ID": "10029",
+      "TypeReward": "16",
+      "Value": "26",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10030",
+      "TypeReward": "16",
+      "Value": "26",
+      "Quantity": "4"
+    },
+    {
+      "ID": "10031",
+      "TypeReward": "10",
+      "Value": "10",
+      "Quantity": "2"
+    },
+    {
+      "ID": "10032",
+      "TypeReward": "10",
+      "Value": "10",
+      "Quantity": "3"
+    },
+    {
+      "ID": "10033",
+      "TypeReward": "16",
+      "Value": "10",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10034",
+      "TypeReward": "16",
+      "Value": "10",
+      "Quantity": "2"
+    },
+    {
+      "ID": "10035",
+      "TypeReward": "16",
+      "Value": "10",
+      "Quantity": "3"
+    },
+    {
+      "ID": "10036",
+      "TypeReward": "16",
+      "Value": "10",
+      "Quantity": "4"
+    },
+    {
+      "ID": "10037",
+      "TypeReward": "16",
+      "Value": "10",
+      "Quantity": "5"
+    },
+    {
+      "ID": "10038",
+      "TypeReward": "9",
+      "Value": "4",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10039",
+      "TypeReward": "9",
+      "Value": "5",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10040",
+      "TypeReward": "7",
+      "Value": "300",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10041",
+      "TypeReward": "17",
+      "Value": "3",
+      "Quantity": "1"
+    },
+    {
+      "ID": "10042",
+      "TypeReward": "17",
+      "Value": "7",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20001",
+      "TypeReward": "6",
+      "Value": "1;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20002",
+      "TypeReward": "1",
+      "Value": "1007;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20003",
+      "TypeReward": "1",
+      "Value": "1008;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20004",
+      "TypeReward": "1",
+      "Value": "1009;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20005",
+      "TypeReward": "1",
+      "Value": "1010;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20006",
+      "TypeReward": "1",
+      "Value": "1005;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20007",
+      "TypeReward": "1",
+      "Value": "1006;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20008",
+      "TypeReward": "1",
+      "Value": "5;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20009",
+      "TypeReward": "1",
+      "Value": "1002;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20010",
+      "TypeReward": "1",
+      "Value": "1003;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20011",
+      "TypeReward": "1",
+      "Value": "38;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20012",
+      "TypeReward": "1",
+      "Value": "62;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20013",
+      "TypeReward": "1",
+      "Value": "200;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20014",
+      "TypeReward": "1",
+      "Value": "1;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20015",
+      "TypeReward": "1",
+      "Value": "12;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20016",
+      "TypeReward": "1",
+      "Value": "1008;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20017",
+      "TypeReward": "1",
+      "Value": "26;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20018",
+      "TypeReward": "1",
+      "Value": "1003;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20019",
+      "TypeReward": "1",
+      "Value": "38;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20020",
+      "TypeReward": "1",
+      "Value": "1015;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20021",
+      "TypeReward": "1",
+      "Value": "49;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20022",
+      "TypeReward": "1",
+      "Value": "43;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "20023",
+      "TypeReward": "1",
+      "Value": "74;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21001",
+      "TypeReward": "1",
+      "Value": "1100;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21002",
+      "TypeReward": "7",
+      "Value": "200",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21003",
+      "TypeReward": "5",
+      "Value": "2",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21004",
+      "TypeReward": "2",
+      "Value": "30020",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21005",
+      "TypeReward": "1",
+      "Value": "1026;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "21006",
+      "TypeReward": "7",
+      "Value": "500",
+      "Quantity": "1"
+    },
+    {
+      "ID": "30009",
+      "TypeReward": "7",
+      "Value": "5000",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50001",
+      "TypeReward": "1",
+      "Value": "1;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50009",
+      "TypeReward": "1",
+      "Value": "9;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50012",
+      "TypeReward": "1",
+      "Value": "12;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50018",
+      "TypeReward": "1",
+      "Value": "18;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50019",
+      "TypeReward": "1",
+      "Value": "19;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50020",
+      "TypeReward": "1",
+      "Value": "20;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50041",
+      "TypeReward": "1",
+      "Value": "41;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50042",
+      "TypeReward": "1",
+      "Value": "42;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50044",
+      "TypeReward": "1",
+      "Value": "44;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50046",
+      "TypeReward": "1",
+      "Value": "46;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50047",
+      "TypeReward": "1",
+      "Value": "47;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50048",
+      "TypeReward": "1",
+      "Value": "48;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50049",
+      "TypeReward": "1",
+      "Value": "49;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50050",
+      "TypeReward": "1",
+      "Value": "50;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50051",
+      "TypeReward": "1",
+      "Value": "51;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50056",
+      "TypeReward": "1",
+      "Value": "56;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50058",
+      "TypeReward": "1",
+      "Value": "58;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50059",
+      "TypeReward": "1",
+      "Value": "59;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50060",
+      "TypeReward": "1",
+      "Value": "60;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50061",
+      "TypeReward": "1",
+      "Value": "61;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50062",
+      "TypeReward": "1",
+      "Value": "62;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50063",
+      "TypeReward": "1",
+      "Value": "63;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50064",
+      "TypeReward": "1",
+      "Value": "64;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50065",
+      "TypeReward": "1",
+      "Value": "65;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50066",
+      "TypeReward": "1",
+      "Value": "66;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50067",
+      "TypeReward": "1",
+      "Value": "67;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50068",
+      "TypeReward": "1",
+      "Value": "68;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50069",
+      "TypeReward": "1",
+      "Value": "69;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50074",
+      "TypeReward": "1",
+      "Value": "74;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50076",
+      "TypeReward": "1",
+      "Value": "76;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50082",
+      "TypeReward": "1",
+      "Value": "82;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50083",
+      "TypeReward": "1",
+      "Value": "83;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50084",
+      "TypeReward": "1",
+      "Value": "84;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50085",
+      "TypeReward": "1",
+      "Value": "85;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50086",
+      "TypeReward": "1",
+      "Value": "86;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50088",
+      "TypeReward": "1",
+      "Value": "88;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50090",
+      "TypeReward": "1",
+      "Value": "90;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50101",
+      "TypeReward": "1",
+      "Value": "101;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51004",
+      "TypeReward": "1",
+      "Value": "1004;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51005",
+      "TypeReward": "1",
+      "Value": "1005;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51006",
+      "TypeReward": "1",
+      "Value": "1006;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51007",
+      "TypeReward": "1",
+      "Value": "1007;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51008",
+      "TypeReward": "1",
+      "Value": "1008;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51010",
+      "TypeReward": "1",
+      "Value": "1010;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51011",
+      "TypeReward": "1",
+      "Value": "1011;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51014",
+      "TypeReward": "1",
+      "Value": "1014;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51016",
+      "TypeReward": "1",
+      "Value": "1016;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51021",
+      "TypeReward": "1",
+      "Value": "1021;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51023",
+      "TypeReward": "1",
+      "Value": "1023;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51029",
+      "TypeReward": "1",
+      "Value": "1029;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51032",
+      "TypeReward": "1",
+      "Value": "1032;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51033",
+      "TypeReward": "1",
+      "Value": "1033;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51034",
+      "TypeReward": "1",
+      "Value": "1034;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51035",
+      "TypeReward": "1",
+      "Value": "1035;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51036",
+      "TypeReward": "1",
+      "Value": "1036;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51037",
+      "TypeReward": "1",
+      "Value": "1037;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51038",
+      "TypeReward": "1",
+      "Value": "1038;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "70001",
+      "TypeReward": "7",
+      "Value": "1000",
+      "Quantity": "1"
+    },
+    {
+      "ID": "70002",
+      "TypeReward": "7",
+      "Value": "3000",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51042",
+      "TypeReward": "1",
+      "Value": "1042;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51039",
+      "TypeReward": "1",
+      "Value": "1039;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51040",
+      "TypeReward": "1",
+      "Value": "1040;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51041",
+      "TypeReward": "1",
+      "Value": "1041;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51030",
+      "TypeReward": "1",
+      "Value": "1030;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50094",
+      "TypeReward": "1",
+      "Value": "94;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50095",
+      "TypeReward": "1",
+      "Value": "95;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50103",
+      "TypeReward": "1",
+      "Value": "103;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51028",
+      "TypeReward": "1",
+      "Value": "1028;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51044",
+      "TypeReward": "1",
+      "Value": "1044;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50105",
+      "TypeReward": "1",
+      "Value": "105;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51045",
+      "TypeReward": "1",
+      "Value": "1045;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "56002",
+      "TypeReward": "1",
+      "Value": "6002;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "50107",
+      "TypeReward": "1",
+      "Value": "107;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51047",
+      "TypeReward": "1",
+      "Value": "1047;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "51054",
+      "TypeReward": "1",
+      "Value": "1054;1",
+      "Quantity": "1"
+    },
+    {
+      "ID": "56003",
+      "TypeReward": "1",
+      "Value": "6003;1",
+      "Quantity": "1"
+    }
+  ],
+  "rowCount": 202,
+  "headers": [
+    "ID",
+    "TypeReward",
+    "Value",
+    "Quantity"
+  ],
+  "sha256": "1af2bc24df113f479037f90b0ae98620efb5d58f82d5a5410a997c2316644054",
+  "bytes": 3082
+}

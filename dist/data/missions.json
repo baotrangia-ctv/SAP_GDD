@@ -1,0 +1,778 @@
+{
+  "generatedAt": "2026-10-22T10:56:30.137Z",
+  "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
+  "sourceFacts": {
+    "dailyMissionsLoadedByActivitiesConfig": true,
+    "dailyRewardsLoadedByActivitiesConfig": true,
+    "dailyMissionRewardsPairByIndex": true,
+    "revivalTargetPassedToTimeFormatter": true,
+    "milestoneGiftLookupUsesMatchingIndex": true,
+    "rewardCsvReferencedByMissionCode": false
+  },
+  "dailyMissionRewardsById": {
+    "1": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "10",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "2": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "50",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "20",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "3": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20050",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "4": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20020",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "5": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "30050",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "10",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "6": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "10",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "7": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "20",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "15",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "8": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "25",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "9": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "75",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "20",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "10": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "30050",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "10",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "11": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20020",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "10",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "12": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "10",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "13": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "10",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "10",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "14": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20020",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "15": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20050",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "10",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "16": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "30050",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "15",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "17": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "30500",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "20",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "18": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20020",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "10",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "19": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20020",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "20": {
+      "pairs": [
+        {
+          "type": "2",
+          "value": "20020",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "21": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "20",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "5",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    },
+    "22": {
+      "pairs": [
+        {
+          "type": "7",
+          "value": "50",
+          "hasValue": true
+        },
+        {
+          "type": "8",
+          "value": "20",
+          "hasValue": true
+        }
+      ],
+      "listLengthsMatch": true
+    }
+  },
+  "milestoneEntries": [
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "1",
+      "giftId": "10009",
+      "hasGift": true
+    },
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "2",
+      "giftId": "10010",
+      "hasGift": true
+    },
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "3",
+      "giftId": "10011",
+      "hasGift": true
+    },
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "4",
+      "giftId": "10012",
+      "hasGift": true
+    },
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "5",
+      "giftId": "10013",
+      "hasGift": true
+    },
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "6",
+      "giftId": "10014",
+      "hasGift": true
+    },
+    {
+      "configId": "1",
+      "type": "1",
+      "milestone": "7",
+      "giftId": "10015",
+      "hasGift": true
+    },
+    {
+      "configId": "2",
+      "type": "2",
+      "milestone": "50",
+      "giftId": "20012",
+      "hasGift": true
+    },
+    {
+      "configId": "2",
+      "type": "2",
+      "milestone": "200",
+      "giftId": "20007",
+      "hasGift": true
+    },
+    {
+      "configId": "3",
+      "type": "3",
+      "milestone": "1",
+      "giftId": "21005",
+      "hasGift": true
+    },
+    {
+      "configId": "3",
+      "type": "3",
+      "milestone": "5",
+      "giftId": "21004",
+      "hasGift": true
+    },
+    {
+      "configId": "3",
+      "type": "3",
+      "milestone": "10",
+      "giftId": "21003",
+      "hasGift": true
+    },
+    {
+      "configId": "3",
+      "type": "3",
+      "milestone": "15",
+      "giftId": "21002",
+      "hasGift": true
+    },
+    {
+      "configId": "3",
+      "type": "3",
+      "milestone": "25",
+      "giftId": "21011",
+      "hasGift": true
+    },
+    {
+      "configId": "4",
+      "type": "2",
+      "milestone": "20",
+      "giftId": "21005",
+      "hasGift": true
+    },
+    {
+      "configId": "4",
+      "type": "2",
+      "milestone": "50",
+      "giftId": "21004",
+      "hasGift": true
+    },
+    {
+      "configId": "4",
+      "type": "2",
+      "milestone": "120",
+      "giftId": "21003",
+      "hasGift": true
+    },
+    {
+      "configId": "4",
+      "type": "2",
+      "milestone": "180",
+      "giftId": "21002",
+      "hasGift": true
+    },
+    {
+      "configId": "4",
+      "type": "2",
+      "milestone": "250",
+      "giftId": "20023",
+      "hasGift": true
+    },
+    {
+      "configId": "5",
+      "type": "3",
+      "milestone": "1",
+      "giftId": "21005",
+      "hasGift": true
+    },
+    {
+      "configId": "5",
+      "type": "3",
+      "milestone": "5",
+      "giftId": "21004",
+      "hasGift": true
+    },
+    {
+      "configId": "5",
+      "type": "3",
+      "milestone": "10",
+      "giftId": "21002",
+      "hasGift": true
+    },
+    {
+      "configId": "5",
+      "type": "3",
+      "milestone": "15",
+      "giftId": "50090",
+      "hasGift": true
+    },
+    {
+      "configId": "5",
+      "type": "3",
+      "milestone": "25",
+      "giftId": "50090",
+      "hasGift": true
+    },
+    {
+      "configId": "6",
+      "type": "2",
+      "milestone": "5",
+      "giftId": "21005",
+      "hasGift": true
+    },
+    {
+      "configId": "6",
+      "type": "2",
+      "milestone": "25",
+      "giftId": "21004",
+      "hasGift": true
+    },
+    {
+      "configId": "6",
+      "type": "2",
+      "milestone": "50",
+      "giftId": "51034",
+      "hasGift": true
+    },
+    {
+      "configId": "6",
+      "type": "2",
+      "milestone": "85",
+      "giftId": "70001",
+      "hasGift": true
+    },
+    {
+      "configId": "6",
+      "type": "2",
+      "milestone": "120",
+      "giftId": "51034",
+      "hasGift": true
+    },
+    {
+      "configId": "7",
+      "type": "3",
+      "milestone": "1",
+      "giftId": "21005",
+      "hasGift": true
+    },
+    {
+      "configId": "7",
+      "type": "3",
+      "milestone": "5",
+      "giftId": "21004",
+      "hasGift": true
+    },
+    {
+      "configId": "7",
+      "type": "3",
+      "milestone": "10",
+      "giftId": "21002",
+      "hasGift": true
+    },
+    {
+      "configId": "7",
+      "type": "3",
+      "milestone": "15",
+      "giftId": "51036",
+      "hasGift": true
+    },
+    {
+      "configId": "7",
+      "type": "3",
+      "milestone": "20",
+      "giftId": "51036",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "1",
+      "giftId": "10023",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "2",
+      "giftId": "10024",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "3",
+      "giftId": "10025",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "4",
+      "giftId": "10026",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "5",
+      "giftId": "10027",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "6",
+      "giftId": "10028",
+      "hasGift": true
+    },
+    {
+      "configId": "8",
+      "type": "4",
+      "milestone": "7",
+      "giftId": "10029",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "1",
+      "giftId": "10016",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "2",
+      "giftId": "10017",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "3",
+      "giftId": "10018",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "4",
+      "giftId": "10019",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "5",
+      "giftId": "10020",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "6",
+      "giftId": "10021",
+      "hasGift": true
+    },
+    {
+      "configId": "9",
+      "type": "4",
+      "milestone": "7",
+      "giftId": "10022",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "1",
+      "giftId": "10030",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "2",
+      "giftId": "10031",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "3",
+      "giftId": "10032",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "4",
+      "giftId": "10033",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "5",
+      "giftId": "10034",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "6",
+      "giftId": "10035",
+      "hasGift": true
+    },
+    {
+      "configId": "10",
+      "type": "4",
+      "milestone": "7",
+      "giftId": "10036",
+      "hasGift": true
+    },
+    {
+      "configId": "11",
+      "type": "5",
+      "milestone": "20",
+      "giftId": "10041",
+      "hasGift": true
+    },
+    {
+      "configId": "11",
+      "type": "5",
+      "milestone": "40",
+      "giftId": "10042",
+      "hasGift": true
+    },
+    {
+      "configId": "11",
+      "type": "5",
+      "milestone": "60",
+      "giftId": "10043",
+      "hasGift": true
+    },
+    {
+      "configId": "11",
+      "type": "5",
+      "milestone": "80",
+      "giftId": "10044",
+      "hasGift": true
+    },
+    {
+      "configId": "11",
+      "type": "5",
+      "milestone": "100",
+      "giftId": "10049",
+      "hasGift": true
+    }
+  ],
+  "rewardTable": {
+    "path": "Assets/CSV/reward.csv",
+    "file": "tables/rewards.json",
+    "rowCount": 202,
+    "headers": [
+      "ID",
+      "TypeReward",
+      "Value",
+      "Quantity"
+    ],
+    "sha256": "1af2bc24df113f479037f90b0ae98620efb5d58f82d5a5410a997c2316644054"
+  }
+}

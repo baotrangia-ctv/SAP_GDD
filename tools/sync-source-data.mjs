@@ -39,6 +39,11 @@ const codeFiles = [
   "Assets/Scripts/Configs/FeatureUnlockConfigs.fcg",
   "Assets/Scripts/Configs/DailyPoolConfigs.fcg",
   "Assets/Scripts/Manager/ActivitiesManager.fcg",
+  "Assets/Scripts/Configs/ActivitiesConfigs.fcg",
+  "Assets/Scripts/Configs/DailyRewardConfigs.fcg",
+  "Assets/Scripts/Configs/RevivalMissionConfigs.fcg",
+  "Assets/Scripts/Configs/MilestoneConfig.fcg",
+  "Assets/Scripts/Manager/RewardManager.fcg",
   "Assets/Scripts/Configs/GlobalConfigs.fcg",
   "Assets/Scripts/Configs/WeatherConfigs.fcg",
   "Assets/Scripts/Configs/MutagenConfigs.fcg",
@@ -160,6 +165,10 @@ function parseChanceRules(text) {
     rarityMultiplier
   };
 }
+function splitRawList(value, delimiter) {
+  const raw = String(value ?? "");
+  return raw === "" ? [] : raw.split(delimiter).map((item) => item.trim());
+}
 const tables = csvFiles.map(parseCsvFile);
 const byName = new Map(tables.map((t) => [path.basename(t.path), t]));
 const code = Object.fromEntries(codeFiles.map((rel) => [rel, readSource(rel)]));
@@ -168,6 +177,11 @@ const rebirthConfig = code["Assets/Scripts/Configs/RebirthConfigs.fcg"];
 const unlockConfig = code["Assets/Scripts/Configs/FeatureUnlockConfigs.fcg"];
 const dailyConfig = code["Assets/Scripts/Configs/DailyPoolConfigs.fcg"];
 const activitiesConfig = code["Assets/Scripts/Manager/ActivitiesManager.fcg"];
+const activitiesRules = code["Assets/Scripts/Configs/ActivitiesConfigs.fcg"];
+const dailyRewardRules = code["Assets/Scripts/Configs/DailyRewardConfigs.fcg"];
+const revivalMissionRules = code["Assets/Scripts/Configs/RevivalMissionConfigs.fcg"];
+const milestoneRules = code["Assets/Scripts/Configs/MilestoneConfig.fcg"];
+const rewardManagerRules = code["Assets/Scripts/Manager/RewardManager.fcg"];
 const weatherConfig = code["Assets/Scripts/Configs/WeatherConfigs.fcg"];
 const mutagenConfig = code["Assets/Scripts/Configs/MutagenConfigs.fcg"];
 const weatherGenConfig = code["Assets/Scripts/Configs/WeatherGenConfigs.fcg"];
@@ -294,6 +308,12 @@ if (rotationShopItemsTable && !rotationShopItemsTable.missing) {
   delete rotationShopItemsTable.rows;
 }
 writeOutput(outputPath("dist", "data", "shop-schedule.json"), JSON.stringify(rotationScheduleData, null, 2) + "\n");
+const rewardTable = byName.get("reward.csv");
+if (rewardTable && !rewardTable.missing) {
+  writeOutput(outputPath("dist", "data", "tables", "rewards.json"), JSON.stringify(rewardTable, null, 2) + "\n");
+  rewardTable.file = "tables/rewards.json";
+  delete rewardTable.rows;
+}
 const petOutputRoot = outputPath("dist", "assets", "pets");
 const actionOutputRoot = outputPath("dist", "assets", "actions");
 const systemIconOutputRoot = outputPath("dist", "assets", "system-icons");
@@ -382,11 +402,57 @@ const versionCode = {
   rotationShopHasCycleBasedWaveSelection: /currSeconds\s*%\s*totalWavesSeconds/.test(rotationShopManager),
   dustHuntDurations: (dustWaves?.rows ?? []).map((row) => ({ isAppear: row.IsAppear, rawDuration: row.Duration })),
   dustHuntDurationUnitAmbiguous: /GetDustHuntWaveDurationSeconds\(waveId int\) int\s*\{\s*return GetDustHuntWaveDuration\(waveId\)/.test(dustConfig),
+  missionSources: {
+    dailyMissionsLoadedByActivitiesConfig: /CSVData\.ReadCSV\(EResCSV\.DailyMissions\)/.test(activitiesRules),
+    dailyRewardsLoadedByActivitiesConfig: /CSVData\.ReadCSV\(EResCSV\.DailyRewards\)/.test(activitiesRules),
+    dailyMissionRewardsPairByIndex: /return DataUtils\.StringToListIntV2\(_MissionId2RewardType\[missionId\], "\|"\)/.test(activitiesRules) && /return Split\(_MissionId2RewardValue\[missionId\], "\|"\)/.test(activitiesRules) && /for key, rewardType in rewardsType\s*\{[\s\S]*?rewardsValue\[key\]/.test(activitiesConfig),
+    revivalTargetPassedToTimeFormatter: /UIUtils\.FormatTime\(targetValue,\s*2\)/.test(revivalMissionRules),
+    milestoneGiftLookupUsesMatchingIndex: /List\.IndexOf\(milestones, milestone\)[\s\S]*?return _MilestoneIdToGifts\[id\]\[index\]/.test(milestoneRules),
+    rewardCsvReferencedByMissionCode: /EResCSV\.Reward\b/.test(activitiesRules + activitiesConfig + rewardManagerRules)
+  },
   featureUnlocks: parseFeatureUnlocks(unlockConfig),
   globalMilestoneTrackingDisabled: globalTrackingDisabled,
   sourceBranch: runGit("branch", "--show-current"),
   sourceCommit: runGit("rev-parse", "HEAD")
 };
+const missionFacts = versionCode.missionSources;
+const missionRewardPairsById = Object.fromEntries((byName.get("DailyMissions.csv")?.rows ?? []).map((row) => {
+  const types = splitRawList(row.RewardType, "|");
+  const values = splitRawList(row.RewardValue, "|");
+  const pairs = missionFacts.dailyMissionRewardsPairByIndex ? types.map((type, index) => ({
+    type,
+    value: values[index] ?? "",
+    hasValue: index < values.length
+  })) : [];
+  return [String(row.ID), { pairs, listLengthsMatch: types.length === values.length }];
+}));
+const milestoneEntries = (byName.get("milestone.csv")?.rows ?? []).flatMap((row) => {
+  const milestones = splitRawList(row.Milestone, ";");
+  const gifts = splitRawList(row.Gift, ";");
+  if (!missionFacts.milestoneGiftLookupUsesMatchingIndex) return [];
+  return milestones.map((milestone, index) => ({
+    configId: String(row.ID),
+    type: String(row.Type ?? ""),
+    milestone,
+    giftId: gifts[index] ?? "",
+    hasGift: index < gifts.length
+  }));
+});
+const missionData = {
+  generatedAt: new Date().toISOString(),
+  sourceCommit: versionCode.sourceCommit,
+  sourceFacts: missionFacts,
+  dailyMissionRewardsById: missionRewardPairsById,
+  milestoneEntries,
+  rewardTable: rewardTable && !rewardTable.missing ? {
+    path: rewardTable.path,
+    file: rewardTable.file,
+    rowCount: rewardTable.rowCount,
+    headers: rewardTable.headers,
+    sha256: rewardTable.sha256
+  } : null
+};
+writeOutput(outputPath("dist", "data", "missions.json"), JSON.stringify(missionData, null, 2) + "\n");
 const output = {
   generatedAt: new Date().toISOString(),
   sourceLabel: "StealAPet repository",
