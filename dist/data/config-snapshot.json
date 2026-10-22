@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-12T09:46:43.290Z",
+  "generatedAt": "2026-10-22T04:35:26.340Z",
   "sourceLabel": "StealAPet repository",
-  "sourceBranch": "update-3.1.0",
-  "sourceCommit": "6c97297b4eea73e3ff3c04622d86232524e1b696",
+  "sourceBranch": "dev",
+  "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
   "currentSourceFiles": 44,
   "excludedSources": [
     {
@@ -30,11 +30,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "51111",
+          "Weight1": "51112",
           "Weight2": "46667",
-          "Weight3": "42222",
+          "Weight3": "42223",
           "Weight4": "36667",
-          "Weight5": "31111",
+          "Weight5": "31112",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -57,7 +57,7 @@
           "GuaranteeWeight": "",
           "Weight1": "51111",
           "Weight2": "46667",
-          "Weight3": "42222",
+          "Weight3": "42223",
           "Weight4": "36667",
           "Weight5": "31111",
           "Day 1": "DOWN",
@@ -181,9 +181,9 @@
           "ReplaceName": "",
           "GuaranteeWeight": "",
           "Weight1": "51111",
-          "Weight2": "46667",
+          "Weight2": "46666",
           "Weight3": "42222",
-          "Weight4": "36667",
+          "Weight4": "36666",
           "Weight5": "31111",
           "Day 1": "UP",
           "Day 2": "NORMAL",
@@ -206,9 +206,9 @@
           "ReplaceName": "",
           "GuaranteeWeight": "",
           "Weight1": "51111",
-          "Weight2": "46667",
+          "Weight2": "46666",
           "Weight3": "42222",
-          "Weight4": "36667",
+          "Weight4": "36666",
           "Weight5": "31111",
           "Day 1": "UP",
           "Day 2": "UP",
@@ -231,9 +231,9 @@
           "ReplaceName": "",
           "GuaranteeWeight": "",
           "Weight1": "51111",
-          "Weight2": "46667",
+          "Weight2": "46666",
           "Weight3": "42222",
-          "Weight4": "36667",
+          "Weight4": "36666",
           "Weight5": "31111",
           "Day 1": "DOWN",
           "Day 2": "UP",
@@ -705,11 +705,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11563",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -730,11 +730,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11563",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -755,11 +755,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11563",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -780,11 +780,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11563",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -805,11 +805,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11563",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -830,11 +830,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11563",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
@@ -855,11 +855,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11562",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -880,11 +880,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11562",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "NORMAL",
           "Day 2": "DOWN",
           "Day 3": "DOWN",
@@ -905,11 +905,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11562",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -930,11 +930,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11562",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "DOWN",
@@ -955,11 +955,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11562",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -980,11 +980,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "12500",
-          "Weight2": "14167",
-          "Weight3": "15417",
-          "Weight4": "16667",
-          "Weight5": "18333",
+          "Weight1": "9375",
+          "Weight2": "10625",
+          "Weight3": "11562",
+          "Weight4": "12500",
+          "Weight5": "13750",
           "Day 1": "UP",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -1105,11 +1105,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5834",
+          "Weight4": "7223",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1130,11 +1130,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5834",
+          "Weight4": "7223",
+          "Weight5": "8889",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -1155,11 +1155,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5834",
+          "Weight4": "7223",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1180,11 +1180,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5834",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -1205,11 +1205,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5834",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1230,11 +1230,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1255,11 +1255,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
@@ -1280,11 +1280,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1305,11 +1305,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1330,11 +1330,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "NORMAL",
           "Day 2": "DOWN",
           "Day 3": "DOWN",
@@ -1355,11 +1355,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4167",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1380,11 +1380,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4166",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1405,11 +1405,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4166",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "DOWN",
@@ -1430,11 +1430,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4166",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -1455,11 +1455,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4166",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8889",
           "Day 1": "UP",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -1480,11 +1480,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4688",
-          "Weight2": "5625",
-          "Weight3": "6562",
-          "Weight4": "8125",
-          "Weight5": "10000",
+          "Weight1": "4166",
+          "Weight2": "5000",
+          "Weight3": "5833",
+          "Weight4": "7222",
+          "Weight5": "8888",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -1630,11 +1630,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1655,11 +1655,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1680,11 +1680,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1705,11 +1705,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -1730,11 +1730,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1755,11 +1755,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1780,11 +1780,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -1805,11 +1805,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
@@ -1830,11 +1830,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1855,11 +1855,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1880,11 +1880,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "NORMAL",
           "Day 2": "DOWN",
           "Day 3": "DOWN",
@@ -1905,11 +1905,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1930,11 +1930,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1955,11 +1955,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -1980,11 +1980,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2005,11 +2005,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "413",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "DOWN",
@@ -2030,11 +2030,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "584",
-          "Weight2": "767",
-          "Weight3": "1216",
-          "Weight4": "1767",
-          "Weight5": "2073",
+          "Weight1": "412",
+          "Weight2": "541",
+          "Weight3": "854",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2055,11 +2055,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "541",
+          "Weight3": "853",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -2080,11 +2080,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1238",
+          "Weight5": "1451",
           "Day 1": "UP",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -2105,11 +2105,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -2130,11 +2130,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "4",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2155,11 +2155,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "4",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -2180,11 +2180,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "4",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2205,11 +2205,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
@@ -2230,11 +2230,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "NORMAL",
           "Day 2": "DOWN",
           "Day 3": "DOWN",
@@ -2255,11 +2255,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2305,11 +2305,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "4",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2330,11 +2330,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "4",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "DOWN",
@@ -2355,11 +2355,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "3",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -2380,11 +2380,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "3",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "UP",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -2405,11 +2405,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "3",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2430,11 +2430,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "3",
-          "Weight1": "292",
-          "Weight2": "384",
-          "Weight3": "608",
-          "Weight4": "884",
-          "Weight5": "1037",
+          "Weight1": "412",
+          "Weight2": "540",
+          "Weight3": "853",
+          "Weight4": "1237",
+          "Weight5": "1451",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -2455,11 +2455,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "2",
-          "Weight1": "100",
-          "Weight2": "100",
-          "Weight3": "100",
-          "Weight4": "100",
-          "Weight5": "100",
+          "Weight1": "31",
+          "Weight2": "40",
+          "Weight3": "63",
+          "Weight4": "92",
+          "Weight5": "108",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -2505,11 +2505,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "2",
-          "Weight1": "100",
-          "Weight2": "100",
-          "Weight3": "100",
-          "Weight4": "100",
-          "Weight5": "100",
+          "Weight1": "31",
+          "Weight2": "40",
+          "Weight3": "63",
+          "Weight4": "92",
+          "Weight5": "107",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2829,19 +2829,19 @@
           "CanFuse": "1",
           "ExceptionRegion": "",
           "ReplaceName": "",
-          "GuaranteeWeight": "0",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
-          "Day 1": "",
-          "Day 2": "",
-          "Day 3": "",
-          "Day 4": "",
-          "Day 5": "",
-          "Day 6": "",
-          "Day 7": ""
+          "GuaranteeWeight": "400",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "316",
+          "Weight4": "407",
+          "Weight5": "568",
+          "Day 1": "SKIP",
+          "Day 2": "SKIP",
+          "Day 3": "SKIP",
+          "Day 4": "SKIP",
+          "Day 5": "SKIP",
+          "Day 6": "SKIP",
+          "Day 7": "SKIP"
         },
         {
           "ID": "76",
@@ -2855,11 +2855,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "400",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "316",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2880,11 +2880,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "300",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "316",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2930,11 +2930,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "99",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "316",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2955,11 +2955,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "99",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -2980,11 +2980,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "99",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -3030,11 +3030,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "1",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "SKIP",
           "Day 2": "SKIP",
           "Day 3": "SKIP",
@@ -3055,11 +3055,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "1",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -3080,11 +3080,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "0",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -3105,11 +3105,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "1",
-          "Weight1": "42",
-          "Weight2": "90",
-          "Weight3": "467",
-          "Weight4": "608",
-          "Weight5": "844",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "568",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
@@ -3130,11 +3130,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "0",
-          "Weight1": "21",
-          "Weight2": "45",
-          "Weight3": "235",
-          "Weight4": "304",
-          "Weight5": "422",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "NORMAL",
           "Day 2": "DOWN",
           "Day 3": "DOWN",
@@ -3155,11 +3155,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "0",
-          "Weight1": "21",
-          "Weight2": "45",
-          "Weight3": "235",
-          "Weight4": "304",
-          "Weight5": "422",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "DOWN",
@@ -3180,11 +3180,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "0",
-          "Weight1": "13",
-          "Weight2": "27",
-          "Weight3": "140",
-          "Weight4": "183",
-          "Weight5": "253",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -3205,11 +3205,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "13",
-          "Weight2": "27",
-          "Weight3": "140",
-          "Weight4": "183",
-          "Weight5": "253",
+          "Weight1": "29",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "UP",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -3230,11 +3230,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "7",
-          "Weight2": "10",
-          "Weight3": "12",
-          "Weight4": "16",
-          "Weight5": "32",
+          "Weight1": "28",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -3255,11 +3255,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "7",
-          "Weight2": "10",
-          "Weight3": "12",
-          "Weight4": "16",
-          "Weight5": "32",
+          "Weight1": "28",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -3305,11 +3305,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "7",
-          "Weight2": "10",
-          "Weight3": "12",
-          "Weight4": "16",
-          "Weight5": "32",
+          "Weight1": "28",
+          "Weight2": "63",
+          "Weight3": "315",
+          "Weight4": "407",
+          "Weight5": "567",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
@@ -3355,11 +3355,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4",
-          "Weight2": "7",
-          "Weight3": "7",
-          "Weight4": "7",
-          "Weight5": "7",
+          "Weight1": "9",
+          "Weight2": "21",
+          "Weight3": "105",
+          "Weight4": "136",
+          "Weight5": "189",
           "Day 1": "NORMAL",
           "Day 2": "DOWN",
           "Day 3": "DOWN",
@@ -3380,11 +3380,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4",
-          "Weight2": "7",
-          "Weight3": "7",
-          "Weight4": "7",
-          "Weight5": "7",
+          "Weight1": "9",
+          "Weight2": "21",
+          "Weight3": "105",
+          "Weight4": "136",
+          "Weight5": "189",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "DOWN",
@@ -3405,11 +3405,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "4",
-          "Weight2": "7",
-          "Weight3": "7",
-          "Weight4": "7",
-          "Weight5": "7",
+          "Weight1": "9",
+          "Weight2": "21",
+          "Weight3": "105",
+          "Weight4": "136",
+          "Weight5": "189",
           "Day 1": "NORMAL",
           "Day 2": "NORMAL",
           "Day 3": "NORMAL",
@@ -3630,11 +3630,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "3",
-          "Weight2": "4",
-          "Weight3": "5",
-          "Weight4": "6",
-          "Weight5": "8",
+          "Weight1": "2",
+          "Weight2": "5",
+          "Weight3": "24",
+          "Weight4": "30",
+          "Weight5": "42",
           "Day 1": "DOWN",
           "Day 2": "UP",
           "Day 3": "UP",
@@ -3656,10 +3656,10 @@
           "ReplaceName": "",
           "GuaranteeWeight": "",
           "Weight1": "2",
-          "Weight2": "3",
-          "Weight3": "4",
-          "Weight4": "5",
-          "Weight5": "6",
+          "Weight2": "5",
+          "Weight3": "24",
+          "Weight4": "30",
+          "Weight5": "42",
           "Day 1": "UP",
           "Day 2": "UP",
           "Day 3": "NORMAL",
@@ -3730,41 +3730,16 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "1",
-          "Weight2": "1",
-          "Weight3": "1",
-          "Weight4": "1",
-          "Weight5": "1",
+          "Weight1": "2",
+          "Weight2": "5",
+          "Weight3": "24",
+          "Weight4": "30",
+          "Weight5": "42",
           "Day 1": "DOWN",
           "Day 2": "DOWN",
           "Day 3": "UP",
           "Day 4": "UP",
           "Day 5": "NORMAL",
-          "Day 6": "NORMAL",
-          "Day 7": "NORMAL"
-        },
-        {
-          "ID": "120",
-          "Name": "GAUR",
-          "Rarity": "APEX",
-          "Value": "6200000000000",
-          "Price": "32300000000000000000",
-          "Rank": "439",
-          "DustCap": "",
-          "CanFuse": "0",
-          "ExceptionRegion": "",
-          "ReplaceName": "",
-          "GuaranteeWeight": "",
-          "Weight1": "1",
-          "Weight2": "1",
-          "Weight3": "1",
-          "Weight4": "1",
-          "Weight5": "1",
-          "Day 1": "NORMAL",
-          "Day 2": "DOWN",
-          "Day 3": "DOWN",
-          "Day 4": "UP",
-          "Day 5": "UP",
           "Day 6": "NORMAL",
           "Day 7": "NORMAL"
         },
@@ -4070,13 +4045,188 @@
         },
         {
           "ID": "1047",
-          "Name": "TAPIR",
+          "Name": "BULL_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "5900000000000",
+          "Price": "24600000000000000000",
+          "Rank": "1000",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "",
+          "Day 2": "",
+          "Day 3": "",
+          "Day 4": "",
+          "Day 5": "",
+          "Day 6": "",
+          "Day 7": ""
+        },
+        {
+          "ID": "1048",
+          "Name": "WILDBOAR_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "6200000000000",
+          "Price": "27300000000000000000",
+          "Rank": "1001",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "NORMAL",
+          "Day 2": "DOWN",
+          "Day 3": "DOWN",
+          "Day 4": "UP",
+          "Day 5": "UP",
+          "Day 6": "NORMAL",
+          "Day 7": "NORMAL"
+        },
+        {
+          "ID": "1049",
+          "Name": "GORILLA_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "6100000000000",
+          "Price": "26400000000000000000",
+          "Rank": "1002",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "",
+          "Day 2": "",
+          "Day 3": "",
+          "Day 4": "",
+          "Day 5": "",
+          "Day 6": "",
+          "Day 7": ""
+        },
+        {
+          "ID": "1050",
+          "Name": "SQUID_PUMPKIN",
           "Rarity": "APEX",
           "Value": "6000000000000",
-          "Price": "30300000000000000000",
-          "Rank": "513",
+          "Price": "25500000000000000000",
+          "Rank": "1003",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "",
+          "Day 2": "",
+          "Day 3": "",
+          "Day 4": "",
+          "Day 5": "",
+          "Day 6": "",
+          "Day 7": ""
+        },
+        {
+          "ID": "1051",
+          "Name": "JELLYFISH_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "5950000000000",
+          "Price": "25000000000000000000",
+          "Rank": "1004",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "",
+          "Day 2": "",
+          "Day 3": "",
+          "Day 4": "",
+          "Day 5": "",
+          "Day 6": "",
+          "Day 7": ""
+        },
+        {
+          "ID": "1052",
+          "Name": "GIRAFFE_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "6050000000000",
+          "Price": "25900000000000000000",
+          "Rank": "1005",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "3",
+          "Weight2": "7",
+          "Weight3": "35",
+          "Weight4": "45",
+          "Weight5": "63",
+          "Day 1": "",
+          "Day 2": "",
+          "Day 3": "",
+          "Day 4": "",
+          "Day 5": "",
+          "Day 6": "",
+          "Day 7": ""
+        },
+        {
+          "ID": "1053",
+          "Name": "PENGUIN_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "6150000000000",
+          "Price": "26800000000000000000",
+          "Rank": "1006",
+          "DustCap": "",
+          "CanFuse": "0",
+          "ExceptionRegion": "",
+          "ReplaceName": "",
+          "GuaranteeWeight": "",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "NORMAL",
+          "Day 2": "NORMAL",
+          "Day 3": "NORMAL",
+          "Day 4": "NORMAL",
+          "Day 5": "NORMAL",
+          "Day 6": "NORMAL",
+          "Day 7": "NORMAL"
+        },
+        {
+          "ID": "1054",
+          "Name": "CHICK_PUMPKIN",
+          "Rarity": "APEX",
+          "Value": "6250000000000",
+          "Price": "27700000000000000000",
+          "Rank": "1007",
           "DustCap": "20000",
-          "CanFuse": "1",
+          "CanFuse": "0",
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
@@ -4205,11 +4355,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "66666",
-          "Weight2": "66666",
-          "Weight3": "66665",
-          "Weight4": "66666",
-          "Weight5": "66666",
+          "Weight1": "37500",
+          "Weight2": "42500",
+          "Weight3": "46250",
+          "Weight4": "50000",
+          "Weight5": "55000",
           "Day 1": "",
           "Day 2": "",
           "Day 3": "",
@@ -4230,11 +4380,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "10000",
-          "Weight2": "11111",
-          "Weight3": "12500",
-          "Weight4": "14286",
-          "Weight5": "16667",
+          "Weight1": "8333",
+          "Weight2": "10000",
+          "Weight3": "11667",
+          "Weight4": "14445",
+          "Weight5": "17777",
           "Day 1": "",
           "Day 2": "",
           "Day 3": "",
@@ -4255,11 +4405,11 @@
           "ExceptionRegion": "",
           "ReplaceName": "",
           "GuaranteeWeight": "",
-          "Weight1": "2000",
-          "Weight2": "2500",
-          "Weight3": "3003",
-          "Weight4": "4000",
-          "Weight5": "5000",
+          "Weight1": "1238",
+          "Weight2": "1622",
+          "Weight3": "2561",
+          "Weight4": "3713",
+          "Weight5": "4353",
           "Day 1": "",
           "Day 2": "",
           "Day 3": "",
@@ -4269,7 +4419,7 @@
           "Day 7": ""
         }
       ],
-      "rowCount": 170,
+      "rowCount": 176,
       "headers": [
         "ID",
         "Name",
@@ -4295,8 +4445,8 @@
         "Day 6",
         "Day 7"
       ],
-      "sha256": "a469d98f0b594ea04ab6a8ebb64871a9862fb39f0463c6e2d94477070c8158ec",
-      "bytes": 16965
+      "sha256": "6ece9dffa57aa3b7c5d31c65423f7e023110049a130c6299cb4094dc113b67bb",
+      "bytes": 17603
     },
     {
       "path": "Assets/CSV/mutation.csv",
@@ -5001,7 +5151,7 @@
           "ID": "7",
           "Name": "Nebula",
           "Icon": "NebulaWeather",
-          "Effects": "8"
+          "Effects": "8;10"
         },
         {
           "ID": "8",
@@ -5035,8 +5185,8 @@
         "Icon",
         "Effects"
       ],
-      "sha256": "c2393ba394fffe166971e8bd97196f4566110d57532968bc73272c07ecec0710",
-      "bytes": 375
+      "sha256": "dfc908efa49d66c12fb92643699ac16196a98f051c49c9f46bdfcf2054c164bb",
+      "bytes": 378
     },
     {
       "path": "Assets/CSV/weatherEffects.csv",
@@ -5112,9 +5262,17 @@
           "Chance": "0",
           "MultiplierPrice": "0.20",
           "LvUpCostMultiplier": "1.30"
+        },
+        {
+          "ID": "10",
+          "Name": "Aurora",
+          "Icon": "Aurora",
+          "Chance": "0.0082",
+          "MultiplierPrice": "0.18",
+          "LvUpCostMultiplier": "1.11"
         }
       ],
-      "rowCount": 9,
+      "rowCount": 10,
       "headers": [
         "ID",
         "Name",
@@ -5123,8 +5281,8 @@
         "MultiplierPrice",
         "LvUpCostMultiplier"
       ],
-      "sha256": "c7da820e7e9b8d3df7824888c9d4d019910cf7f83d90abebc30b463bf2dc28a1",
-      "bytes": 404
+      "sha256": "27525f5578e82fd8eedd8d643f12b83a0ff9fbe5947447199d4590de0ad9fd3e",
+      "bytes": 439
     },
     {
       "path": "Assets/CSV/weatherWaves.csv",
@@ -7723,17 +7881,41 @@
           "TypeReward": "1",
           "Value": "6002;1",
           "Quantity": "1"
+        },
+        {
+          "ID": "50107",
+          "TypeReward": "1",
+          "Value": "107;1",
+          "Quantity": "1"
+        },
+        {
+          "ID": "51047",
+          "TypeReward": "1",
+          "Value": "1047;1",
+          "Quantity": "1"
+        },
+        {
+          "ID": "51054",
+          "TypeReward": "1",
+          "Value": "1054;1",
+          "Quantity": "1"
+        },
+        {
+          "ID": "56003",
+          "TypeReward": "1",
+          "Value": "6003;1",
+          "Quantity": "1"
         }
       ],
-      "rowCount": 198,
+      "rowCount": 202,
       "headers": [
         "ID",
         "TypeReward",
         "Value",
         "Quantity"
       ],
-      "sha256": "ed801aa8626b9fcc8bd9326fe7d98053cda503af3614fce03a7004cdd2775b30",
-      "bytes": 3011
+      "sha256": "1af2bc24df113f479037f90b0ae98620efb5d58f82d5a5410a997c2316644054",
+      "bytes": 3082
     },
     {
       "path": "Assets/CSV/shopItems.csv",
@@ -23032,59 +23214,49 @@
         {
           "ID": "1",
           "Name": "SpecialPet",
-          "Cost": "1000",
+          "Cost": "400",
           "Description": "HUD_SHOP_EVENT_DETAILS_PET_LIMITED",
           "TimeLock": "10000",
           "Requirement": "0",
-          "NameLocalize": "PEGASUS",
-          "IconResource": "PEGASUS",
-          "Limit": "1000",
-          "IDGift": "51045",
-          "TimeAvailable": "0"
+          "NameLocalize": "CHICK_PUMPKIN",
+          "IconResource": "CHICK_PUMPKIN",
+          "Limit": "400",
+          "IDGift": "51054",
+          "TimeAvailable": "0",
+          "ShopId": "12"
         },
         {
           "ID": "2",
-          "Name": "DailyShard",
-          "Cost": "0",
-          "Description": "HUD_SHOP_EVENT_DETAILS_DAILY_SHARD",
+          "Name": "SpecialPet",
+          "Cost": "250",
+          "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
           "TimeLock": "10000",
           "Requirement": "0",
-          "NameLocalize": "HUD_SHOP_EVENT_ITEM_DAILY_SHARD",
-          "IconResource": "DailyShard",
-          "Limit": "",
-          "IDGift": "",
-          "TimeAvailable": "0"
+          "NameLocalize": "GOLDFISH",
+          "IconResource": "GOLDFISH",
+          "Limit": "250",
+          "IDGift": "50107",
+          "TimeAvailable": "0",
+          "ShopId": "12"
         },
         {
           "ID": "3",
-          "Name": "BaseColor",
-          "Cost": "30",
-          "Description": "HUD_SHOP_EVENT_DETAILS_BASECOLOR",
+          "Name": "SpecialPet",
+          "Cost": "150",
+          "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
           "TimeLock": "10000",
           "Requirement": "0",
-          "NameLocalize": "HUD_SHOP_EVENT_ITEM_BASECOLOR_NIGHT",
-          "IconResource": "NightBase",
-          "Limit": "",
-          "IDGift": "9",
-          "TimeAvailable": "0"
+          "NameLocalize": "IGUANA",
+          "IconResource": "IGUANA",
+          "Limit": "150",
+          "IDGift": "51028",
+          "TimeAvailable": "0",
+          "ShopId": "12"
         },
         {
           "ID": "4",
           "Name": "SpecialPet",
-          "Cost": "300",
-          "Description": "HUD_SHOP_EVENT_DETAILS_PET_LIMITED",
-          "TimeLock": "10000",
-          "Requirement": "0",
-          "NameLocalize": "MRFOOTBALL",
-          "IconResource": "MRFOOTBALL",
-          "Limit": "300",
-          "IDGift": "51037",
-          "TimeAvailable": "0"
-        },
-        {
-          "ID": "5",
-          "Name": "SpecialPet",
-          "Cost": "75",
+          "Cost": "15",
           "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
           "TimeLock": "10000",
           "Requirement": "0",
@@ -23092,62 +23264,53 @@
           "IconResource": "LUCKYBOXLEGENDARY",
           "Limit": "",
           "IDGift": "56002",
-          "TimeAvailable": "0"
+          "TimeAvailable": "0",
+          "ShopId": "12"
+        },
+        {
+          "ID": "5",
+          "Name": "SpecialPet",
+          "Cost": "20",
+          "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
+          "TimeLock": "10000",
+          "Requirement": "0",
+          "NameLocalize": "LUCKYBOXMYTHIC",
+          "IconResource": "LUCKYBOXMYTHIC",
+          "Limit": "",
+          "IDGift": "56003",
+          "TimeAvailable": "0",
+          "ShopId": "12"
         },
         {
           "ID": "6",
-          "Name": "SpecialPet",
-          "Cost": "100",
-          "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
-          "TimeLock": "10000",
-          "Requirement": "0",
-          "NameLocalize": "MARTEN",
-          "IconResource": "MARTEN",
-          "Limit": "100;150",
-          "IDGift": "50090",
-          "TimeAvailable": "0"
-        },
-        {
-          "ID": "7",
-          "Name": "SpecialPet",
-          "Cost": "150",
-          "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
-          "TimeLock": "10000",
-          "Requirement": "0",
-          "NameLocalize": "NUMBAT",
-          "IconResource": "NUMBAT",
-          "Limit": "100;150",
-          "IDGift": "50103",
-          "TimeAvailable": "0"
-        },
-        {
-          "ID": "8",
-          "Name": "RandomItem",
-          "Cost": "15",
-          "Description": "HUD_SHOP_EVENT_DETAILS_RANDOMITEM",
-          "TimeLock": "10000",
-          "Requirement": "0",
-          "NameLocalize": "HUD_SHOP_EVENT_ITEM_RANDOMITEM",
-          "IconResource": "RandomItem",
-          "Limit": "",
-          "IDGift": "",
-          "TimeAvailable": "0"
-        },
-        {
-          "ID": "9",
           "Name": "RandomPet",
-          "Cost": "20",
+          "Cost": "10",
           "Description": "HUD_SHOP_EVENT_DETAILS_RANDOMPET",
           "TimeLock": "10000",
           "Requirement": "0",
           "NameLocalize": "HUD_SHOP_EVENT_ITEM_RANDOMPET",
           "IconResource": "RandomPet",
-          "Limit": "",
+          "Limit": "10",
           "IDGift": "",
-          "TimeAvailable": "0"
+          "TimeAvailable": "0",
+          "ShopId": "12"
+        },
+        {
+          "ID": "7",
+          "Name": "RandomItem",
+          "Cost": "10",
+          "Description": "HUD_SHOP_EVENT_DETAILS_RANDOMITEM",
+          "TimeLock": "10000",
+          "Requirement": "0",
+          "NameLocalize": "HUD_SHOP_EVENT_ITEM_RANDOMITEM",
+          "IconResource": "RandomItem",
+          "Limit": "10",
+          "IDGift": "",
+          "TimeAvailable": "0",
+          "ShopId": "12"
         }
       ],
-      "rowCount": 9,
+      "rowCount": 7,
       "headers": [
         "ID",
         "Name",
@@ -23159,10 +23322,11 @@
         "IconResource",
         "Limit",
         "IDGift",
-        "TimeAvailable"
+        "TimeAvailable",
+        "ShopId"
       ],
-      "sha256": "7b26deb73254b895e4e8dafcb7029707996140c245ad2420ea3ebe99963fc37c",
-      "bytes": 1054
+      "sha256": "5345232ca0fa95aae3298a013c3d50bcfd39df9eacb468631d5f40557a861a1e",
+      "bytes": 883
     },
     {
       "path": "Assets/CSV/Event/Ball/BallWave.csv",
@@ -23409,78 +23573,86 @@
         },
         {
           "IDPET": "72",
-          "Weight": "167000"
+          "Weight": "457138"
         },
         {
           "IDPET": "77",
-          "Weight": "163000"
+          "Weight": "457138"
         },
         {
           "IDPET": "1025",
-          "Weight": "163000"
+          "Weight": "16931"
         },
         {
           "IDPET": "1027",
-          "Weight": "163000"
+          "Weight": "16931"
         },
         {
           "IDPET": "1029",
-          "Weight": "163000"
+          "Weight": "16931"
         },
         {
           "IDPET": "1030",
-          "Weight": "163000"
+          "Weight": "16931"
         },
         {
           "IDPET": "88",
-          "Weight": "4000"
+          "Weight": "2809"
         },
         {
           "IDPET": "91",
-          "Weight": "3000"
+          "Weight": "2809"
         },
         {
           "IDPET": "92",
-          "Weight": "2500"
+          "Weight": "2809"
         },
         {
           "IDPET": "94",
-          "Weight": "2500"
+          "Weight": "2809"
         },
         {
           "IDPET": "100",
-          "Weight": "3500"
+          "Weight": "2809"
         },
         {
           "IDPET": "110",
-          "Weight": "580"
+          "Weight": "937"
         },
         {
           "IDPET": "111",
-          "Weight": "500"
+          "Weight": "937"
         },
         {
           "IDPET": "114",
-          "Weight": "50"
+          "Weight": "208"
         },
         {
           "IDPET": "113",
-          "Weight": "750"
+          "Weight": "937"
         },
         {
           "IDPET": "112",
-          "Weight": "100"
+          "Weight": "208"
+        },
+        {
+          "IDPET": "1048",
+          "Weight": "312"
+        },
+        {
+          "IDPET": "1049",
+          "Weight": "312"
         },
         {
           "IDPET": "1035",
-          "Weight": "100"
+          "Weight": "104"
         },
         {
           "IDPET": "118",
-          "Weight": "20"
+          "Weight": "0"
         }
       ],
-      "rowCount": 35,
+      "rowCount": 37,
       "headers": [
         "IDPET",
         "Weight",
@@ -23489,8 +23661,8 @@
         "Weight",
         "Weight"
       ],
-      "sha256": "e0c5f8651bd49814c4b66e8f0c5f9e6b5c189221f81d7659baa0132d53abc786",
-      "bytes": 807
+      "sha256": "ab8d8f31573e8407f12c7bdcb4557c5e91a1e4af543f56c86504f08eade48c0f",
+      "bytes": 855
     },
     {
       "path": "Assets/CSV/Event/Dig/DigPoolMap.csv",
@@ -24031,146 +24203,162 @@
       "rows": [
         {
           "IDPET": "52",
-          "Weight": "19960"
+          "Weight": "220725"
         },
         {
           "IDPET": "1012",
-          "Weight": "10000"
+          "Weight": "8175"
         },
         {
           "IDPET": "12",
-          "Weight": "22857"
+          "Weight": "92195"
         },
         {
           "IDPET": "13",
-          "Weight": "22857"
+          "Weight": "92195"
         },
         {
           "IDPET": "17",
-          "Weight": "22857"
+          "Weight": "92195"
         },
         {
           "IDPET": "1002",
-          "Weight": "11429"
+          "Weight": "3415"
         },
         {
           "IDPET": "23",
-          "Weight": "25000"
+          "Weight": "36667"
         },
         {
           "IDPET": "24",
-          "Weight": "25000"
+          "Weight": "36667"
         },
         {
           "IDPET": "25",
-          "Weight": "25000"
+          "Weight": "36667"
         },
         {
           "IDPET": "26",
-          "Weight": "25000"
+          "Weight": "36667"
         },
         {
           "IDPET": "27",
-          "Weight": "25000"
+          "Weight": "36666"
         },
         {
           "IDPET": "57",
-          "Weight": "25000"
+          "Weight": "36666"
         },
         {
           "IDPET": "37",
-          "Weight": "75000"
+          "Weight": "40000"
         },
         {
           "IDPET": "33",
-          "Weight": "75000"
+          "Weight": "40000"
+        },
+        {
+          "IDPET": "55",
+          "Weight": "40000"
+        },
+        {
+          "IDPET": "58",
+          "Weight": "40000"
         },
         {
           "IDPET": "47",
-          "Weight": "56077"
+          "Weight": "8397"
         },
         {
           "IDPET": "44",
-          "Weight": "56077"
+          "Weight": "8397"
         },
         {
           "IDPET": "50",
-          "Weight": "56076"
+          "Weight": "8397"
         },
         {
           "IDPET": "51",
-          "Weight": "56076"
+          "Weight": "8397"
         },
         {
           "IDPET": "60",
-          "Weight": "56076"
+          "Weight": "8396"
         },
         {
           "IDPET": "69",
-          "Weight": "56076"
+          "Weight": "8396"
         },
         {
           "IDPET": "70",
-          "Weight": "56076"
+          "Weight": "8396"
         },
         {
           "IDPET": "73",
-          "Weight": "56076"
+          "Weight": "8396"
         },
         {
           "IDPET": "78",
-          "Weight": "28038"
+          "Weight": "8396"
         },
         {
           "IDPET": "79",
-          "Weight": "28038"
+          "Weight": "8396"
         },
         {
           "IDPET": "80",
-          "Weight": "28038"
+          "Weight": "8396"
         },
         {
           "IDPET": "81",
-          "Weight": "28038"
+          "Weight": "8396"
         },
         {
           "IDPET": "82",
-          "Weight": "28038"
+          "Weight": "622"
         },
         {
           "IDPET": "1011",
-          "Weight": "400"
+          "Weight": "311"
         },
         {
           "IDPET": "1023",
-          "Weight": "400"
-        },
-        {
-          "IDPET": "1034",
-          "Weight": "80"
-        },
-        {
-          "IDPET": "107",
-          "Weight": "80"
-        },
-        {
-          "IDPET": "108",
-          "Weight": "80"
-        },
-        {
-          "IDPET": "109",
-          "Weight": "80"
+          "Weight": "311"
         },
         {
           "IDPET": "101",
-          "Weight": "80"
+          "Weight": "2308"
+        },
+        {
+          "IDPET": "107",
+          "Weight": "2308"
+        },
+        {
+          "IDPET": "108",
+          "Weight": "2308"
+        },
+        {
+          "IDPET": "109",
+          "Weight": "2308"
+        },
+        {
+          "IDPET": "1050",
+          "Weight": "256"
+        },
+        {
+          "IDPET": "1051",
+          "Weight": "256"
+        },
+        {
+          "IDPET": "1034",
+          "Weight": "85"
         },
         {
           "IDPET": "117",
-          "Weight": "10"
+          "Weight": "171"
         }
       ],
-      "rowCount": 35,
+      "rowCount": 39,
       "headers": [
         "IDPET",
         "Weight",
@@ -24179,8 +24367,8 @@
         "Weight",
         "Weight"
       ],
-      "sha256": "31885fc03705a39f946a01813192b9051939df9e037d0d9d1bb7e5c8af217622",
-      "bytes": 1141
+      "sha256": "da0b595527d3ad4b93d53e1966161c3dd2f44e0623da72e19063baac752940a8",
+      "bytes": 1249
     },
     {
       "path": "Assets/CSV/Event/Fishing/GuaranteedFishingChest.csv",
@@ -24594,262 +24782,242 @@
         {
           "BoxID": "60001",
           "PetID": "18",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "19",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "20",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "21",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "22",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "23",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "24",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "25",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "26",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "27",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "54",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "57",
-          "DrawWeight": "716800"
+          "DrawWeight": "8000"
         },
         {
           "BoxID": "60001",
           "PetID": "28",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "29",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "30",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "31",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "32",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "33",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "34",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "35",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "36",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "37",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "38",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "39",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "55",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "58",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "59",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "65",
-          "DrawWeight": "15360"
+          "DrawWeight": "240"
         },
         {
           "BoxID": "60001",
           "PetID": "40",
-          "DrawWeight": "100"
+          "DrawWeight": "40"
         },
         {
           "BoxID": "60001",
           "PetID": "41",
-          "DrawWeight": "100"
+          "DrawWeight": "40"
         },
         {
           "BoxID": "60001",
           "PetID": "42",
-          "DrawWeight": "100"
+          "DrawWeight": "40"
         },
         {
           "BoxID": "60001",
           "PetID": "45",
-          "DrawWeight": "100"
-        },
-        {
-          "BoxID": "60002",
-          "PetID": "1003",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60002",
-          "PetID": "1009",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60002",
-          "PetID": "1014",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60002",
-          "PetID": "1019",
-          "DrawWeight": "3200"
+          "DrawWeight": "40"
         },
         {
           "BoxID": "60002",
           "PetID": "28",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "29",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "30",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "31",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "32",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "33",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "34",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "35",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "36",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "37",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "38",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "39",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "55",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "58",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "59",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
           "PetID": "65",
-          "DrawWeight": "307200"
+          "DrawWeight": "11000"
         },
         {
           "BoxID": "60002",
@@ -25024,222 +25192,242 @@
         {
           "BoxID": "60002",
           "PetID": "1033",
-          "DrawWeight": "1"
+          "DrawWeight": "10"
         },
         {
           "BoxID": "60002",
           "PetID": "76",
-          "DrawWeight": "1"
+          "DrawWeight": "10"
         },
         {
           "BoxID": "60002",
           "PetID": "85",
-          "DrawWeight": "1"
+          "DrawWeight": "10"
         },
         {
           "BoxID": "60002",
           "PetID": "87",
+          "DrawWeight": "10"
+        },
+        {
+          "BoxID": "60002",
+          "PetID": "1046",
           "DrawWeight": "1"
         },
         {
           "BoxID": "60003",
-          "PetID": "1003",
-          "DrawWeight": "100"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1009",
-          "DrawWeight": "100"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1014",
-          "DrawWeight": "100"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1019",
-          "DrawWeight": "100"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1004",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1010",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1015",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1020",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60003",
-          "PetID": "1022",
-          "DrawWeight": "3200"
-        },
-        {
-          "BoxID": "60003",
           "PetID": "40",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "41",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "42",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "45",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "43",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "46",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "47",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "48",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "44",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "49",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "50",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "51",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "56",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "60",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "61",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "62",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "63",
-          "DrawWeight": "51200"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "64",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "66",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "67",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "68",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "69",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "70",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "71",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "72",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "73",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "75",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "77",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "78",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "79",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
         },
         {
           "BoxID": "60003",
           "PetID": "80",
-          "DrawWeight": "25600"
+          "DrawWeight": "1000"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "81",
+          "DrawWeight": "1000"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "82",
+          "DrawWeight": "1000"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "84",
+          "DrawWeight": "1000"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "96",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "97",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "98",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "102",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "104",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "105",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "106",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "1053",
+          "DrawWeight": "90"
+        },
+        {
+          "BoxID": "60003",
+          "PetID": "1046",
+          "DrawWeight": "1"
         },
         {
           "BoxID": "60003",
@@ -25298,8 +25486,8 @@
         "PetID",
         "DrawWeight"
       ],
-      "sha256": "68e679f7be94a36e4576b04627a8051796d5e0660cb1a07b080b2eec65ab3ca1",
-      "bytes": 2200
+      "sha256": "1f11c66663f74cdc113930e42fa5a4c358bacf744a2f14841f0f6c8f4fc430e2",
+      "bytes": 2063
     },
     {
       "path": "Assets/CSV/Event/Meteorite/MeteoriteWave.csv",
@@ -25528,12 +25716,12 @@
       "rows": [
         {
           "Mutation": "1",
-          "Common": "5",
-          "Rare": "7",
+          "Common": "4",
+          "Rare": "6",
           "Epic": "12",
-          "Legendary": "15",
-          "Mythic": "20",
-          "Apex": "25"
+          "Legendary": "12",
+          "Mythic": "14",
+          "Apex": "18"
         },
         {
           "Mutation": "2",
@@ -25636,71 +25824,71 @@
         "Mythic",
         "Apex"
       ],
-      "sha256": "6e68fe11ac8ac1b1df4e45d6ba1526ea526181e5723c512e3913a8c63ee4b47d",
+      "sha256": "cbe0806bac9f95f10a55b98781fa8c70a72f801c80af268d695a7a62135038ad",
       "bytes": 308
     },
     {
       "path": "Assets/CSV/Event/RarityContract/RarityContract.csv",
       "rows": [
         {
-          "Date": "1783296000",
+          "Date": "1792627200",
           "PetMission": "{Rarity:COMMON;Count:3};{Rarity:RARE;Count:3};{ID:54;Count:2};{Rarity:LEGENDARY;Count:2};{ID:49;Count:1};{ID:1035;Count:1}"
         },
         {
-          "Date": "1784246400",
+          "Date": "1792713600",
           "PetMission": "{ID:8;Count:3};{ID:17;Count:3};{ID:54;Count:2};{ID:55;Count:2};{ID:43;Count:1};{Rarity:APEX;Count:1}"
         },
         {
-          "Date": "1784332800",
+          "Date": "1792800000",
           "PetMission": "{Rarity:COMMON;Count:3};{ID:1008;Count:3};{ID:1003;Count:2};{ID:65;Count:2};{ID:1016;Count:1};{Rarity:APEX;Count:1}"
         },
         {
-          "Date": "1784419200",
+          "Date": "1792886400",
           "PetMission": "{Rarity:COMMON;Count:3};{Rarity:RARE;Count:3};{Rarity:EPIC;Count:2};{ID:65;Count:2};{ID:64;Count:1};{Rarity:APEX;Count:1}"
         },
         {
-          "Date": "1784505600",
+          "Date": "1792972800",
           "PetMission": "{ID:5;Count:3};{Rarity:RARE;Count:3};{ID:23;Count:2};{Rarity:LEGENDARY;Count:2};{Rarity:MYTHIC;Count:1};{Rarity:APEX;Count:1}"
         },
         {
-          "Date": "1784592000",
+          "Date": "1793059200",
           "PetMission": "{Rarity:COMMON;Count:3};{ID:11;Count:3};{Rarity:EPIC;Count:2};{ID:1010;Count:2};{Rarity:MYTHIC;Count:1};{Rarity:APEX;Count:1}"
         },
         {
-          "Date": "1784678400",
+          "Date": "1793145600",
           "PetMission": "{Rarity:COMMON;Count:3};{ID:16;Count:3};{Rarity:EPIC;Count:2};{ID:1010;Count:2};{Rarity:MYTHIC;Count:1};{ID:76;Count:1}"
         },
         {
-          "Date": "1784764800",
+          "Date": "1793232000",
           "PetMission": "{ID:1007;Count:3};{ID:1013;Count:3};{Rarity:EPIC;Count:2};{Rarity:LEGENDARY;Count:2};{Rarity:MYTHIC;Count:1};{ID:88;Count:1}"
         },
         {
-          "Date": "1784851200",
+          "Date": "1793318400",
           "PetMission": "{ID:7;Count:3};{Rarity:RARE;Count:3};{Rarity:EPIC;Count:2};{Rarity:LEGENDARY;Count:2};{Rarity:MYTHIC;Count:1};{ID:1031;Count:1}"
         },
         {
-          "Date": "1784937600",
+          "Date": "1793404800",
           "PetMission": "{ID:1007;Count:3};{Rarity:RARE;Count:3};{ID:19;Count:2};{Rarity:LEGENDARY;Count:2};{Rarity:MYTHIC;Count:1};{ID:87;Count:1}"
         },
         {
-          "Date": "1785024000",
+          "Date": "1793491200",
           "PetMission": "{ID:52;Count:3};{Rarity:RARE;Count:3};{Rarity:EPIC;Count:2};{Rarity:LEGENDARY;Count:2};{ID:81;Count:1};{ID:88;Count:1}"
         },
         {
-          "Date": "1785110400",
+          "Date": "1793577600",
           "PetMission": "{ID:8;Count:3};{Rarity:RARE;Count:3};{Rarity:EPIC;Count:2};{ID:1010;Count:2};{ID:49;Count:1};{Rarity:APEX;Count:1}"
         },
         {
-          "Date": "1785196800",
+          "Date": "1793664000",
           "PetMission": "{Rarity:COMMON;Count:3};{Rarity:RARE;Count:3};{ID:23;Count:2};{Rarity:LEGENDARY;Count:2};{ID:83;Count:1};{ID:1032;Count:1}"
         },
         {
-          "Date": "1785283200",
+          "Date": "1793750400",
           "PetMission": "{Rarity:COMMON;Count:3};{ID:17;Count:3};{ID:21;Count:2};{Rarity:LEGENDARY;Count:2};{Rarity:MYTHIC;Count:1};{ID:93;Count:1}"
         },
         {
-          "Date": "1785369600",
-          "PetMission": ""
+          "Date": "1793836800",
+          "PetMission": "{Rarity:COMMON;Count:3};{Rarity:RARE;Count:3};{ID:54;Count:2};{Rarity:LEGENDARY;Count:2};{ID:49;Count:1};{ID:1035;Count:1}"
         }
       ],
       "rowCount": 15,
@@ -25708,8 +25896,8 @@
         "Date",
         "PetMission"
       ],
-      "sha256": "07c4fe71446d529aa107f8973bb71b082118ef1dd6ed63b2525db26bc5ba5ba2",
-      "bytes": 1900
+      "sha256": "bda88918cd8787bf8265f1229b67c6388a596c43d8b84fbe7bfc80c40cbf4006",
+      "bytes": 2022
     }
   ],
   "visualAssets": {
@@ -25833,7 +26021,6 @@
       "117": "./assets/pets/SALMON.png",
       "118": "./assets/pets/EMU.png",
       "119": "./assets/pets/BIGHORN.png",
-      "120": "./assets/pets/GAUR.png",
       "1001": "./assets/pets/MOLE.png",
       "1002": "./assets/pets/SQUID.png",
       "1003": "./assets/pets/FENNECFOX.png",
@@ -25880,7 +26067,14 @@
       "1044": "./assets/pets/OTTER.png",
       "1045": "./assets/pets/PEGASUS.png",
       "1046": "./assets/pets/KIRIN.png",
-      "1047": "./assets/pets/TAPIR.png",
+      "1047": "./assets/pets/BULL_PUMPKIN.png",
+      "1048": "./assets/pets/WILDBOAR_PUMPKIN.png",
+      "1049": "./assets/pets/GORILLA_PUMPKIN.png",
+      "1050": "./assets/pets/SQUID_PUMPKIN.png",
+      "1051": "./assets/pets/JELLYFISH_PUMPKIN.png",
+      "1052": "./assets/pets/GIRAFFE_PUMPKIN.png",
+      "1053": "./assets/pets/PENGUIN_PUMPKIN.png",
+      "1054": "./assets/pets/CHICK_PUMPKIN.png",
       "6001": "./assets/pets/LUCKYBOXEPIC.png",
       "6002": "./assets/pets/LUCKYBOXLEGENDARY.png",
       "6003": "./assets/pets/LUCKYBOXMYTHIC.png"
@@ -25919,84 +26113,75 @@
       "6": "./assets/system-icons/Prismatic.png",
       "7": "./assets/system-icons/Vortex.png",
       "8": "./assets/system-icons/Sequin.png",
-      "9": "./assets/system-icons/Sparkle.png"
+      "9": "./assets/system-icons/Sparkle.png",
+      "10": "./assets/system-icons/Aurora.png"
     },
     "missingSystemIcons": []
   },
   "recentCommits": [
     {
-      "hash": "6c97297b4eea73e3ff3c04622d86232524e1b696",
-      "shortHash": "6c97297b",
-      "date": "2026-10-08",
-      "subject": "chore: disable tracking event and normal pets",
+      "hash": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
+      "shortHash": "5ebbac57",
+      "date": "2026-10-22",
+      "subject": "chore: enable event tracking log",
       "files": [
-        "Assets/Scripts/Manager/TrackingManager.fcg"
+        "Assets/CSV/Pet.csv",
+        "Assets/CSV/weatherEffects.csv",
+        "Assets/Scripts/Configs/PetConfigs.fcg",
+        "Assets/Scripts/Events/Core/EventCurrencyManager.fcg",
+        "Docs/BusinessLogic/58-event-rarity-contract.md"
       ]
     },
     {
-      "hash": "3a54c013cc0cf2d0baae826891e8eadeb9b43a95",
-      "shortHash": "3a54c013",
-      "date": "2026-10-08",
-      "subject": "chore: adjust size some resources",
+      "hash": "0438c8fd36a26765f9b55af58e9cf304191a9434",
+      "shortHash": "0438c8fd",
+      "date": "2026-10-21",
+      "subject": "chore: add luckybox mythic to shop event",
       "files": [
-        "Assets/Sprites/Icons/MutationsCountIcon.png",
-        "Assets/Sprites/Icons/MutationsCountIcon.png.meta",
-        "Assets/Sprites/Icons/PetsCountIcon.png",
-        "Assets/Sprites/Icons/PetsCountIcon.png.meta",
-        "Assets/Sprites/Icons/WeatherCountIcon.png",
-        "Assets/Sprites/Icons/WeatherCountIcon.png.meta",
-        "Assets/Sprites/Icons/pen.png",
-        "Assets/Sprites/Icons/pen.png.meta",
-        "Assets/Sprites/Pets/KAKAPO.png",
-        "Assets/Sprites/Pets/KAKAPO.png.meta",
-        "Assets/Sprites/Weather/Rainbow.png",
-        "Assets/Sprites/Weather/Rainbow.png.meta",
-        "ProjectSettings/ResourceRegisteration.asset"
+        "Assets/CSV/Event/shopEventItems.csv",
+        "Assets/CSV/giftcode.csv",
+        "Assets/CSV/reward.csv",
+        "Assets/HUDs/ShopEvent.ui",
+        "Assets/Scripts/Events/HUD/HudShopEvent.fcg",
+        "Docs/Plans/event-framework-revamp.md"
       ]
     },
     {
-      "hash": "524bdf1496953641a282bf97071092282a536d20",
-      "shortHash": "524bdf14",
-      "date": "2026-10-08",
-      "subject": "fix: debug skip mission and check rate parade pets",
+      "hash": "92e573a7f1c26268ad0dea71484a4db313e05716",
+      "shortHash": "92e573a7",
+      "date": "2026-10-21",
+      "subject": "feat: redirect obtainable way from rebirth and collection ui",
       "files": [
-        "Assets/GMT/Scripts/HudDebug.fcg",
-        "Assets/GMT/Scripts/UtilsDebug.fcg",
-        "Assets/Scripts/Configs/DailyPoolConfigs.fcg",
-        "Assets/Scripts/Manager/PetParadeManager.fcg",
-        "Assets/Scripts/Player/PlayerEntity.fcg",
-        "Assets/Scripts/Player/PlayerTeleport.fcg"
+        "Assets/HUDs/PetsCollection.ui",
+        "Assets/HUDs/Rebirth.ui",
+        "Assets/Scripts/HUDs/HudCollection.fcg",
+        "Assets/Scripts/HUDs/HudRebirth.fcg",
+        "Assets/Scripts/Player/PlayerHudController.fcg",
+        "Assets/Scripts/Utils/CustomUIUtils.fcg",
+        "Assets/Scripts/Utils/UIUtils.fcg",
+        "Docs/BusinessLogic/40-rebirth-rewards.md",
+        "Docs/BusinessLogic/94-ui-hud-framework.md",
+        "ProjectSettings/ECAEnumSetting.asset"
       ]
     }
   ],
   "codeFacts": {
     "petCount": 119,
-    "secretFusionPetCount": 46,
+    "secretFusionPetCount": 54,
     "luckyBoxCount": 3,
     "rebirthCountIsDynamic": true,
     "rebirthCsvRows": 27,
-    "petCsvRows": 170,
+    "petCsvRows": 176,
     "petCsvRarityRows": {
       "COMMON": 13,
       "RARE": 14,
       "EPIC": 17,
       "LEGENDARY": 22,
       "MYTHIC": 49,
-      "APEX": 51,
+      "APEX": 57,
       "LIMITED": 4
     },
-    "petRowsOutsideRuntimeRanges": [
-      {
-        "id": "120",
-        "name": "GAUR",
-        "rarity": "APEX"
-      },
-      {
-        "id": "1047",
-        "name": "TAPIR",
-        "rarity": "APEX"
-      }
-    ],
+    "petRowsOutsideRuntimeRanges": [],
     "spawnIntervalMs": 6000,
     "paradePetsPerWave": 60,
     "weekendSpawnMultiplier": 3,
@@ -26381,28 +26566,10 @@
       }
     ],
     "globalMilestoneTrackingDisabled": true,
-    "sourceBranch": "update-3.1.0",
-    "sourceCommit": "6c97297b4eea73e3ff3c04622d86232524e1b696"
+    "sourceBranch": "dev",
+    "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595"
   },
   "findings": [
-    {
-      "kind": "config_coverage",
-      "severity": "review",
-      "title": "Pet.csv has rows outside the current loader ranges",
-      "detail": "PetConfigs loads normal IDs 1–119, secret-fusion IDs 1001–1046, and lucky-box IDs 6001–6003. These CSV rows fall outside those lookup loops; confirm whether they are reserved or stale.",
-      "rows": [
-        {
-          "id": "120",
-          "name": "GAUR",
-          "rarity": "APEX"
-        },
-        {
-          "id": "1047",
-          "name": "TAPIR",
-          "rarity": "APEX"
-        }
-      ]
-    },
     {
       "kind": "annotation_drift",
       "severity": "review",
