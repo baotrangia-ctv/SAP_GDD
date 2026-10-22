@@ -44,6 +44,18 @@ const codeFiles = [
   "Assets/Scripts/Configs/RevivalMissionConfigs.fcg",
   "Assets/Scripts/Configs/MilestoneConfig.fcg",
   "Assets/Scripts/Manager/RewardManager.fcg",
+  "Assets/Scripts/Configs/RewardRandomConfig.fcg",
+  "Assets/Scripts/Configs/GuaranteePool.fcg",
+  "Assets/Scripts/Configs/EventDigConfig.fcg",
+  "Assets/Scripts/Manager/EventDigManager.fcg",
+  "Assets/Scripts/Configs/EventFishingConfig.fcg",
+  "Assets/Scripts/Manager/EventFishingManager.fcg",
+  "Assets/Scripts/Events/Collector/EventCollectorConfigs.fcg",
+  "Assets/Scripts/Events/Collector/EventCollectorManager.fcg",
+  "Assets/Scripts/Events/FuseContract/EventFuseConfigs.fcg",
+  "Assets/Scripts/Events/Core/EventShopManager.fcg",
+  "Assets/Scripts/Events/Ball/EventStealABallManager.fcg",
+  "Assets/Scripts/Utils/WeightedRandom.fcg",
   "Assets/Scripts/Configs/GlobalConfigs.fcg",
   "Assets/Scripts/Configs/WeatherConfigs.fcg",
   "Assets/Scripts/Configs/MutagenConfigs.fcg",
@@ -182,6 +194,18 @@ const dailyRewardRules = code["Assets/Scripts/Configs/DailyRewardConfigs.fcg"];
 const revivalMissionRules = code["Assets/Scripts/Configs/RevivalMissionConfigs.fcg"];
 const milestoneRules = code["Assets/Scripts/Configs/MilestoneConfig.fcg"];
 const rewardManagerRules = code["Assets/Scripts/Manager/RewardManager.fcg"];
+const rewardRandomRules = code["Assets/Scripts/Configs/RewardRandomConfig.fcg"];
+const guaranteePoolRules = code["Assets/Scripts/Configs/GuaranteePool.fcg"];
+const digRules = code["Assets/Scripts/Configs/EventDigConfig.fcg"];
+const digManagerRules = code["Assets/Scripts/Manager/EventDigManager.fcg"];
+const fishingRules = code["Assets/Scripts/Configs/EventFishingConfig.fcg"];
+const fishingManagerRules = code["Assets/Scripts/Manager/EventFishingManager.fcg"];
+const collectorRules = code["Assets/Scripts/Events/Collector/EventCollectorConfigs.fcg"];
+const collectorManagerRules = code["Assets/Scripts/Events/Collector/EventCollectorManager.fcg"];
+const fuseRules = code["Assets/Scripts/Events/FuseContract/EventFuseConfigs.fcg"];
+const eventShopRules = code["Assets/Scripts/Events/Core/EventShopManager.fcg"];
+const eventBallRules = code["Assets/Scripts/Events/Ball/EventStealABallManager.fcg"];
+const weightedRandomRules = code["Assets/Scripts/Utils/WeightedRandom.fcg"];
 const weatherConfig = code["Assets/Scripts/Configs/WeatherConfigs.fcg"];
 const mutagenConfig = code["Assets/Scripts/Configs/MutagenConfigs.fcg"];
 const weatherGenConfig = code["Assets/Scripts/Configs/WeatherGenConfigs.fcg"];
@@ -410,6 +434,17 @@ const versionCode = {
     milestoneGiftLookupUsesMatchingIndex: /List\.IndexOf\(milestones, milestone\)[\s\S]*?return _MilestoneIdToGifts\[id\]\[index\]/.test(milestoneRules),
     rewardCsvReferencedByMissionCode: /EResCSV\.Reward\b/.test(activitiesRules + activitiesConfig + rewardManagerRules)
   },
+  poolSources: {
+    poolRandomItemsUseWeightedDraw: /GetRandomWeightedIndex\(rewardWeight\)/.test(weightedRandomRules) && /GetRewardRandomItem\(\)[\s\S]*?CalculateRewardRandomItemWeight/.test(weightedRandomRules) && /WeightedRandom\.GetRewardRandomItem\(\)/.test(eventShopRules + eventBallRules),
+    secretPoolItemsUseIndexAlignedWeights: /GetRandomWeightedIndex\(petRewardWeight\)/.test(weightedRandomRules) && /WeightedRandom\.GetPetInSecretPool\(/.test(collectorManagerRules),
+    digSpotRarityUsesWeightedDraw: /GetValueRandomWeightedIndex\(_ScanTier2SpotRarityWeights\[scanTier\], _ScanTier2TotalSpotRarityWeight\[scanTier\]\)/.test(digRules),
+    digPetPoolUsesWeightedDraw: /GetValueRandomWeightedIndex\(weights, _PoolTier2TotalDigPetWeight\[poolTier\]\)/.test(digRules),
+    fishingPetPoolUsesWeightedDraw: /GetValueRandomWeightedIndex\(weightFish, totalWeightFish\)/.test(fishingRules),
+    fishingChestRewardsUseWeightedDraw: /GetValueRandomWeightedIndex\(EventFishingConfig\.GetListWeightReward\(\), EventFishingConfig\.GetTotalWeightReward\(\)\)/.test(weightedRandomRules) && /RandomChestRewardFishing\(\)/.test(fishingManagerRules + digManagerRules),
+    digChestTableReadByRuntime: /EventDigConfig\.GetGuaranteedDigChestRate\(/.test(digManagerRules),
+    fishingChestTableReadByRuntime: /EventFishingConfig\.GetGuaranteedFishingChestRate\(/.test(fishingManagerRules),
+    guaranteePoolRuntimeDrawVerified: /GetGuaranteePool|GuaranteePool\./.test(petConfig + weightedRandomRules + paradeManager)
+  },
   featureUnlocks: parseFeatureUnlocks(unlockConfig),
   globalMilestoneTrackingDisabled: globalTrackingDisabled,
   sourceBranch: runGit("branch", "--show-current"),
@@ -453,6 +488,117 @@ const missionData = {
   } : null
 };
 writeOutput(outputPath("dist", "data", "missions.json"), JSON.stringify(missionData, null, 2) + "\n");
+const poolFacts = versionCode.poolSources;
+const asWeight = (value) => Number(value) || 0;
+function weightedEntries(rows, idKey, weightKey, groupValue, totalWeight, verified) {
+  return rows.map((row) => {
+    const weight = asWeight(row[weightKey]);
+    return {
+      ...(groupValue === undefined ? {} : { group: groupValue }),
+      id: String(row[idKey] ?? ""),
+      weight: String(row[weightKey] ?? ""),
+      totalWeight,
+      weightSharePercent: verified && totalWeight > 0 ? weight / totalWeight * 100 : null
+    };
+  });
+}
+const poolRandomItems = byName.get("PoolRandomItem.csv")?.rows ?? [];
+const poolRandomItemTotalWeight = poolRandomItems.reduce((sum, row) => sum + asWeight(row.Weight), 0);
+const poolRandomItemWeights = weightedEntries(poolRandomItems, "ID", "Weight", undefined, poolRandomItemTotalWeight, poolFacts.poolRandomItemsUseWeightedDraw);
+const secretRewardRows = byName.get("poolRewardSecret.csv")?.rows ?? [];
+const secretRewardEntries = secretRewardRows.flatMap((row) => {
+  const petIds = splitRawList(row.Pool, ";");
+  const weights = splitRawList(row.Weight, ";");
+  const giftIds = splitRawList(row.IDGift, ";");
+  const aligned = petIds.length === weights.length && weights.length === giftIds.length;
+  const totalWeight = weights.reduce((sum, weight) => sum + asWeight(weight), 0);
+  return petIds.map((petId, index) => ({
+    poolId: String(row.ID),
+    petId,
+    giftId: giftIds[index] ?? "",
+    weight: weights[index] ?? "",
+    totalWeight,
+    arraysAligned: aligned,
+    weightSharePercent: poolFacts.secretPoolItemsUseIndexAlignedWeights && aligned && totalWeight > 0 ? asWeight(weights[index]) / totalWeight * 100 : null
+  }));
+});
+const digPoolRows = byName.get("DigPools.csv")?.rows ?? [];
+const digPoolBands = [
+  { id: "common", label: "Common pool", weightColumn: "Weight", sourceRarity: "COMMON" },
+  { id: "rare", label: "Rare pool", weightColumn: "Weight_2", sourceRarity: "RARE" },
+  { id: "epic", label: "Epic pool", weightColumn: "Weight_3", sourceRarity: "EPIC" },
+  { id: "legendary", label: "Legendary pool", weightColumn: "Weight_4", sourceRarity: "LEGENDARY" },
+  { id: "mythic", label: "Mythic pool", weightColumn: "Weight_5", sourceRarity: "MYTHIC" }
+].map((band) => {
+  const totalWeight = digPoolRows.reduce((sum, row) => sum + asWeight(row[band.weightColumn]), 0);
+  return {
+    ...band,
+    totalWeight,
+    items: digPoolRows.map((row) => ({
+      petId: String(row.IDPET ?? ""),
+      weight: String(row[band.weightColumn] ?? ""),
+      weightSharePercent: poolFacts.digPetPoolUsesWeightedDraw && totalWeight > 0 ? asWeight(row[band.weightColumn]) / totalWeight * 100 : null
+    }))
+  };
+});
+const digSpotRows = byName.get("DigSpotRarity.csv")?.rows ?? [];
+const digSpotTotals = new Map();
+for (const row of digSpotRows) digSpotTotals.set(String(row.ScanTier), (digSpotTotals.get(String(row.ScanTier)) || 0) + asWeight(row.Weight));
+const digSpotShares = digSpotRows.map((row) => {
+  const totalWeight = digSpotTotals.get(String(row.ScanTier)) || 0;
+  return {
+    scanTier: String(row.ScanTier ?? ""),
+    spotRarity: String(row.SpotRarity ?? ""),
+    weight: String(row.Weight ?? ""),
+    totalWeight,
+    weightSharePercent: poolFacts.digSpotRarityUsesWeightedDraw && totalWeight > 0 ? asWeight(row.Weight) / totalWeight * 100 : null
+  };
+});
+const fishingPoolRows = byName.get("PoolFishing.csv")?.rows ?? [];
+const fishingPoolBands = [
+  { id: "rb-0-5", label: "RB 0–5", weightColumn: "Weight" },
+  { id: "rb-6-10", label: "RB 6–10", weightColumn: "Weight_2" },
+  { id: "rb-11-15", label: "RB 11–15", weightColumn: "Weight_3" },
+  { id: "rb-16-20", label: "RB 16–20", weightColumn: "Weight_4" },
+  { id: "rb-21-plus", label: "RB 21+", weightColumn: "Weight_5" }
+].map((band) => {
+  const totalWeight = fishingPoolRows.reduce((sum, row) => sum + asWeight(row[band.weightColumn]), 0);
+  return {
+    ...band,
+    totalWeight,
+    items: fishingPoolRows.map((row) => ({
+      petId: String(row.IDPET ?? ""),
+      weight: String(row[band.weightColumn] ?? ""),
+      weightSharePercent: poolFacts.fishingPetPoolUsesWeightedDraw && totalWeight > 0 ? asWeight(row[band.weightColumn]) / totalWeight * 100 : null
+    }))
+  };
+});
+const fishingChestRows = byName.get("FishingChestReward.csv")?.rows ?? [];
+const fishingChestTotalWeight = fishingChestRows.reduce((sum, row) => sum + asWeight(row.Weight), 0);
+const fishingChestShares = weightedEntries(fishingChestRows, "ID", "Weight", undefined, fishingChestTotalWeight, poolFacts.fishingChestRewardsUseWeightedDraw);
+const poolsData = {
+  generatedAt: new Date().toISOString(),
+  sourceCommit: versionCode.sourceCommit,
+  sourceFacts: poolFacts,
+  poolRandomItems: {
+    totalWeight: poolRandomItemTotalWeight,
+    shares: poolRandomItemWeights
+  },
+  secretRewardPools: {
+    entries: secretRewardEntries,
+    mismatchedPoolIds: [...new Set(secretRewardEntries.filter((row) => !row.arraysAligned).map((row) => row.poolId))]
+  },
+  dig: {
+    petPoolBands: digPoolBands,
+    spotRarity: digSpotShares
+  },
+  fishing: {
+    petPoolBands: fishingPoolBands,
+    chestRewardTotalWeight: fishingChestTotalWeight,
+    chestRewards: fishingChestShares
+  }
+};
+writeOutput(outputPath("dist", "data", "pools.json"), JSON.stringify(poolsData, null, 2) + "\n");
 const output = {
   generatedAt: new Date().toISOString(),
   sourceLabel: "StealAPet repository",

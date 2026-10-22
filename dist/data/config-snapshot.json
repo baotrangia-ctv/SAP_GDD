@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T10:56:30.138Z",
+  "generatedAt": "2026-10-22T11:18:37.355Z",
   "sourceLabel": "StealAPet repository",
   "sourceBranch": "dev",
   "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
@@ -11139,6 +11139,17 @@
       "revivalTargetPassedToTimeFormatter": true,
       "milestoneGiftLookupUsesMatchingIndex": true,
       "rewardCsvReferencedByMissionCode": false
+    },
+    "poolSources": {
+      "poolRandomItemsUseWeightedDraw": true,
+      "secretPoolItemsUseIndexAlignedWeights": true,
+      "digSpotRarityUsesWeightedDraw": true,
+      "digPetPoolUsesWeightedDraw": true,
+      "fishingPetPoolUsesWeightedDraw": true,
+      "fishingChestRewardsUseWeightedDraw": true,
+      "digChestTableReadByRuntime": true,
+      "fishingChestTableReadByRuntime": true,
+      "guaranteePoolRuntimeDrawVerified": false
     },
     "featureUnlocks": [
       {

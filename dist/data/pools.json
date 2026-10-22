@@ -1,0 +1,2930 @@
+{
+  "generatedAt": "2026-10-22T11:18:37.353Z",
+  "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
+  "sourceFacts": {
+    "poolRandomItemsUseWeightedDraw": true,
+    "secretPoolItemsUseIndexAlignedWeights": true,
+    "digSpotRarityUsesWeightedDraw": true,
+    "digPetPoolUsesWeightedDraw": true,
+    "fishingPetPoolUsesWeightedDraw": true,
+    "fishingChestRewardsUseWeightedDraw": true,
+    "digChestTableReadByRuntime": true,
+    "fishingChestTableReadByRuntime": true,
+    "guaranteePoolRuntimeDrawVerified": false
+  },
+  "poolRandomItems": {
+    "totalWeight": 1000,
+    "shares": [
+      {
+        "id": "1",
+        "weight": "250",
+        "totalWeight": 1000,
+        "weightSharePercent": 25
+      },
+      {
+        "id": "2",
+        "weight": "400",
+        "totalWeight": 1000,
+        "weightSharePercent": 40
+      },
+      {
+        "id": "3",
+        "weight": "140",
+        "totalWeight": 1000,
+        "weightSharePercent": 14.000000000000002
+      },
+      {
+        "id": "4",
+        "weight": "10",
+        "totalWeight": 1000,
+        "weightSharePercent": 1
+      },
+      {
+        "id": "5",
+        "weight": "1",
+        "totalWeight": 1000,
+        "weightSharePercent": 0.1
+      },
+      {
+        "id": "6",
+        "weight": "150",
+        "totalWeight": 1000,
+        "weightSharePercent": 15
+      },
+      {
+        "id": "7",
+        "weight": "49",
+        "totalWeight": 1000,
+        "weightSharePercent": 4.9
+      }
+    ]
+  },
+  "secretRewardPools": {
+    "entries": [
+      {
+        "poolId": "1",
+        "petId": "1007",
+        "giftId": "20002",
+        "weight": "50",
+        "totalWeight": 2176,
+        "arraysAligned": true,
+        "weightSharePercent": 2.297794117647059
+      },
+      {
+        "poolId": "1",
+        "petId": "1008",
+        "giftId": "20003",
+        "weight": "400",
+        "totalWeight": 2176,
+        "arraysAligned": true,
+        "weightSharePercent": 18.38235294117647
+      },
+      {
+        "poolId": "1",
+        "petId": "1009",
+        "giftId": "20004",
+        "weight": "900",
+        "totalWeight": 2176,
+        "arraysAligned": true,
+        "weightSharePercent": 41.36029411764706
+      },
+      {
+        "poolId": "1",
+        "petId": "1010",
+        "giftId": "20005",
+        "weight": "750",
+        "totalWeight": 2176,
+        "arraysAligned": true,
+        "weightSharePercent": 34.466911764705884
+      },
+      {
+        "poolId": "1",
+        "petId": "1005",
+        "giftId": "20006",
+        "weight": "75",
+        "totalWeight": 2176,
+        "arraysAligned": true,
+        "weightSharePercent": 3.4466911764705883
+      },
+      {
+        "poolId": "1",
+        "petId": "1006",
+        "giftId": "20007",
+        "weight": "1",
+        "totalWeight": 2176,
+        "arraysAligned": true,
+        "weightSharePercent": 0.04595588235294117
+      },
+      {
+        "poolId": "2",
+        "petId": "5",
+        "giftId": "20008",
+        "weight": "50",
+        "totalWeight": 2126,
+        "arraysAligned": true,
+        "weightSharePercent": 2.351834430856068
+      },
+      {
+        "poolId": "2",
+        "petId": "1002",
+        "giftId": "20009",
+        "weight": "400",
+        "totalWeight": 2126,
+        "arraysAligned": true,
+        "weightSharePercent": 18.814675446848543
+      },
+      {
+        "poolId": "2",
+        "petId": "1003",
+        "giftId": "20010",
+        "weight": "900",
+        "totalWeight": 2126,
+        "arraysAligned": true,
+        "weightSharePercent": 42.33301975540922
+      },
+      {
+        "poolId": "2",
+        "petId": "38",
+        "giftId": "20011",
+        "weight": "750",
+        "totalWeight": 2126,
+        "arraysAligned": true,
+        "weightSharePercent": 35.27751646284102
+      },
+      {
+        "poolId": "2",
+        "petId": "62",
+        "giftId": "20012",
+        "weight": "25",
+        "totalWeight": 2126,
+        "arraysAligned": true,
+        "weightSharePercent": 1.175917215428034
+      },
+      {
+        "poolId": "2",
+        "petId": "1006",
+        "giftId": "20007",
+        "weight": "1",
+        "totalWeight": 2126,
+        "arraysAligned": true,
+        "weightSharePercent": 0.047036688617121354
+      },
+      {
+        "poolId": "3",
+        "petId": "1",
+        "giftId": "20013",
+        "weight": "7",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 0.13999999999999999
+      },
+      {
+        "poolId": "3",
+        "petId": "12",
+        "giftId": "20014",
+        "weight": "128",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 2.56
+      },
+      {
+        "poolId": "3",
+        "petId": "1008",
+        "giftId": "20015",
+        "weight": "1500",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 30
+      },
+      {
+        "poolId": "3",
+        "petId": "26",
+        "giftId": "20016",
+        "weight": "1000",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 20
+      },
+      {
+        "poolId": "3",
+        "petId": "1003",
+        "giftId": "20017",
+        "weight": "512",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 10.24
+      },
+      {
+        "poolId": "3",
+        "petId": "38",
+        "giftId": "20018",
+        "weight": "1500",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 30
+      },
+      {
+        "poolId": "3",
+        "petId": "1015",
+        "giftId": "20019",
+        "weight": "256",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 5.12
+      },
+      {
+        "poolId": "3",
+        "petId": "49",
+        "giftId": "20020",
+        "weight": "32",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 0.64
+      },
+      {
+        "poolId": "3",
+        "petId": "43",
+        "giftId": "20021",
+        "weight": "64",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 1.28
+      },
+      {
+        "poolId": "3",
+        "petId": "74",
+        "giftId": "20022",
+        "weight": "1",
+        "totalWeight": 5000,
+        "arraysAligned": true,
+        "weightSharePercent": 0.02
+      },
+      {
+        "poolId": "4",
+        "petId": "46",
+        "giftId": "50046",
+        "weight": "4000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 11.51808339092375
+      },
+      {
+        "poolId": "4",
+        "petId": "47",
+        "giftId": "50047",
+        "weight": "4000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 11.51808339092375
+      },
+      {
+        "poolId": "4",
+        "petId": "48",
+        "giftId": "50048",
+        "weight": "4000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 11.51808339092375
+      },
+      {
+        "poolId": "4",
+        "petId": "44",
+        "giftId": "50044",
+        "weight": "4000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 11.51808339092375
+      },
+      {
+        "poolId": "4",
+        "petId": "49",
+        "giftId": "50049",
+        "weight": "3000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 8.638562543192812
+      },
+      {
+        "poolId": "4",
+        "petId": "50",
+        "giftId": "50050",
+        "weight": "3000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 8.638562543192812
+      },
+      {
+        "poolId": "4",
+        "petId": "51",
+        "giftId": "50051",
+        "weight": "3000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 8.638562543192812
+      },
+      {
+        "poolId": "4",
+        "petId": "56",
+        "giftId": "50056",
+        "weight": "2000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 5.759041695461875
+      },
+      {
+        "poolId": "4",
+        "petId": "60",
+        "giftId": "50060",
+        "weight": "2000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 5.759041695461875
+      },
+      {
+        "poolId": "4",
+        "petId": "61",
+        "giftId": "50061",
+        "weight": "1000",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 2.8795208477309373
+      },
+      {
+        "poolId": "4",
+        "petId": "62",
+        "giftId": "50062",
+        "weight": "750",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 2.159640635798203
+      },
+      {
+        "poolId": "4",
+        "petId": "63",
+        "giftId": "50063",
+        "weight": "750",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 2.159640635798203
+      },
+      {
+        "poolId": "4",
+        "petId": "64",
+        "giftId": "50064",
+        "weight": "750",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 2.159640635798203
+      },
+      {
+        "poolId": "4",
+        "petId": "66",
+        "giftId": "50066",
+        "weight": "650",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 1.8716885510251093
+      },
+      {
+        "poolId": "4",
+        "petId": "67",
+        "giftId": "50067",
+        "weight": "650",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 1.8716885510251093
+      },
+      {
+        "poolId": "4",
+        "petId": "68",
+        "giftId": "50068",
+        "weight": "2",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 0.005759041695461875
+      },
+      {
+        "poolId": "4",
+        "petId": "69",
+        "giftId": "50069",
+        "weight": "50",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 0.14397604238654688
+      },
+      {
+        "poolId": "4",
+        "petId": "1005",
+        "giftId": "51005",
+        "weight": "500",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 1.4397604238654687
+      },
+      {
+        "poolId": "4",
+        "petId": "1011",
+        "giftId": "51011",
+        "weight": "350",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 1.0078322967058282
+      },
+      {
+        "poolId": "4",
+        "petId": "1016",
+        "giftId": "51016",
+        "weight": "200",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 0.5759041695461875
+      },
+      {
+        "poolId": "4",
+        "petId": "1006",
+        "giftId": "51006",
+        "weight": "50",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 0.14397604238654688
+      },
+      {
+        "poolId": "4",
+        "petId": "1021",
+        "giftId": "51021",
+        "weight": "25",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 0.07198802119327344
+      },
+      {
+        "poolId": "4",
+        "petId": "1023",
+        "giftId": "51023",
+        "weight": "1",
+        "totalWeight": 34728,
+        "arraysAligned": true,
+        "weightSharePercent": 0.0028795208477309375
+      },
+      {
+        "poolId": "5",
+        "petId": "1",
+        "giftId": "50001",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "1007",
+        "giftId": "51007",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "9",
+        "giftId": "50009",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "12",
+        "giftId": "50012",
+        "weight": "200",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 2.981070204203309
+      },
+      {
+        "poolId": "5",
+        "petId": "1008",
+        "giftId": "51008",
+        "weight": "100",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 1.4905351021016544
+      },
+      {
+        "poolId": "5",
+        "petId": "18",
+        "giftId": "50018",
+        "weight": "400",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 5.962140408406618
+      },
+      {
+        "poolId": "5",
+        "petId": "19",
+        "giftId": "50019",
+        "weight": "400",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 5.962140408406618
+      },
+      {
+        "poolId": "5",
+        "petId": "20",
+        "giftId": "50020",
+        "weight": "400",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 5.962140408406618
+      },
+      {
+        "poolId": "5",
+        "petId": "1014",
+        "giftId": "51014",
+        "weight": "200",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 2.981070204203309
+      },
+      {
+        "poolId": "5",
+        "petId": "58",
+        "giftId": "50058",
+        "weight": "800",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 11.924280816813235
+      },
+      {
+        "poolId": "5",
+        "petId": "59",
+        "giftId": "50059",
+        "weight": "800",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 11.924280816813235
+      },
+      {
+        "poolId": "5",
+        "petId": "65",
+        "giftId": "50065",
+        "weight": "800",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 11.924280816813235
+      },
+      {
+        "poolId": "5",
+        "petId": "1004",
+        "giftId": "51004",
+        "weight": "100",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 1.4905351021016544
+      },
+      {
+        "poolId": "5",
+        "petId": "1010",
+        "giftId": "51010",
+        "weight": "100",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 1.4905351021016544
+      },
+      {
+        "poolId": "5",
+        "petId": "41",
+        "giftId": "50041",
+        "weight": "800",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 11.924280816813235
+      },
+      {
+        "poolId": "5",
+        "petId": "42",
+        "giftId": "50042",
+        "weight": "800",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 11.924280816813235
+      },
+      {
+        "poolId": "5",
+        "petId": "48",
+        "giftId": "50048",
+        "weight": "800",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 11.924280816813235
+      },
+      {
+        "poolId": "5",
+        "petId": "67",
+        "giftId": "50067",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "68",
+        "giftId": "50068",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "69",
+        "giftId": "50069",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "1006",
+        "giftId": "51006",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "1021",
+        "giftId": "51021",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      },
+      {
+        "poolId": "5",
+        "petId": "1023",
+        "giftId": "51023",
+        "weight": "1",
+        "totalWeight": 6709,
+        "arraysAligned": true,
+        "weightSharePercent": 0.014905351021016543
+      }
+    ],
+    "mismatchedPoolIds": []
+  },
+  "dig": {
+    "petPoolBands": [
+      {
+        "id": "common",
+        "label": "Common pool",
+        "weightColumn": "Weight",
+        "sourceRarity": "COMMON",
+        "totalWeight": 1000000,
+        "items": [
+          {
+            "petId": "3",
+            "weight": "362046",
+            "weightSharePercent": 36.2046
+          },
+          {
+            "petId": "8",
+            "weight": "362045",
+            "weightSharePercent": 36.2045
+          },
+          {
+            "petId": "1001",
+            "weight": "13409",
+            "weightSharePercent": 1.3409
+          },
+          {
+            "petId": "10",
+            "weight": "61364",
+            "weightSharePercent": 6.1364
+          },
+          {
+            "petId": "15",
+            "weight": "61364",
+            "weightSharePercent": 6.1364
+          },
+          {
+            "petId": "16",
+            "weight": "61363",
+            "weightSharePercent": 6.1363
+          },
+          {
+            "petId": "53",
+            "weight": "61363",
+            "weightSharePercent": 6.1363
+          },
+          {
+            "petId": "1008",
+            "weight": "2273",
+            "weightSharePercent": 0.22729999999999997
+          },
+          {
+            "petId": "1013",
+            "weight": "2273",
+            "weightSharePercent": 0.22729999999999997
+          },
+          {
+            "petId": "18",
+            "weight": "6027",
+            "weightSharePercent": 0.6027
+          },
+          {
+            "petId": "20",
+            "weight": "6027",
+            "weightSharePercent": 0.6027
+          },
+          {
+            "petId": "1003",
+            "weight": "223",
+            "weightSharePercent": 0.0223
+          },
+          {
+            "petId": "1014",
+            "weight": "223",
+            "weightSharePercent": 0.0223
+          },
+          {
+            "petId": "29",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "65",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1004",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1015",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "72",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "77",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1025",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1027",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1029",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1030",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "88",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "91",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "92",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "94",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "100",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "110",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "111",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "114",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "113",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "112",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1048",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1049",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1035",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "118",
+            "weight": "0",
+            "weightSharePercent": 0
+          }
+        ]
+      },
+      {
+        "id": "rare",
+        "label": "Rare pool",
+        "weightColumn": "Weight_2",
+        "sourceRarity": "RARE",
+        "totalWeight": 1000000,
+        "items": [
+          {
+            "petId": "3",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "8",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1001",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "10",
+            "weight": "219682",
+            "weightSharePercent": 21.9682
+          },
+          {
+            "petId": "15",
+            "weight": "219682",
+            "weightSharePercent": 21.9682
+          },
+          {
+            "petId": "16",
+            "weight": "219682",
+            "weightSharePercent": 21.9682
+          },
+          {
+            "petId": "53",
+            "weight": "219682",
+            "weightSharePercent": 21.9682
+          },
+          {
+            "petId": "1008",
+            "weight": "8136",
+            "weightSharePercent": 0.8135999999999999
+          },
+          {
+            "petId": "1013",
+            "weight": "8136",
+            "weightSharePercent": 0.8135999999999999
+          },
+          {
+            "petId": "18",
+            "weight": "48214",
+            "weightSharePercent": 4.8214
+          },
+          {
+            "petId": "20",
+            "weight": "48214",
+            "weightSharePercent": 4.8214
+          },
+          {
+            "petId": "1003",
+            "weight": "1786",
+            "weightSharePercent": 0.1786
+          },
+          {
+            "petId": "1014",
+            "weight": "1786",
+            "weightSharePercent": 0.1786
+          },
+          {
+            "petId": "29",
+            "weight": "2411",
+            "weightSharePercent": 0.24109999999999998
+          },
+          {
+            "petId": "65",
+            "weight": "2411",
+            "weightSharePercent": 0.24109999999999998
+          },
+          {
+            "petId": "1004",
+            "weight": "89",
+            "weightSharePercent": 0.0089
+          },
+          {
+            "petId": "1015",
+            "weight": "89",
+            "weightSharePercent": 0.0089
+          },
+          {
+            "petId": "72",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "77",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1025",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1027",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1029",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1030",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "88",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "91",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "92",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "94",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "100",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "110",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "111",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "114",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "113",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "112",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1048",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1049",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1035",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "118",
+            "weight": "0",
+            "weightSharePercent": 0
+          }
+        ]
+      },
+      {
+        "id": "epic",
+        "label": "Epic pool",
+        "weightColumn": "Weight_3",
+        "sourceRarity": "EPIC",
+        "totalWeight": 1000000,
+        "items": [
+          {
+            "petId": "3",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "8",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1001",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "10",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "15",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "16",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "53",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1008",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1013",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "18",
+            "weight": "472018",
+            "weightSharePercent": 47.2018
+          },
+          {
+            "petId": "20",
+            "weight": "472018",
+            "weightSharePercent": 47.2018
+          },
+          {
+            "petId": "1003",
+            "weight": "17482",
+            "weightSharePercent": 1.7482000000000002
+          },
+          {
+            "petId": "1014",
+            "weight": "17482",
+            "weightSharePercent": 1.7482000000000002
+          },
+          {
+            "petId": "29",
+            "weight": "9643",
+            "weightSharePercent": 0.9643
+          },
+          {
+            "petId": "65",
+            "weight": "9643",
+            "weightSharePercent": 0.9643
+          },
+          {
+            "petId": "1004",
+            "weight": "357",
+            "weightSharePercent": 0.0357
+          },
+          {
+            "petId": "1015",
+            "weight": "357",
+            "weightSharePercent": 0.0357
+          },
+          {
+            "petId": "72",
+            "weight": "466",
+            "weightSharePercent": 0.0466
+          },
+          {
+            "petId": "77",
+            "weight": "466",
+            "weightSharePercent": 0.0466
+          },
+          {
+            "petId": "1025",
+            "weight": "17",
+            "weightSharePercent": 0.0017
+          },
+          {
+            "petId": "1027",
+            "weight": "17",
+            "weightSharePercent": 0.0017
+          },
+          {
+            "petId": "1029",
+            "weight": "17",
+            "weightSharePercent": 0.0017
+          },
+          {
+            "petId": "1030",
+            "weight": "17",
+            "weightSharePercent": 0.0017
+          },
+          {
+            "petId": "88",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "91",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "92",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "94",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "100",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "110",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "111",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "114",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "113",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "112",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1048",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1049",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1035",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "118",
+            "weight": "0",
+            "weightSharePercent": 0
+          }
+        ]
+      },
+      {
+        "id": "legendary",
+        "label": "Legendary pool",
+        "weightColumn": "Weight_4",
+        "sourceRarity": "LEGENDARY",
+        "totalWeight": 1000000,
+        "items": [
+          {
+            "petId": "3",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "8",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1001",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "10",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "15",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "16",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "53",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1008",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1013",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "18",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "20",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1003",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1014",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "29",
+            "weight": "477080",
+            "weightSharePercent": 47.708
+          },
+          {
+            "petId": "65",
+            "weight": "477080",
+            "weightSharePercent": 47.708
+          },
+          {
+            "petId": "1004",
+            "weight": "17670",
+            "weightSharePercent": 1.7670000000000001
+          },
+          {
+            "petId": "1015",
+            "weight": "17670",
+            "weightSharePercent": 1.7670000000000001
+          },
+          {
+            "petId": "72",
+            "weight": "4655",
+            "weightSharePercent": 0.4655
+          },
+          {
+            "petId": "77",
+            "weight": "4655",
+            "weightSharePercent": 0.4655
+          },
+          {
+            "petId": "1025",
+            "weight": "173",
+            "weightSharePercent": 0.0173
+          },
+          {
+            "petId": "1027",
+            "weight": "173",
+            "weightSharePercent": 0.0173
+          },
+          {
+            "petId": "1029",
+            "weight": "172",
+            "weightSharePercent": 0.0172
+          },
+          {
+            "petId": "1030",
+            "weight": "172",
+            "weightSharePercent": 0.0172
+          },
+          {
+            "petId": "88",
+            "weight": "78",
+            "weightSharePercent": 0.0078
+          },
+          {
+            "petId": "91",
+            "weight": "78",
+            "weightSharePercent": 0.0078
+          },
+          {
+            "petId": "92",
+            "weight": "78",
+            "weightSharePercent": 0.0078
+          },
+          {
+            "petId": "94",
+            "weight": "78",
+            "weightSharePercent": 0.0078
+          },
+          {
+            "petId": "100",
+            "weight": "78",
+            "weightSharePercent": 0.0078
+          },
+          {
+            "petId": "110",
+            "weight": "26",
+            "weightSharePercent": 0.0026
+          },
+          {
+            "petId": "111",
+            "weight": "26",
+            "weightSharePercent": 0.0026
+          },
+          {
+            "petId": "114",
+            "weight": "6",
+            "weightSharePercent": 0.0006000000000000001
+          },
+          {
+            "petId": "113",
+            "weight": "26",
+            "weightSharePercent": 0.0026
+          },
+          {
+            "petId": "112",
+            "weight": "6",
+            "weightSharePercent": 0.0006000000000000001
+          },
+          {
+            "petId": "1048",
+            "weight": "9",
+            "weightSharePercent": 0.0009
+          },
+          {
+            "petId": "1049",
+            "weight": "8",
+            "weightSharePercent": 0.0007999999999999999
+          },
+          {
+            "petId": "1035",
+            "weight": "3",
+            "weightSharePercent": 0.00030000000000000003
+          },
+          {
+            "petId": "118",
+            "weight": "0",
+            "weightSharePercent": 0
+          }
+        ]
+      },
+      {
+        "id": "mythic",
+        "label": "Mythic pool",
+        "weightColumn": "Weight_5",
+        "sourceRarity": "MYTHIC",
+        "totalWeight": 1000000,
+        "items": [
+          {
+            "petId": "3",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "8",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1001",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "10",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "15",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "16",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "53",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1008",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1013",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "18",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "20",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1003",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1014",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "29",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "65",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1004",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "1015",
+            "weight": "0",
+            "weightSharePercent": 0
+          },
+          {
+            "petId": "72",
+            "weight": "457138",
+            "weightSharePercent": 45.7138
+          },
+          {
+            "petId": "77",
+            "weight": "457138",
+            "weightSharePercent": 45.7138
+          },
+          {
+            "petId": "1025",
+            "weight": "16931",
+            "weightSharePercent": 1.6931000000000003
+          },
+          {
+            "petId": "1027",
+            "weight": "16931",
+            "weightSharePercent": 1.6931000000000003
+          },
+          {
+            "petId": "1029",
+            "weight": "16931",
+            "weightSharePercent": 1.6931000000000003
+          },
+          {
+            "petId": "1030",
+            "weight": "16931",
+            "weightSharePercent": 1.6931000000000003
+          },
+          {
+            "petId": "88",
+            "weight": "2809",
+            "weightSharePercent": 0.2809
+          },
+          {
+            "petId": "91",
+            "weight": "2809",
+            "weightSharePercent": 0.2809
+          },
+          {
+            "petId": "92",
+            "weight": "2809",
+            "weightSharePercent": 0.2809
+          },
+          {
+            "petId": "94",
+            "weight": "2809",
+            "weightSharePercent": 0.2809
+          },
+          {
+            "petId": "100",
+            "weight": "2809",
+            "weightSharePercent": 0.2809
+          },
+          {
+            "petId": "110",
+            "weight": "937",
+            "weightSharePercent": 0.0937
+          },
+          {
+            "petId": "111",
+            "weight": "937",
+            "weightSharePercent": 0.0937
+          },
+          {
+            "petId": "114",
+            "weight": "208",
+            "weightSharePercent": 0.0208
+          },
+          {
+            "petId": "113",
+            "weight": "937",
+            "weightSharePercent": 0.0937
+          },
+          {
+            "petId": "112",
+            "weight": "208",
+            "weightSharePercent": 0.0208
+          },
+          {
+            "petId": "1048",
+            "weight": "312",
+            "weightSharePercent": 0.0312
+          },
+          {
+            "petId": "1049",
+            "weight": "312",
+            "weightSharePercent": 0.0312
+          },
+          {
+            "petId": "1035",
+            "weight": "104",
+            "weightSharePercent": 0.0104
+          },
+          {
+            "petId": "118",
+            "weight": "0",
+            "weightSharePercent": 0
+          }
+        ]
+      }
+    ],
+    "spotRarity": [
+      {
+        "scanTier": "COMMON",
+        "spotRarity": "COMMON",
+        "weight": "650",
+        "totalWeight": 1000,
+        "weightSharePercent": 65
+      },
+      {
+        "scanTier": "COMMON",
+        "spotRarity": "RARE",
+        "weight": "330",
+        "totalWeight": 1000,
+        "weightSharePercent": 33
+      },
+      {
+        "scanTier": "COMMON",
+        "spotRarity": "EPIC",
+        "weight": "20",
+        "totalWeight": 1000,
+        "weightSharePercent": 2
+      },
+      {
+        "scanTier": "COMMON",
+        "spotRarity": "LEGENDARY",
+        "weight": "0",
+        "totalWeight": 1000,
+        "weightSharePercent": 0
+      },
+      {
+        "scanTier": "COMMON",
+        "spotRarity": "MYTHIC",
+        "weight": "0",
+        "totalWeight": 1000,
+        "weightSharePercent": 0
+      },
+      {
+        "scanTier": "RARE",
+        "spotRarity": "COMMON",
+        "weight": "200",
+        "totalWeight": 1000,
+        "weightSharePercent": 20
+      },
+      {
+        "scanTier": "RARE",
+        "spotRarity": "RARE",
+        "weight": "600",
+        "totalWeight": 1000,
+        "weightSharePercent": 60
+      },
+      {
+        "scanTier": "RARE",
+        "spotRarity": "EPIC",
+        "weight": "180",
+        "totalWeight": 1000,
+        "weightSharePercent": 18
+      },
+      {
+        "scanTier": "RARE",
+        "spotRarity": "LEGENDARY",
+        "weight": "20",
+        "totalWeight": 1000,
+        "weightSharePercent": 2
+      },
+      {
+        "scanTier": "RARE",
+        "spotRarity": "MYTHIC",
+        "weight": "0",
+        "totalWeight": 1000,
+        "weightSharePercent": 0
+      },
+      {
+        "scanTier": "EPIC",
+        "spotRarity": "COMMON",
+        "weight": "0",
+        "totalWeight": 1000,
+        "weightSharePercent": 0
+      },
+      {
+        "scanTier": "EPIC",
+        "spotRarity": "RARE",
+        "weight": "100",
+        "totalWeight": 1000,
+        "weightSharePercent": 10
+      },
+      {
+        "scanTier": "EPIC",
+        "spotRarity": "EPIC",
+        "weight": "840",
+        "totalWeight": 1000,
+        "weightSharePercent": 84
+      },
+      {
+        "scanTier": "EPIC",
+        "spotRarity": "LEGENDARY",
+        "weight": "58",
+        "totalWeight": 1000,
+        "weightSharePercent": 5.800000000000001
+      },
+      {
+        "scanTier": "EPIC",
+        "spotRarity": "MYTHIC",
+        "weight": "2",
+        "totalWeight": 1000,
+        "weightSharePercent": 0.2
+      },
+      {
+        "scanTier": "LEGENDARY",
+        "spotRarity": "COMMON",
+        "weight": "0",
+        "totalWeight": 1000,
+        "weightSharePercent": 0
+      },
+      {
+        "scanTier": "LEGENDARY",
+        "spotRarity": "RARE",
+        "weight": "20",
+        "totalWeight": 1000,
+        "weightSharePercent": 2
+      },
+      {
+        "scanTier": "LEGENDARY",
+        "spotRarity": "EPIC",
+        "weight": "470",
+        "totalWeight": 1000,
+        "weightSharePercent": 47
+      },
+      {
+        "scanTier": "LEGENDARY",
+        "spotRarity": "LEGENDARY",
+        "weight": "500",
+        "totalWeight": 1000,
+        "weightSharePercent": 50
+      },
+      {
+        "scanTier": "LEGENDARY",
+        "spotRarity": "MYTHIC",
+        "weight": "10",
+        "totalWeight": 1000,
+        "weightSharePercent": 1
+      },
+      {
+        "scanTier": "MYTHIC",
+        "spotRarity": "COMMON",
+        "weight": "0",
+        "totalWeight": 1000,
+        "weightSharePercent": 0
+      },
+      {
+        "scanTier": "MYTHIC",
+        "spotRarity": "RARE",
+        "weight": "10",
+        "totalWeight": 1000,
+        "weightSharePercent": 1
+      },
+      {
+        "scanTier": "MYTHIC",
+        "spotRarity": "EPIC",
+        "weight": "120",
+        "totalWeight": 1000,
+        "weightSharePercent": 12
+      },
+      {
+        "scanTier": "MYTHIC",
+        "spotRarity": "LEGENDARY",
+        "weight": "420",
+        "totalWeight": 1000,
+        "weightSharePercent": 42
+      },
+      {
+        "scanTier": "MYTHIC",
+        "spotRarity": "MYTHIC",
+        "weight": "450",
+        "totalWeight": 1000,
+        "weightSharePercent": 45
+      }
+    ]
+  },
+  "fishing": {
+    "petPoolBands": [
+      {
+        "id": "rb-0-5",
+        "label": "RB 0–5",
+        "weightColumn": "Weight",
+        "totalWeight": 1000000,
+        "items": [
+          {
+            "petId": "52",
+            "weight": "429107",
+            "weightSharePercent": 42.9107
+          },
+          {
+            "petId": "1012",
+            "weight": "15893",
+            "weightSharePercent": 1.5893000000000002
+          },
+          {
+            "petId": "12",
+            "weight": "98781",
+            "weightSharePercent": 9.8781
+          },
+          {
+            "petId": "13",
+            "weight": "98780",
+            "weightSharePercent": 9.878
+          },
+          {
+            "petId": "17",
+            "weight": "98780",
+            "weightSharePercent": 9.878
+          },
+          {
+            "petId": "1002",
+            "weight": "3659",
+            "weightSharePercent": 0.3659
+          },
+          {
+            "petId": "23",
+            "weight": "25000",
+            "weightSharePercent": 2.5
+          },
+          {
+            "petId": "24",
+            "weight": "25000",
+            "weightSharePercent": 2.5
+          },
+          {
+            "petId": "25",
+            "weight": "25000",
+            "weightSharePercent": 2.5
+          },
+          {
+            "petId": "26",
+            "weight": "25000",
+            "weightSharePercent": 2.5
+          },
+          {
+            "petId": "27",
+            "weight": "25000",
+            "weightSharePercent": 2.5
+          },
+          {
+            "petId": "57",
+            "weight": "25000",
+            "weightSharePercent": 2.5
+          },
+          {
+            "petId": "37",
+            "weight": "18750",
+            "weightSharePercent": 1.875
+          },
+          {
+            "petId": "33",
+            "weight": "18750",
+            "weightSharePercent": 1.875
+          },
+          {
+            "petId": "55",
+            "weight": "18750",
+            "weightSharePercent": 1.875
+          },
+          {
+            "petId": "58",
+            "weight": "18750",
+            "weightSharePercent": 1.875
+          },
+          {
+            "petId": "47",
+            "weight": "2388",
+            "weightSharePercent": 0.23879999999999998
+          },
+          {
+            "petId": "44",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "50",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "51",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "60",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "69",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "70",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "73",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "78",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "79",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "80",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "81",
+            "weight": "2387",
+            "weightSharePercent": 0.23869999999999997
+          },
+          {
+            "petId": "82",
+            "weight": "177",
+            "weightSharePercent": 0.0177
+          },
+          {
+            "petId": "1011",
+            "weight": "89",
+            "weightSharePercent": 0.0089
+          },
+          {
+            "petId": "1023",
+            "weight": "89",
+            "weightSharePercent": 0.0089
+          },
+          {
+            "petId": "101",
+            "weight": "231",
+            "weightSharePercent": 0.0231
+          },
+          {
+            "petId": "107",
+            "weight": "231",
+            "weightSharePercent": 0.0231
+          },
+          {
+            "petId": "108",
+            "weight": "231",
+            "weightSharePercent": 0.0231
+          },
+          {
+            "petId": "109",
+            "weight": "231",
+            "weightSharePercent": 0.0231
+          },
+          {
+            "petId": "1050",
+            "weight": "26",
+            "weightSharePercent": 0.0026
+          },
+          {
+            "petId": "1051",
+            "weight": "25",
+            "weightSharePercent": 0.0025
+          },
+          {
+            "petId": "1034",
+            "weight": "8",
+            "weightSharePercent": 0.0007999999999999999
+          },
+          {
+            "petId": "117",
+            "weight": "17",
+            "weightSharePercent": 0.0017
+          }
+        ]
+      },
+      {
+        "id": "rb-6-10",
+        "label": "RB 6–10",
+        "weightColumn": "Weight_2",
+        "totalWeight": 1000100,
+        "items": [
+          {
+            "petId": "52",
+            "weight": "385618",
+            "weightSharePercent": 38.55794420557944
+          },
+          {
+            "petId": "1012",
+            "weight": "14282",
+            "weightSharePercent": 1.428057194280572
+          },
+          {
+            "petId": "12",
+            "weight": "98781",
+            "weightSharePercent": 9.877112288771123
+          },
+          {
+            "petId": "13",
+            "weight": "98780",
+            "weightSharePercent": 9.877012298770122
+          },
+          {
+            "petId": "17",
+            "weight": "98780",
+            "weightSharePercent": 9.877012298770122
+          },
+          {
+            "petId": "1002",
+            "weight": "3659",
+            "weightSharePercent": 0.3658634136586341
+          },
+          {
+            "petId": "23",
+            "weight": "28334",
+            "weightSharePercent": 2.8331166883311667
+          },
+          {
+            "petId": "24",
+            "weight": "28334",
+            "weightSharePercent": 2.8331166883311667
+          },
+          {
+            "petId": "25",
+            "weight": "28333",
+            "weightSharePercent": 2.833016698330167
+          },
+          {
+            "petId": "26",
+            "weight": "28333",
+            "weightSharePercent": 2.833016698330167
+          },
+          {
+            "petId": "27",
+            "weight": "28333",
+            "weightSharePercent": 2.833016698330167
+          },
+          {
+            "petId": "57",
+            "weight": "28333",
+            "weightSharePercent": 2.833016698330167
+          },
+          {
+            "petId": "37",
+            "weight": "22500",
+            "weightSharePercent": 2.2497750224977504
+          },
+          {
+            "petId": "33",
+            "weight": "22500",
+            "weightSharePercent": 2.2497750224977504
+          },
+          {
+            "petId": "55",
+            "weight": "22500",
+            "weightSharePercent": 2.2497750224977504
+          },
+          {
+            "petId": "58",
+            "weight": "22500",
+            "weightSharePercent": 2.2497750224977504
+          },
+          {
+            "petId": "47",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "44",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "50",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "51",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "60",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "69",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "70",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "73",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "78",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "79",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "80",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "81",
+            "weight": "3128",
+            "weightSharePercent": 0.3127687231276872
+          },
+          {
+            "petId": "82",
+            "weight": "232",
+            "weightSharePercent": 0.023197680231976804
+          },
+          {
+            "petId": "1011",
+            "weight": "116",
+            "weightSharePercent": 0.011598840115988402
+          },
+          {
+            "petId": "1023",
+            "weight": "116",
+            "weightSharePercent": 0.011598840115988402
+          },
+          {
+            "petId": "101",
+            "weight": "508",
+            "weightSharePercent": 0.050794920507949204
+          },
+          {
+            "petId": "107",
+            "weight": "508",
+            "weightSharePercent": 0.050794920507949204
+          },
+          {
+            "petId": "108",
+            "weight": "508",
+            "weightSharePercent": 0.050794920507949204
+          },
+          {
+            "petId": "109",
+            "weight": "508",
+            "weightSharePercent": 0.050794920507949204
+          },
+          {
+            "petId": "1050",
+            "weight": "56",
+            "weightSharePercent": 0.005599440055994401
+          },
+          {
+            "petId": "1051",
+            "weight": "56",
+            "weightSharePercent": 0.005599440055994401
+          },
+          {
+            "petId": "1034",
+            "weight": "19",
+            "weightSharePercent": 0.0018998100189981002
+          },
+          {
+            "petId": "117",
+            "weight": "37",
+            "weightSharePercent": 0.0036996300369963003
+          }
+        ]
+      },
+      {
+        "id": "rb-11-15",
+        "label": "RB 11–15",
+        "weightColumn": "Weight_3",
+        "totalWeight": 1000500,
+        "items": [
+          {
+            "petId": "52",
+            "weight": "333161",
+            "weightSharePercent": 33.29945027486257
+          },
+          {
+            "petId": "1012",
+            "weight": "12339",
+            "weightSharePercent": 1.2332833583208396
+          },
+          {
+            "petId": "12",
+            "weight": "97134",
+            "weightSharePercent": 9.708545727136432
+          },
+          {
+            "petId": "13",
+            "weight": "97134",
+            "weightSharePercent": 9.708545727136432
+          },
+          {
+            "petId": "17",
+            "weight": "97134",
+            "weightSharePercent": 9.708545727136432
+          },
+          {
+            "petId": "1002",
+            "weight": "3598",
+            "weightSharePercent": 0.3596201899050475
+          },
+          {
+            "petId": "23",
+            "weight": "30834",
+            "weightSharePercent": 3.0818590704647675
+          },
+          {
+            "petId": "24",
+            "weight": "30834",
+            "weightSharePercent": 3.0818590704647675
+          },
+          {
+            "petId": "25",
+            "weight": "30833",
+            "weightSharePercent": 3.0817591204397803
+          },
+          {
+            "petId": "26",
+            "weight": "30833",
+            "weightSharePercent": 3.0817591204397803
+          },
+          {
+            "petId": "27",
+            "weight": "30833",
+            "weightSharePercent": 3.0817591204397803
+          },
+          {
+            "petId": "57",
+            "weight": "30833",
+            "weightSharePercent": 3.0817591204397803
+          },
+          {
+            "petId": "37",
+            "weight": "26250",
+            "weightSharePercent": 2.623688155922039
+          },
+          {
+            "petId": "33",
+            "weight": "26250",
+            "weightSharePercent": 2.623688155922039
+          },
+          {
+            "petId": "55",
+            "weight": "26250",
+            "weightSharePercent": 2.623688155922039
+          },
+          {
+            "petId": "58",
+            "weight": "26250",
+            "weightSharePercent": 2.623688155922039
+          },
+          {
+            "petId": "47",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "44",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "50",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "51",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "60",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "69",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "70",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "73",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "78",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "79",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "80",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "81",
+            "weight": "4939",
+            "weightSharePercent": 0.49365317341329334
+          },
+          {
+            "petId": "82",
+            "weight": "366",
+            "weightSharePercent": 0.036581709145427285
+          },
+          {
+            "petId": "1011",
+            "weight": "183",
+            "weightSharePercent": 0.018290854572713643
+          },
+          {
+            "petId": "1023",
+            "weight": "183",
+            "weightSharePercent": 0.018290854572713643
+          },
+          {
+            "petId": "101",
+            "weight": "2308",
+            "weightSharePercent": 0.23068465767116442
+          },
+          {
+            "petId": "107",
+            "weight": "2308",
+            "weightSharePercent": 0.23068465767116442
+          },
+          {
+            "petId": "108",
+            "weight": "2308",
+            "weightSharePercent": 0.23068465767116442
+          },
+          {
+            "petId": "109",
+            "weight": "2308",
+            "weightSharePercent": 0.23068465767116442
+          },
+          {
+            "petId": "1050",
+            "weight": "256",
+            "weightSharePercent": 0.025587206396801596
+          },
+          {
+            "petId": "1051",
+            "weight": "256",
+            "weightSharePercent": 0.025587206396801596
+          },
+          {
+            "petId": "1034",
+            "weight": "85",
+            "weightSharePercent": 0.00849575212393803
+          },
+          {
+            "petId": "117",
+            "weight": "171",
+            "weightSharePercent": 0.017091454272863568
+          }
+        ]
+      },
+      {
+        "id": "rb-16-20",
+        "label": "RB 16–20",
+        "weightColumn": "Weight_4",
+        "totalWeight": 1000600,
+        "items": [
+          {
+            "petId": "52",
+            "weight": "273471",
+            "weightSharePercent": 27.33070157905257
+          },
+          {
+            "petId": "1012",
+            "weight": "10129",
+            "weightSharePercent": 1.0122926244253447
+          },
+          {
+            "petId": "12",
+            "weight": "95488",
+            "weightSharePercent": 9.543074155506696
+          },
+          {
+            "petId": "13",
+            "weight": "95488",
+            "weightSharePercent": 9.543074155506696
+          },
+          {
+            "petId": "17",
+            "weight": "95488",
+            "weightSharePercent": 9.543074155506696
+          },
+          {
+            "petId": "1002",
+            "weight": "3536",
+            "weightSharePercent": 0.3533879672196682
+          },
+          {
+            "petId": "23",
+            "weight": "33334",
+            "weightSharePercent": 3.3314011593044173
+          },
+          {
+            "petId": "24",
+            "weight": "33334",
+            "weightSharePercent": 3.3314011593044173
+          },
+          {
+            "petId": "25",
+            "weight": "33333",
+            "weightSharePercent": 3.3313012192684393
+          },
+          {
+            "petId": "26",
+            "weight": "33333",
+            "weightSharePercent": 3.3313012192684393
+          },
+          {
+            "petId": "27",
+            "weight": "33333",
+            "weightSharePercent": 3.3313012192684393
+          },
+          {
+            "petId": "57",
+            "weight": "33333",
+            "weightSharePercent": 3.3313012192684393
+          },
+          {
+            "petId": "37",
+            "weight": "32500",
+            "weightSharePercent": 3.248051169298421
+          },
+          {
+            "petId": "33",
+            "weight": "32500",
+            "weightSharePercent": 3.248051169298421
+          },
+          {
+            "petId": "55",
+            "weight": "32500",
+            "weightSharePercent": 3.248051169298421
+          },
+          {
+            "petId": "58",
+            "weight": "32500",
+            "weightSharePercent": 3.248051169298421
+          },
+          {
+            "petId": "47",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "44",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "50",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "51",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "60",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "69",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "70",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "73",
+            "weight": "7162",
+            "weightSharePercent": 0.7157705376773935
+          },
+          {
+            "petId": "78",
+            "weight": "7161",
+            "weightSharePercent": 0.7156705976414152
+          },
+          {
+            "petId": "79",
+            "weight": "7161",
+            "weightSharePercent": 0.7156705976414152
+          },
+          {
+            "petId": "80",
+            "weight": "7161",
+            "weightSharePercent": 0.7156705976414152
+          },
+          {
+            "petId": "81",
+            "weight": "7161",
+            "weightSharePercent": 0.7156705976414152
+          },
+          {
+            "petId": "82",
+            "weight": "530",
+            "weightSharePercent": 0.05296821906855887
+          },
+          {
+            "petId": "1011",
+            "weight": "265",
+            "weightSharePercent": 0.026484109534279435
+          },
+          {
+            "petId": "1023",
+            "weight": "265",
+            "weightSharePercent": 0.026484109534279435
+          },
+          {
+            "petId": "101",
+            "weight": "2308",
+            "weightSharePercent": 0.2306616030381771
+          },
+          {
+            "petId": "107",
+            "weight": "2308",
+            "weightSharePercent": 0.2306616030381771
+          },
+          {
+            "petId": "108",
+            "weight": "2308",
+            "weightSharePercent": 0.2306616030381771
+          },
+          {
+            "petId": "109",
+            "weight": "2308",
+            "weightSharePercent": 0.2306616030381771
+          },
+          {
+            "petId": "1050",
+            "weight": "256",
+            "weightSharePercent": 0.025584649210473716
+          },
+          {
+            "petId": "1051",
+            "weight": "256",
+            "weightSharePercent": 0.025584649210473716
+          },
+          {
+            "petId": "1034",
+            "weight": "85",
+            "weightSharePercent": 0.008494903058165101
+          },
+          {
+            "petId": "117",
+            "weight": "171",
+            "weightSharePercent": 0.017089746152308613
+          }
+        ]
+      },
+      {
+        "id": "rb-21-plus",
+        "label": "RB 21+",
+        "weightColumn": "Weight_5",
+        "totalWeight": 1000900,
+        "items": [
+          {
+            "petId": "52",
+            "weight": "220725",
+            "weightSharePercent": 22.052652612648615
+          },
+          {
+            "petId": "1012",
+            "weight": "8175",
+            "weightSharePercent": 0.8167649115795783
+          },
+          {
+            "petId": "12",
+            "weight": "92195",
+            "weightSharePercent": 9.211209911080028
+          },
+          {
+            "petId": "13",
+            "weight": "92195",
+            "weightSharePercent": 9.211209911080028
+          },
+          {
+            "petId": "17",
+            "weight": "92195",
+            "weightSharePercent": 9.211209911080028
+          },
+          {
+            "petId": "1002",
+            "weight": "3415",
+            "weightSharePercent": 0.34119292636627035
+          },
+          {
+            "petId": "23",
+            "weight": "36667",
+            "weightSharePercent": 3.663402937356379
+          },
+          {
+            "petId": "24",
+            "weight": "36667",
+            "weightSharePercent": 3.663402937356379
+          },
+          {
+            "petId": "25",
+            "weight": "36667",
+            "weightSharePercent": 3.663402937356379
+          },
+          {
+            "petId": "26",
+            "weight": "36667",
+            "weightSharePercent": 3.663402937356379
+          },
+          {
+            "petId": "27",
+            "weight": "36666",
+            "weightSharePercent": 3.6633030272754525
+          },
+          {
+            "petId": "57",
+            "weight": "36666",
+            "weightSharePercent": 3.6633030272754525
+          },
+          {
+            "petId": "37",
+            "weight": "40000",
+            "weightSharePercent": 3.9964032370866223
+          },
+          {
+            "petId": "33",
+            "weight": "40000",
+            "weightSharePercent": 3.9964032370866223
+          },
+          {
+            "petId": "55",
+            "weight": "40000",
+            "weightSharePercent": 3.9964032370866223
+          },
+          {
+            "petId": "58",
+            "weight": "40000",
+            "weightSharePercent": 3.9964032370866223
+          },
+          {
+            "petId": "47",
+            "weight": "8397",
+            "weightSharePercent": 0.8389449495454091
+          },
+          {
+            "petId": "44",
+            "weight": "8397",
+            "weightSharePercent": 0.8389449495454091
+          },
+          {
+            "petId": "50",
+            "weight": "8397",
+            "weightSharePercent": 0.8389449495454091
+          },
+          {
+            "petId": "51",
+            "weight": "8397",
+            "weightSharePercent": 0.8389449495454091
+          },
+          {
+            "petId": "60",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "69",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "70",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "73",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "78",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "79",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "80",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "81",
+            "weight": "8396",
+            "weightSharePercent": 0.8388450394644819
+          },
+          {
+            "petId": "82",
+            "weight": "622",
+            "weightSharePercent": 0.06214407033669697
+          },
+          {
+            "petId": "1011",
+            "weight": "311",
+            "weightSharePercent": 0.031072035168348486
+          },
+          {
+            "petId": "1023",
+            "weight": "311",
+            "weightSharePercent": 0.031072035168348486
+          },
+          {
+            "petId": "101",
+            "weight": "2308",
+            "weightSharePercent": 0.23059246677989811
+          },
+          {
+            "petId": "107",
+            "weight": "2308",
+            "weightSharePercent": 0.23059246677989811
+          },
+          {
+            "petId": "108",
+            "weight": "2308",
+            "weightSharePercent": 0.23059246677989811
+          },
+          {
+            "petId": "109",
+            "weight": "2308",
+            "weightSharePercent": 0.23059246677989811
+          },
+          {
+            "petId": "1050",
+            "weight": "256",
+            "weightSharePercent": 0.02557698071735438
+          },
+          {
+            "petId": "1051",
+            "weight": "256",
+            "weightSharePercent": 0.02557698071735438
+          },
+          {
+            "petId": "1034",
+            "weight": "85",
+            "weightSharePercent": 0.008492356878809072
+          },
+          {
+            "petId": "117",
+            "weight": "171",
+            "weightSharePercent": 0.01708462383854531
+          }
+        ]
+      }
+    ],
+    "chestRewardTotalWeight": 3750,
+    "chestRewards": [
+      {
+        "id": "1",
+        "weight": "700",
+        "totalWeight": 3750,
+        "weightSharePercent": 18.666666666666668
+      },
+      {
+        "id": "2",
+        "weight": "950",
+        "totalWeight": 3750,
+        "weightSharePercent": 25.333333333333336
+      },
+      {
+        "id": "3",
+        "weight": "75",
+        "totalWeight": 3750,
+        "weightSharePercent": 2
+      },
+      {
+        "id": "4",
+        "weight": "450",
+        "totalWeight": 3750,
+        "weightSharePercent": 12
+      },
+      {
+        "id": "5",
+        "weight": "250",
+        "totalWeight": 3750,
+        "weightSharePercent": 6.666666666666667
+      },
+      {
+        "id": "6",
+        "weight": "500",
+        "totalWeight": 3750,
+        "weightSharePercent": 13.333333333333334
+      },
+      {
+        "id": "7",
+        "weight": "75",
+        "totalWeight": 3750,
+        "weightSharePercent": 2
+      },
+      {
+        "id": "8",
+        "weight": "175",
+        "totalWeight": 3750,
+        "weightSharePercent": 4.666666666666667
+      },
+      {
+        "id": "9",
+        "weight": "320",
+        "totalWeight": 3750,
+        "weightSharePercent": 8.533333333333333
+      },
+      {
+        "id": "10",
+        "weight": "65",
+        "totalWeight": 3750,
+        "weightSharePercent": 1.7333333333333332
+      },
+      {
+        "id": "11",
+        "weight": "75",
+        "totalWeight": 3750,
+        "weightSharePercent": 2
+      },
+      {
+        "id": "12",
+        "weight": "100",
+        "totalWeight": 3750,
+        "weightSharePercent": 2.666666666666667
+      },
+      {
+        "id": "13",
+        "weight": "15",
+        "totalWeight": 3750,
+        "weightSharePercent": 0.4
+      }
+    ]
+  }
+}
