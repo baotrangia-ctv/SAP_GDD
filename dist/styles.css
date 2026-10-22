@@ -346,6 +346,11 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 .spawn-pet-table td { padding:7px 9px; }
 .spawn-pet-table tbody tr { cursor:pointer; }
 .spawn-pet-table tbody tr:hover { background:rgba(94,192,155,.07); }
+.spawn-pet-table tbody tr.spawn-rarity-group { cursor:default; background:linear-gradient(90deg,rgba(48,69,91,.55),rgba(34,49,67,.65)); }
+.spawn-pet-table tbody tr.spawn-rarity-group:hover { background:linear-gradient(90deg,rgba(48,69,91,.55),rgba(34,49,67,.65)); }
+.spawn-pet-table tbody tr.spawn-rarity-group th { padding:9px 12px; border-top:1px solid #34485e; border-bottom:1px solid #2a3a4d; text-align:left; }
+.spawn-rarity-heading { display:flex; align-items:center; gap:10px; }
+.spawn-rarity-heading small { color:#96aabe; font-size:8px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
 .pet-name-cell { display:flex; align-items:center; gap:9px; min-width:0; }
 .pet-thumb { width:37px; height:37px; flex:0 0 37px; display:block; object-fit:contain; border-radius:10px; padding:2px; background:radial-gradient(circle,#29384b,#172130 72%); border:1px solid #33465b; }
 .pet-thumb-missing { display:grid; place-items:center; color:#6e8297; font-size:12px; }
