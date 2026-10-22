@@ -8,7 +8,7 @@ Run from this folder:
 
     node tools/sync-source-data.mjs --project-root "D:\Craftland\StealAPet"
 
-The generator reads an allowlist of balance/progression CSVs and `.fcg` rules from the game checkout, then writes the snapshot and derived JSON under this project's `dist/data/`. It excludes operational gift-code and compensation exports. Existing GDD-local art is referenced when present; sync does not read or write game assets, and never writes into the game checkout.
+The generator reads an allowlist of balance/progression CSVs and `.fcg` rules from the game checkout, then writes the snapshot and derived JSON under this project's `dist/data/`. The 2,060-row `RotationShopItems.csv` mirror is stored in `dist/data/tables/rotation-shop-items.json`; its schedule join is generated separately in `dist/data/shop-schedule.json`. It excludes operational gift-code and compensation exports. Existing GDD-local art is referenced when present; sync does not read or write game assets, and never writes into the game checkout.
 
 See [CLAUDE.md](CLAUDE.md) for the read-only source boundary, output guard, project map, and change workflow. Design rulings and open engineering follow-ups live in `design/`.
 
@@ -23,6 +23,10 @@ The model follows `PetParadeManager.CalculateRoadSpawnWeights`, `GetPetsCount`, 
 - **Mutagen** joins `Mutagen.csv` to `mutation.csv`, applies the runtime pet-rarity and Secret Fusion chance factors, shows the min/max clamp, and plots `MutateCost.csv` bands with the pet-level cost multiplier.
 - **Weather Drop / Weathergen** shows item-use chance after pet modifiers, the separate natural weather-effect chance, and the `weatherWaves.csv` cycle sorted by runtime wave ID. The UI labels these as different rolls; `WeatherGen.csv Chance` is not a world item-drop rate.
 - **Lucky Box** normalizes `DrawWeight` inside each `BoxID`, joins rewards to pet names/art/rarity, and shows the per-rarity and per-pet odds. It also surfaces the Giftbox Storm road counts from `LuckyBoxManager`.
+
+## Shop Schedule
+
+Use **Lịch shop** to filter the Rotation Shop's fixed item list by wave or item ID/type/value. Rows show the configured `Count`, price fields, and the share of schedule waves containing that item. This is schedule coverage, not a random chance. The Rotation Shop CSV has no Rebirth field; Rebirth availability is shown as unavailable until a source provides it. The normal and event shop tables retain raw CSV values, including unconfirmed `Requirement`/`TimeLock` units.
 
 These pages are read-only views of repository CSV and FC config logic. Mutation and WeatherGen rows use the matching sprite from `Assets/Sprites/Mutations`; weather-effect sprites are joined by the `weatherEffects.csv` icon key. Derived rules are refreshed from `MutagenConfigs.fcg`, `WeatherGenConfigs.fcg`, `WeatherConfigs.fcg`, `LuckyBoxConfigs.fcg`, `LuckyBoxManager.fcg`, and `WeatherManager.fcg` by the same sync script.
 

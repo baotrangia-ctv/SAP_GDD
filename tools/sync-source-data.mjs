@@ -47,6 +47,9 @@ const codeFiles = [
   "Assets/Scripts/Manager/WeatherManager.fcg",
   "Assets/Scripts/Manager/LuckyBoxManager.fcg",
   "Assets/Scripts/Configs/DustHuntConfigs.fcg",
+  "Assets/Scripts/Configs/RotationShopConfigs.fcg",
+  "Assets/Scripts/Manager/RotationShopManager.fcg",
+  "Assets/Scripts/Configs/ShopItemsConfigs.fcg",
   "Assets/Scripts/Manager/PetParadeManager.fcg",
   "Assets/Scripts/Manager/TrackingManager.fcg",
   "Assets/GMT/Scripts/HudDebug.fcg"
@@ -172,6 +175,8 @@ const luckyBoxConfig = code["Assets/Scripts/Configs/LuckyBoxConfigs.fcg"];
 const weatherManager = code["Assets/Scripts/Manager/WeatherManager.fcg"];
 const luckyBoxManager = code["Assets/Scripts/Manager/LuckyBoxManager.fcg"];
 const dustConfig = code["Assets/Scripts/Configs/DustHuntConfigs.fcg"];
+const rotationShopConfig = code["Assets/Scripts/Configs/RotationShopConfigs.fcg"];
+const rotationShopManager = code["Assets/Scripts/Manager/RotationShopManager.fcg"];
 const paradeManager = code["Assets/Scripts/Manager/PetParadeManager.fcg"];
 const debugHud = code["Assets/GMT/Scripts/HudDebug.fcg"];
 const tracking = code["Assets/Scripts/Manager/TrackingManager.fcg"];
@@ -234,6 +239,61 @@ const rebirthBands = [
   { label: "RB 16–20", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_3_USER")) || 15) + 1, max: Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_4_USER")) || 20, weightColumn: "Weight4", playerType: "Type4User" },
   { label: "RB 21+", min: (Number(constant(petConfig, "REBIRTH_LEVEL_WEIGHT_4_USER")) || 20) + 1, max: null, weightColumn: "Weight5", playerType: "Type5User" }
 ].map((band, index) => ({ ...band, poolWeight: paradePoolWeights[index] }));
+const rotationShopItemsTable = byName.get("RotationShopItems.csv");
+const rotationShopWavesTable = byName.get("RotationShopWaves.csv");
+const rotationItemsById = new Map((rotationShopItemsTable?.rows ?? []).map((row) => [String(row.ID), row]));
+const wavePresence = new Map();
+const rotationWaves = (rotationShopWavesTable?.rows ?? []).map((row) => {
+  const entries = [];
+  for (const match of String(row.Items ?? "").matchAll(/\{([^{}]*)\}/g)) {
+    const id = match[1].match(/(?:^|;)\s*ID\s*:\s*([^;]+)/i)?.[1]?.trim();
+    const count = match[1].match(/(?:^|;)\s*Count\s*:\s*([^;]+)/i)?.[1]?.trim();
+    if (!id || count === undefined) continue;
+    entries.push({ id, count });
+    if (!wavePresence.has(id)) wavePresence.set(id, new Set());
+    wavePresence.get(id).add(String(row.ID));
+  }
+  return { id: String(row.ID), durationMinutes: Number(row.Duration) || 0, sourceDuration: row.Duration, items: entries };
+});
+const rotationWaveCount = rotationWaves.length;
+const rotationScheduleItems = rotationWaves.flatMap((wave) => wave.items.map((entry) => {
+  const item = rotationItemsById.get(entry.id) || {};
+  const presenceCount = wavePresence.get(entry.id)?.size || 0;
+  return {
+    waveId: wave.id,
+    durationMinutes: wave.durationMinutes,
+    itemId: entry.id,
+    type: item.Type ?? "",
+    value: item.Value ?? "",
+    stock: entry.count,
+    price: item.Price ?? "",
+    discountPrice: item.DiscountPrice ?? "",
+    wavePresenceCount: presenceCount,
+    waveCount: rotationWaveCount,
+    wavePresencePercent: rotationWaveCount ? presenceCount / rotationWaveCount * 100 : null,
+    missingItemConfig: !rotationItemsById.has(entry.id)
+  };
+}));
+const rotationScheduleData = {
+  generatedAt: new Date().toISOString(),
+  sourceCommit: runGit("rev-parse", "HEAD"),
+  waveCount: rotationWaveCount,
+  itemConfigCount: rotationShopItemsTable?.rowCount ?? 0,
+  scheduledSlotCount: rotationScheduleItems.length,
+  totalCycleMinutes: rotationWaves.reduce((sum, wave) => sum + wave.durationMinutes, 0),
+  waves: rotationWaves.map(({ items, ...wave }) => wave),
+  items: rotationScheduleItems,
+  shopItems: byName.get("shopItems.csv")?.rows ?? [],
+  shopItemsHeaders: byName.get("shopItems.csv")?.headers ?? [],
+  eventShopItems: byName.get("Event/shopEventItems.csv")?.rows ?? [],
+  eventShopItemsHeaders: byName.get("Event/shopEventItems.csv")?.headers ?? []
+};
+if (rotationShopItemsTable && !rotationShopItemsTable.missing) {
+  writeOutput(outputPath("dist", "data", "tables", "rotation-shop-items.json"), JSON.stringify(rotationShopItemsTable, null, 2) + "\n");
+  rotationShopItemsTable.file = "tables/rotation-shop-items.json";
+  delete rotationShopItemsTable.rows;
+}
+writeOutput(outputPath("dist", "data", "shop-schedule.json"), JSON.stringify(rotationScheduleData, null, 2) + "\n");
 const petOutputRoot = outputPath("dist", "assets", "pets");
 const actionOutputRoot = outputPath("dist", "assets", "actions");
 const systemIconOutputRoot = outputPath("dist", "assets", "system-icons");
@@ -317,6 +377,9 @@ const versionCode = {
   luckyBoxCount: Number(constant(petConfig, "LUCKY_BOX_COUNT")),
   luckyBoxStormSpawnCounts,
   luckyBoxRandomPreviewCount: Number(constant(luckyBoxManager, "RANDOM_PREVIEW_COUNT")),
+  rotationShopWaveDurationUsesMinutes: /GetWaveDuration\(waveId int\) int\s*\{\s*return _RSWave2Duration\[waveId\]\s*\*\s*SECONDS_PER_MINUTE/.test(rotationShopConfig),
+  rotationShopUsesFixedWaveItems: /GetWaveItems\(_CurrentWave\)/.test(rotationShopManager),
+  rotationShopHasCycleBasedWaveSelection: /currSeconds\s*%\s*totalWavesSeconds/.test(rotationShopManager),
   dustHuntDurations: (dustWaves?.rows ?? []).map((row) => ({ isAppear: row.IsAppear, rawDuration: row.Duration })),
   dustHuntDurationUnitAmbiguous: /GetDustHuntWaveDurationSeconds\(waveId int\) int\s*\{\s*return GetDustHuntWaveDuration\(waveId\)/.test(dustConfig),
   featureUnlocks: parseFeatureUnlocks(unlockConfig),

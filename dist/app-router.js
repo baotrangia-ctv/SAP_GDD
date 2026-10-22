@@ -4,9 +4,19 @@ function petDetail(id){
   box.innerHTML='<section class="modal" role="dialog" aria-modal="true" aria-label="Pet config"><button class="modal-close" data-action="close">Đóng</button><p class="eyebrow">PET CONFIG · ID '+esc(row.ID)+'</p><div class="pet-detail-title">'+petImageHtml(row,'pet-portrait')+'<div><h2>'+esc(row.Name)+'</h2>'+rarity(row.Rarity)+'</div></div><dl>'+Object.keys(row).map(k=>"<dt>"+esc(k)+"</dt><dd>"+esc(row[k]||"—")+"</dd>").join("")+"</dl></section>";
   document.body.appendChild(box);
 }
-function go(page){if(!pages[page])return;s.page=page;document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));document.getElementById("sidebar").classList.remove("open");root.innerHTML=({overview:overview,progression:progression,economy:economy,cadence:cadence,spawn:spawnPage,config:configPage,changes:changesPage,mutagen:mutagenPage,weatherdrop:weatherDropPage,luckybox:luckyBoxPage}[page])();updateMeta();if(page==="config")updateConfig();if(page==="spawn")updateSpawnAnalysis();if(page==="mutagen")updateMutagenPage();if(page==="weatherdrop")updateWeatherDropPage();if(page==="luckybox")updateLuckyBoxPage()}
-function updateConfig(){
-  const x=configRows(),b=document.getElementById("config-rows");if(!b)return;
+function go(page){if(!pages[page])return;s.page=page;document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));document.getElementById("sidebar").classList.remove("open");root.innerHTML=({overview:overview,progression:progression,economy:economy,cadence:cadence,spawn:spawnPage,config:configPage,changes:changesPage,mutagen:mutagenPage,weatherdrop:weatherDropPage,luckybox:luckyBoxPage,shop:shopPage}[page])();updateMeta();if(page==="config")updateConfig();if(page==="spawn")updateSpawnAnalysis();if(page==="mutagen")updateMutagenPage();if(page==="weatherdrop")updateWeatherDropPage();if(page==="luckybox")updateLuckyBoxPage();if(page==="shop")updateShopPage()}
+async function updateConfig(){
+  const file=s.data.tables.find(x=>x.path===s.configFile)||s.data.tables.find(x=>!x.missing);
+  const b=document.getElementById("config-rows");if(!b||!file)return;
+  if(file.file&&!s.configTableCache?.[file.path]){
+    b.innerHTML='<tr><td class="empty" colspan="'+Math.max(1,file.headers.length)+'">Đang tải bảng tách riêng…</td></tr>';
+    try{
+      const response=await fetch("./data/"+file.file);if(!response.ok)throw new Error("HTTP "+response.status);
+      const tableData=await response.json();if(s.page!=="config"||s.configFile!==file.path)return;
+      s.configTableCache=s.configTableCache||Object.create(null);s.configTableCache[file.path]=tableData.rows||[];
+    }catch(error){b.innerHTML='<tr><td class="empty" colspan="'+Math.max(1,file.headers.length)+'">Không tải được bảng: '+esc(error.message)+"</td></tr>";return}
+  }
+  const x=configRows();
   b.innerHTML=x.body||'<tr><td class="empty" colspan="'+Math.max(1,x.file.headers.length)+'">Không có dòng khớp.</td></tr>';
   document.getElementById("config-count").textContent="Rows "+(x.rows.length?s.offset+1:0)+"–"+x.end+" / "+x.rows.length+" · "+x.file.path;
   document.getElementById("config-prev").disabled=s.offset<=0;document.getElementById("config-next").disabled=x.end>=x.rows.length;
