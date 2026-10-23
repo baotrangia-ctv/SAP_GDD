@@ -103,6 +103,52 @@ function applyUiProposalComparison() {
   document.getElementById('ui-proposal-opacity-label').hidden = uiProposal.mode !== 'overlay';
   document.getElementById('ui-proposal-opacity-value').textContent = Math.round(uiProposal.opacity * 100) + '%';
 }
+function renderUiProposalDetails() {
+  const host = document.getElementById('ui-proposal-details'); if (!host) return;
+  const bindings = uiProposal.diff.bindings || [];
+  host.innerHTML = '<section class="ui-proposal-prompt"><h2>Prompt Codex</h2><p>' + uiProposal.diff.operationCount + ' thao tác · ' + bindings.length + ' vị trí .fcg cần kiểm tra binding</p><p>Binding tìm theo literal ID/key/tên; cần dev xác nhận alias và assignment runtime, kể cả khi không có kết quả.</p><button id="ui-proposal-copy" type="button">Sao chép</button><span id="ui-proposal-copy-status" role="status"></span><details open><summary>Nội dung prompt sinh tự động</summary><pre id="ui-proposal-prompt-text"></pre></details></section>' +
+    '<section class="ui-resource-panel"><h2>Resource của UI đề xuất</h2><div class="ui-preview-toolbar"><label>Tìm resource <input id="ui-proposal-search" type="search" placeholder="Entity, path, sprite hoặc text"></label><label>Thay đổi <select id="ui-proposal-filter"><option value="">Tất cả</option><option value="unchanged">Giữ</option><option value="changed">Đổi</option><option value="added">Mới</option><option value="removed">Xoá</option></select></label><label>Trạng thái file <select id="ui-proposal-file-filter"><option value="">Tất cả</option><option value="present">Có file</option><option value="missing">Thiếu</option></select></label></div><p id="ui-proposal-resource-count" role="status"></p><div class="ui-resource-scroll"><table><thead><tr><th>Entity / path</th><th>Sprite</th><th>Trạng thái</th><th>Alpha .ui / web</th><th>Image / màu</th><th>Text / localization</th><th>Thay đổi</th><th>Nguồn sprite</th></tr></thead><tbody id="ui-proposal-resource-rows"></tbody></table></div></section>';
+  document.getElementById('ui-proposal-prompt-text').textContent = uiProposal.prompt;
+  renderUiProposalResources();
+}
+function renderUiProposalResources() {
+  const tbody = document.getElementById('ui-proposal-resource-rows'); if (!tbody || !uiProposal.resources) return;
+  const context = { ...uiPreview, screen: uiProposal.proposed, rendered: uiProposal.mode === 'current' ? null : uiPreview.rendered };
+  const resources = new Map(uiProposal.resources.resources.map(r => [r.id, r]));
+  const states = { added: 'Mới', changed: 'Đổi', removed: 'Xoá', unchanged: 'Giữ' };
+  const extra = node => `<td>${states[node.proposalState] || 'Giữ'}</td><td>${esc(resources.get(node.id)?.spriteSource || '—')}</td>`;
+  const rows = uiResourceRows(context, extra);
+  for (const tree of uiProposal.proposed.removedEntities || []) rows.push(...uiResourceRows({ ...context, screen: { tree }, rendered: null }, extra));
+  const query = document.getElementById('ui-proposal-search').value.toLocaleLowerCase();
+  const filter = document.getElementById('ui-proposal-filter').value;
+  const fileFilter = document.getElementById('ui-proposal-file-filter').value;
+  const labels = ['Entity / path', 'Sprite', 'Trạng thái', 'Alpha .ui / web', 'Image / màu', 'Text / localization', 'Thay đổi', 'Nguồn sprite'];
+  const template = document.createElement('template');
+  const old = new Map([...tbody.rows].map(row => [row.dataset.resourceId, row]));
+  let visible = 0;
+  for (const html of rows) {
+    template.innerHTML = html; const row = template.content.firstElementChild;
+    const resource = resources.get(row.dataset.resourceId);
+    row.dataset.proposalState = resource.proposalState;
+    [...row.cells].forEach((cell, i) => cell.dataset.label = labels[i]);
+    row.hidden = (!!filter && resource.proposalState !== filter) || (fileFilter === 'missing' && !resource.missing) || (fileFilter === 'present' && (!resource.spriteKey || resource.missing)) || !row.textContent.toLocaleLowerCase().includes(query);
+    if (!row.hidden) visible++;
+    const current = old.get(row.dataset.resourceId);
+    if (!current) tbody.append(row);
+    else { [...row.cells].forEach((cell, i) => { if (current.cells[i].innerHTML !== cell.innerHTML) current.cells[i].innerHTML = cell.innerHTML; current.cells[i].dataset.label = labels[i]; }); current.hidden = row.hidden; }
+  }
+  document.getElementById('ui-proposal-resource-count').textContent = `${visible} / ${rows.length} resource`;
+}
+document.addEventListener('input', event => { if (s.page === 'uiproposal' && event.target.id === 'ui-proposal-search') renderUiProposalResources(); });
+document.addEventListener('change', event => { if (s.page === 'uiproposal' && ['ui-proposal-filter', 'ui-proposal-file-filter'].includes(event.target.id)) renderUiProposalResources(); });
+document.addEventListener('click', async event => {
+  if (s.page !== 'uiproposal' || event.target.id !== 'ui-proposal-copy') return;
+  const status = document.getElementById('ui-proposal-copy-status');
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard chưa khả dụng; chọn nội dung prompt để sao chép.');
+    await navigator.clipboard.writeText(uiProposal.prompt); status.textContent = 'Đã sao chép prompt';
+  } catch (error) { status.textContent = 'Không sao chép được: ' + error.message; }
+});
 window.addEventListener('resize', () => { if (s.page === 'uiproposal') uiStageScale(document.getElementById('ui-preview-stage'), uiProposal.baseline?.canvas, uiPreview); });
 document.addEventListener('change', event => {
   if (s.page !== 'uiproposal' || !uiProposal.proposed) return;

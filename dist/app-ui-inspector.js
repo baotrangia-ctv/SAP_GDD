@@ -14,6 +14,13 @@
     return byPath;
   }
   function sourceNode(element) {
+    if (s.page === 'uiproposal' && typeof uiProposal !== 'undefined') {
+      const root = canvasRoot?.dataset.proposalLayer === 'current' ? uiProposal.base?.tree : uiProposal.proposed?.tree;
+      const id = element.dataset.uiId || element.dataset.uiSourceEntityId;
+      let found = null;
+      if (root) (function walk(node) { if (node.id === id) found = node; node.children.forEach(walk); })(root);
+      if (found) return found;
+    }
     const path = element.dataset.uiPath || element.dataset.uiClonePath;
     return sourceIndex().get(path) || null;
   }
@@ -200,6 +207,18 @@
     ]);
     content.append(identity);
 
+    if (s.page === 'uiproposal' && typeof uiProposal !== 'undefined') {
+      const section = document.createElement('section'); section.className = 'ui-inspector-proposal';
+      const heading = document.createElement('h3'); heading.textContent = 'Thay đổi của đề xuất'; section.append(heading);
+      const id = node?.id || element.dataset.uiSourceEntityId;
+      const changes = uiProposal.diff.operations.filter(op => op.id === id || op.affectedIds.includes(id));
+      payload.proposalChanges = changes;
+      if (changes.length) addDefinitionList(section, changes.map(op => [`${op.index}. ${op.op} · ${op.field}`, `${jsonText(op.before)} → ${jsonText(op.after)}\nReason: ${op.reason}`]));
+      else { const note = document.createElement('p'); note.textContent = 'Giữ nguyên; không có thao tác áp lên entity này.'; section.append(note); }
+      const rawNote = document.createElement('p'); rawNote.textContent = 'propsData bên dưới giữ nguồn gốc trước patch; field chuẩn hóa và diff ở trên mô tả đề xuất.'; section.append(rawNote);
+      content.append(section);
+    }
+
     const transform = document.createElement("section");
     const transformHeading = document.createElement("h3"); transformHeading.textContent = "Transform"; transform.append(transformHeading);
     addDefinitionList(transform, [
@@ -299,6 +318,13 @@
     event.preventDefault();
     openInspector(canvas, event.clientX, event.clientY);
   });
+  document.addEventListener('click', event => {
+    if (s.page !== 'uiproposal' || !document.getElementById('ui-proposal-inspect')?.checked) return;
+    const canvas = event.target.closest?.('.ui-canvas');
+    if (!canvas) return;
+    event.preventDefault(); event.stopImmediatePropagation();
+    openInspector(canvas, event.clientX, event.clientY);
+  }, true);
   document.addEventListener("keydown", event => { if (event.key === "Escape" && overlay) { event.preventDefault(); closeInspector(); } });
   window.uiWidgetInspector = { openInspector, closeInspector, hitTest, runtimeSnapshot };
 })();
