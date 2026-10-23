@@ -24,9 +24,9 @@ python -m http.server 8080 --directory dist
 
 Mở **UI Preview → Collection** hoặc `http://localhost:8080/#uipreview/collection`. Sub-tab Shop, Mail, Mission, Leaderboard hiện “Sắp có”. Trang đọc cây entity từ `PetsCollection.ui`, rule từ `HudCollection.fcg`/`CollectionManager.fcg`/`PetConfigs.fcg`, và dữ liệu pet/effect từ snapshot GDD hiện có. Có thể xem rarity, phân trang, chọn pet, ba tab chi tiết, bật debug/inactive và giả lập sở hữu; đây không phải dữ liệu người chơi thật. Nếu snapshot GDD cũ, cập nhật snapshot theo runbook riêng trước khi đối chiếu dữ liệu.
 
-Collection có bộ chọn **Tiếng Việt / English** (mặc định tiếng Việt) và bảng **Resource đang dùng** cuối trang. Bảng cho xem đường dẫn entity, sprite hiện dùng, kích thước/border 9-grid, màu button, loại image và localization; có thể lọc theo path. Bảng chỉ hiển thị, không chọn/scroll/focus từ preview; hàng được giữ theo ID và chỉ cập nhật ô thay đổi. Cột alpha ghi giá trị gốc `.ui` và alpha cộng dồn web (giữ phép composite/cascade CSS trước đây); cascade/raycast engine chưa xác minh (DA-009). Button alpha 0 vẫn có vùng click RectTransform; `disableCollider` tắt vùng click. Sync chỉ trích key Collection từ `Assets/Localization/key.csv` vào `dist/data/ui/collection-i18n.json`; sprite `.ui` và icon Obtain gán bằng code nằm trong manifest riêng. `dist/data/ui/collection-audit.json` ghi sprite/key còn thiếu và đối chiếu border với `.png.meta`.
+Collection có bộ chọn **Tiếng Việt / English** (mặc định tiếng Việt), bảng **Resource đang dùng** và trạng thái sở hữu mô phỏng. Bảng cho xem đường dẫn entity, sprite hiện dùng, kích thước/border 9-grid, màu button, loại image và localization; có thể lọc theo path. Bảng chỉ hiển thị, không chọn/scroll/focus từ preview; hàng được giữ theo ID và chỉ cập nhật ô thay đổi. Không có hiệu ứng hover trong UI Preview; widget dùng trạng thái normal/pressed/disabled. Chuột phải trên canvas mở **Widget Inspector** với danh sách widget chồng nhau, source/runtime props và nút sao chép JSON. Cột alpha ghi giá trị gốc .ui và alpha cộng dồn web; cascade/raycast engine chưa xác minh (DA-009). Button alpha 0 vẫn có vùng click RectTransform; disableCollider tắt vùng click. Sync trích key Collection từ Assets/Localization/key.csv vào dist/data/ui/collection-i18n.json; sprite .ui và icon Obtain gán bằng code nằm trong manifest riêng. dist/data/ui/collection-audit.json ghi sprite/key còn thiếu và đối chiếu border với .png.meta.
 
-Audit hiện tại: 107/107 entity (gồm root), DOM 107/107 path+ID+type, không lệch; 41 sprite tham chiếu, 34 copy được, 7 thiếu/ngoài allowlist. Có 57 entity với 76 trường chưa được renderer xử lý (phần lớn metadata animation và callback). Kích thước 1500×750 suy từ root `.ui`, chưa xác minh độ phân giải engine. Font, 9-slice, tint, outline và nguồn Obtain/Recipe cần đối chiếu ảnh game trước khi xem là bản sao hình ảnh 1-1. Danh sách chi tiết ở `dist/data/ui/collection-audit.json`, `collection-sprites.json` và `design/20-dev-action-items.md`.
+Audit hiện tại: 107/107 entity (gồm root), DOM 107/107 path+ID+type, không lệch; 41 sprite tham chiếu, 34 copy được, 7 thiếu/ngoài allowlist. Có 57 entity với 76 trường chưa được renderer xử lý (phần lớn metadata animation và callback), cùng 8 localization key thiếu. Kích thước 1500×750 suy từ root .ui, chưa xác minh độ phân giải engine. Font metrics, raster/shader và scale/safe-area chưa xác nhận trong Craftland Editor; preview là bản dựng từ source, không phải ảnh đối chiếu engine. Danh sách chi tiết ở dist/data/ui/collection-audit.json, collection-browser-audit.json, collection-sprites.json và design/20-dev-action-items.md.
 
 ## Pet Parade spawn explorer
 
@@ -79,17 +79,6 @@ $env:NODE_PATH = "C:\Users\trang\.cache\codex-runtimes\codex-primary-runtime\dep
 node tools/audit-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet" --browser-url http://localhost:8080
 ```
 
-Có thể đặt `UI_AUDIT_BROWSER=chrome` nếu dùng Chrome. Browser audit dùng
-click theo tọa độ, không dựa vào thao tác click tự cuộn của Playwright;
-kiểm tra hit target, alpha, tab, toàn bộ pet qua mọi trang, prev/next, nút chi tiết,
-Recipe redirect, close/open, lọc bảng và giữ DOM hàng theo ID. Kết quả
-trước/sau mỗi click lưu ở `dist/data/ui/collection-browser-audit.json`.
-Viewport kiểm tra: 1440×1100 và 390×844. Chỉ bỏ qua 404 `/favicon.ico`
-mặc định; lỗi console/page khác làm audit thất bại. Đây là QA hành vi web,
-không thay thế xác nhận engine ở DA-009.
+Có thể đặt `UI_AUDIT_BROWSER=chrome` nếu dùng Chrome. Browser audit dùng click theo tọa độ, không dựa vào thao tác click tự cuộn của Playwright. Nó kiểm tra hit target, alpha, màu rarity theo RARITY_COLOR, owned/unowned, mọi tab và pet qua tất cả trang, Recipe redirect, Inspector, resource row không đổi khi rê chuột và 12 widget mẫu.
 
-Lần QA 2026-10-23: 107/107 entity, 173 pet và 211 click mỗi viewport
-(422 click tổng); window scroll, scrollTop/scrollLeft của bảng và hash
-không đổi sau mỗi click. Kiểm tra trực tiếp trong trình duyệt: chọn pet,
-next/prev, tab chi tiết, Recipe Thỏ Tuyết → Chuột Chũi và Close. Các giới hạn
-asset/font/render vẫn giữ nguyên; chưa tuyên bố khớp game.
+Báo cáo so sánh transform/color từ source .ui với AABB/màu web đo được nằm trong dist/data/ui/collection-browser-audit.json; đây không phải số đo từ game. Viewport kiểm tra: 1440×1100 và 390×844. Chỉ bỏ qua 404 /favicon.ico mặc định; lỗi console/page khác làm audit thất bại. Đây là QA hành vi web, không thay thế xác nhận engine ở DA-009. Trước QA, chạy sync-ui-preview.mjs và khởi động server ở trên. Audit gồm cả trang cuối, ba tab chi tiết, Recipe redirect và hai trạng thái sở hữu. Các giới hạn asset/font/render vẫn giữ nguyên; chưa tuyên bố khớp game.

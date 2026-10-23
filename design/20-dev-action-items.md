@@ -128,3 +128,15 @@ entity đang chọn. Hit-test dùng AABB của `getBoundingClientRect()` (gồm 
 rotation CSS), alpha-zero vẫn được xét, inactive thêm vào khi checkbox bật;
 stack order là web CSS z-index/DOM order, không phải hit-order đã xác minh của
 Craftland. Cần source mapping/runtime inspector của Editor để đóng các mục này.
+
+
+## DA-014 · D7 browser audit và so sánh widget (2026-10-23)
+
+Sync/audit đối chiếu đủ 107 entity, propsData/ecaProps, 81 assignment từ
+HudCollection và 7 giá trị RARITY_COLOR từ PetConfigs_Client. Browser audit
+chạy ở 1440×1100 và 390×844; duyệt đủ 8 rarity, 173 pet qua mọi trang, trạng
+thái owned/unowned, 3 detail tab, Recipe redirect, Inspector và lỗi console.
+collection-browser-audit.json ghi 12 mẫu transform/màu source .ui cùng
+AABB/màu quan sát ở web. Bảng này so cấu hình nguồn với preview, không phải
+đo từ Craftland Editor. Engine pixel parity, font/raster, scaler/safe area,
+alpha/raycast và 7 sprite thiếu tiếp tục chờ xác nhận runtime/asset.

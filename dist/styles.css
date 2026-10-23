@@ -151,7 +151,7 @@ h1 { font-size:clamp(28px,3vw,42px); letter-spacing:-.045em; line-height:1.08; m
 table { width:100%; border-collapse:collapse; min-width:560px; }
 th { background:#121c2a; color:#72849a; font-size:9px; letter-spacing:.09em; text-transform:uppercase; text-align:left; padding:10px 11px; position:sticky; top:0; z-index:1; }
 td { border-top:1px solid #243348; padding:10px 11px; font-size:10px; color:#b7c4d4; vertical-align:middle; }
-tbody tr:hover { background:#182638; }
+.table-wrap tbody tr:hover { background:#182638; }
 td.num,th.num { text-align:right; font-variant-numeric:tabular-nums; }
 td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db2c9; }
 .table-foot { display:flex; justify-content:space-between; gap:10px; padding:8px 2px 0; color:#6c7f96; font-size:9px; }

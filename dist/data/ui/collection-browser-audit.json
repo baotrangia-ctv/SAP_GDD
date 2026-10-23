@@ -1,14 +1,16 @@
 {
   "browser": "chromium",
   "channel": "msedge",
+  "comparisonBasis": "source .ui transform/color compared with measured web AABB/runtime color; no Craftland runtime capture",
   "results": [
     {
       "viewport": {
         "width": 1440,
         "height": 1100
       },
-      "clicks": 212,
+      "clicks": 214,
       "petsClicked": 173,
+      "consoleErrors": 0,
       "scroll": "unchanged before/after every mouse click",
       "sample": {
         "selector": "#ui-preview-stage button[data-ui-name=\"CommonTabButton\"]",
@@ -61,6 +63,482 @@
           "entityOpacity": "0.01"
         }
       ],
+      "ownership": {
+        "ownedVisuals": {
+          "petId": "1",
+          "petName": "CHICK",
+          "expectedName": "Gà Con",
+          "rarity": "COMMON",
+          "expectedRarityColor": "#8CFF91",
+          "name": "Gà Con",
+          "thumbnailColor": "#ffffff",
+          "rarityColor": "#8CFF91"
+        },
+        "unownedVisuals": {
+          "name": "???",
+          "thumbnailColor": "#111111",
+          "rarityColor": "#111111",
+          "detailRarityColor": "#8CFF91",
+          "expectedTint": "#111111"
+        },
+        "ownedMutationIconColor": "#FFFFFF",
+        "unownedMutationIconColor": "#444444"
+      },
+      "widgetComparison": [
+        {
+          "name": "PetsCollection",
+          "path": "PetsCollection",
+          "type": "UIRootEntity",
+          "parentPath": "",
+          "source": {
+            "anchoredPosition": {
+              "x": 750,
+              "y": 375
+            },
+            "sizeDelta": {
+              "x": 1500,
+              "y": 750
+            },
+            "color": null
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 1500,
+              "height": 750
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 1500,
+              "height": 750
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "no visual color",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "Container",
+          "path": "PetsCollection/Container",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection",
+          "source": {
+            "anchoredPosition": {
+              "x": -20,
+              "y": 0
+            },
+            "sizeDelta": {
+              "x": 1040,
+              "y": 600
+            },
+            "color": "#1f64c4"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 210,
+              "y": 75,
+              "width": 1040,
+              "height": 600
+            },
+            "parentFramePx": {
+              "x": 210,
+              "y": 75,
+              "width": 1040,
+              "height": 600
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "missing sprite: Assets/Sprites/UIComponents/Backgrounds/BG.png",
+            "sprite": "Assets/Sprites/UIComponents/Backgrounds/BG.png"
+          }
+        },
+        {
+          "name": "RarityTabsLayout",
+          "path": "PetsCollection/Container/RarityTabsLayout",
+          "type": "UILayoutEntityV2",
+          "parentPath": "PetsCollection/Container",
+          "source": {
+            "anchoredPosition": {
+              "x": 16,
+              "y": -60
+            },
+            "sizeDelta": {
+              "x": 190,
+              "y": 540
+            },
+            "color": null
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 226,
+              "y": 135,
+              "width": 190,
+              "height": 540
+            },
+            "parentFramePx": {
+              "x": 16,
+              "y": 60,
+              "width": 190,
+              "height": 540
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "no visual color",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "AllTabButton",
+          "path": "PetsCollection/Container/RarityTabsLayout/AllTabButton",
+          "type": "UIButtonEntity",
+          "parentPath": "PetsCollection/Container/RarityTabsLayout",
+          "source": {
+            "anchoredPosition": {
+              "x": 95,
+              "y": 245
+            },
+            "sizeDelta": {
+              "x": 190,
+              "y": 50
+            },
+            "color": "#FFFFFF"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 226,
+              "y": 135,
+              "width": 190,
+              "height": 50
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 190,
+              "height": 50
+            },
+            "color": "#FFFFFF",
+            "colorSource": "source .ui visual color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/NewAssets/LongSelectTabBG.png"
+          }
+        },
+        {
+          "name": "Pet (1)",
+          "path": "PetsCollection/Container/PetsLayout/Pet (1)",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetsLayout",
+          "source": {
+            "anchoredPosition": {
+              "x": -158,
+              "y": 160
+            },
+            "sizeDelta": {
+              "x": 100,
+              "y": 100
+            },
+            "color": "#ffffff"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 444,
+              "y": 150,
+              "width": 100,
+              "height": 100
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 5,
+              "width": 100,
+              "height": 100
+            },
+            "color": "#ffffff",
+            "colorSource": "source .ui visual color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/NewAssets/ItemBG.png"
+          }
+        },
+        {
+          "name": "Thumbnail",
+          "path": "PetsCollection/Container/PetsLayout/Pet (1)/Thumbnail",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetsLayout/Pet (1)",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 6
+            },
+            "sizeDelta": {
+              "x": 80,
+              "y": 80
+            },
+            "color": "#ffffff"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 454,
+              "y": 154,
+              "width": 80,
+              "height": 80
+            },
+            "parentFramePx": {
+              "x": 10,
+              "y": 4,
+              "width": 80,
+              "height": 80
+            },
+            "color": "#ffffff",
+            "colorSource": "Assets/HUDs/PetsCollection.ui (base image Color)",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "./assets/pets/CHICK.png"
+          }
+        },
+        {
+          "name": "Rarity",
+          "path": "PetsCollection/Container/PetsLayout/Pet (1)/Rarity",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetsLayout/Pet (1)",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 2
+            },
+            "sizeDelta": {
+              "x": 96,
+              "y": 12
+            },
+            "color": "#FF6F6F"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 446,
+              "y": 236,
+              "width": 96,
+              "height": 12
+            },
+            "parentFramePx": {
+              "x": 2,
+              "y": 86,
+              "width": 96,
+              "height": 12
+            },
+            "color": "#8CFF91",
+            "colorSource": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:63",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/NewAssets/RarityBG.png"
+          }
+        },
+        {
+          "name": "RarityBG",
+          "path": "PetsCollection/Container/PetDetails/Pet/RarityBG",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetDetails/Pet",
+          "source": {
+            "anchoredPosition": {
+              "x": 10,
+              "y": 42
+            },
+            "sizeDelta": {
+              "x": 120,
+              "y": 36
+            },
+            "color": "#FF6F6F"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 1070,
+              "y": 221,
+              "width": 120,
+              "height": 36
+            },
+            "parentFramePx": {
+              "x": 180,
+              "y": 66,
+              "width": 120,
+              "height": 36
+            },
+            "color": "#8CFF91",
+            "colorSource": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:63",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/Backgrounds/BG.png"
+          }
+        },
+        {
+          "name": "RarityName",
+          "path": "PetsCollection/Container/PetDetails/Pet/RarityBG/RarityName",
+          "type": "UITextEntity",
+          "parentPath": "PetsCollection/Container/PetDetails/Pet/RarityBG",
+          "source": {
+            "anchoredPosition": {
+              "x": 10,
+              "y": -5
+            },
+            "sizeDelta": {
+              "x": -20,
+              "y": -7
+            },
+            "color": "#FFFFFF"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 1080,
+              "y": 226,
+              "width": 100,
+              "height": 29
+            },
+            "parentFramePx": {
+              "x": 10,
+              "y": 5,
+              "width": 100,
+              "height": 29
+            },
+            "color": "rgb(255, 255, 255)",
+            "colorSource": "source .ui text color / web computed",
+            "outlineColor": "#8CFF91",
+            "outlineColorSource": "Assets/Scripts/HUDs/HudCollection.fcg:434",
+            "renderStatus": "rendered",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "Label",
+          "path": "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton/Label",
+          "type": "UITextEntity",
+          "parentPath": "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 5
+            },
+            "sizeDelta": {
+              "x": -20,
+              "y": -20
+            },
+            "color": "#1f64c4"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 1008,
+              "y": 404,
+              "width": 88,
+              "height": 40
+            },
+            "parentFramePx": {
+              "x": 10,
+              "y": 5,
+              "width": 88,
+              "height": 40
+            },
+            "color": "#FFFFFF",
+            "colorSource": "Assets/Scripts/HUDs/HudCollection.fcg:783",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "MWLayout",
+          "path": "PetsCollection/Container/MutationsWeathers/MWLayout",
+          "type": "UILayoutEntityV2",
+          "parentPath": "PetsCollection/Container/MutationsWeathers",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 0
+            },
+            "sizeDelta": {
+              "x": 274,
+              "y": 158
+            },
+            "color": null
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 918,
+              "y": 493,
+              "width": 274,
+              "height": 104
+            },
+            "parentFramePx": {
+              "x": 38,
+              "y": 48,
+              "width": 274,
+              "height": 104
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "no visual color",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "Icon",
+          "path": "PetsCollection/Container/MutationsWeathers/MWLayout/Icon",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/MutationsWeathers/MWLayout",
+          "source": {
+            "anchoredPosition": {
+              "x": -112,
+              "y": 54
+            },
+            "sizeDelta": {
+              "x": 50,
+              "y": 50
+            },
+            "color": "#555555"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 918,
+              "y": 493,
+              "width": 50,
+              "height": 50
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 50,
+              "height": 50
+            },
+            "color": "#FFFFFF",
+            "colorSource": "Assets/Scripts/HUDs/HudCollection.fcg:22",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "./assets/system-icons/Golden.png"
+          }
+        }
+      ],
+      "hover": {
+        "resourceRowUnchanged": true,
+        "pressedReset": {
+          "expectedPressed": "#C5C5C5",
+          "actualPressed": "#C5C5C5",
+          "expectedNormal": "#FFFFFF",
+          "afterPointerleave": "#FFFFFF"
+        }
+      },
       "inspector": {
         "layers": 10,
         "cloneIdentity": true,
@@ -372,8 +850,9 @@
         "width": 390,
         "height": 844
       },
-      "clicks": 212,
+      "clicks": 214,
       "petsClicked": 173,
+      "consoleErrors": 0,
       "scroll": "unchanged before/after every mouse click",
       "sample": {
         "selector": "#ui-preview-stage button[data-ui-name=\"CommonTabButton\"]",
@@ -426,6 +905,482 @@
           "entityOpacity": "0.01"
         }
       ],
+      "ownership": {
+        "ownedVisuals": {
+          "petId": "1",
+          "petName": "CHICK",
+          "expectedName": "Gà Con",
+          "rarity": "COMMON",
+          "expectedRarityColor": "#8CFF91",
+          "name": "Gà Con",
+          "thumbnailColor": "#ffffff",
+          "rarityColor": "#8CFF91"
+        },
+        "unownedVisuals": {
+          "name": "???",
+          "thumbnailColor": "#111111",
+          "rarityColor": "#111111",
+          "detailRarityColor": "#8CFF91",
+          "expectedTint": "#111111"
+        },
+        "ownedMutationIconColor": "#FFFFFF",
+        "unownedMutationIconColor": "#444444"
+      },
+      "widgetComparison": [
+        {
+          "name": "PetsCollection",
+          "path": "PetsCollection",
+          "type": "UIRootEntity",
+          "parentPath": "",
+          "source": {
+            "anchoredPosition": {
+              "x": 750,
+              "y": 375
+            },
+            "sizeDelta": {
+              "x": 1500,
+              "y": 750
+            },
+            "color": null
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 1500,
+              "height": 750
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 1500,
+              "height": 750
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "no visual color",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "Container",
+          "path": "PetsCollection/Container",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection",
+          "source": {
+            "anchoredPosition": {
+              "x": -20,
+              "y": 0
+            },
+            "sizeDelta": {
+              "x": 1040,
+              "y": 600
+            },
+            "color": "#1f64c4"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 210,
+              "y": 75,
+              "width": 1040,
+              "height": 600
+            },
+            "parentFramePx": {
+              "x": 210,
+              "y": 75,
+              "width": 1040,
+              "height": 600
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "missing sprite: Assets/Sprites/UIComponents/Backgrounds/BG.png",
+            "sprite": "Assets/Sprites/UIComponents/Backgrounds/BG.png"
+          }
+        },
+        {
+          "name": "RarityTabsLayout",
+          "path": "PetsCollection/Container/RarityTabsLayout",
+          "type": "UILayoutEntityV2",
+          "parentPath": "PetsCollection/Container",
+          "source": {
+            "anchoredPosition": {
+              "x": 16,
+              "y": -60
+            },
+            "sizeDelta": {
+              "x": 190,
+              "y": 540
+            },
+            "color": null
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 226,
+              "y": 135,
+              "width": 190,
+              "height": 540
+            },
+            "parentFramePx": {
+              "x": 16,
+              "y": 60,
+              "width": 190,
+              "height": 540
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "no visual color",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "AllTabButton",
+          "path": "PetsCollection/Container/RarityTabsLayout/AllTabButton",
+          "type": "UIButtonEntity",
+          "parentPath": "PetsCollection/Container/RarityTabsLayout",
+          "source": {
+            "anchoredPosition": {
+              "x": 95,
+              "y": 245
+            },
+            "sizeDelta": {
+              "x": 190,
+              "y": 50
+            },
+            "color": "#FFFFFF"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 226,
+              "y": 135,
+              "width": 190,
+              "height": 50
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 190,
+              "height": 50
+            },
+            "color": "#FFFFFF",
+            "colorSource": "source .ui visual color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/NewAssets/LongSelectTabBG.png"
+          }
+        },
+        {
+          "name": "Pet (1)",
+          "path": "PetsCollection/Container/PetsLayout/Pet (1)",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetsLayout",
+          "source": {
+            "anchoredPosition": {
+              "x": -158,
+              "y": 160
+            },
+            "sizeDelta": {
+              "x": 100,
+              "y": 100
+            },
+            "color": "#ffffff"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 444,
+              "y": 150,
+              "width": 100,
+              "height": 100
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 5,
+              "width": 100,
+              "height": 100
+            },
+            "color": "#ffffff",
+            "colorSource": "source .ui visual color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/NewAssets/ItemBG.png"
+          }
+        },
+        {
+          "name": "Thumbnail",
+          "path": "PetsCollection/Container/PetsLayout/Pet (1)/Thumbnail",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetsLayout/Pet (1)",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 6
+            },
+            "sizeDelta": {
+              "x": 80,
+              "y": 80
+            },
+            "color": "#ffffff"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 454,
+              "y": 154,
+              "width": 80,
+              "height": 80
+            },
+            "parentFramePx": {
+              "x": 10,
+              "y": 4,
+              "width": 80,
+              "height": 80
+            },
+            "color": "#ffffff",
+            "colorSource": "Assets/HUDs/PetsCollection.ui (base image Color)",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "./assets/pets/CHICK.png"
+          }
+        },
+        {
+          "name": "Rarity",
+          "path": "PetsCollection/Container/PetsLayout/Pet (1)/Rarity",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetsLayout/Pet (1)",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 2
+            },
+            "sizeDelta": {
+              "x": 96,
+              "y": 12
+            },
+            "color": "#FF6F6F"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 446,
+              "y": 236,
+              "width": 96,
+              "height": 12
+            },
+            "parentFramePx": {
+              "x": 2,
+              "y": 86,
+              "width": 96,
+              "height": 12
+            },
+            "color": "#8CFF91",
+            "colorSource": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:63",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/NewAssets/RarityBG.png"
+          }
+        },
+        {
+          "name": "RarityBG",
+          "path": "PetsCollection/Container/PetDetails/Pet/RarityBG",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/PetDetails/Pet",
+          "source": {
+            "anchoredPosition": {
+              "x": 10,
+              "y": 42
+            },
+            "sizeDelta": {
+              "x": 120,
+              "y": 36
+            },
+            "color": "#FF6F6F"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 1070,
+              "y": 221,
+              "width": 120,
+              "height": 36
+            },
+            "parentFramePx": {
+              "x": 180,
+              "y": 66,
+              "width": 120,
+              "height": 36
+            },
+            "color": "#8CFF91",
+            "colorSource": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:63",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "Assets/Sprites/Backgrounds/BG.png"
+          }
+        },
+        {
+          "name": "RarityName",
+          "path": "PetsCollection/Container/PetDetails/Pet/RarityBG/RarityName",
+          "type": "UITextEntity",
+          "parentPath": "PetsCollection/Container/PetDetails/Pet/RarityBG",
+          "source": {
+            "anchoredPosition": {
+              "x": 10,
+              "y": -5
+            },
+            "sizeDelta": {
+              "x": -20,
+              "y": -7
+            },
+            "color": "#FFFFFF"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 1080,
+              "y": 226,
+              "width": 100,
+              "height": 29
+            },
+            "parentFramePx": {
+              "x": 10,
+              "y": 5,
+              "width": 100,
+              "height": 29
+            },
+            "color": "rgb(255, 255, 255)",
+            "colorSource": "source .ui text color / web computed",
+            "outlineColor": "#8CFF91",
+            "outlineColorSource": "Assets/Scripts/HUDs/HudCollection.fcg:434",
+            "renderStatus": "rendered",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "Label",
+          "path": "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton/Label",
+          "type": "UITextEntity",
+          "parentPath": "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 5
+            },
+            "sizeDelta": {
+              "x": -20,
+              "y": -20
+            },
+            "color": "#1f64c4"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 1008,
+              "y": 404,
+              "width": 88,
+              "height": 40
+            },
+            "parentFramePx": {
+              "x": 10,
+              "y": 5,
+              "width": 88,
+              "height": 40
+            },
+            "color": "#FFFFFF",
+            "colorSource": "Assets/Scripts/HUDs/HudCollection.fcg:783",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "MWLayout",
+          "path": "PetsCollection/Container/MutationsWeathers/MWLayout",
+          "type": "UILayoutEntityV2",
+          "parentPath": "PetsCollection/Container/MutationsWeathers",
+          "source": {
+            "anchoredPosition": {
+              "x": 0,
+              "y": 0
+            },
+            "sizeDelta": {
+              "x": 274,
+              "y": 158
+            },
+            "color": null
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 918,
+              "y": 493,
+              "width": 274,
+              "height": 104
+            },
+            "parentFramePx": {
+              "x": 38,
+              "y": 48,
+              "width": 274,
+              "height": 104
+            },
+            "color": null,
+            "colorSource": "no rendered color",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "no visual color",
+            "sprite": ""
+          }
+        },
+        {
+          "name": "Icon",
+          "path": "PetsCollection/Container/MutationsWeathers/MWLayout/Icon",
+          "type": "UIImageEntity",
+          "parentPath": "PetsCollection/Container/MutationsWeathers/MWLayout",
+          "source": {
+            "anchoredPosition": {
+              "x": -112,
+              "y": 54
+            },
+            "sizeDelta": {
+              "x": 50,
+              "y": 50
+            },
+            "color": "#555555"
+          },
+          "web": {
+            "canvasFramePx": {
+              "x": 918,
+              "y": 493,
+              "width": 50,
+              "height": 50
+            },
+            "parentFramePx": {
+              "x": 0,
+              "y": 0,
+              "width": 50,
+              "height": 50
+            },
+            "color": "#FFFFFF",
+            "colorSource": "Assets/Scripts/HUDs/HudCollection.fcg:22",
+            "outlineColor": "",
+            "outlineColorSource": "",
+            "renderStatus": "rendered",
+            "sprite": "./assets/system-icons/Golden.png"
+          }
+        }
+      ],
+      "hover": {
+        "resourceRowUnchanged": true,
+        "pressedReset": {
+          "expectedPressed": "#C5C5C5",
+          "actualPressed": "#C5C5C5",
+          "expectedNormal": "#FFFFFF",
+          "afterPointerleave": "#FFFFFF"
+        }
+      },
       "inspector": {
         "layers": 10,
         "cloneIdentity": true,

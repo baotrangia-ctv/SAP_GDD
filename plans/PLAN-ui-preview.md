@@ -1,6 +1,6 @@
 # Plan: tab "UI Preview" — hiển thị UI game trên web (phase 1: Collection)
 
-**Trạng thái 2026-10-23:** Đã triển khai bước 0–5 trong GDD: allowlist, sync layout/sprite/rule, renderer, tương tác giả lập, audit và tài liệu. Audit dữ liệu/DOM: 107/107 entity, 0 lệch ID/path/type; còn 8 sprite thiếu và 272 trường unsupported trên 69 entity. Nghiệm thu hình ảnh 1-1 chờ ảnh game cho các trạng thái nêu ở §5. Xem `design/20-dev-action-items.md` DA-002–005.
+**Trạng thái 2026-10-23:** Hoàn tất D1–D7; từng phase có commit Conventional Commit riêng. Source allowlist và quyết định read-only đã được ghi lại. Audit hiện tại: 107/107 entity, không lệch ID/path/type; 81 runtime assignments, 7 màu rarity, 41 sprite tham chiếu (7 thiếu), 57 entity có 76 field unsupported và 8 localization key thiếu. Browser QA kiểm tra 8 rarity, 173 pet qua các trang, owned/unowned, 3 tab chi tiết, Recipe, Inspector và viewport 1440×1100 / 390×844. Chưa có ảnh/đo runtime từ Craftland Editor nên không kết luận parity hình ảnh; xem DA-002–005, DA-012–014 trong design/20-dev-action-items.md.
 
 Mục tiêu: dựng lại UI thật của game (đọc từ file `.ui` của Studio) trên web, **1-1 về cây entity, anchor/size/vị trí, sprite, text**, và tương tác được như trong game. Phase này chỉ làm **PetsCollection**; kiến trúc phải cho phép thêm UI khác (Shop, Mail, Mission…) chỉ bằng thêm một mục registry + một module.
 
@@ -19,13 +19,13 @@ Project game thật nằm ở `C:\_Code\craftland\StealAPet` (CLAUDE.md đang gh
 
 Cây entity gốc của PetsCollection (để đối chiếu 1-1): `DarkBG`, `Container` → `PreventCloseButton`, `Title`(`Label`,`CloseButton`), `BG`(`DecorLeft`,`Main`,`DecorRight`), `RarityTabsLayout` (All/Common/Rare/Epic/Legendary/Mythic/Apex/Limited), `PetsLayout`, `PageBtns`(Prev/Page/Next), `PetDetails`, `DetailsTabsLayout`(Info/Mutations/Weathers), `Info`, `MutationsWeathers`(`MWLayout`), `UnlockObtain`, `Recipe`, `PetsCount`/`MutationsCount`/`WeathersCount`, `LoadingLabel`. Loại entity: Root, Button, Image, Text, LayoutV2, Empty.
 
-## 2. Xung đột với quy tắc cứng — cần chốt trước khi code
+## 2. Source boundary decision — đã ghi nhận
 
 `CLAUDE.md` hiện chỉ cho đọc **CSV trong `Assets/CSV/**` và `.fcg`** từ project game. Tính năng này cần thêm **hai nguồn đọc-only**:
 1. `Assets/HUDs/*.ui` (cụ thể phase này: `PetsCollection.ui`),
 2. file sprite `.png` mà `.ui` tham chiếu (copy vào `dist/assets/ui-sprites/`; đã có tiền lệ copy sprite weather).
 
-**Đề xuất quyết định D-xx** (người dùng yêu cầu tính năng này nên coi là đồng ý, nhưng phải ghi lại): mở rộng allowlist **chỉ** cho `Assets/HUDs/<danh sách UI đã đăng ký>.ui` và sprite được `.ui` đó tham chiếu; vẫn **chỉ đọc**, vẫn không ghi/tạo file/chạy lệnh Git ghi ở repo game, output vẫn neo trong `dist/`. Cập nhật `CLAUDE.md` (dòng quy tắc `D:\Craftland\StealAPet` → đường dẫn đúng + allowlist mới) và `design/00-decisions.md` **trước** khi sửa code sync.
+**Quyết định đã triển khai:** CLAUDE.md và design/00-decisions.md cho phép đọc PetsCollection.ui và các sprite mà file này tham chiếu theo allowlist đăng ký. Source game chỉ đọc; output được guard trong dist.
 
 ## 3. Kiến trúc
 
@@ -63,16 +63,15 @@ dist/app-ui-collection.js    binding + hành vi riêng của Collection
 Phải xác minh từ `HudCollection.fcg` rồi mới code: danh sách rarity tab và mapping tab→RarityEnum (kể cả `All`, `Limited`), số pet/trang và công thức trang, trạng thái pet chưa sở hữu (silhouette/khoá?), nội dung panel `PetDetails`/`Info`/`Obtain`, tab Mutations/Weathers (item sở hữu/chưa), `UnlockObtain`, `Recipe` (khi nào hiện), 3 bộ đếm + progress bar, `LoadingLabel`, đóng bằng `CloseButton`/`DarkBG` và `PreventCloseButton`.
 Dữ liệu người chơi **không có** trên web → dùng **state mô phỏng** (panel “Người chơi giả lập”: sở hữu tất cả / không có gì / ngẫu nhiên có seed / tự chọn pet+mutation+weather). Ghi rõ nhãn “mô phỏng” trên UI; không bịa số liệu sở hữu thật.
 
-## 4. Lộ trình (mỗi bước = 1 commit local, Conventional Commits, không push)
+## 4. Lộ trình đã triển khai (mỗi bước = 1 commit local, Conventional Commits, không push)
 
-| Bước | Nội dung | Commit gợi ý |
+| Bước | Nội dung | Commit |
 |---|---|---|
-| 0 | Cập nhật `CLAUDE.md` (đường dẫn game + allowlist `.ui`/sprite UI), thêm quyết định vào `design/00-decisions.md`, thêm plan này | `docs(ui): allow read-only HUD ui files for UI preview` |
-| 1 | Parser `.ui` + guard đường dẫn + `collection.json` + manifest sprite + registry; báo cáo `unsupported`/`missing` | `feat(sync): export collection hud layout and sprites` |
-| 2 | `collection-rules.json` từ `.fcg` (rarity tab, page size, state rule) | `feat(sync): derive collection hud rules from fcg` |
-| 3 | Renderer generic + trang UI Preview + sub-tab + nav; render tĩnh Collection đúng bố cục | `feat(ui): add ui preview tab with collection layout` |
-| 4 | Hành vi: rarity tab, phân trang, chọn pet, tab Info/Mutations/Weathers, Recipe/UnlockObtain, đếm, close, panel giả lập | `feat(ui): make collection preview interactive` |
-| 5 | QA so khớp 1-1 (script audit số entity/path), responsive, console sạch, README/design cập nhật | `docs(ui): document ui preview and collection parity` |
+| 0 | Read-only .ui/sprite allowlist and decision record | docs(ui): allow read-only HUD ui files for UI preview |
+| 1–2 | Sync full propsData, HUD runtime rules, rarity colors and sprite manifest | feat(sync): export collection hud layout and sprites · feat(sync): derive collection hud rules from fcg |
+| 3–5 | Renderer, interaction, tint, layout, text, fill, viewport presets; unknown engine details documented | feat(ui): add ui preview tab with collection layout · feat(ui): make collection preview interactive · fix(ui): tint sprites from game color rules · refactor(ui): unify layout rendering · fix(ui): render text fill and viewport fields |
+| 6 | Right-click Widget Inspector, geometry hit testing, clone identity and JSON copy | feat(ui): add right-click widget inspector |
+| 7 | Static/browser audits, ownership/hover checks, 12-widget source/web comparison and docs | test(ui): audit preview states and widget geometry |
 
 ## 5. Nghiệm thu
 

@@ -100,6 +100,17 @@ export async function auditBrowser(url, screen) {
       assert.deepEqual(textRendering.aspectOptions, ["16:9", "18:9", "20:9", "4:3"]);
       assert.equal(textRendering.selectedAspect, "18:9");
       assert.match(textRendering.radialFill, /conic-gradient/);
+      const pressedReset = await page.evaluate(() => {
+        const button = document.querySelector('#ui-preview-stage button[data-ui-name="CommonTabButton"]');
+        let source = null;
+        (function walk(node) { if (node.path === button.dataset.uiPath) source = node; else node.children.forEach(walk); })(uiPreview.screen.tree);
+        button.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "touch" }));
+        const pressed = button.dataset.uiRuntimeColor;
+        button.dispatchEvent(new PointerEvent("pointerleave", { bubbles: true, pointerType: "touch" }));
+        return { expectedPressed: source.button.pressed, actualPressed: pressed, expectedNormal: source.button.normal, afterPointerleave: button.dataset.uiRuntimeColor };
+      });
+      assert.equal(pressedReset.actualPressed, pressedReset.expectedPressed, "Pointerdown did not apply the pressed color");
+      assert.equal(pressedReset.afterPointerleave, pressedReset.expectedNormal, "Pointerleave did not restore the normal color");
       await page.selectOption("#ui-preview-aspect", "4:3");
       const alternateAspect = await page.evaluate(() => {
         const stage = document.getElementById("ui-preview-stage");
@@ -173,6 +184,86 @@ export async function auditBrowser(url, screen) {
         near(point.x, index % 5 * 56, `M/W icon ${index} x`);
         near(point.y, Math.floor(index / 5) * 54, `M/W icon ${index} y`);
       });
+      await page.selectOption("#ui-player-mode", "all");
+      const firstPetId = await page.evaluate(() => [...document.querySelectorAll("[data-ui-pet-id]")].find(el => getComputedStyle(el).display !== "none")?.dataset.uiPetId);
+      assert.ok(firstPetId, "No visible pet card for ownership audit");
+      await click(`[data-ui-pet-id="${firstPetId}"] button`);
+      const ownedVisuals = await page.evaluate(petId => {
+        const card = document.querySelector(`[data-ui-pet-id="${petId}"]`);
+        const child = name => [...card.children].find(el => el.dataset.uiName === name);
+        const pet = t("Pet.csv").rows.find(row => row.ID === petId);
+        const rules = uiPreview.rules;
+        return { petId, petName: pet.Name, expectedName: uiTranslate(pet.Name), rarity: pet.Rarity, expectedRarityColor: rules.rarityColors.values[pet.Rarity.toUpperCase()].value,
+          name: child("Name")?.querySelector(":scope > .ui-text")?.textContent, thumbnailColor: child("Thumbnail")?.dataset.uiRuntimeColor,
+          rarityColor: child("Rarity")?.dataset.uiRuntimeColor };
+      }, firstPetId);
+      assert.equal(ownedVisuals.name, ownedVisuals.expectedName, "Owned card should show its localized pet name");
+      assert.equal(ownedVisuals.rarityColor, ownedVisuals.expectedRarityColor, "Owned rarity tint differs from PetConfigs_Client.fcg");
+      await page.selectOption("#ui-player-mode", "none");
+      const unownedVisuals = await page.evaluate(petId => {
+        const card = document.querySelector(`[data-ui-pet-id="${petId}"]`);
+        const child = name => [...card.children].find(el => el.dataset.uiName === name);
+        const detailRarity = document.querySelector('[data-ui-path="PetsCollection/Container/PetDetails/Pet/RarityBG"]');
+        return { name: child("Name")?.querySelector(":scope > .ui-text")?.textContent, thumbnailColor: child("Thumbnail")?.dataset.uiRuntimeColor,
+          rarityColor: child("Rarity")?.dataset.uiRuntimeColor, detailRarityColor: detailRarity?.dataset.uiRuntimeColor,
+          expectedTint: uiPreview.rules.unowned.tint };
+      }, firstPetId);
+      assert.equal(unownedVisuals.name, "???", "Unowned card should use the source-configured hidden name");
+      assert.equal(unownedVisuals.thumbnailColor, unownedVisuals.expectedTint, "Unowned thumbnail tint mismatch");
+      assert.equal(unownedVisuals.rarityColor, unownedVisuals.expectedTint, "Unowned rarity icon tint mismatch");
+      assert.equal(unownedVisuals.detailRarityColor, ownedVisuals.expectedRarityColor, "Detail rarity background should retain its rarity color");
+      await page.selectOption("#ui-player-mode", "all");
+      await click(button("MutationsTabButton"));
+      const ownedIcon = await page.evaluate(() => ({ actual: [...document.querySelectorAll('[data-ui-name="MWLayout"] > .ui-entity')].find(el => getComputedStyle(el).display !== "none")?.dataset.uiRuntimeColor, expected: uiPreview.rules.details.ownedIconColor }));
+      const ownedIconColor = ownedIcon.actual;
+      assert.equal(ownedIconColor, ownedIcon.expected, "Owned mutation icon color mismatch");
+      await page.selectOption("#ui-player-mode", "none");
+      const unownedIcon = await page.evaluate(() => ({ actual: [...document.querySelectorAll('[data-ui-name="MWLayout"] > .ui-entity')].find(el => getComputedStyle(el).display !== "none")?.dataset.uiRuntimeColor, expected: uiPreview.rules.details.unownedIconColor }));
+      const unownedIconColor = unownedIcon.actual;
+      assert.equal(unownedIconColor, unownedIcon.expected, "Unowned mutation icon color mismatch");
+      await page.selectOption("#ui-player-mode", "all");
+      const widgetComparison = await page.evaluate(sourceTree => {
+        const paths = [
+          "PetsCollection", "PetsCollection/Container", "PetsCollection/Container/RarityTabsLayout",
+          "PetsCollection/Container/RarityTabsLayout/AllTabButton", "PetsCollection/Container/PetsLayout/Pet (1)",
+          "PetsCollection/Container/PetsLayout/Pet (1)/Thumbnail", "PetsCollection/Container/PetsLayout/Pet (1)/Rarity",
+          "PetsCollection/Container/PetDetails/Pet/RarityBG", "PetsCollection/Container/PetDetails/Pet/RarityBG/RarityName",
+          "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton/Label", "PetsCollection/Container/MutationsWeathers/MWLayout",
+          "PetsCollection/Container/MutationsWeathers/MWLayout/Icon"
+        ];
+        const sourceByPath = new Map();
+        const parentByPath = new Map();
+        (function walk(node, parent = "") { sourceByPath.set(node.path, node); parentByPath.set(node.path, parent); node.children.forEach(child => walk(child, node.path)); })(sourceTree);
+        const canvas = document.querySelector("#ui-preview-stage .ui-canvas"), canvasRect = canvas.getBoundingClientRect();
+        const scale = canvasRect.width / Number.parseFloat(canvas.style.width);
+        const round = value => Number(value.toFixed(2));
+        return paths.map(path => {
+          const source = sourceByPath.get(path);
+          const candidates = [...canvas.querySelectorAll("[data-ui-path], [data-ui-clone-path]")].filter(el => (el.dataset.uiPath || el.dataset.uiClonePath) === path);
+          const el = candidates.find(item => item.dataset.uiPath === path) || candidates.find(item => getComputedStyle(item).display !== "none");
+          if (!source || !el) throw new Error(`Widget comparison path missing: ${path}`);
+          const rect = el.getBoundingClientRect();
+          const parent = el.parentElement?.closest(".ui-entity");
+          const parentRect = parent?.getBoundingClientRect() || canvasRect;
+          const runtimeValues = (() => { try { return JSON.parse(el.dataset.uiRuntimeValues || "{}"); } catch { return {}; } })();
+          const sourceColor = source.image?.color ?? source.button?.normal ?? source.text?.color ?? null;
+          const visual = el.querySelector(":scope > .ui-visual > .ui-sprite");
+          const renderData = (() => { try { return JSON.parse(visual?.dataset.uiRenderData || "{}"); } catch { return {}; } })();
+          const text = el.querySelector(":scope > .ui-text");
+          const textColor = text ? (text.dataset.uiRuntimeColor || getComputedStyle(text).color) : null;
+          const color = el.dataset.uiRuntimeColor || runtimeValues.Color?.value || textColor || renderData.color || null;
+          return { name: source.name, path, type: source.type, parentPath: parentByPath.get(path),
+            source: { anchoredPosition: source.transform?.anchoredPosition || null, sizeDelta: source.transform?.sizeDelta || null, color: sourceColor },
+            web: { canvasFramePx: { x: round((rect.left - canvasRect.left) / scale), y: round((rect.top - canvasRect.top) / scale), width: round(rect.width / scale), height: round(rect.height / scale) },
+              parentFramePx: { x: round((rect.left - parentRect.left) / scale), y: round((rect.top - parentRect.top) / scale), width: round(rect.width / scale), height: round(rect.height / scale) },
+              color, colorSource: runtimeValues.Color?.source || (textColor ? "source .ui text color / web computed" : renderData.color ? "source .ui visual color" : "no rendered color"),
+              outlineColor: text?.dataset.uiRuntimeOutlineColor || "", outlineColorSource: runtimeValues.OutlineColor?.source || "",
+              renderStatus: el.dataset.uiMissingSprite ? `missing sprite: ${el.dataset.uiMissingSprite}` : (visual || text ? "rendered" : "no visual color"),
+              sprite: el.dataset.uiRuntimeUrl || el.dataset.uiRuntimeSpriteKey || el.dataset.uiSpriteKey || "" } };
+        });
+      }, screen.tree);
+      assert.equal(widgetComparison.length, 12);
+      assert.ok(widgetComparison.every(row => row.web.canvasFramePx.width >= 0 && row.web.canvasFramePx.height >= 0), "Invalid measured widget geometry");
       const inspectorBefore = { ...await measure(), state: await page.evaluate(() => ({ rarity: collectionPreview.rarity, page: collectionPreview.page, selected: collectionPreview.selected.ID })) };
       await page.evaluate(() => { window.auditInspectorContextPrevented = false; document.addEventListener("contextmenu", event => { if (event.target.closest(".ui-canvas")) window.auditInspectorContextPrevented = event.defaultPrevented; }); });
       const clonePoint = await page.evaluate(() => {
@@ -245,6 +336,13 @@ export async function auditBrowser(url, screen) {
         const input = document.getElementById("ui-resource-search"); input.value = "Thumbnail"; input.dispatchEvent(new Event("input", { bubbles: true }));
         return [...document.querySelectorAll("#ui-resource-rows tr")].filter(row => !row.hidden).map(row => row.dataset.resourceId);
       });
+      const resourceRow = "#ui-resource-rows tr:not([hidden])";
+      await position(resourceRow);
+      const resourceHoverBefore = await page.locator(resourceRow).first().evaluate(row => getComputedStyle(row).backgroundColor);
+      const resourceBox = await page.locator(resourceRow).first().boundingBox();
+      await page.mouse.move(resourceBox.x + resourceBox.width / 2, resourceBox.y + resourceBox.height / 2);
+      const resourceHoverAfter = await page.locator(resourceRow).first().evaluate(row => getComputedStyle(row).backgroundColor);
+      assert.equal(resourceHoverAfter, resourceHoverBefore, "Resource table changed appearance on hover");
       await click(button("RareTabButton"));
       assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll("#ui-resource-rows tr")].filter(row => !row.hidden).map(row => row.dataset.resourceId)), beforeFilter);
       assert.ok(await page.evaluate(() => window.auditResourceRows.every(row => row.isConnected)), "Resource rows replaced");
@@ -290,7 +388,10 @@ export async function auditBrowser(url, screen) {
       assert.deepEqual(await measure(), before);
       assert.equal(await page.locator(".ui-resource-selected").count(), 0);
       assert.deepEqual(errors, [], "Browser console/page errors");
-      results.push({ viewport, clicks, petsClicked, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha,
+      results.push({ viewport, clicks, petsClicked, consoleErrors: errors.length, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha,
+        ownership: { ownedVisuals, unownedVisuals, ownedMutationIconColor: ownedIconColor, unownedMutationIconColor: unownedIconColor },
+        widgetComparison,
+        hover: { resourceRowUnchanged: resourceHoverAfter === resourceHoverBefore, pressedReset },
         inspector: { layers: inspectorOpen.layers, cloneIdentity: inspectorOpen.cloneIdentity, requiredFields: inspectorOpen.requiredFields,
           rightClickPrevented: inspectorOpen.rightClickPrevented, dialogWithinViewport: true, rowSelectionChanged, copyStatus,
           inactiveHit: hiddenHit.hit, alphaZeroHit: alphaZeroHit.hit, outsideContextDefaultPreserved: true, closeByEscapeAndOutsideClick: true },
@@ -307,5 +408,7 @@ export async function auditBrowser(url, screen) {
     }
   } finally { await browser.close(); }
   console.log(JSON.stringify({ browserAudit: results.map(({ measurements, ...summary }) => summary) }, null, 2));
-  return { browser: "chromium", channel: process.env.UI_AUDIT_BROWSER || "msedge", results };
+  return { browser: "chromium", channel: process.env.UI_AUDIT_BROWSER || "msedge",
+    comparisonBasis: "source .ui transform/color compared with measured web AABB/runtime color; no Craftland runtime capture",
+    results };
 }

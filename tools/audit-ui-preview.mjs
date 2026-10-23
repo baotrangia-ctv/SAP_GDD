@@ -89,6 +89,15 @@ for (const feature of ["contextmenu", "preventDefault", "getBoundingClientRect",
   assert.ok(inspectorSource.includes(feature), `Inspector does not cover ${feature}`);
 assert.doesNotMatch(inspectorSource, /pointerenter|pointerleave|\.title\s*=|:hover/, "Inspector must not introduce hover or tooltip behavior");
 assert.match(readFileSync(path.join(gdd, "dist", "index.html"), "utf8"), /app-ui-inspector\.js/, "Inspector module is not loaded by index.html");
+const previewStyleSource = readFileSync(path.join(gdd, "dist", "styles.css"), "utf8");
+for (const file of ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"]) {
+  const code = readFileSync(path.join(gdd, "dist", file), "utf8");
+  assert.doesNotMatch(code, /pointerenter|\.title\s*=|:hover/, `Hover or tooltip behavior remains: ${file}`);
+}
+assert.match(previewStyleSource, /\.table-wrap\s+tbody\s+tr:hover\s*\{/, "Shared table hover must stay scoped outside Resource đang dùng");
+assert.doesNotMatch(previewStyleSource, /(?:^|})\s*tbody\s+tr:hover\s*\{/m, "Unscoped table hover affects Resource đang dùng");
+assert.doesNotMatch(previewStyleSource, /\.ui-resource-panel[^{}]*:hover|\.ui-debug[^{}]*:hover/, "UI Preview/resource/debug hover style remains");
+assert.match(rendererSource, /addEventListener\("pointerleave",\s*normal\)/, "Pressed tint must reset on pointerleave");
 const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"];
 for (const file of previewModules) {
   const code = readFileSync(path.join(gdd, "dist", file), "utf8");
