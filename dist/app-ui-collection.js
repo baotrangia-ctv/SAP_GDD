@@ -26,6 +26,7 @@ function initCollectionPreview(screen, rules, rendered) {
   function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) span.textContent = uiTranslate(String(value)); }
   function setImage(el, url, dark = false) {
     if (!el) return;
+    el.dataset.uiRuntimeUrl = url || "";
     const img = el.querySelector(":scope > .ui-sprite") || document.createElement("img");
     if (!img.parentElement) { img.className = "ui-sprite"; img.alt = ""; el.prepend(img); }
     if (url) { img.src = url; img.style.display = "block"; } else img.style.display = "none";

@@ -2,7 +2,7 @@
 
 Object.assign(pages, { uipreview: "UI Preview" });
 
-const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", rendered: null, width: 1280, height: 720, open: true };
+const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", selectedResourcePath: "", rendered: null, width: 1280, height: 720, open: true };
 function uiTranslate(key, args = []) {
   const entry = uiPreview.i18n?.entries?.[key];
   const pattern = (entry && (entry[uiPreview.language] || entry.en)) || key;
@@ -63,7 +63,9 @@ function renderUiResourcePanel() {
   function walk(node) {
     if (node.image || node.button || node.text) {
       const data = node.image || node.button || {};
-      const key = uiPreview.rendered?.byId.get(node.id)?.dataset.uiSpriteKey || data.spriteKey || "";
+      const element = uiPreview.rendered?.byId.get(node.id);
+      const runtimeUrl = element?.dataset.uiRuntimeUrl || "";
+      const key = element?.dataset.uiSpriteKey || data.spriteKey || "";
       const sprite = uiPreview.manifest.sprites.find(item => item.key === key);
       const text = node.text;
       const color = node.button ? `normal ${node.button.normal || ""} · hover ${node.button.highlight || ""} · pressed ${node.button.pressed || ""} · disabled ${node.button.disabled || ""}` : (data.color || "");
@@ -71,12 +73,17 @@ function renderUiResourcePanel() {
       const border = sprite?.border ? `${sprite.border.left}/${sprite.border.right}/${sprite.border.top}/${sprite.border.bottom}` : "—";
       const shown = uiPreview.rendered?.byId.get(node.id)?.querySelector(":scope > .ui-text")?.textContent;
       const label = text ? `${text.key || "chuỗi thô"} · ${shown ?? uiTranslate(text.key || text.value)} · ${text.fontSize || "?"}px${text.outline ? " · outline" : ""}` : "";
-      rows.push(`<tr data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${sprite?.output ? `<img src="${esc(sprite.output)}" alt="">` : ""}${esc(key.split("/").at(-1) || "—")}<small>${esc(key || "")}</small></td><td>${key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
+      rows.push(`<tr data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${runtimeUrl || sprite?.output ? `<img src="${esc(runtimeUrl || sprite.output)}" alt="">` : ""}${esc(runtimeUrl ? runtimeUrl.split("/").at(-1) : key.split("/").at(-1) || "—")}<small>${esc(runtimeUrl || key || "")}</small></td><td>${runtimeUrl ? "Runtime" : key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
     }
     node.children.forEach(walk);
   }
   walk(uiPreview.screen.tree);
   tbody.innerHTML = rows.join("");
+  if (uiPreview.selectedResourcePath) {
+    const selected = [...tbody.querySelectorAll("[data-resource-path]")].find(row => row.dataset.resourcePath === uiPreview.selectedResourcePath);
+    selected?.classList.add("ui-resource-selected");
+    selected?.scrollIntoView({ block: "nearest" });
+  }
 }
 
 function auditUiPreviewDom(tree, canvas) {
@@ -116,6 +123,7 @@ document.addEventListener("click", event => {
   }
 });
 function focusUiResource(path, scrollRow) {
+  uiPreview.selectedResourcePath = path;
   document.querySelectorAll(".ui-resource-selected").forEach(el => el.classList.remove("ui-resource-selected"));
   const row = [...document.querySelectorAll("[data-resource-path]")].find(el => el.dataset.resourcePath === path);
   const entity = [...document.querySelectorAll("#ui-preview-stage [data-ui-path]")].find(el => el.dataset.uiPath === path);

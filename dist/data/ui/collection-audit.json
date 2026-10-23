@@ -4,9 +4,9 @@
   "exportEntityCount": 107,
   "missingEntities": [],
   "extraEntities": [],
-  "unsupportedEntityCount": 69,
-  "unsupportedFieldCount": 272,
-  "spriteCount": 35,
+  "unsupportedEntityCount": 57,
+  "unsupportedFieldCount": 76,
+  "spriteCount": 41,
   "missingSprites": [
     "Assets/Sprites/UIComponents/Backgrounds/BG.png",
     "lib://fftextures/WorkshopIconLibrary/UGC_Btn_02_Big_Normal.png",
@@ -14,8 +14,22 @@
     "Assets/_Test/NewUI/Assets/Img_decorate01.png",
     "Assets/_Test/NewUI/Assets/Img_decorate02.png",
     "Assets/_Test/NewAssets/Assets/Icon_mutation.png",
-    "Assets/Sprites/ShadowTriangleRounded.png",
     "lib://fftextures/WorkshopIconLibrary/UI_BG_icon_03.png"
   ],
-  "missingCopiedFiles": []
+  "missingCopiedFiles": [],
+  "imageEntityCount": 68,
+  "unmanifestedImages": [],
+  "borderMismatches": [],
+  "localizationKeyCount": 192,
+  "missingLocalizationKeys": [
+    "BULL_PUMPKIN",
+    "CHICK_PUMPKIN",
+    "GIRAFFE_PUMPKIN",
+    "GORILLA_PUMPKIN",
+    "JELLYFISH_PUMPKIN",
+    "PENGUIN_PUMPKIN",
+    "SQUID_PUMPKIN",
+    "WILDBOAR_PUMPKIN"
+  ],
+  "missingStaticTextKeys": []
 }

@@ -61,3 +61,10 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Quyết định:** Cho phép đọc-only `.png.meta` của các sprite UI Collection được dùng để lấy border 9-grid; `Assets/Localization/key.csv` để trích duy nhất các key Collection thực sự dùng; sprite runtime mà `HudCollection.fcg` hoặc config gán cho UI này; và file/bảng định nghĩa `EResSprite`/`Res.Sprite` cần để ánh xạ chúng. Không mirror toàn bộ localization hoặc asset ngoài phạm vi UI Collection.
 - **Giới hạn:** Không đọc `Compensate/**` và `giftcode.csv`; không ghi hay chạy Git ghi trong project game. Mọi JSON và sprite dẫn xuất chỉ ghi dưới `dist/` của GDD với guard đường dẫn.
 - **Nguồn:** Yêu cầu sửa UI Preview > Collection ngày 2026-10-23.
+
+## D-009 — Render border Collection từ meta sprite
+
+- **Trạng thái:** ✅ Đã triển khai với giới hạn DA-003 và DA-006.
+- **Quyết định:** Khi `fillType=1` (Sliced), dùng border `borderLeft/Right/Top/Bottom` của `.png.meta` cho CSS `border-image`; `slicedBorder` trong `.ui` hiện bằng 0 nên không dùng làm border cắt. `centerInvisible` quyết định có fill phần giữa. Border của 68 entity image/button đã được audit với meta nguồn.
+- **Bằng chứng:** MCP `ScriptManual/Types/FillType` xác nhận `Sliced=1`, `Tiled=2`, `Filled=3`; `.png.meta` của `NormalTabBG` có 20 px bốn cạnh; `.ui` khai `fillType=1` và `slicedBorder=0`.
+- **Giới hạn:** MCP không mô tả thứ tự ưu tiên giữa meta và `.ui`, hành vi khi kích thước entity nhỏ hơn tổng border, hay cách tint/gradient chính xác của Studio. Renderer web dùng CSS `border-image`; cần ảnh game để nghiệm thu hình ảnh.
