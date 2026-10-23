@@ -100,7 +100,7 @@ export function syncUiPreview(sourceRoot, gddRoot) {
         transform: props.transform || null, alpha: props.alpha ?? 100,
         priority: props.priority ?? 0,
         image: null, button: null, text: null, layout: null,
-        ecaProps: node.ecaProps || {}, unsupported: [], children: []
+        propsData: props, ecaProps: node.ecaProps || {}, unsupported: [], children: []
       };
       for (const kind of Object.keys(PROP_FIELDS)) if (props[kind]) {
         const value = props[kind];
@@ -165,9 +165,11 @@ function collectionRules(source) {
   const hudFile = "Assets/Scripts/HUDs/HudCollection.fcg";
   const managerFile = "Assets/Scripts/Manager/CollectionManager.fcg";
   const petFile = "Assets/Scripts/Configs/PetConfigs.fcg";
+  const clientPetFile = "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg";
   const hud = readFileSync(source(hudFile), "utf8").split(/\r?\n/);
   const manager = readFileSync(source(managerFile), "utf8").split(/\r?\n/);
   const petCode = readFileSync(source(petFile), "utf8").split(/\r?\n/);
+  const clientPetCode = readFileSync(source(clientPetFile), "utf8").split(/\r?\n/);
   function find(lines, pattern, file) {
     const index = lines.findIndex(line => pattern.test(line));
     if (index < 0) throw new Error(`Collection rule missing from ${file}: ${pattern}`);
@@ -184,6 +186,39 @@ function collectionRules(source) {
   const mutationStart = find(manager, /MUTATION_START_INDEX = \d+/, managerFile);
   const weatherStart = find(manager, /WEATHER_START_INDEX = \d+/, managerFile);
   const required = (lines, pattern, file) => find(lines, pattern, file).source;
+  function readColor(lines, pattern, file) {
+    const found = find(lines, pattern, file);
+    const value = found.line.match(/#[0-9A-Fa-f]{6,8}/)?.[0];
+    if (!value) throw new Error(`Collection color missing in ${found.source}`);
+    return { value, source: found.source };
+  }
+  function readRarityColors() {
+    const found = find(clientPetCode, /RARITY_COLOR Map<RarityEnum, Color>/, clientPetFile);
+    const colors = {};
+    const start = Number(found.source.split(":").at(-1)) - 1;
+    for (let i = start; i < clientPetCode.length && !clientPetCode[i].includes("}"); i++) {
+      const match = clientPetCode[i].match(/RarityEnum\.(\w+):\s*(#[0-9A-Fa-f]{6,8})/);
+      if (match) colors[match[1].toUpperCase()] = { value: match[2], source: `${clientPetFile}:${i + 1}` };
+    }
+    if (Object.keys(colors).length < 7) throw new Error("Expected seven verified PetConfigs_Client rarity colors");
+    return { values: colors, source: found.source };
+  }
+  const runtimeProperties = new Set(["Color", "OutlineColor", "SpriteName", "SpriteResource", "Content", "IsVisible", "Size", "Position", "Alpha", "FillAmount"]);
+  const runtimeAssignments = hud.flatMap((line, index) => {
+    const match = line.match(/^\s*(.+?)<(\w+)>\.(\w+)\s*=\s*(.+?)\s*$/);
+    if (!match || !runtimeProperties.has(match[3])) return [];
+    return [{ target: match[1].trim(), widgetType: match[2], property: match[3], expression: match[4], source: `${hudFile}:${index + 1}` }];
+  });
+  const runtimeColorRules = {
+    petUnowned: readColor(hud, /DEFAULT_COLOR = #[0-9A-Fa-f]{6,8}/, hudFile),
+    mutationWeatherOwned: readColor(hud, /OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]{6,8}/, hudFile),
+    mutationWeatherUnowned: readColor(hud, /NOT_OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]{6,8}/, hudFile),
+    tabActive: readColor(hud, /ACTIVE_TEXT_COLOR = #[0-9A-Fa-f]{6,8}/, hudFile),
+    tabDefault: readColor(hud, /DEFAULT_TEXT_COLOR = #[0-9A-Fa-f]{6,8}/, hudFile)
+  };
+  const unownedNameRule = find(hud, /petName<UIWidgetLabel>\.Content = ".*"/, hudFile);
+  const unownedName = unownedNameRule.line.match(/\.Content\s*=\s*"([^"]*)"/)?.[1];
+  if (unownedName == null) throw new Error(`Collection unowned name missing in ${unownedNameRule.source}`);
   const tabCalls = hud.map((line, index) => ({ line, index })).filter(item => /SetTabButtonState\(/.test(item.line) && /EResSprite\./.test(item.line));
   const tabGroups = [...new Map(tabCalls.map(({ line, index }) => {
     const match = line.match(/SetTabButtonState\([^,]+, "(Text|Label)", EResSprite\.(\w+), EResSprite\.(\w+),/);
@@ -196,7 +231,10 @@ function collectionRules(source) {
   const obtainIcons = Object.fromEntries(iconMatches.map(match => [match[1].toLowerCase(), match[2]]));
   obtainIcons.road = [...iconFunction.matchAll(/return EResSprite\.(\w+)/g)].at(-1)?.[1];
   return {
-    sourceFiles: [hudFile, managerFile, petFile],
+    sourceFiles: [hudFile, managerFile, petFile, clientPetFile],
+    rarityColors: readRarityColors(),
+    runtimeColorRules,
+    runtimeAssignments,
     tabVisuals: { rarity: tabGroups.find(group => group.textChild === "Text"), details: tabGroups.find(group => group.textChild === "Label") },
     rarityTabs: rarityMap,
     page: {
@@ -213,7 +251,7 @@ function collectionRules(source) {
       luckyBoxCount: Number(find(petCode, /LUCKY_BOX_COUNT int = \d+/, petFile).line.match(/=\s*(\d+)/)[1]),
       rangeSource: required(petCode, /return LUCKY_BOX_START_INDEX < petId && petId <= LUCKY_BOX_START_INDEX \+ LUCKY_BOX_COUNT/, petFile)
     },
-    unowned: { name: "???", tint: "#111111", source: required(hud, /if !CollectionManager.IsOwnPet/, hudFile), tintSource: required(hud, /DEFAULT_COLOR = #111111/, hudFile) },
+    unowned: { name: unownedName, nameSource: unownedNameRule.source, tint: runtimeColorRules.petUnowned.value, source: required(hud, /if !CollectionManager.IsOwnPet/, hudFile), tintSource: runtimeColorRules.petUnowned.source },
     details: {
       defaultTab: "Info", source: required(hud, /_CurrentDetailsTab = DETAILS_TAB_INFO/, hudFile),
       tabs: { Info: 0, Mutations: 1, Weathers: 2 },
@@ -223,8 +261,8 @@ function collectionRules(source) {
       unownedValue: "???", unownedValueSource: required(hud, /var valueText string = "\?\?\?"/, hudFile),
       mutationStartId: Number(mutationStart.line.match(/=\s*(\d+)/)[1]), mutationStartSource: mutationStart.source,
       weatherStartId: Number(weatherStart.line.match(/=\s*(\d+)/)[1]), weatherStartSource: weatherStart.source,
-      ownedIconColor: find(hud, /OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]+/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0],
-      unownedIconColor: find(hud, /NOT_OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]+/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0],
+      ownedIconColor: runtimeColorRules.mutationWeatherOwned.value,
+      unownedIconColor: runtimeColorRules.mutationWeatherUnowned.value,
       iconSource: required(hud, /icon<UIWidgetImage>\.Color = NOT_OWNED_MW_ICON_COLOR/, hudFile)
     },
     mwGrid: {

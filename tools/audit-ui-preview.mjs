@@ -14,17 +14,22 @@ const commentAt = raw.lastIndexOf("\n//");
 const original = JSON.parse(commentAt < 0 ? raw : raw.slice(0, commentAt));
 const data = JSON.parse(readFileSync(path.join(gdd, "dist", "data", "ui", "collection.json"), "utf8"));
 const manifest = JSON.parse(readFileSync(path.join(gdd, "dist", "data", "ui", "collection-sprites.json"), "utf8"));
+const rules = JSON.parse(readFileSync(path.join(gdd, "dist", "data", "ui", "collection-rules.json"), "utf8"));
 const i18n = JSON.parse(readFileSync(path.join(gdd, "dist", "data", "ui", "collection-i18n.json"), "utf8"));
 const sourceEntities = [];
 const exportedEntities = [];
+const sourceEntityProps = new Map();
+const exportedEntityProps = new Map();
 function sourceWalk(node, parent = "") {
   const name = node._entityName || "PetsCollection";
   const p = parent ? `${parent}/${name}` : name;
   sourceEntities.push({ id: node._entityId, path: p, type: node._tag?.type, alpha: node.propsData?.alpha ?? 100, disableCollider: node.propsData?.button?.disableCollider });
+  sourceEntityProps.set(node._entityId, { propsData: node.propsData || {}, ecaProps: node.ecaProps || {} });
   (node.children || []).forEach(child => sourceWalk(child, p));
 }
 function exportWalk(node) {
   exportedEntities.push({ id: node.id, path: node.path, type: node.type, alpha: node.alpha, disableCollider: node.button?.disableCollider });
+  exportedEntityProps.set(node.id, { propsData: node.propsData || {}, ecaProps: node.ecaProps || {} });
   (node.children || []).forEach(exportWalk);
 }
 sourceWalk(original); exportWalk(data.tree);
@@ -32,7 +37,23 @@ for (const node of sourceEntities) {
   const exported = exportedEntities.find(item => item.id === node.id);
   assert.equal(exported?.alpha, node.alpha, `Alpha mismatch: ${node.path}`);
   assert.equal(exported?.disableCollider, node.disableCollider, `Collider mismatch: ${node.path}`);
+  assert.deepEqual(exportedEntityProps.get(node.id), sourceEntityProps.get(node.id), `propsData or ecaProps mismatch: ${node.path}`);
 }
+const clientConfig = readFileSync(path.join(sourceRoot, "Assets", "Scripts", "ClientConfigs", "PetConfigs_Client.fcg"), "utf8").split(/\r?\n/);
+const rarityColorStart = clientConfig.findIndex(line => /RARITY_COLOR Map<RarityEnum, Color>/.test(line));
+assert.notEqual(rarityColorStart, -1, "PetConfigs_Client RARITY_COLOR map missing");
+const sourceRarityColors = {};
+for (let index = rarityColorStart; index < clientConfig.length && !clientConfig[index].includes("}"); index++) {
+  const match = clientConfig[index].match(/RarityEnum\.(\w+):\s*(#[0-9A-Fa-f]{6,8})/);
+  if (match) sourceRarityColors[match[1].toUpperCase()] = { value: match[2], source: `Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:${index + 1}` };
+}
+assert.deepEqual(rules.rarityColors?.values, sourceRarityColors, "Rarity colors differ from PetConfigs_Client.fcg");
+const runtimePropertyPattern = /^\s*(.+?)<(\w+)>\.(Color|OutlineColor|SpriteName|SpriteResource|Content|IsVisible|Size|Position|Alpha|FillAmount)\s*=\s*(.+?)\s*$/;
+const sourceRuntimeAssignments = readFileSync(path.join(sourceRoot, "Assets", "Scripts", "HUDs", "HudCollection.fcg"), "utf8").split(/\r?\n/).flatMap((line, index) => {
+  const match = line.match(runtimePropertyPattern);
+  return match ? [{ target: match[1].trim(), widgetType: match[2], property: match[3], expression: match[4], source: `Assets/Scripts/HUDs/HudCollection.fcg:${index + 1}` }] : [];
+});
+assert.deepEqual(rules.runtimeAssignments, sourceRuntimeAssignments, "Runtime UI property assignments are incomplete or changed");
 const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"];
 for (const file of previewModules) {
   const code = readFileSync(path.join(gdd, "dist", file), "utf8");
@@ -72,6 +93,9 @@ const report = {
   viewportSideEffectScan: "passed",
   unsupportedEntityCount: manifest.unsupported.length,
   unsupportedFieldCount: manifest.unsupported.reduce((sum, item) => sum + item.fields.length, 0),
+  propsDataPreserved: true,
+  runtimeAssignmentCount: sourceRuntimeAssignments.length,
+  rarityColorCount: Object.keys(sourceRarityColors).length,
   spriteCount: manifest.sprites.length, missingSprites: manifest.missing.map(item => item.key),
   missingCopiedFiles: missingFiles.map(item => item.output),
   imageEntityCount: imageEntities.length, unmanifestedImages, borderMismatches,

@@ -2,7 +2,632 @@
   "sourceFiles": [
     "Assets/Scripts/HUDs/HudCollection.fcg",
     "Assets/Scripts/Manager/CollectionManager.fcg",
-    "Assets/Scripts/Configs/PetConfigs.fcg"
+    "Assets/Scripts/Configs/PetConfigs.fcg",
+    "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg"
+  ],
+  "rarityColors": {
+    "values": {
+      "COMMON": {
+        "value": "#8CFF91",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:63"
+      },
+      "RARE": {
+        "value": "#4CC8FE",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:64"
+      },
+      "EPIC": {
+        "value": "#EA70FF",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:65"
+      },
+      "LEGENDARY": {
+        "value": "#FED868",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:66"
+      },
+      "MYTHIC": {
+        "value": "#FF6F6F",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:67"
+      },
+      "APEX": {
+        "value": "#FF9F43",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:68"
+      },
+      "LIMITED": {
+        "value": "#B3CA1F",
+        "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:69"
+      }
+    },
+    "source": "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg:62"
+  },
+  "runtimeColorRules": {
+    "petUnowned": {
+      "value": "#111111",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:24"
+    },
+    "mutationWeatherOwned": {
+      "value": "#FFFFFF",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:22"
+    },
+    "mutationWeatherUnowned": {
+      "value": "#444444",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:23"
+    },
+    "tabActive": {
+      "value": "#FFFFFF",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:20"
+    },
+    "tabDefault": {
+      "value": "#1F64C4",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:21"
+    }
+  },
+  "runtimeAssignments": [
+    {
+      "target": "_CollectionHUD",
+      "widgetType": "CustomUI",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:159"
+    },
+    {
+      "target": "_CollectionHUD",
+      "widgetType": "CustomUI",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:163"
+    },
+    {
+      "target": "_CollectionWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:169"
+    },
+    {
+      "target": "_LoadingLabel",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:172"
+    },
+    {
+      "target": "_CollectionWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:183"
+    },
+    {
+      "target": "_LoadingLabel",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:227"
+    },
+    {
+      "target": "petWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:318"
+    },
+    {
+      "target": "petWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:347"
+    },
+    {
+      "target": "hasMW",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:370"
+    },
+    {
+      "target": "countLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"\" + (List.Length(ownedMutations) + List.Length(ownedWeathers))",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:372"
+    },
+    {
+      "target": "rarity",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "DEFAULT_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:382"
+    },
+    {
+      "target": "thumbnail",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "DEFAULT_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:385"
+    },
+    {
+      "target": "petName",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"???\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:388"
+    },
+    {
+      "target": "petWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:392"
+    },
+    {
+      "target": "rarityWidget",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "DEFAULT_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:420"
+    },
+    {
+      "target": "thumbnail",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "DEFAULT_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:423"
+    },
+    {
+      "target": "petName",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"???\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:426"
+    },
+    {
+      "target": "_RarityBG",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "PetConfigs.GetRarityColor(rarity)",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:430"
+    },
+    {
+      "target": "rarityName",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "PetConfigs.GetRarityLocalization(rarity)",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:433"
+    },
+    {
+      "target": "rarityName",
+      "widgetType": "UIWidgetLabel",
+      "property": "OutlineColor",
+      "expression": "PetConfigs.GetRarityColor(rarity)",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:434"
+    },
+    {
+      "target": "_ObtainWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "isOwned",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:439"
+    },
+    {
+      "target": "_PetDetailsWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:452"
+    },
+    {
+      "target": "valueContent",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "LocString{\"{0} {1}\", {LocString{\"HUD_COLLECTION_VALUE\", {}}, valueText}}",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:480"
+    },
+    {
+      "target": "mutationsContent",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "LocString{\"{0} ({1}/{2})\", {LocString{\"HUD_COLLECTION_MUTATION_COUNT\", {}}, ownedMutationsCount, totalMutationsPerPet}}",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:481"
+    },
+    {
+      "target": "weathersContent",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "LocString{\"{0} ({1}/{2})\", {LocString{\"HUD_COLLECTION_WEATHER_COUNT\", {}}, ownedWeathersCount, totalWeathersPerPet}}",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:482"
+    },
+    {
+      "target": "_ObtainIcon",
+      "widgetType": "UIWidgetImage",
+      "property": "SpriteName",
+      "expression": "icon",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:490"
+    },
+    {
+      "target": "_ObtainWay",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "obtainLocalization",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:491"
+    },
+    {
+      "target": "_UnlockObtainWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "!isOwned",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:492"
+    },
+    {
+      "target": "_UnlockObtainIcon",
+      "widgetType": "UIWidgetImage",
+      "property": "SpriteName",
+      "expression": "icon",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:494"
+    },
+    {
+      "target": "_UnlockObtainLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "LocString{\"{0} {1}\", {LocString{\"HUD_OBTAIN_BY\", {}}, obtainLocalization}}",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:495"
+    },
+    {
+      "target": "_PrevPageButton",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:501"
+    },
+    {
+      "target": "_NextPageButton",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:502"
+    },
+    {
+      "target": "_PageLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:503"
+    },
+    {
+      "target": "_PrevPageButton",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "_TotalPages > 1 && _CurrentPageIndex > 0",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:507"
+    },
+    {
+      "target": "_NextPageButton",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "_TotalPages > 1 && _CurrentPageIndex < _TotalPages - 1",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:508"
+    },
+    {
+      "target": "_PageLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "(_CurrentPageIndex + 1) + \" / \" + _TotalPages",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:511"
+    },
+    {
+      "target": "_PageLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:513"
+    },
+    {
+      "target": "selectedBorder",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "isSelected",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:535"
+    },
+    {
+      "target": "_LoadingLabel",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:540"
+    },
+    {
+      "target": "_PetsCountLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"???/???\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:577"
+    },
+    {
+      "target": "_PetsCountLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"\" + ownPetsCount + \"/\" + totalPetsCount",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:582"
+    },
+    {
+      "target": "_MutationsCountLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"???/???\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:591"
+    },
+    {
+      "target": "_MutationsCountLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"\" + ownMutationsCount + \"/\" + totalMutationsCount",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:596"
+    },
+    {
+      "target": "_WeathersCountLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"???/???\"",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:605"
+    },
+    {
+      "target": "_WeathersCountLabel",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "\"\" + ownWeathersCount + \"/\" + totalWeathersCount",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:610"
+    },
+    {
+      "target": "progress",
+      "widgetType": "UIWidgetImage",
+      "property": "FillAmount",
+      "expression": "0",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:620"
+    },
+    {
+      "target": "progress",
+      "widgetType": "UIWidgetImage",
+      "property": "FillAmount",
+      "expression": "Convert.IntToFloat(owned) / Convert.IntToFloat(total)",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:624"
+    },
+    {
+      "target": "_DetailsTabsLayout",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:666"
+    },
+    {
+      "target": "_InfoWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "_CurrentDetailsTab == DETAILS_TAB_INFO",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:667"
+    },
+    {
+      "target": "_MutationsWeathersWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "isMutationsWeathersTab",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:672"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:697"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidgetImage",
+      "property": "SpriteName",
+      "expression": "Res.Sprite[MutationConfigs.GetMutationIconKey(mutationId) as EResKeySprite]",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:735"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "NOT_OWNED_MW_ICON_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:736"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "OWNED_MW_ICON_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:738"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:740"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidgetImage",
+      "property": "SpriteName",
+      "expression": "Res.Sprite[WeatherConfigs.GetWeatherEffectIcon(weatherEffectId) as EResKeySprite]",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:750"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "NOT_OWNED_MW_ICON_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:751"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "OWNED_MW_ICON_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:753"
+    },
+    {
+      "target": "icon",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:755"
+    },
+    {
+      "target": "_MWIcons[index]",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:761"
+    },
+    {
+      "target": "_MWLayout",
+      "widgetType": "UIWidget",
+      "property": "Size",
+      "expression": "Vector2 {currentSize.X, newHeight}",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:771"
+    },
+    {
+      "target": "tabButton",
+      "widgetType": "UIWidgetButton",
+      "property": "SpriteResource",
+      "expression": "selectedSprite",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:781"
+    },
+    {
+      "target": "tabText",
+      "widgetType": "UIWidgetLabel",
+      "property": "Color",
+      "expression": "ACTIVE_TEXT_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:783"
+    },
+    {
+      "target": "tabButton",
+      "widgetType": "UIWidgetButton",
+      "property": "SpriteResource",
+      "expression": "normalSprite",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:786"
+    },
+    {
+      "target": "tabText",
+      "widgetType": "UIWidgetLabel",
+      "property": "Color",
+      "expression": "DEFAULT_TEXT_COLOR",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:788"
+    },
+    {
+      "target": "_PetDetailsWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:797"
+    },
+    {
+      "target": "_DetailsTabsLayout",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:798"
+    },
+    {
+      "target": "_InfoWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:799"
+    },
+    {
+      "target": "_MutationsWeathersWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:800"
+    },
+    {
+      "target": "_RecipeWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:804"
+    },
+    {
+      "target": "_DetailsTabsLayout",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:805"
+    },
+    {
+      "target": "_InfoWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:806"
+    },
+    {
+      "target": "_MutationsWeathersWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:807"
+    },
+    {
+      "target": "_RecipeWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "false",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:814"
+    },
+    {
+      "target": "rarity",
+      "widgetType": "UIWidgetImage",
+      "property": "Color",
+      "expression": "PetConfigs.GetRarityColor(petRarity)",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:848"
+    },
+    {
+      "target": "rarity",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:849"
+    },
+    {
+      "target": "thumbnail",
+      "widgetType": "UIWidgetImage",
+      "property": "SpriteName",
+      "expression": "Res.Sprite[thumbnailSprite as EResKeySprite]",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:852"
+    },
+    {
+      "target": "thumbnail",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:853"
+    },
+    {
+      "target": "petName",
+      "widgetType": "UIWidgetLabel",
+      "property": "Content",
+      "expression": "LocString{\"ANY_RARITY\", {PetConfigs.GetRarityLocalization(petRarity)}}",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:856"
+    },
+    {
+      "target": "petName",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:857"
+    },
+    {
+      "target": "petWidget",
+      "widgetType": "UIWidget",
+      "property": "IsVisible",
+      "expression": "true",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:860"
+    }
   ],
   "tabVisuals": {
     "rarity": {
@@ -74,6 +699,7 @@
   },
   "unowned": {
     "name": "???",
+    "nameSource": "Assets/Scripts/HUDs/HudCollection.fcg:388",
     "tint": "#111111",
     "source": "Assets/Scripts/HUDs/HudCollection.fcg:376",
     "tintSource": "Assets/Scripts/HUDs/HudCollection.fcg:24"

@@ -36,6 +36,9 @@
   "viewportSideEffectScan": "passed",
   "unsupportedEntityCount": 57,
   "unsupportedFieldCount": 76,
+  "propsDataPreserved": true,
+  "runtimeAssignmentCount": 81,
+  "rarityColorCount": 7,
   "spriteCount": 41,
   "missingSprites": [
     "Assets/Sprites/UIComponents/Backgrounds/BG.png",
