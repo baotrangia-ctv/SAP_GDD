@@ -10,11 +10,11 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Phạm vi:** F9 chỉ xem diff và tải dữ liệu; mô phỏng F10 chạy offline nếu sau này được duyệt.
 - **Nguồn:** `plans/PLAN-features-from-pvz.md` §3; `README.md`.
 
-## D-002 — Snapshot chỉ phản ánh nguồn config đã allowlist
+## D-002 — Snapshot loại dữ liệu vận hành, chỉ chiếu khóa quà cần thiết
 
 - **Trạng thái:** ✅ Quy tắc nguồn hiện hành.
-- **Quyết định:** CSV/code trong checkout game là nguồn của snapshot; không tuyên bố đã đồng bộ Google Sheets. Loại `Assets/CSV/giftcode.csv` và `Assets/CSV/Compensate/**` khỏi dữ liệu GDD.
-- **Lý do:** Tách dữ liệu balance khỏi dữ liệu vận hành.
+- **Quyết định:** CSV/code trong checkout game là nguồn của snapshot; không tuyên bố đã đồng bộ Google Sheets. Không mirror `Assets/CSV/giftcode.csv` hoặc `Assets/CSV/Compensate/**`. Để hiển thị quà theo yêu cầu, sync chỉ xuất `ID` → `Reward` cho Gift ID được config hiện hành tham chiếu; không lưu hoặc hiển thị Code, Name, Limit, Start, End, Reuse hay Rebirth.
+- **Lý do:** Giữ phần dữ liệu vận hành riêng khỏi site GDD, đồng thời cho phép xem nội dung reward của gift đang được config dùng.
 - **Nguồn:** `README.md`; `plans/PLAN-features-from-pvz.md` §5.
 
 ## D-003 — Không đổi tiến trình thành phút chơi khi chưa có income model

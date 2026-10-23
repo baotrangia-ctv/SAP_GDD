@@ -1,0 +1,1030 @@
+{
+  "generatedAt": "2026-10-22T17:28:38.344Z",
+  "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34",
+  "sourceFacts": {
+    "giftIdsResolveToRewardIdLists": true,
+    "rewardCatalogIsRewardCsv": true,
+    "exportedGiftFields": [
+      "ID",
+      "Reward"
+    ],
+    "referencedGiftCount": 145
+  },
+  "giftLinks": [
+    {
+      "giftId": "10001",
+      "rewardIds": [
+        "15"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10002",
+      "rewardIds": [
+        "3"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10004",
+      "rewardIds": [
+        "18"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10008",
+      "rewardIds": [
+        "16"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10009",
+      "rewardIds": [
+        "10009"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10010",
+      "rewardIds": [
+        "10010"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10011",
+      "rewardIds": [
+        "10011"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10012",
+      "rewardIds": [
+        "10012"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10013",
+      "rewardIds": [
+        "10013"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10014",
+      "rewardIds": [
+        "10014"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10015",
+      "rewardIds": [
+        "10015"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10016",
+      "rewardIds": [
+        "10026"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10017",
+      "rewardIds": [
+        "10027"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10018",
+      "rewardIds": [
+        "19"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10019",
+      "rewardIds": [
+        "10017"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10020",
+      "rewardIds": [
+        "18"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10021",
+      "rewardIds": [
+        "39"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10022",
+      "rewardIds": [
+        "15"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10023",
+      "rewardIds": [
+        "50082"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10024",
+      "rewardIds": [
+        "21006"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10025",
+      "rewardIds": [
+        "15"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10026",
+      "rewardIds": [
+        "21003"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10027",
+      "rewardIds": [
+        "10025"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10028",
+      "rewardIds": [
+        "10018"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10029",
+      "rewardIds": [
+        "50085"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10030",
+      "rewardIds": [
+        "7"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10031",
+      "rewardIds": [
+        "10033"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10032",
+      "rewardIds": [
+        "10017"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10033",
+      "rewardIds": [
+        "10016"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10034",
+      "rewardIds": [
+        "16"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10035",
+      "rewardIds": [
+        "50076"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10036",
+      "rewardIds": [
+        "10035"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10037",
+      "rewardIds": [
+        "17"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10038",
+      "rewardIds": [
+        "10019"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10039",
+      "rewardIds": [
+        "21002"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10040",
+      "rewardIds": [
+        "10023"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10041",
+      "rewardIds": [
+        "11"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10042",
+      "rewardIds": [
+        "10017"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10043",
+      "rewardIds": [
+        "17"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10044",
+      "rewardIds": [
+        "10016"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10046",
+      "rewardIds": [
+        "21002"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10047",
+      "rewardIds": [
+        "10028"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10048",
+      "rewardIds": [
+        "50095"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10049",
+      "rewardIds": [
+        "10029"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10050",
+      "rewardIds": [
+        "10030"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10051",
+      "rewardIds": [
+        "50063"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10052",
+      "rewardIds": [
+        "10034"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10053",
+      "rewardIds": [
+        "10018"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10054",
+      "rewardIds": [
+        "10040"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10055",
+      "rewardIds": [
+        "16"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10056",
+      "rewardIds": [
+        "50076"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10057",
+      "rewardIds": [
+        "10036"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10058",
+      "rewardIds": [
+        "50076"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10059",
+      "rewardIds": [
+        "10035"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10060",
+      "rewardIds": [
+        "10038"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10061",
+      "rewardIds": [
+        "21006"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10062",
+      "rewardIds": [
+        "11"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10063",
+      "rewardIds": [
+        "50088"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "10064",
+      "rewardIds": [
+        "10037"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20002",
+      "rewardIds": [
+        "20002"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20003",
+      "rewardIds": [
+        "20003"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20004",
+      "rewardIds": [
+        "20004"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20005",
+      "rewardIds": [
+        "20005"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20006",
+      "rewardIds": [
+        "20006"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20007",
+      "rewardIds": [
+        "20007"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20008",
+      "rewardIds": [
+        "20008"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20009",
+      "rewardIds": [
+        "20009"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20010",
+      "rewardIds": [
+        "20010"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20011",
+      "rewardIds": [
+        "20011"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20012",
+      "rewardIds": [
+        "20012"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20013",
+      "rewardIds": [
+        "20014"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20014",
+      "rewardIds": [
+        "20015"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20015",
+      "rewardIds": [
+        "20016"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20016",
+      "rewardIds": [
+        "20017"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20017",
+      "rewardIds": [
+        "20018"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20018",
+      "rewardIds": [
+        "20019"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20019",
+      "rewardIds": [
+        "20020"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20020",
+      "rewardIds": [
+        "20021"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20021",
+      "rewardIds": [
+        "20022"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20022",
+      "rewardIds": [
+        "20023"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "20023",
+      "rewardIds": [
+        "20013"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21002",
+      "rewardIds": [
+        "21002"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21003",
+      "rewardIds": [
+        "10013"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21004",
+      "rewardIds": [
+        "21003"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21005",
+      "rewardIds": [
+        "21004"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21006",
+      "rewardIds": [
+        "10011"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21007",
+      "rewardIds": [
+        "10015"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21008",
+      "rewardIds": [
+        "18"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21009",
+      "rewardIds": [
+        "19"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21010",
+      "rewardIds": [
+        "5"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "21011",
+      "rewardIds": [
+        "21005"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41024",
+      "rewardIds": [
+        "35"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41025",
+      "rewardIds": [
+        "36"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41026",
+      "rewardIds": [
+        "16"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41027",
+      "rewardIds": [
+        "24"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41028",
+      "rewardIds": [
+        "37"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41029",
+      "rewardIds": [
+        "38"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "41030",
+      "rewardIds": [
+        "39"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50001",
+      "rewardIds": [
+        "50001"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50009",
+      "rewardIds": [
+        "50009"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50012",
+      "rewardIds": [
+        "50012"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50018",
+      "rewardIds": [
+        "50018"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50019",
+      "rewardIds": [
+        "50019"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50020",
+      "rewardIds": [
+        "50020"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50041",
+      "rewardIds": [
+        "50041"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50042",
+      "rewardIds": [
+        "50042"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50044",
+      "rewardIds": [
+        "50044"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50046",
+      "rewardIds": [
+        "50046"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50047",
+      "rewardIds": [
+        "50047"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50048",
+      "rewardIds": [
+        "50048"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50049",
+      "rewardIds": [
+        "50049"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50050",
+      "rewardIds": [
+        "50050"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50051",
+      "rewardIds": [
+        "50051"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50056",
+      "rewardIds": [
+        "50056"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50058",
+      "rewardIds": [
+        "50058"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50059",
+      "rewardIds": [
+        "50059"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50060",
+      "rewardIds": [
+        "50060"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50061",
+      "rewardIds": [
+        "50061"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50062",
+      "rewardIds": [
+        "50062"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50063",
+      "rewardIds": [
+        "50063"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50064",
+      "rewardIds": [
+        "50064"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50065",
+      "rewardIds": [
+        "50065"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50066",
+      "rewardIds": [
+        "50066"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50067",
+      "rewardIds": [
+        "50067"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50068",
+      "rewardIds": [
+        "50068"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50069",
+      "rewardIds": [
+        "50069"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50090",
+      "rewardIds": [
+        "50090"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "50107",
+      "rewardIds": [
+        "50107"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51004",
+      "rewardIds": [
+        "51004"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51005",
+      "rewardIds": [
+        "51005"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51006",
+      "rewardIds": [
+        "51006"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51007",
+      "rewardIds": [
+        "51007"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51008",
+      "rewardIds": [
+        "51008"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51010",
+      "rewardIds": [
+        "51010"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51011",
+      "rewardIds": [
+        "51011"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51014",
+      "rewardIds": [
+        "51014"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51016",
+      "rewardIds": [
+        "51016"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51021",
+      "rewardIds": [
+        "51021"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51023",
+      "rewardIds": [
+        "51023"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51028",
+      "rewardIds": [
+        "51028"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51034",
+      "rewardIds": [
+        "51034"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51036",
+      "rewardIds": [
+        "51036"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "51054",
+      "rewardIds": [
+        "51054"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "56002",
+      "rewardIds": [
+        "56002"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "70001",
+      "rewardIds": [
+        "70001"
+      ],
+      "resolved": true
+    }
+  ]
+}

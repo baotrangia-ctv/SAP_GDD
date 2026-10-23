@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-22T11:18:37.355Z",
+  "generatedAt": "2026-10-22T17:28:38.346Z",
   "sourceLabel": "StealAPet repository",
   "sourceBranch": "dev",
-  "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
-  "currentSourceFiles": 44,
+  "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34",
+  "currentSourceFiles": 48,
   "excludedSources": [
     {
       "path": "Assets/CSV/giftcode.csv",
-      "reason": "Operational redeem-code data is outside this GDD."
+      "reason": "Redeem codes and operational fields are excluded; only referenced Gift ID → Reward ID links are projected into gift-rewards.json."
     },
     {
       "path": "Assets/CSV/Compensate/*",
@@ -2829,19 +2829,19 @@
           "CanFuse": "1",
           "ExceptionRegion": "",
           "ReplaceName": "",
-          "GuaranteeWeight": "400",
-          "Weight1": "29",
-          "Weight2": "63",
-          "Weight3": "316",
-          "Weight4": "407",
-          "Weight5": "568",
-          "Day 1": "SKIP",
-          "Day 2": "SKIP",
-          "Day 3": "SKIP",
-          "Day 4": "SKIP",
-          "Day 5": "SKIP",
-          "Day 6": "SKIP",
-          "Day 7": "SKIP"
+          "GuaranteeWeight": "0",
+          "Weight1": "0",
+          "Weight2": "0",
+          "Weight3": "0",
+          "Weight4": "0",
+          "Weight5": "0",
+          "Day 1": "",
+          "Day 2": "",
+          "Day 3": "",
+          "Day 4": "",
+          "Day 5": "",
+          "Day 6": "",
+          "Day 7": ""
         },
         {
           "ID": "76",
@@ -4445,8 +4445,8 @@
         "Day 6",
         "Day 7"
       ],
-      "sha256": "6ece9dffa57aa3b7c5d31c65423f7e023110049a130c6299cb4094dc113b67bb",
-      "bytes": 17603
+      "sha256": "b632695b553f2c9642c58ba59de7d4521264cd17ffec190f72e17fb9c852edd8",
+      "bytes": 17565
     },
     {
       "path": "Assets/CSV/mutation.csv",
@@ -5267,8 +5267,8 @@
           "ID": "10",
           "Name": "Aurora",
           "Icon": "Aurora",
-          "Chance": "0.0082",
-          "MultiplierPrice": "0.18",
+          "Chance": "0.0085",
+          "MultiplierPrice": "0.16",
           "LvUpCostMultiplier": "1.11"
         }
       ],
@@ -5281,7 +5281,7 @@
         "MultiplierPrice",
         "LvUpCostMultiplier"
       ],
-      "sha256": "27525f5578e82fd8eedd8d643f12b83a0ff9fbe5947447199d4590de0ad9fd3e",
+      "sha256": "504cf41192177ce8c1e290fbea250533e7030f7ffb6ee8d506f6259e8c53eaec",
       "bytes": 439
     },
     {
@@ -6693,16 +6693,341 @@
     },
     {
       "path": "Assets/CSV/reward.csv",
-      "rowCount": 202,
+      "rowCount": 201,
       "headers": [
         "ID",
         "TypeReward",
         "Value",
         "Quantity"
       ],
-      "sha256": "1af2bc24df113f479037f90b0ae98620efb5d58f82d5a5410a997c2316644054",
-      "bytes": 3082,
+      "sha256": "75d58da59c26cb3d589df9cd9898caa7d50ff8be981ccd4555a202150355a47d",
+      "bytes": 3064,
       "file": "tables/rewards.json"
+    },
+    {
+      "path": "Assets/CSV/onboard.csv",
+      "rows": [
+        {
+          "ID": "1",
+          "Description": "MISSION_BUY_FIRST_PET",
+          "RequireRebirth": "1",
+          "GuideType": "Action",
+          "Action": "BuyPets",
+          "TargetValue": "1",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "12;1"
+        },
+        {
+          "ID": "2",
+          "Description": "MISSION_CLAIM_PET_INCOME",
+          "RequireRebirth": "1",
+          "GuideType": "Action",
+          "Action": "ClaimIncome",
+          "TargetValue": "1",
+          "TargetCondition": "",
+          "RewardType": "2",
+          "RewardValue": "20500"
+        },
+        {
+          "ID": "3",
+          "Description": "MISSION_LOCK_BASE",
+          "RequireRebirth": "1",
+          "GuideType": "Action",
+          "Action": "LockBase",
+          "TargetValue": "1",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "30;1"
+        },
+        {
+          "ID": "4",
+          "Description": "MISSION_REBIRTH",
+          "RequireRebirth": "1",
+          "GuideType": "Action",
+          "Action": "Rebirth",
+          "TargetValue": "2",
+          "TargetCondition": "",
+          "RewardType": "4",
+          "RewardValue": "LEGENDARY;1"
+        },
+        {
+          "ID": "5",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "30",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "15;1"
+        },
+        {
+          "ID": "6",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "60",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "17;1"
+        },
+        {
+          "ID": "7",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "120",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "21;1"
+        },
+        {
+          "ID": "8",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "180",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "24;1"
+        },
+        {
+          "ID": "9",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "240",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "44;1"
+        },
+        {
+          "ID": "10",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "300",
+          "TargetCondition": "",
+          "RewardType": "4",
+          "RewardValue": "MYTHIC;1"
+        },
+        {
+          "ID": "11",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "600",
+          "TargetCondition": "",
+          "RewardType": "3",
+          "RewardValue": "20"
+        },
+        {
+          "ID": "12",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "900",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "63;1"
+        },
+        {
+          "ID": "13",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "1800",
+          "TargetCondition": "",
+          "RewardType": "2",
+          "RewardValue": "40050"
+        },
+        {
+          "ID": "14",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "3600",
+          "TargetCondition": "",
+          "RewardType": "1",
+          "RewardValue": "76;1"
+        },
+        {
+          "ID": "15",
+          "Description": "MISSION_ONLINE",
+          "RequireRebirth": "15",
+          "GuideType": "State",
+          "Action": "Online",
+          "TargetValue": "5400",
+          "TargetCondition": "",
+          "RewardType": "5",
+          "RewardValue": "1"
+        }
+      ],
+      "rowCount": 15,
+      "headers": [
+        "ID",
+        "Description",
+        "RequireRebirth",
+        "GuideType",
+        "Action",
+        "TargetValue",
+        "TargetCondition",
+        "RewardType",
+        "RewardValue"
+      ],
+      "sha256": "7db65b0b9d2c63c342ef5142583e3987ad08e6a2ec83d86ba305e42abd971855",
+      "bytes": 878
+    },
+    {
+      "path": "Assets/CSV/loginReward.csv",
+      "rows": [
+        {
+          "ID": "1",
+          "Weight": "3",
+          "MinAngle": "339",
+          "MaxAngle": "381",
+          "RewardId": "10040"
+        },
+        {
+          "ID": "2",
+          "Weight": "17",
+          "MinAngle": "24",
+          "MaxAngle": "65",
+          "RewardId": "10008"
+        },
+        {
+          "ID": "3",
+          "Weight": "10",
+          "MinAngle": "68",
+          "MaxAngle": "111",
+          "RewardId": "10001"
+        },
+        {
+          "ID": "4",
+          "Weight": "15",
+          "MinAngle": "114",
+          "MaxAngle": "155",
+          "RewardId": "10039"
+        },
+        {
+          "ID": "5",
+          "Weight": "18",
+          "MinAngle": "158",
+          "MaxAngle": "201",
+          "RewardId": "10004"
+        },
+        {
+          "ID": "6",
+          "Weight": "7",
+          "MinAngle": "204",
+          "MaxAngle": "245",
+          "RewardId": "10038"
+        },
+        {
+          "ID": "7",
+          "Weight": "17",
+          "MinAngle": "248",
+          "MaxAngle": "293",
+          "RewardId": "10037"
+        },
+        {
+          "ID": "8",
+          "Weight": "13",
+          "MinAngle": "295",
+          "MaxAngle": "337",
+          "RewardId": "10002"
+        }
+      ],
+      "rowCount": 8,
+      "headers": [
+        "ID",
+        "Weight",
+        "MinAngle",
+        "MaxAngle",
+        "RewardId"
+      ],
+      "sha256": "3a2895adc31c87b29c1a1bf17ab765ad6931736e9fa3e2ebfeba30cde0bfb9f3",
+      "bytes": 216
+    },
+    {
+      "path": "Assets/CSV/luckySpin.csv",
+      "rows": [
+        {
+          "Day": "1",
+          "Spin": "1"
+        },
+        {
+          "Day": "2",
+          "Spin": "1"
+        },
+        {
+          "Day": "3",
+          "Spin": "1"
+        },
+        {
+          "Day": "4",
+          "Spin": "2"
+        },
+        {
+          "Day": "5",
+          "Spin": "2"
+        },
+        {
+          "Day": "6",
+          "Spin": "2"
+        },
+        {
+          "Day": "7",
+          "Spin": "2"
+        }
+      ],
+      "rowCount": 7,
+      "headers": [
+        "Day",
+        "Spin"
+      ],
+      "sha256": "2df16d393aef00476c082bc8067f79a6e331a010688b3f96ec0c3e7072f00aae",
+      "bytes": 54
+    },
+    {
+      "path": "Assets/CSV/Event/EventSchedule.csv",
+      "rows": [
+        {
+          "ID": "1",
+          "EventType": "6",
+          "SeasonId": "12",
+          "Start": "1791910800",
+          "End": "1793898000",
+          "Priority": "10",
+          "CurrencyType": "6",
+          "ShopId": "12",
+          "MilestoneId": "0"
+        }
+      ],
+      "rowCount": 1,
+      "headers": [
+        "ID",
+        "EventType",
+        "SeasonId",
+        "Start",
+        "End",
+        "Priority",
+        "CurrencyType",
+        "ShopId",
+        "MilestoneId"
+      ],
+      "sha256": "6a57100038cb874a1d8ea568a0af035b0f0d7202c7f87ec4d80f8a0531b93b88",
+      "bytes": 151
     },
     {
       "path": "Assets/CSV/shopItems.csv",
@@ -7622,61 +7947,47 @@
         {
           "ID": "4",
           "Name": "SpecialPet",
-          "Cost": "15",
+          "Cost": "100",
           "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
           "TimeLock": "10000",
           "Requirement": "0",
           "NameLocalize": "LUCKYBOXLEGENDARY",
           "IconResource": "LUCKYBOXLEGENDARY",
-          "Limit": "",
+          "Limit": "100;100;100",
           "IDGift": "56002",
           "TimeAvailable": "0",
           "ShopId": "12"
         },
         {
           "ID": "5",
-          "Name": "SpecialPet",
-          "Cost": "20",
-          "Description": "HUD_SHOP_EVENT_DETAILS_SPECIALPET",
-          "TimeLock": "10000",
-          "Requirement": "0",
-          "NameLocalize": "LUCKYBOXMYTHIC",
-          "IconResource": "LUCKYBOXMYTHIC",
-          "Limit": "",
-          "IDGift": "56003",
-          "TimeAvailable": "0",
-          "ShopId": "12"
-        },
-        {
-          "ID": "6",
           "Name": "RandomPet",
-          "Cost": "10",
+          "Cost": "40",
           "Description": "HUD_SHOP_EVENT_DETAILS_RANDOMPET",
           "TimeLock": "10000",
           "Requirement": "0",
           "NameLocalize": "HUD_SHOP_EVENT_ITEM_RANDOMPET",
           "IconResource": "RandomPet",
-          "Limit": "10",
+          "Limit": "40;40;40;40;40",
           "IDGift": "",
           "TimeAvailable": "0",
           "ShopId": "12"
         },
         {
-          "ID": "7",
+          "ID": "6",
           "Name": "RandomItem",
-          "Cost": "10",
+          "Cost": "20",
           "Description": "HUD_SHOP_EVENT_DETAILS_RANDOMITEM",
           "TimeLock": "10000",
           "Requirement": "0",
           "NameLocalize": "HUD_SHOP_EVENT_ITEM_RANDOMITEM",
           "IconResource": "RandomItem",
-          "Limit": "10",
+          "Limit": "20",
           "IDGift": "",
           "TimeAvailable": "0",
           "ShopId": "12"
         }
       ],
-      "rowCount": 7,
+      "rowCount": 6,
       "headers": [
         "ID",
         "Name",
@@ -7691,8 +8002,8 @@
         "TimeAvailable",
         "ShopId"
       ],
-      "sha256": "5345232ca0fa95aae3298a013c3d50bcfd39df9eacb468631d5f40557a861a1e",
-      "bytes": 883
+      "sha256": "16ea711ed94a0d28df3ce5067efaee08fba75aa064fdb5102052e63488ee15fd",
+      "bytes": 806
     },
     {
       "path": "Assets/CSV/Event/Ball/BallWave.csv",
@@ -10790,49 +11101,31 @@
   },
   "recentCommits": [
     {
-      "hash": "5ebbac5776f795f7c34ba359a57ff9da77e9e595",
-      "shortHash": "5ebbac57",
-      "date": "2026-10-22",
-      "subject": "chore: enable event tracking log",
-      "files": [
-        "Assets/CSV/Pet.csv",
-        "Assets/CSV/weatherEffects.csv",
-        "Assets/Scripts/Configs/PetConfigs.fcg",
-        "Assets/Scripts/Events/Core/EventCurrencyManager.fcg",
-        "Docs/BusinessLogic/58-event-rarity-contract.md"
-      ]
-    },
-    {
-      "hash": "0438c8fd36a26765f9b55af58e9cf304191a9434",
-      "shortHash": "0438c8fd",
+      "hash": "290aacf250f613ab8348adb125adbd9cbd80fd34",
+      "shortHash": "290aacf2",
       "date": "2026-10-21",
-      "subject": "chore: add luckybox mythic to shop event",
+      "subject": "fix: event submit pet from 4th floor",
       "files": [
-        "Assets/CSV/Event/shopEventItems.csv",
-        "Assets/CSV/giftcode.csv",
-        "Assets/CSV/reward.csv",
         "Assets/HUDs/ShopEvent.ui",
-        "Assets/Scripts/Events/HUD/HudShopEvent.fcg",
-        "Docs/Plans/event-framework-revamp.md"
+        "Assets/Localization/key.csv",
+        "Assets/Scripts/Events/HUD/HudShopEvent.fcg"
       ]
     },
     {
-      "hash": "92e573a7f1c26268ad0dea71484a4db313e05716",
-      "shortHash": "92e573a7",
+      "hash": "1867c5ac22e4bdf44becaf5dbeae16eb4ac27f04",
+      "shortHash": "1867c5ac",
       "date": "2026-10-21",
-      "subject": "feat: redirect obtainable way from rebirth and collection ui",
+      "subject": "fix: swap invalid slot",
       "files": [
-        "Assets/HUDs/PetsCollection.ui",
-        "Assets/HUDs/Rebirth.ui",
-        "Assets/Scripts/HUDs/HudCollection.fcg",
-        "Assets/Scripts/HUDs/HudRebirth.fcg",
-        "Assets/Scripts/Player/PlayerHudController.fcg",
-        "Assets/Scripts/Utils/CustomUIUtils.fcg",
-        "Assets/Scripts/Utils/UIUtils.fcg",
-        "Docs/BusinessLogic/40-rebirth-rewards.md",
-        "Docs/BusinessLogic/94-ui-hud-framework.md",
-        "ProjectSettings/ECAEnumSetting.asset"
+        "Assets/Scripts/Manager/SwapManager.fcg"
       ]
+    },
+    {
+      "hash": "ab247a7895b5ec5cd3be847695ce834257a49c13",
+      "shortHash": "ab247a78",
+      "date": "2026-10-21",
+      "subject": "Merge pull request #308 from FF-OGC/update-3.2.0-data",
+      "files": []
     }
   ],
   "codeFacts": {
@@ -11138,7 +11431,12 @@
       "dailyMissionRewardsPairByIndex": true,
       "revivalTargetPassedToTimeFormatter": true,
       "milestoneGiftLookupUsesMatchingIndex": true,
-      "rewardCsvReferencedByMissionCode": false
+      "rewardCsvReferencedByMissionCode": false,
+      "giftIdsResolveToRewardIdLists": true,
+      "onboardingRewardsLoadRewardTypeAndValue": true,
+      "luckySpinChoosesByWeight": true,
+      "luckySpinRewardMapsThroughGiftId": true,
+      "luckySpinAngleIsReadAfterRewardChoice": true
     },
     "poolSources": {
       "poolRandomItemsUseWeightedDraw": true,
@@ -11259,7 +11557,7 @@
     ],
     "globalMilestoneTrackingDisabled": true,
     "sourceBranch": "dev",
-    "sourceCommit": "5ebbac5776f795f7c34ba359a57ff9da77e9e595"
+    "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34"
   },
   "findings": [
     {

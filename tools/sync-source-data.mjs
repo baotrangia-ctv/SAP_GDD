@@ -20,6 +20,7 @@ const csvFiles = [
   "weather.csv", "weatherEffects.csv", "weatherWaves.csv", "WeatherGen.csv",
   "Mutagen.csv", "MutateCost.csv", "DailyMissions.csv", "DailyEvent.csv",
   "DailyRewards.csv", "RevivalMission.csv", "milestone.csv", "reward.csv",
+  "onboard.csv", "loginReward.csv", "luckySpin.csv", "Event/EventSchedule.csv",
   "shopItems.csv", "RotationShopItems.csv", "RotationShopWaves.csv",
   "GuaranteePool.csv", "PoolRandomItem.csv", "poolRewardSecret.csv",
   "DustHuntWave.csv", "DustHuntReward.csv", "Event/shopEventItems.csv",
@@ -41,8 +42,11 @@ const codeFiles = [
   "Assets/Scripts/Manager/ActivitiesManager.fcg",
   "Assets/Scripts/Configs/ActivitiesConfigs.fcg",
   "Assets/Scripts/Configs/DailyRewardConfigs.fcg",
+  "Assets/Scripts/Manager/DailyRewardManager.fcg",
   "Assets/Scripts/Configs/RevivalMissionConfigs.fcg",
+  "Assets/Scripts/Configs/OnboardConfigs.fcg",
   "Assets/Scripts/Configs/MilestoneConfig.fcg",
+  "Assets/Scripts/Configs/MailConfigs.fcg",
   "Assets/Scripts/Manager/RewardManager.fcg",
   "Assets/Scripts/Configs/RewardRandomConfig.fcg",
   "Assets/Scripts/Configs/GuaranteePool.fcg",
@@ -54,6 +58,7 @@ const codeFiles = [
   "Assets/Scripts/Events/Collector/EventCollectorManager.fcg",
   "Assets/Scripts/Events/FuseContract/EventFuseConfigs.fcg",
   "Assets/Scripts/Events/Core/EventShopManager.fcg",
+  "Assets/Scripts/Events/Core/EventShopConfigs.fcg",
   "Assets/Scripts/Events/Ball/EventStealABallManager.fcg",
   "Assets/Scripts/Utils/WeightedRandom.fcg",
   "Assets/Scripts/Configs/GlobalConfigs.fcg",
@@ -181,8 +186,22 @@ function splitRawList(value, delimiter) {
   const raw = String(value ?? "");
   return raw === "" ? [] : raw.split(delimiter).map((item) => item.trim());
 }
+function parseGiftRewardLinks() {
+  const absolute = path.join(csvRoot, "giftcode.csv");
+  if (!existsSync(absolute)) return [];
+  const parsed = parseCsv(readFileSync(absolute).toString("utf8"));
+  const headers = parsed[0] || [];
+  const idIndex = headers.indexOf("ID");
+  const rewardIndex = headers.indexOf("Reward");
+  if (idIndex < 0 || rewardIndex < 0) return [];
+  return parsed.slice(1).filter((row) => !isTypeRow(row)).map((row) => ({
+    giftId: String(row[idIndex] ?? "").trim(),
+    rewardIds: splitRawList(row[rewardIndex], ";")
+  })).filter((row) => row.giftId);
+}
 const tables = csvFiles.map(parseCsvFile);
 const byName = new Map(tables.map((t) => [path.basename(t.path), t]));
+const byPath = new Map(tables.map((t) => [t.path.replaceAll("\\", "/"), t]));
 const code = Object.fromEntries(codeFiles.map((rel) => [rel, readSource(rel)]));
 const petConfig = code["Assets/Scripts/Configs/PetConfigs.fcg"];
 const rebirthConfig = code["Assets/Scripts/Configs/RebirthConfigs.fcg"];
@@ -191,8 +210,11 @@ const dailyConfig = code["Assets/Scripts/Configs/DailyPoolConfigs.fcg"];
 const activitiesConfig = code["Assets/Scripts/Manager/ActivitiesManager.fcg"];
 const activitiesRules = code["Assets/Scripts/Configs/ActivitiesConfigs.fcg"];
 const dailyRewardRules = code["Assets/Scripts/Configs/DailyRewardConfigs.fcg"];
+const dailyRewardManagerRules = code["Assets/Scripts/Manager/DailyRewardManager.fcg"];
 const revivalMissionRules = code["Assets/Scripts/Configs/RevivalMissionConfigs.fcg"];
+const onboardRules = code["Assets/Scripts/Configs/OnboardConfigs.fcg"];
 const milestoneRules = code["Assets/Scripts/Configs/MilestoneConfig.fcg"];
+const mailConfigRules = code["Assets/Scripts/Configs/MailConfigs.fcg"];
 const rewardManagerRules = code["Assets/Scripts/Manager/RewardManager.fcg"];
 const rewardRandomRules = code["Assets/Scripts/Configs/RewardRandomConfig.fcg"];
 const guaranteePoolRules = code["Assets/Scripts/Configs/GuaranteePool.fcg"];
@@ -312,6 +334,9 @@ const rotationScheduleItems = rotationWaves.flatMap((wave) => wave.items.map((en
     missingItemConfig: !rotationItemsById.has(entry.id)
   };
 }));
+const randomItemPoolUsesWeightedDraw = /GetRandomWeightedIndex\(rewardWeight\)/.test(weightedRandomRules) && /GetRewardRandomItem\(\)[\s\S]*?CalculateRewardRandomItemWeight/.test(weightedRandomRules) && /WeightedRandom\.GetRewardRandomItem\(\)/.test(eventShopRules + eventBallRules);
+const randomPetPoolUsesWeightedDraw = /GetRandomWeightedIndex\(petRewardWeight\)/.test(weightedRandomRules) && /WeightedRandom\.GetPetInSecretPool\(/.test(collectorManagerRules);
+const randomPetPoolId = Number(rewardRandomRules.match(/\bCURREWARDID\s*=\s*(\d+)/)?.[1]) || null;
 const rotationScheduleData = {
   generatedAt: new Date().toISOString(),
   sourceCommit: runGit("rev-parse", "HEAD"),
@@ -323,8 +348,18 @@ const rotationScheduleData = {
   items: rotationScheduleItems,
   shopItems: byName.get("shopItems.csv")?.rows ?? [],
   shopItemsHeaders: byName.get("shopItems.csv")?.headers ?? [],
-  eventShopItems: byName.get("Event/shopEventItems.csv")?.rows ?? [],
-  eventShopItemsHeaders: byName.get("Event/shopEventItems.csv")?.headers ?? []
+  eventShopItems: byPath.get("Assets/CSV/Event/shopEventItems.csv")?.rows ?? [],
+  eventShopItemsHeaders: byPath.get("Assets/CSV/Event/shopEventItems.csv")?.headers ?? [],
+  eventSchedule: byPath.get("Assets/CSV/Event/EventSchedule.csv")?.rows ?? [],
+  eventScheduleHeaders: byPath.get("Assets/CSV/Event/EventSchedule.csv")?.headers ?? [],
+  eventShopFacts: {
+    timeAvailableIsTimestamp: /_ItemID2TimeAvailable\[itemId\]\s*<=\s*TimeManager\.GetCurrentTimestamp\(\)/.test(code["Assets/Scripts/Events/Core/EventShopConfigs.fcg"]),
+    itemsGroupedByShopId: /_ShopID2SortedItem\[shopId\]/.test(code["Assets/Scripts/Events/Core/EventShopConfigs.fcg"]),
+    eventTypeSelectsShopId: /GetShopId\(eventType\)/.test(eventShopRules),
+    randomItemPoolUsesWeightedDraw,
+    randomPetPoolUsesWeightedDraw,
+    randomPetPoolId
+  }
 };
 if (rotationShopItemsTable && !rotationShopItemsTable.missing) {
   writeOutput(outputPath("dist", "data", "tables", "rotation-shop-items.json"), JSON.stringify(rotationShopItemsTable, null, 2) + "\n");
@@ -432,11 +467,16 @@ const versionCode = {
     dailyMissionRewardsPairByIndex: /return DataUtils\.StringToListIntV2\(_MissionId2RewardType\[missionId\], "\|"\)/.test(activitiesRules) && /return Split\(_MissionId2RewardValue\[missionId\], "\|"\)/.test(activitiesRules) && /for key, rewardType in rewardsType\s*\{[\s\S]*?rewardsValue\[key\]/.test(activitiesConfig),
     revivalTargetPassedToTimeFormatter: /UIUtils\.FormatTime\(targetValue,\s*2\)/.test(revivalMissionRules),
     milestoneGiftLookupUsesMatchingIndex: /List\.IndexOf\(milestones, milestone\)[\s\S]*?return _MilestoneIdToGifts\[id\]\[index\]/.test(milestoneRules),
-    rewardCsvReferencedByMissionCode: /EResCSV\.Reward\b/.test(activitiesRules + activitiesConfig + rewardManagerRules)
+    rewardCsvReferencedByMissionCode: /EResCSV\.Reward\b/.test(activitiesRules + activitiesConfig + rewardManagerRules),
+    giftIdsResolveToRewardIdLists: /_GiftId2Rewards\[giftId\]\s*=\s*DataUtils\.StringToListIntV2\(giftInfo\[GiftCodeConfigEnum\.Reward/.test(mailConfigRules),
+    onboardingRewardsLoadRewardTypeAndValue: /_OnboardStep2RewardType/.test(onboardRules) && /_OnboardStep2RewardValue/.test(onboardRules),
+    luckySpinChoosesByWeight: /GetRandomWeightedIndex\(dailyRewardWeight\)/.test(weightedRandomRules),
+    luckySpinRewardMapsThroughGiftId: /GetLoginRewardGiftId\(rewardId\)/.test(dailyRewardManagerRules),
+    luckySpinAngleIsReadAfterRewardChoice: /var rewardId int = WeightedRandom\.GetDailyRewardRandomID\(\)[\s\S]*?RandomAngleSpin\(rewardId\)/.test(dailyRewardManagerRules)
   },
   poolSources: {
-    poolRandomItemsUseWeightedDraw: /GetRandomWeightedIndex\(rewardWeight\)/.test(weightedRandomRules) && /GetRewardRandomItem\(\)[\s\S]*?CalculateRewardRandomItemWeight/.test(weightedRandomRules) && /WeightedRandom\.GetRewardRandomItem\(\)/.test(eventShopRules + eventBallRules),
-    secretPoolItemsUseIndexAlignedWeights: /GetRandomWeightedIndex\(petRewardWeight\)/.test(weightedRandomRules) && /WeightedRandom\.GetPetInSecretPool\(/.test(collectorManagerRules),
+    poolRandomItemsUseWeightedDraw: randomItemPoolUsesWeightedDraw,
+    secretPoolItemsUseIndexAlignedWeights: randomPetPoolUsesWeightedDraw,
     digSpotRarityUsesWeightedDraw: /GetValueRandomWeightedIndex\(_ScanTier2SpotRarityWeights\[scanTier\], _ScanTier2TotalSpotRarityWeight\[scanTier\]\)/.test(digRules),
     digPetPoolUsesWeightedDraw: /GetValueRandomWeightedIndex\(weights, _PoolTier2TotalDigPetWeight\[poolTier\]\)/.test(digRules),
     fishingPetPoolUsesWeightedDraw: /GetValueRandomWeightedIndex\(weightFish, totalWeightFish\)/.test(fishingRules),
@@ -451,6 +491,41 @@ const versionCode = {
   sourceCommit: runGit("rev-parse", "HEAD")
 };
 const missionFacts = versionCode.missionSources;
+const giftRewardSource = parseGiftRewardLinks();
+const giftRewardSourceById = new Map(giftRewardSource.map((row) => [row.giftId, row.rewardIds]));
+const referencedGiftIds = new Set();
+const giftReferenceTables = [
+  ["Assets/CSV/DailyRewards.csv", "Gift"],
+  ["Assets/CSV/DailyEvent.csv", "Gift"],
+  ["Assets/CSV/milestone.csv", "Gift"],
+  ["Assets/CSV/loginReward.csv", "RewardId"],
+  ["Assets/CSV/PoolRandomItem.csv", "GiftID"],
+  ["Assets/CSV/poolRewardSecret.csv", "IDGift"],
+  ["Assets/CSV/Event/shopEventItems.csv", "IDGift"],
+  ["Assets/CSV/Event/FuseContract/PoolPetEventFuseContract.csv", "Gift"]
+];
+for (const [tablePath, key] of giftReferenceTables) {
+  for (const row of byPath.get(tablePath)?.rows ?? []) {
+    for (const giftId of splitRawList(row[key], ";")) if (giftId) referencedGiftIds.add(giftId);
+  }
+}
+const giftRewardLinks = [...referencedGiftIds].sort((a, b) => Number(a) - Number(b)).map((giftId) => ({
+  giftId,
+  rewardIds: giftRewardSourceById.get(giftId) ?? [],
+  resolved: giftRewardSourceById.has(giftId)
+}));
+const giftRewardData = {
+  generatedAt: new Date().toISOString(),
+  sourceCommit: versionCode.sourceCommit,
+  sourceFacts: {
+    giftIdsResolveToRewardIdLists: missionFacts.giftIdsResolveToRewardIdLists,
+    rewardCatalogIsRewardCsv: true,
+    exportedGiftFields: ["ID", "Reward"],
+    referencedGiftCount: giftRewardLinks.length
+  },
+  giftLinks: giftRewardLinks
+};
+writeOutput(outputPath("dist", "data", "gift-rewards.json"), JSON.stringify(giftRewardData, null, 2) + "\n");
 const missionRewardPairsById = Object.fromEntries((byName.get("DailyMissions.csv")?.rows ?? []).map((row) => {
   const types = splitRawList(row.RewardType, "|");
   const values = splitRawList(row.RewardValue, "|");
@@ -606,7 +681,7 @@ const output = {
   sourceCommit: versionCode.sourceCommit,
   currentSourceFiles: tables.filter((t) => !t.missing).length,
   excludedSources: [
-    { path: "Assets/CSV/giftcode.csv", reason: "Operational redeem-code data is outside this GDD." },
+    { path: "Assets/CSV/giftcode.csv", reason: "Redeem codes and operational fields are excluded; only referenced Gift ID → Reward ID links are projected into gift-rewards.json." },
     { path: "Assets/CSV/Compensate/*", reason: "Player compensation exports are excluded." }
   ],
   tables,

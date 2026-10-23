@@ -26,13 +26,13 @@ The model follows `PetParadeManager.CalculateRoadSpawnWeights`, `GetPetsCount`, 
 
 ## Shop Schedule
 
-Use **Lịch shop** to filter the Rotation Shop's fixed item list by wave or item ID/type/value. Rows show the configured `Count`, price fields, and the share of schedule waves containing that item. This is schedule coverage, not a random chance. The Rotation Shop CSV has no Rebirth field; Rebirth availability is shown as unavailable until a source provides it. The normal and event shop tables retain raw CSV values, including unconfirmed `Requirement`/`TimeLock` units.
+Use **Lịch shop** to filter the Rotation Shop's fixed item list by wave or item ID/type/value. Rows show the configured `Count`, price fields, and the share of schedule waves containing that item. This is schedule coverage, not a random chance. Event shop can be filtered by `EventType`; its item cards show Gift → Reward details and visualize `TimeAvailable` relative to the scheduled event start when a schedule exists. The normal shop keeps raw CSV fields, including unconfirmed `Requirement`/`TimeLock` units.
 
 These pages are read-only views of repository CSV and FC config logic. Mutation and WeatherGen rows use the matching sprite from `Assets/Sprites/Mutations`; weather-effect sprites are joined by the `weatherEffects.csv` icon key. Derived rules are refreshed from `MutagenConfigs.fcg`, `WeatherGenConfigs.fcg`, `WeatherConfigs.fcg`, `LuckyBoxConfigs.fcg`, `LuckyBoxManager.fcg`, and `WeatherManager.fcg` by the same sync script.
 
 ## Missions & Rewards
 
-Use **Nhiệm vụ & quà** to inspect daily missions, daily login rewards, Revival missions, milestone entries, and `reward.csv`. Daily mission reward type/value lists and milestone/gift lists are paired by index only where the runtime `.fcg` confirms that lookup. Values stay raw; the current mirror does not verify a general Gift ID → item name/value mapping. `reward.csv` is a separate lazy-loaded table with search and 50-row pagination. Revival `TargetValue` stays raw because the runtime sends it to a time formatter and the page does not infer a unit conversion.
+Use **Nhiệm vụ & quà** for daily gifts (filter by reward type and minimum Rebirth), onboarding and Revival mission rewards (filter by reward type), and Lucky Spin rewards. Gift IDs resolve to Reward IDs through the runtime gift lookup; reward cards show item art, type, configured quantity, and readable details. Lucky Spin odds are normalized from `loginReward.csv` weights; the wheel angle is shown as presentation data, not as the odds source. Revival target values are formatted as time because the runtime sends them to its time formatter.
 
 Serve the site locally:
 
@@ -46,6 +46,6 @@ Use **Pool & phần thưởng** to review `PoolRandomItem`, secret reward pools,
 
 ## Data boundaries
 
-The linked Google Sheets could not be read with the available connector during this build. The site labels its snapshot as repository CSV/code data and does not claim it is a fresh pull from those sheets. It has no validated session-time simulator or retention telemetry; pacing is shown as configured progression gates and event cadence.
+The linked Google Sheets could not be read with the available connector during this build. The site labels its snapshot as repository CSV/code data and does not claim it is a fresh pull from those sheets. The gift view projects only referenced Gift `ID` → `Reward` ID links from `giftcode.csv`; redeem codes, limits, and availability fields are excluded. It has no validated session-time simulator or retention telemetry; pacing is shown as configured progression gates and event cadence.
 
 The site source is its own Git checkout. It does not commit or push the StealAPet game repository.

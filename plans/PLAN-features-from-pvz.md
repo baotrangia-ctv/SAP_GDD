@@ -23,7 +23,7 @@ Nguyên tắc: **chỉ lấy tính năng tương đương**, không sao chép ki
 | F1 · ☐ | **Tài liệu GDD + Decision log + Dev action items** (`docs.html`, `design/00-decisions`, `20-dev-action-items`) | Thư mục `design/` markdown (decision D-số, việc cho dev còn mở); trang "Docs" render md. Seed quyết định từ README + findings hiện có | `design/*.md` | P1 |
 | F2 · ☐ | **Sync / Staleness page + dev-diff** (`sync.html`, `check-sync`, `dev-diff.js`) | Trang "Đồng bộ": commit nguồn, ngày snapshot, CSV nào đổi so với lần sync trước, cảnh báo snapshot cũ. Mở rộng `sync-source-data.mjs` để lưu baseline theo commit và sinh diff | `recentCommits`, baseline | P1 |
 | F3 · ✅ | **Shop Schedule** (`shop-schedule.html`) | Trang Shop: `shopItems`, `RotationShopWaves/Items` (2060 dòng, chưa có trang nào), giá, stock, tỉ lệ xuất hiện theo wave/rebirth | `shopItems.csv`, `RotationShop*.csv`, `shopEventItems.csv` | P1 |
-| F4 · ✅ | **Missions & Rewards** (`mission-balance`, `onboarding`, `collection-rewards`) | Trang Nhiệm vụ: `DailyMissions`, `RevivalMission`, `DailyRewards`, `milestone`, `reward` — ngưỡng, quà raw và mốc theo dữ liệu xác nhận; `reward.csv` tách/lazy-load | các CSV + `.fcg` runtime xác nhận | P1 |
+| F4 · ✅ | **Missions & Rewards** (`mission-balance`, `onboarding`, `collection-rewards`) | Trang Nhiệm vụ: Quà ngày, onboard/Revival mission và Lucky Spin; lọc theo type/Rebirth; Gift ID map qua Reward ID để hiện hình, loại và số lượng | `DailyRewards`, `onboard`, `RevivalMission`, `loginReward`, `reward`, Gift ID→Reward ID refs + `.fcg` runtime | P1 |
 | F5 · ✅ | **Packs / Pools contents** (`packs.html`, `pack-popup`) | Trang Pools: `GuaranteePool`, `PoolRandomItem`, `poolRewardSecret`, pool Dig/Fishing/Collector/FuseContract — weight share chỉ khi code xác nhận weighted draw; bảng chưa rõ semantics giữ raw | pool CSV + `.fcg` runtime | P1 |
 | F6 · ☐ | **Nhóm "Events"** (mẫu: Zombie & Boss / Items — trang nội dung theo hệ thống) | Mỗi event 1 view read-only như Mutagen/Weather: Dig, Fishing, Meteorite, Mole, Ball, Collector, FuseContract, RarityContract, DustHunt | `Event/*`, `DustHunt*` | P2 |
 | F7 · ☐ | **Nav nhóm + chế độ Gọn/Đầy đủ + version badge** (`nav.js`) | Gom sidebar thành nhóm: Tổng quan · Balance · Nội dung · Events · Dữ liệu; toggle "Gọn" ẩn đoạn giải thích dài (mặc định gọn); badge version + giờ snapshot | UI | P2 |
@@ -46,7 +46,7 @@ Nguyên tắc: **chỉ lấy tính năng tương đương**, không sao chép ki
 ## 4. Lộ trình triển khai
 
 **Phase 0 — Nền (0.5 ngày):** `CLAUDE.md` runbook (F13), thư mục `design/` + `00-decisions.md` + `20-dev-action-items.md`, chuẩn hoá layout JS (tách module theo trang thay vì app-extra/app-systems).
-**Phase 1 — Trang dữ liệu còn thiếu (F3, F4, F5):** mở rộng `sync-source-data.mjs` để mirror thêm CSV shop/mission/pool vào snapshot (allowlist, vẫn loại giftcode/Compensate); thêm 3 trang theo mẫu hiện có (head/pill/bar/chart helpers).
+**Phase 1 — Trang dữ liệu còn thiếu (F3, F4, F5):** mở rộng `sync-source-data.mjs` để mirror thêm CSV shop/mission/pool vào snapshot (không mirror redeem-code fields hoặc Compensate; chỉ xuất quan hệ Gift ID→Reward ID cần cho trang quà); thêm các trang theo mẫu hiện có (head/pill/bar/chart helpers).
 **Phase 2 — Quy trình (F1, F2):** trang Docs (render md → JSON lúc sync), trang Đồng bộ + baseline theo commit + diff CSV.
 **Phase 3 — Events + UX (F6, F7):** các view event, nav nhóm, chế độ Gọn, badge version.
 **Phase 4 — Mục tiêu & chỉnh sửa (F8, F9):** balance-targets + trang audit; Config explorer proposal/dev + export (sau khi chốt §3).
@@ -57,6 +57,6 @@ Mỗi phase: chạy sync → kiểm tra trang bằng trình duyệt trong app �
 ## 5. Rủi ro / lưu ý
 
 - Không bịa số: mục tiêu balance (F8) và mô phỏng (F10) phải dựa trên code/CSV thật hoặc số designer cung cấp; nếu thiếu thì ghi rõ "chưa có dữ liệu" như README hiện tại.
-- Dữ liệu vận hành (giftcode, Compensate) tiếp tục bị loại khỏi snapshot.
+- Dữ liệu vận hành (mã giftcode và Compensate) tiếp tục bị loại khỏi snapshot; trang quà chỉ dùng projection Gift ID→Reward ID.
 - `RotationShopItems.csv` (2060 dòng) và `reward.csv` lớn → cần phân trang/lọc, tránh phình `config-snapshot.json` (cân nhắc tách file theo bảng, lazy-load).
 - Link Google Sheets nguồn vẫn chưa đọc được — không dùng làm nguồn.

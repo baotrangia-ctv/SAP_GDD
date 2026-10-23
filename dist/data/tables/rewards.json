@@ -1206,21 +1206,15 @@
       "TypeReward": "1",
       "Value": "1054;1",
       "Quantity": "1"
-    },
-    {
-      "ID": "56003",
-      "TypeReward": "1",
-      "Value": "6003;1",
-      "Quantity": "1"
     }
   ],
-  "rowCount": 202,
+  "rowCount": 201,
   "headers": [
     "ID",
     "TypeReward",
     "Value",
     "Quantity"
   ],
-  "sha256": "1af2bc24df113f479037f90b0ae98620efb5d58f82d5a5410a997c2316644054",
-  "bytes": 3082
+  "sha256": "75d58da59c26cb3d589df9cd9898caa7d50ff8be981ccd4555a202150355a47d",
+  "bytes": 3064
 }

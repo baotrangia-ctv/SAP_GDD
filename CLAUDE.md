@@ -6,7 +6,7 @@
 
 - Site chạy tĩnh trong `dist/`: không thêm Express, server ứng dụng, framework hay build step.
 - `D:\Craftland\StealAPet` là project game chỉ đọc. Chỉ đọc CSV trong `Assets/CSV/**` và file `.fcg` để xác minh logic. Không chạy Studio/build, không tạo file, không dùng lệnh Git ghi ở repo game.
-- Mọi script sync chỉ ghi trong project GDD; giữ guard đích output. Không đọc `giftcode.csv`, `Compensate/**` hoặc asset game làm nguồn sync.
+- Mọi script sync chỉ ghi trong project GDD; giữ guard đích output. `giftcode.csv` là dữ liệu vận hành: chỉ được chiếu các cột `ID` và `Reward` cho Gift ID đang được config hiển thị tham chiếu; không ghi hoặc render Code, Name, Limit, Start, End, Reuse hay Rebirth. Không đọc `Compensate/**` hoặc asset game làm nguồn sync.
 - Không commit/push trong repo game. Trong GDD chỉ commit local cho từng thay đổi của plan; không push, amend, rebase, reset hoặc tạo tag.
 - Không bịa số. Dùng CSV/code đã kiểm chứng; thiếu nguồn thì ghi “chưa có dữ liệu”. Balance target và mô phỏng chỉ thêm khi có quyết định hoặc cơ chế nguồn đã xác nhận.
 - Giao diện dùng vanilla JS, tiếng Việt, mặc định gọn; dữ liệu dẫn xuất do `tools/*.mjs` sinh vào `dist/data/`. Trình duyệt chỉ đọc JSON và hiển thị.
