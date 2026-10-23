@@ -1,0 +1,15 @@
+{
+  "proposals": [
+    {
+      "id": "collection-pipeline-example",
+      "screen": "collection",
+      "title": "Collection · ví dụ để kiểm pipeline",
+      "author": "GDD pipeline fixture",
+      "status": "draft",
+      "summary": "Ví dụ để kiểm pipeline: dịch label tiêu đề 4 đơn vị và thay sprite trang trí bằng sprite đã có. Chưa phải thiết kế đã duyệt; không đổi balance.",
+      "data": "./data/ui/proposals/collection-pipeline-example.json",
+      "diff": "./data/ui/proposals/collection-pipeline-example-diff.json",
+      "resources": "./data/ui/proposals/collection-pipeline-example-resources.json"
+    }
+  ]
+}

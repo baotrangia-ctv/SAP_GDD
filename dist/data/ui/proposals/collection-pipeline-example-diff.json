@@ -1,0 +1,64 @@
+{
+  "id": "collection-pipeline-example",
+  "operationCount": 2,
+  "operations": [
+    {
+      "index": 1,
+      "op": "set",
+      "path": "PetsCollection/Container/Title/Label",
+      "afterPath": "PetsCollection/Container/Title/Label",
+      "id": "JRxpWV4m",
+      "field": "transform.anchoredPosition.x",
+      "before": 40,
+      "after": 44,
+      "reason": "Ví dụ để kiểm pipeline: kiểm so sánh vị trí label trước/sau.",
+      "affectedIds": [
+        "JRxpWV4m"
+      ]
+    },
+    {
+      "index": 2,
+      "op": "replaceSprite",
+      "path": "PetsCollection/Container/BG/DecorLeft",
+      "afterPath": "PetsCollection/Container/BG/DecorLeft",
+      "id": "gr8BcPhJ",
+      "field": "image.spriteKey",
+      "before": "Assets/_Test/NewUI/Assets/Img_decorate01.png",
+      "after": "Assets/Sprites/Shapes/ShadowTriangleRounded.png",
+      "reason": "Ví dụ để kiểm pipeline: kiểm manifest bằng một sprite đã có file, chưa phải art được duyệt.",
+      "affectedIds": [
+        "gr8BcPhJ"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "index": 1,
+      "op": "set",
+      "path": "PetsCollection/Container/Title/Label",
+      "afterPath": "PetsCollection/Container/Title/Label",
+      "id": "JRxpWV4m",
+      "field": "transform.anchoredPosition.x",
+      "before": 40,
+      "after": 44,
+      "reason": "Ví dụ để kiểm pipeline: kiểm so sánh vị trí label trước/sau.",
+      "affectedIds": [
+        "JRxpWV4m"
+      ]
+    },
+    {
+      "index": 2,
+      "op": "replaceSprite",
+      "path": "PetsCollection/Container/BG/DecorLeft",
+      "afterPath": "PetsCollection/Container/BG/DecorLeft",
+      "id": "gr8BcPhJ",
+      "field": "image.spriteKey",
+      "before": "Assets/_Test/NewUI/Assets/Img_decorate01.png",
+      "after": "Assets/Sprites/Shapes/ShadowTriangleRounded.png",
+      "reason": "Ví dụ để kiểm pipeline: kiểm manifest bằng một sprite đã có file, chưa phải art được duyệt.",
+      "affectedIds": [
+        "gr8BcPhJ"
+      ]
+    }
+  ]
+}

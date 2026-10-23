@@ -1,0 +1,14 @@
+{
+  "$schema": "../proposal.schema.json",
+  "id": "collection-pipeline-example",
+  "screen": "collection",
+  "title": "Collection · ví dụ để kiểm pipeline",
+  "author": "GDD pipeline fixture",
+  "status": "draft",
+  "summary": "Ví dụ để kiểm pipeline: dịch label tiêu đề 4 đơn vị và thay sprite trang trí bằng sprite đã có. Chưa phải thiết kế đã duyệt; không đổi balance.",
+  "ops": [
+    { "op": "set", "path": "PetsCollection/Container/Title/Label", "id": "JRxpWV4m", "field": "transform.anchoredPosition.x", "value": 44, "reason": "Ví dụ để kiểm pipeline: kiểm so sánh vị trí label trước/sau." },
+    { "op": "replaceSprite", "path": "PetsCollection/Container/BG/DecorLeft", "id": "gr8BcPhJ", "sprite": "Assets/Sprites/Shapes/ShadowTriangleRounded.png", "reason": "Ví dụ để kiểm pipeline: kiểm manifest bằng một sprite đã có file, chưa phải art được duyệt." }
+  ],
+  "newAssets": []
+}

@@ -1,0 +1,406 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GDD UI Proposal v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "screen",
+    "title",
+    "author",
+    "status",
+    "summary",
+    "ops",
+    "newAssets"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "screen": {
+      "const": "collection"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "review",
+        "approved"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ops": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "reason",
+              "path",
+              "field",
+              "value"
+            ],
+            "properties": {
+              "op": {
+                "const": "set"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "field": {
+                "enum": [
+                  "active",
+                  "alpha",
+                  "transform.anchorMin.x",
+                  "transform.anchorMin.y",
+                  "transform.anchorMax.x",
+                  "transform.anchorMax.y",
+                  "transform.pivot.x",
+                  "transform.pivot.y",
+                  "transform.anchoredPosition.x",
+                  "transform.anchoredPosition.y",
+                  "transform.sizeDelta.x",
+                  "transform.sizeDelta.y",
+                  "transform.rotate",
+                  "image.color",
+                  "image.fillType",
+                  "image.fillDir",
+                  "image.fillAmount",
+                  "image.centerInvisible",
+                  "image.invertFill",
+                  "image.reverse.x",
+                  "image.reverse.y",
+                  "button.normal",
+                  "button.pressed",
+                  "button.disabled",
+                  "button.fillType",
+                  "button.fillDir",
+                  "button.fillAmount",
+                  "button.centerInvisible",
+                  "button.invertFill",
+                  "button.reverse.x",
+                  "button.reverse.y",
+                  "button.disableCollider",
+                  "text.value",
+                  "text.key",
+                  "text.fontSize",
+                  "text.color",
+                  "text.shadowColor",
+                  "text.outlineColor",
+                  "text.backgroundColor",
+                  "text.lineSpacing",
+                  "text.shadowOffset.x",
+                  "text.shadowOffset.y",
+                  "text.outlineOffset",
+                  "text.outlineAlpha",
+                  "text.shadowAlpha",
+                  "text.shadow",
+                  "text.outline",
+                  "text.background",
+                  "text.fontStyle.bold",
+                  "text.fontStyle.italic",
+                  "text.fontStyle.underline",
+                  "text.alignment.h",
+                  "text.alignment.v",
+                  "layout.enable",
+                  "layout.ignoreInactive",
+                  "layout.corner",
+                  "layout.constraint",
+                  "layout.direction",
+                  "layout.fixedRowCount",
+                  "layout.fixedColumnCount",
+                  "layout.sortType",
+                  "layout.size.x",
+                  "layout.size.y",
+                  "layout.space.x",
+                  "layout.space.y",
+                  "layout.offset.left",
+                  "layout.offset.right",
+                  "layout.offset.up",
+                  "layout.offset.down",
+                  "layout.tableOffset.left",
+                  "layout.tableOffset.right",
+                  "layout.tableOffset.up",
+                  "layout.tableOffset.down",
+                  "layout.tableSpace"
+                ]
+              },
+              "value": {}
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "reason",
+              "parent",
+              "entity"
+            ],
+            "properties": {
+              "op": {
+                "const": "add"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "parent": {
+                "type": "string",
+                "minLength": 1
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "entity": {
+                "$ref": "#/$defs/entity"
+              },
+              "parentId": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "reason",
+              "path"
+            ],
+            "properties": {
+              "op": {
+                "const": "remove"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "reason",
+              "path",
+              "parent"
+            ],
+            "properties": {
+              "op": {
+                "const": "move"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "parent": {
+                "type": "string",
+                "minLength": 1
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "parentId": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "reason",
+              "path",
+              "sprite"
+            ],
+            "properties": {
+              "op": {
+                "const": "replaceSprite"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sprite": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "newAssets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "file",
+          "border"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^proposal/[a-z0-9/-]+$"
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^assets/[a-zA-Z0-9_-]+\\.png$"
+          },
+          "border": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "left",
+              "right",
+              "top",
+              "bottom"
+            ],
+            "properties": {
+              "left": {
+                "type": "number",
+                "minimum": 0
+              },
+              "right": {
+                "type": "number",
+                "minimum": 0
+              },
+              "top": {
+                "type": "number",
+                "minimum": 0
+              },
+              "bottom": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "UIEmptyEntity",
+            "UIImageEntity",
+            "UIButtonEntity",
+            "UITextEntity",
+            "UILayoutEntityV2"
+          ]
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "alpha": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "transform": {
+          "type": "object",
+          "description": "Leaf fields checked strictly by ui-proposal-fields.mjs"
+        },
+        "image": {
+          "type": "object",
+          "description": "Leaf fields checked strictly by ui-proposal-fields.mjs"
+        },
+        "button": {
+          "type": "object",
+          "description": "Leaf fields checked strictly by ui-proposal-fields.mjs"
+        },
+        "text": {
+          "type": "object",
+          "description": "Leaf fields checked strictly by ui-proposal-fields.mjs"
+        },
+        "layout": {
+          "type": "object",
+          "description": "Leaf fields checked strictly by ui-proposal-fields.mjs"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        }
+      }
+    }
+  }
+}
