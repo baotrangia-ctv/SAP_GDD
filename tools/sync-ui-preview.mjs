@@ -98,6 +98,7 @@ export function syncUiPreview(sourceRoot, gddRoot) {
         path: entityPath, id: node._entityId, name, type: node._tag?.type || "Unknown",
         active: props.activeSelf ?? node.activeValue?.selfValue ?? true,
         transform: props.transform || null, alpha: props.alpha ?? 100,
+        priority: props.priority ?? 0,
         image: null, button: null, text: null, layout: null,
         ecaProps: node.ecaProps || {}, unsupported: [], children: []
       };
@@ -122,6 +123,11 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       id: ui.id, source: uiRel.replaceAll("\\", "/"), entityCount,
       referenceSize: { width: tree.transform?.sizeDelta?.x || null, height: tree.transform?.sizeDelta?.y || null },
       referenceSizeNote: "suy từ sizeDelta của root; độ phân giải tham chiếu engine chưa có dữ liệu",
+      renderingPolicy: {
+        alpha: "widget-visual-only", alphaStatus: "inferred; runtime cascade unverified",
+        hitTest: "button-rect-unless-disableCollider", hitTestStatus: "DisableCollider documented; alpha threshold and image blocking unverified",
+        stacking: "source-tree-order", stackingStatus: "all source priorities are zero; engine depth ordering unverified"
+      },
       tree
     });
     if (ui.id === "collection") {

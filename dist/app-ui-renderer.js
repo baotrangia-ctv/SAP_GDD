@@ -17,6 +17,9 @@ const uiRenderer = (() => {
   function spriteEntry(key, manifest) { return manifest.sprites.find(item => item.key === key); }
   function graphic(el, data, manifest) {
     if (!data) return;
+    const layer = document.createElement("div");
+    layer.className = "ui-visual";
+    el.prepend(layer);
     const entry = spriteEntry(data.spriteKey, manifest);
     const url = entry?.output;
     if (url) {
@@ -32,16 +35,16 @@ const uiRenderer = (() => {
         visual.style.borderImageSlice = `${border.top} ${border.right} ${border.bottom} ${border.left} ${data.centerInvisible ? "" : "fill"}`.trim();
         visual.style.borderImageRepeat = data.fillType === 2 ? "repeat" : "stretch";
       }
-      el.appendChild(visual);
+      layer.appendChild(visual);
       if (data.color && data.color.toUpperCase() !== "#FFFFFF") {
-        el.style.backgroundColor = data.color;
+        layer.style.backgroundColor = data.color;
         visual.style.mixBlendMode = "multiply";
       }
     } else if (data.spriteKey) {
-      el.classList.add("ui-missing-sprite");
+      layer.classList.add("ui-missing-sprite");
       el.title = `Sprite thiếu: ${data.spriteKey}`;
       el.dataset.uiMissingSprite = data.spriteKey;
-      el.dataset.uiMissingLabel = data.spriteKey.split("/").at(-1);
+      layer.dataset.uiMissingLabel = data.spriteKey.split("/").at(-1);
     }
     if (data.reverse?.x) el.classList.add("ui-flip-x");
     if (data.reverse?.y) el.classList.add("ui-flip-y");
@@ -49,12 +52,10 @@ const uiRenderer = (() => {
   }
   function setSprite(el, key, data, manifest) {
     if (!el) return;
-    el.querySelector(":scope > .ui-sprite")?.remove();
+    el.querySelector(":scope > .ui-visual")?.remove();
     el.classList.remove("ui-missing-sprite", "ui-flip-x", "ui-flip-y");
     delete el.dataset.uiMissingSprite;
     graphic(el, { ...data, spriteKey: key }, manifest);
-    const sprite = el.querySelector(":scope > .ui-sprite");
-    if (sprite) el.prepend(sprite);
     el.dataset.uiSpriteKey = key;
   }
   function text(el, data) {
@@ -111,11 +112,17 @@ const uiRenderer = (() => {
       element.style.top = `${r.top}px`;
       element.style.width = `${Math.max(0, r.width)}px`;
       element.style.height = `${Math.max(0, r.height)}px`;
-      element.style.opacity = String((node.alpha ?? 100) / 100);
+      // Alpha affects the visual, never the hit rectangle. Cascade is an
+      // explicit provisional policy in collection.json, pending runtime QA.
+      element.style.setProperty("--ui-alpha", String((node.alpha ?? 100) / 100));
+      element.dataset.uiAlpha = String(node.alpha ?? 100);
+      element.dataset.uiPriority = String(node.priority ?? 0);
+      element.dataset.uiHitTarget = String(!!node.button && !node.button.disableCollider);
+      if (node.button?.disableCollider) element.disabled = true;
       if (node.transform?.rotate) element.style.transform = `rotate(${-node.transform.rotate}deg)`;
       graphic(element, node.image || (node.button ? { ...node.button, color: node.button.normal } : null), manifest);
       if (node.button) {
-        const tint = color => { element.style.backgroundColor = color || ""; const visual = element.querySelector(":scope > .ui-sprite"); if (visual) visual.style.mixBlendMode = color?.toUpperCase() === "#FFFFFF" ? "normal" : "multiply"; };
+        const tint = color => { const layer = element.querySelector(":scope > .ui-visual"); if (layer) layer.style.backgroundColor = color || ""; const visual = layer?.querySelector(".ui-sprite"); if (visual) visual.style.mixBlendMode = color?.toUpperCase() === "#FFFFFF" ? "normal" : "multiply"; };
         element.addEventListener("pointerenter", () => tint(node.button.highlight));
         element.addEventListener("pointerleave", () => tint(element.disabled ? node.button.disabled : node.button.normal));
         element.addEventListener("pointerdown", () => tint(node.button.pressed));

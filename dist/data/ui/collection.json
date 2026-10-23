@@ -7,6 +7,14 @@
     "height": 750
   },
   "referenceSizeNote": "suy từ sizeDelta của root; độ phân giải tham chiếu engine chưa có dữ liệu",
+  "renderingPolicy": {
+    "alpha": "widget-visual-only",
+    "alphaStatus": "inferred; runtime cascade unverified",
+    "hitTest": "button-rect-unless-disableCollider",
+    "hitTestStatus": "DisableCollider documented; alpha threshold and image blocking unverified",
+    "stacking": "source-tree-order",
+    "stackingStatus": "all source priorities are zero; engine depth ordering unverified"
+  },
   "tree": {
     "path": "PetsCollection",
     "id": "CyEjtaLS",
@@ -37,6 +45,7 @@
       }
     },
     "alpha": 100,
+    "priority": 0,
     "image": null,
     "button": null,
     "text": null,
@@ -79,6 +88,7 @@
           }
         },
         "alpha": 100,
+        "priority": 0,
         "image": null,
         "button": {
           "spriteName": {
@@ -180,6 +190,7 @@
           }
         },
         "alpha": 100,
+        "priority": 0,
         "image": {
           "source": {
             "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -271,6 +282,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": null,
             "button": {
               "spriteName": {
@@ -369,6 +381,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "zkfpx1yzvtc-mu6xhq5y-nv8ey9h3kfj",
@@ -460,6 +473,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -551,6 +565,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -654,6 +669,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "gszc833692p-mu6veyfp-g1yynwpple7",
@@ -745,6 +761,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "ouansc8n289-mu6xhpqu-centw2ek0ns",
@@ -839,6 +856,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "earvmnoqs6p-mu2oi0z2-k994sun5yc",
@@ -933,6 +951,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "z3itg018ujr-mu6xhpvo-cnfqx0exhhp",
@@ -1029,6 +1048,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": null,
             "button": null,
             "text": null,
@@ -1101,6 +1121,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -1201,6 +1222,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -1294,6 +1316,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -1394,6 +1417,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -1487,6 +1511,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -1587,6 +1612,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -1680,6 +1706,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -1780,6 +1807,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -1873,6 +1901,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -1973,6 +2002,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -2066,6 +2096,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -2166,6 +2197,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -2259,6 +2291,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -2359,6 +2392,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -2452,6 +2486,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -2552,6 +2587,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -2647,6 +2683,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": null,
             "button": null,
             "text": null,
@@ -2719,6 +2756,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "uxm85o6u4w-mu6xhq1i-eqcetnq7xhd",
@@ -2812,6 +2850,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "rqpomo66vjg-mu6vezgl-j2m6wc8co4",
@@ -2906,6 +2945,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "63tf7u5p89f-mir2uppa-kquuyta6oll",
@@ -3000,6 +3040,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "b9hti3lr6oq-mu9dppgj-r0zg509ivmi",
@@ -3093,6 +3134,7 @@
                           }
                         },
                         "alpha": 100,
+                        "priority": 0,
                         "image": null,
                         "button": null,
                         "text": {
@@ -3186,6 +3228,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "xdywdrcryc-minctbfj-f4q3t7wxzug",
@@ -3280,6 +3323,7 @@
                       }
                     },
                     "alpha": 0,
+                    "priority": 0,
                     "image": null,
                     "button": {
                       "spriteName": {
@@ -3381,6 +3425,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -3476,6 +3521,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": null,
             "button": null,
             "text": null,
@@ -3524,6 +3570,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -3625,6 +3672,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -3716,6 +3764,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -3819,6 +3868,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -3910,6 +3960,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "uxm85o6u4w-mu6xhq1i-eqcetnq7xhd",
@@ -4003,6 +4054,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "058qt1gskw1o-mu2oi1q0-f81v9jct7y",
@@ -4097,6 +4149,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "nhnozvvj76j-mu2oi22i-ssmhg8hvxjp",
@@ -4191,6 +4244,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "r8t5u61jnjr-mu2oi1iy-oghn9iypa9",
@@ -4285,6 +4339,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "h5xqad16ta-mu2oi1w5-iiuxegfn4d",
@@ -4379,6 +4434,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "tae4dpz3taj-mu2oi2ut-kade5xgahy",
@@ -4473,6 +4529,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "rqpomo66vjg-mu6vezgl-j2m6wc8co4",
@@ -4567,6 +4624,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "63tf7u5p89f-mir2uppa-kquuyta6oll",
@@ -4661,6 +4719,7 @@
                       }
                     },
                     "alpha": 0,
+                    "priority": 0,
                     "image": null,
                     "button": {
                       "spriteName": {
@@ -4762,6 +4821,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -4853,6 +4913,7 @@
                       }
                     },
                     "alpha": 90,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -4946,6 +5007,7 @@
                           }
                         },
                         "alpha": 100,
+                        "priority": 0,
                         "image": null,
                         "button": null,
                         "text": {
@@ -5041,6 +5103,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -5131,6 +5194,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "uxm85o6u4w-mu6xhq1i-eqcetnq7xhd",
@@ -5224,6 +5288,7 @@
                           }
                         },
                         "alpha": 100,
+                        "priority": 0,
                         "image": {
                           "source": {
                             "fileId": "4rmnocgrmp-mt1fr9q2-t5ucsp4gh6c",
@@ -5318,6 +5383,7 @@
                           }
                         },
                         "alpha": 100,
+                        "priority": 0,
                         "image": null,
                         "button": null,
                         "text": {
@@ -5415,6 +5481,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": null,
             "button": null,
             "text": null,
@@ -5487,6 +5554,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -5587,6 +5655,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -5680,6 +5749,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -5780,6 +5850,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -5873,6 +5944,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": {
                   "spriteName": {
@@ -5973,6 +6045,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -6068,6 +6141,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -6161,6 +6235,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "e4ea2am4nbh-mu9bpkes-beszxuyebu7",
@@ -6252,6 +6327,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "1ev4vbb6r81-mincvh0q-an2r8ytn9ao",
@@ -6346,6 +6422,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -6439,6 +6516,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "e4ea2am4nbh-mu9bpkes-beszxuyebu7",
@@ -6530,6 +6608,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "5vikfnoxuoi-muxvz2ck-m1kwv57mrwn",
@@ -6624,6 +6703,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -6717,6 +6797,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "e4ea2am4nbh-mu9bpkes-beszxuyebu7",
@@ -6808,6 +6889,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "5mt2b2e2rok-muxvz2h0-ttlfvox09dk",
@@ -6902,6 +6984,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -6997,6 +7080,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -7090,6 +7174,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": null,
@@ -7162,6 +7247,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "ljiri4sl9hj-mror961a-pqwno8dlhw",
@@ -7260,6 +7346,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -7353,6 +7440,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "4rmnocgrmp-mt1fr9q2-t5ucsp4gh6c",
@@ -7447,6 +7535,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -7540,6 +7629,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "h3f4wu0ypr-minctbz1-k8lcbtaehgk",
@@ -7633,6 +7723,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "uxm85o6u4w-mu6xhq1i-eqcetnq7xhd",
@@ -7726,6 +7817,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "rqpomo66vjg-mu6vezgl-j2m6wc8co4",
@@ -7820,6 +7912,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "63tf7u5p89f-mir2uppa-kquuyta6oll",
@@ -7914,6 +8007,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -8007,6 +8101,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "uxm85o6u4w-mu6xhq1i-eqcetnq7xhd",
@@ -8100,6 +8195,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "rqpomo66vjg-mu6vezgl-j2m6wc8co4",
@@ -8194,6 +8290,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": {
                       "source": {
                         "fileId": "63tf7u5p89f-mir2uppa-kquuyta6oll",
@@ -8288,6 +8385,7 @@
                       }
                     },
                     "alpha": 100,
+                    "priority": 0,
                     "image": null,
                     "button": null,
                     "text": {
@@ -8378,6 +8476,7 @@
                           }
                         },
                         "alpha": 1,
+                        "priority": 0,
                         "image": null,
                         "button": {
                           "spriteName": {
@@ -8483,6 +8582,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "ts0k112auwb-mus98srp-7ghalszq1e2",
@@ -8577,6 +8677,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "1wz868k00w1-mus98sve-2iyqwg5g857",
@@ -8671,6 +8772,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -8764,6 +8866,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "vp527gybpr-mincvg4z-pp4iuvf2pc",
@@ -8855,6 +8958,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "s3zv96erpn-mg4ze9yz-hgh0an9w9es",
@@ -8949,6 +9053,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -9040,6 +9145,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -9133,6 +9239,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "vp527gybpr-mincvg4z-pp4iuvf2pc",
@@ -9224,6 +9331,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "s3zv96erpn-mg4ze9yz-hgh0an9w9es",
@@ -9316,6 +9424,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -9407,6 +9516,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -9500,6 +9610,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": {
               "source": {
                 "fileId": "vp527gybpr-mincvg4z-pp4iuvf2pc",
@@ -9591,6 +9702,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": {
                   "source": {
                     "fileId": "s3zv96erpn-mg4ze9yz-hgh0an9w9es",
@@ -9683,6 +9795,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -9774,6 +9887,7 @@
                   }
                 },
                 "alpha": 100,
+                "priority": 0,
                 "image": null,
                 "button": null,
                 "text": {
@@ -9867,6 +9981,7 @@
               }
             },
             "alpha": 100,
+            "priority": 0,
             "image": null,
             "button": null,
             "text": {

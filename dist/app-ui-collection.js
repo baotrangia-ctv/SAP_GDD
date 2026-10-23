@@ -27,8 +27,8 @@ function initCollectionPreview(screen, rules, rendered) {
   function setImage(el, url, dark = false) {
     if (!el) return;
     el.dataset.uiRuntimeUrl = url || "";
-    const img = el.querySelector(":scope > .ui-sprite") || document.createElement("img");
-    if (!img.parentElement) { img.className = "ui-sprite"; img.alt = ""; el.prepend(img); }
+    const img = el.querySelector(":scope > .ui-visual > .ui-sprite") || document.createElement("img");
+    if (!img.parentElement) { img.className = "ui-sprite"; img.alt = ""; el.querySelector(":scope > .ui-visual").prepend(img); }
     if (url) { img.src = url; img.style.display = "block"; } else img.style.display = "none";
     img.style.filter = dark ? "brightness(0.12)" : "none";
   }
@@ -93,7 +93,7 @@ function initCollectionPreview(screen, rules, rendered) {
     setText(directChild(card, "Name"), owned ? pet.Name : rules.unowned.name);
     setImage(directChild(card, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
     const rarity = directChild(card, "Rarity");
-    if (rarity) { rarity.style.backgroundColor = owned ? (colors[pet.Rarity] || "#8DA6B6") : rules.unowned.tint; rarity.querySelector(":scope > .ui-sprite")?.setAttribute("style", "display:none"); }
+    if (rarity) { rarity.querySelector(":scope > .ui-visual").style.backgroundColor = owned ? (colors[pet.Rarity] || "#8DA6B6") : rules.unowned.tint; rarity.querySelector(":scope > .ui-visual > .ui-sprite")?.setAttribute("style", "display:none"); }
     const hasMW = directChild(card, "HasMW");
     setText(directChild(hasMW, "Count"), mutationRows.filter(row => effectOwned(pet, row, "mutation")).length + weatherRows.filter(row => effectOwned(pet, row, "weather")).length);
     setVisible(directChild(card, "SelectBorder"), pet.ID === state.selected?.ID);
@@ -121,7 +121,7 @@ function initCollectionPreview(screen, rules, rendered) {
     setImage(directChild(detailPet, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
     setText(directChild(detailPet, "Name"), owned ? pet.Name : rules.unowned.name);
     const rarity = directChild(detailPet, "RarityBG");
-    if (rarity) rarity.style.backgroundColor = colors[pet.Rarity] || "#8DA6B6";
+    if (rarity) rarity.querySelector(":scope > .ui-visual").style.backgroundColor = colors[pet.Rarity] || "#8DA6B6";
     setText(directChild(rarity, "RarityName"), `RARITY_${pet.Rarity}`);
     setVisible(named("Obtain"), owned);
     setVisible(unlock, !owned);
@@ -151,7 +151,13 @@ function initCollectionPreview(screen, rules, rendered) {
         const isSpecific = index === 1 && previous && isSecret;
         setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? uiTranslate("ANY_RARITY", [uiTranslate(`RARITY_${previous.Rarity}`)]) : "chưa có dữ liệu");
         setImage(directChild(item, "Thumbnail"), isSpecific ? icon(iconSets.petIcons, previous.ID) : "");
-        item.dataset.uiRecipeTarget = isSpecific ? previous.ID : "";
+        const redirect = item.querySelector('button[data-ui-hit-target="true"]');
+        if (redirect) {
+          redirect.dataset.uiRecipeTarget = isSpecific ? previous.ID : "";
+          setVisible(redirect, !!isSpecific);
+          const label = directChild(item, "Name")?.querySelector(":scope > .ui-text");
+          if (label) { label.style.fontStyle = isSpecific ? "italic" : "normal"; label.style.textDecoration = isSpecific ? "underline" : "none"; }
+        }
       });
     }
     setVisible(tabs, !showRecipe);
@@ -169,7 +175,7 @@ function initCollectionPreview(screen, rules, rendered) {
       el.style.left = `${(i % rules.mwGrid.columns) * rules.mwGrid.size}px`;
       el.style.top = `${Math.floor(i / rules.mwGrid.columns) * (rules.mwGrid.size + rules.mwGrid.verticalSpacing)}px`;
       setImage(el, state.detailTab === "Weathers" ? icon(iconSets.weatherEffectIcons, row.ID) : icon(iconSets.mutationIcons, row.ID));
-      const img = el.querySelector(":scope > .ui-sprite");
+      const img = el.querySelector(":scope > .ui-visual > .ui-sprite");
       if (img) img.style.filter = effectOwned(pet, row, state.detailTab === "Weathers" ? "weather" : "mutation") ? "none" : "brightness(.27)";
       el.title = row.Name;
     });
@@ -211,7 +217,9 @@ function initCollectionPreview(screen, rules, rendered) {
   setVisible(named("LoadingLabel"), false);
   updateCards();
   rendered.canvas.addEventListener("click", event => {
-    const recipeTarget = event.target.closest("[data-ui-recipe-target]")?.dataset.uiRecipeTarget;
+    const hitButton = event.target.closest('button[data-ui-hit-target="true"]');
+    if (!hitButton || hitButton.disabled) return;
+    const recipeTarget = hitButton.dataset.uiRecipeTarget;
     if (recipeTarget) {
       const previous = pets.find(pet => pet.ID === recipeTarget);
       if (previous) { state.rarity = previous.Rarity; state.page = Math.floor(filtered().findIndex(pet => pet.ID === previous.ID) / rules.page.size); state.selected = previous; updateCards(); }
@@ -229,7 +237,7 @@ function initCollectionPreview(screen, rules, rendered) {
     const tab = name.match(/^(All|Common|Rare|Epic|Legendary|Mythic|Apex|Limited)TabButton$/);
     if (tab) { setRarity(tab[1].toUpperCase()); return; }
     const detailsTab = name.match(/^(Info|Mutations|Weathers)TabButton$/);
-    if (detailsTab) { state.detailTab = detailsTab[1]; updateDetails(); return; }
+    if (detailsTab) { state.detailTab = detailsTab[1]; updateDetails(); renderUiResourcePanel(); return; }
     if (card) { state.selected = pets.find(pet => pet.ID === card.dataset.uiPetId); state.detailTab = "Info"; updateCards(); }
   });
   panel.addEventListener("change", event => {

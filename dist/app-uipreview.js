@@ -14,7 +14,7 @@ function uiPreviewPage() {
     '<div id="ui-preview-tabs" class="ui-preview-tabs"></div>' +
     '<div class="ui-preview-toolbar"><button id="ui-open-toggle" type="button">Đóng UI</button><label>Ngôn ngữ <select id="ui-language"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><label><input id="ui-debug" type="checkbox"> Debug entity</label><label><input id="ui-show-inactive" type="checkbox"> Hiện inactive</label><span id="ui-preview-meta">Đang tải…</span></div>' +
     '<div id="ui-preview-workspace" class="ui-preview-workspace"><div id="ui-preview-stage" class="ui-preview-stage"></div><aside id="ui-player-panel" class="ui-player-panel"></aside></div>' +
-    '<section id="ui-resource-panel" class="ui-resource-panel"><h2>Resource đang dùng</h2><label>Tìm entity/path <input id="ui-resource-search" type="search" placeholder="Tên hoặc đường dẫn"></label><div class="ui-resource-scroll"><table><thead><tr><th>Entity / path</th><th>Sprite</th><th>Trạng thái</th><th>Image / màu</th><th>Text / localization</th></tr></thead><tbody id="ui-resource-rows"></tbody></table></div></section></div>';
+    '<section id="ui-resource-panel" class="ui-resource-panel"><h2>Resource đang dùng</h2><label>Tìm entity/path <input id="ui-resource-search" type="search" placeholder="Tên hoặc đường dẫn"></label><div class="ui-resource-scroll"><table><thead><tr><th>Entity / path</th><th>Sprite</th><th>Trạng thái</th><th>Alpha .ui / web</th><th>Image / màu</th><th>Text / localization</th></tr></thead><tbody id="ui-resource-rows"></tbody></table></div></section></div>';
 }
 
 async function updateUiPreviewPage() {
@@ -72,19 +72,19 @@ function renderUiResourcePanel() {
       const border = sprite?.border ? `${sprite.border.left}/${sprite.border.right}/${sprite.border.top}/${sprite.border.bottom}` : "—";
       const shown = uiPreview.rendered?.byId.get(node.id)?.querySelector(":scope > .ui-text")?.textContent;
       const label = text ? `${text.key || "chuỗi thô"} · ${shown ?? uiTranslate(text.key || text.value)} · ${text.fontSize || "?"}px${text.outline ? " · outline" : ""}` : "";
-      rows.push(`<tr data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${runtimeUrl || sprite?.output ? `<img src="${esc(runtimeUrl || sprite.output)}" alt="">` : ""}${esc(runtimeUrl ? runtimeUrl.split("/").at(-1) : key.split("/").at(-1) || "—")}<small>${esc(runtimeUrl || key || "")}</small></td><td>${runtimeUrl ? "Runtime" : key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
+      rows.push(`<tr data-resource-id="${esc(node.id)}" data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${runtimeUrl || sprite?.output ? `<img src="${esc(runtimeUrl || sprite.output)}" alt="">` : ""}${esc(runtimeUrl ? runtimeUrl.split("/").at(-1) : key.split("/").at(-1) || "—")}<small>${esc(runtimeUrl || key || "")}</small></td><td>${runtimeUrl ? "Runtime" : key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${node.alpha ?? 100}%<small>Web: ${node.alpha ?? 100}% · visual riêng; cascade game chưa xác minh</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
     }
     node.children.forEach(walk);
   }
   walk(uiPreview.screen.tree);
   // Keep row nodes and scroll geometry stable during gameplay updates.
   const filter = document.getElementById("ui-resource-search")?.value.toLocaleLowerCase() || "";
-  const existing = new Map([...tbody.rows].map(row => [row.dataset.resourcePath, row]));
+  const existing = new Map([...tbody.rows].map(row => [row.dataset.resourceId, row]));
   const template = document.createElement("template");
   for (const html of rows) {
     template.innerHTML = html;
     const next = template.content.firstElementChild;
-    const current = existing.get(next.dataset.resourcePath);
+    const current = existing.get(next.dataset.resourceId);
     next.hidden = !next.dataset.resourcePath.toLocaleLowerCase().includes(filter);
     if (!current) tbody.appendChild(next);
     else {

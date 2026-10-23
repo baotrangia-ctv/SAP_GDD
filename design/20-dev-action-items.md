@@ -14,3 +14,43 @@ Chỉ ghi các việc cần xác minh có bằng chứng từ snapshot/code. Kh�
 | DA-008 | Đối chiếu sprite pet/mutation/weather và nguồn Obtain Fishing/Dig/Event theo runtime. | `HudCollection.fcg` gán `Res.Sprite[...]` từ config và `GetPetObtainSource` nhận pool Fishing/Dig; preview đang dùng icon snapshot GDD và chỉ map chính xác các icon Obtain có tên `EResSprite` trong `PetConfigs.fcg`. Không tìm thấy file/bảng generated `EResSprite`/`Res.Sprite` trong checkout cho mọi key. | Mở · cần bảng resource hoặc ảnh game |
 
 Các mục UI Preview trên là giới hạn đã quan sát từ nguồn được phép đọc, chưa phải đề xuất đổi game.
+
+## DA-009 · Alpha/raycast Collection (2026-10-23)
+
+Đã hỏi MCP Craftland (`mcp__ffugcdocs`) và đọc:
+- `ScriptManual/Types/UIWidgetButton`: Alpha (-41002), TopAlpha/BottomAlpha
+  (-41017/-41018), DisableCollider (-41019) là thuộc tính riêng.
+- `ScriptManual/Types/UIWidgetImage`: Alpha (-39002), TopAlpha/BottomAlpha;
+  không liệt kê RaycastTarget hoặc collider cho Image.
+- `ScriptManual/Types/UIWidgetLabel`: Alpha, ShadowAlpha, OutlineAlpha riêng.
+- `ScriptManual/Types/UIWidget`: Priority, Depth, ChildIndex và RectTransform;
+  không mô tả thuật toán sắp xếp/raycast.
+- [HowToCreateUI](https://awp.garenanow.com/wiki/57528c29-7806-59c9-b3cb-90bfd8962246)
+  xác nhận FF dùng NGUI. Tài liệu AddUGCCustomUIWidget/Attribute chỉ nêu các
+  controller runtime, không có triển khai alpha/raycast.
+
+Nguồn được phép đọc: `Assets/HUDs/PetsCollection.ui` có đúng bốn entity
+alpha khác 100; cả ba button đều `disableCollider=false`, priority=0.
+Mọi entity trong file có priority=0; mọi gradientTop/Bottom.a hiện bằng 1.
+`HudCollection.fcg:918-925` chỉ chọn pet khi parent button nằm trong
+_PetWidgets: button trên PetDetails không chọn pet. `:927-933` chỉ mở pet
+nguyên liệu thứ hai. `UIUtils.fcg:36-50` ẩn button redirect khi không hợp lệ,
+đồng thời bật italic/underline của tên khi hợp lệ.
+
+**Chưa xác minh runtime:** ngưỡng alpha có ảnh hưởng collider không; alpha
+của widget có nhân xuống con hay chỉ graphic; shader nhân màu/gradient/text/
+outline/shadow như thế nào; Image có chặn click và cách priority/depth cùng
+thứ tự cây chọn đối tượng trên cùng. Không có runtime/controller source
+trong allowlist; không mở rộng đọc source engine hoặc chạy Studio.
+
+Web dùng chính sách tạm ghi trong JSON `renderingPolicy`: alpha/100 chỉ
+trên lớp visual của từng widget (sprite/tint hoặc text), hit target button
+không phụ thuộc alpha và tắt khi disableCollider=true. Non-button xuyên
+click; thứ tự cây quyết định lớp trên, không thêm z-index theo tên. Đây là
+suy luận triển khai, **chưa phải quy tắc engine đã xác nhận**. RarityName
+hiện giữ alpha riêng 100 dưới RarityBG=90; cần ảnh/runtime để chốt cascade.
+Gradient alpha hiện đều 1 nên không thêm phép blend chưa có bằng chứng;
+RGB gradient, tint, text outline/shadow vẫn thuộc giới hạn DA-003/006.
+Bảng ghi alpha gốc và alpha visual web; không báo alpha hiệu dụng game
+khi chưa biết cascade. Cần kiểm runtime bốn entity và vùng chồng lấn trước
+khi đóng DA-009 hoặc tuyên bố khớp game.
