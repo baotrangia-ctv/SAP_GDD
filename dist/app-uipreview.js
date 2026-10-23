@@ -2,7 +2,7 @@
 
 Object.assign(pages, { uipreview: "UI Preview" });
 
-const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", selectedResourcePath: "", rendered: null, width: 1280, height: 720, open: true };
+const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", rendered: null, width: 1280, height: 720, open: true };
 function uiTranslate(key, args = []) {
   const entry = uiPreview.i18n?.entries?.[key];
   const pattern = (entry && (entry[uiPreview.language] || entry.en)) || key;
@@ -40,7 +40,6 @@ async function updateUiPreviewPage() {
     uiPreview.width = screen.referenceSize?.width || 1280;
     uiPreview.height = screen.referenceSize?.height || 720;
     try { localStorage.setItem("uiPreviewScreen", "collection"); } catch {}
-    if (location.hash !== "#uipreview/collection") history.replaceState(null, "", "#uipreview/collection");
     const rendered = uiRenderer.render(screen, manifest, uiPreview.width, uiPreview.height);
     uiPreview.rendered = rendered;
     const stage = document.getElementById("ui-preview-stage");
@@ -78,11 +77,22 @@ function renderUiResourcePanel() {
     node.children.forEach(walk);
   }
   walk(uiPreview.screen.tree);
-  tbody.innerHTML = rows.join("");
-  if (uiPreview.selectedResourcePath) {
-    const selected = [...tbody.querySelectorAll("[data-resource-path]")].find(row => row.dataset.resourcePath === uiPreview.selectedResourcePath);
-    selected?.classList.add("ui-resource-selected");
-    selected?.scrollIntoView({ block: "nearest" });
+  // Keep row nodes and scroll geometry stable during gameplay updates.
+  const filter = document.getElementById("ui-resource-search")?.value.toLocaleLowerCase() || "";
+  const existing = new Map([...tbody.rows].map(row => [row.dataset.resourcePath, row]));
+  const template = document.createElement("template");
+  for (const html of rows) {
+    template.innerHTML = html;
+    const next = template.content.firstElementChild;
+    const current = existing.get(next.dataset.resourcePath);
+    next.hidden = !next.dataset.resourcePath.toLocaleLowerCase().includes(filter);
+    if (!current) tbody.appendChild(next);
+    else {
+      [...next.cells].forEach((cell, index) => {
+        if (current.cells[index].innerHTML !== cell.innerHTML) current.cells[index].innerHTML = cell.innerHTML;
+      });
+      current.hidden = next.hidden;
+    }
   }
 }
 
@@ -112,24 +122,12 @@ function scaleUiPreview() {
 window.addEventListener("resize", scaleUiPreview);
 document.addEventListener("click", event => {
   if (s.page !== "uipreview") return;
-  const resource = event.target.closest("[data-resource-path]");
-  if (resource) { focusUiResource(resource.dataset.resourcePath, false); return; }
-  const entity = event.target.closest("#ui-preview-stage [data-ui-path]");
-  if (entity) focusUiResource(entity.dataset.uiPath, true);
   if (event.target.id === "ui-open-toggle") {
     uiPreview.open = !uiPreview.open;
     uiPreview.rendered.canvas.classList.toggle("ui-closed", !uiPreview.open);
     event.target.textContent = uiPreview.open ? "Đóng UI" : "Mở UI";
   }
 });
-function focusUiResource(path, scrollRow) {
-  uiPreview.selectedResourcePath = path;
-  document.querySelectorAll(".ui-resource-selected").forEach(el => el.classList.remove("ui-resource-selected"));
-  const row = [...document.querySelectorAll("[data-resource-path]")].find(el => el.dataset.resourcePath === path);
-  const entity = [...document.querySelectorAll("#ui-preview-stage [data-ui-path]")].find(el => el.dataset.uiPath === path);
-  row?.classList.add("ui-resource-selected"); entity?.classList.add("ui-resource-selected");
-  (scrollRow ? row : entity)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
-}
 document.addEventListener("change", event => {
   if (s.page !== "uipreview" || !uiPreview.rendered) return;
   if (event.target.id === "ui-language") { uiPreview.language = event.target.value; updateUiPreviewPage(); return; }
