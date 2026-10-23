@@ -1,0 +1,783 @@
+{
+  "source": "Assets/Localization/key.csv",
+  "entries": {
+    "CHICK": {
+      "en": "Chick",
+      "vi": "Gà Con"
+    },
+    "ROOSTER": {
+      "en": "Rooster",
+      "vi": "Gà Trống"
+    },
+    "RABBIT": {
+      "en": "Rabbit",
+      "vi": "Thỏ"
+    },
+    "PIG": {
+      "en": "Pig",
+      "vi": "Heo"
+    },
+    "SHEEP": {
+      "en": "Sheep",
+      "vi": "Cừu"
+    },
+    "GOAT": {
+      "en": "Goat",
+      "vi": "Dê"
+    },
+    "GOOSE": {
+      "en": "Goose",
+      "vi": "Ngỗng"
+    },
+    "DOG": {
+      "en": "Dog",
+      "vi": "Chó"
+    },
+    "CAT": {
+      "en": "Cat",
+      "vi": "Mèo"
+    },
+    "HAMSTER": {
+      "en": "Hamster",
+      "vi": "Chuột Hamster"
+    },
+    "MONKEY": {
+      "en": "Monkey",
+      "vi": "Khỉ"
+    },
+    "CRAB": {
+      "en": "Crab",
+      "vi": "Cua"
+    },
+    "CLOWNFISH": {
+      "en": "Clownfish",
+      "vi": "Cá Hề"
+    },
+    "CAPYBARA": {
+      "en": "Capybara",
+      "vi": "Capybara"
+    },
+    "RACOON": {
+      "en": "Racoon",
+      "vi": "Gấu Mèo"
+    },
+    "SQUIRREL": {
+      "en": "Squirrel",
+      "vi": "Sóc"
+    },
+    "TURTLE": {
+      "en": "Turtle",
+      "vi": "Rùa"
+    },
+    "OWL": {
+      "en": "Owl",
+      "vi": "Cú"
+    },
+    "FLAMINGO": {
+      "en": "Flamingo",
+      "vi": "Chim Hồng Hạc"
+    },
+    "BISON": {
+      "en": "Bison",
+      "vi": "Bò Rừng Bison"
+    },
+    "HORSE": {
+      "en": "Horse",
+      "vi": "Ngựa"
+    },
+    "ZEBRA": {
+      "en": "Zebra",
+      "vi": "Ngựa Vằn"
+    },
+    "OCTOPUS": {
+      "en": "Octopus",
+      "vi": "Bạch Tuộc"
+    },
+    "JELLYFISH": {
+      "en": "Jellyfish",
+      "vi": "Sứa"
+    },
+    "DOLPHIN": {
+      "en": "Dolphin",
+      "vi": "Cá Heo"
+    },
+    "SEALION": {
+      "en": "Sealion",
+      "vi": "Sư Tử Biển"
+    },
+    "WALRUS": {
+      "en": "Walrus",
+      "vi": "Hải Mã"
+    },
+    "MOOSE": {
+      "en": "Moose",
+      "vi": "Nai Sừng Tấm"
+    },
+    "CAMEL": {
+      "en": "Camel",
+      "vi": "Lạc Đà"
+    },
+    "GIRAFFE": {
+      "en": "Giraffe",
+      "vi": "Hươu Cao Cổ"
+    },
+    "CHEETAH": {
+      "en": "Cheetah",
+      "vi": "Báo Gêpa"
+    },
+    "SNOWOWL": {
+      "en": "Snow Owl",
+      "vi": "Cú Tuyết"
+    },
+    "ALIGATOR": {
+      "en": "Alligator",
+      "vi": "Cá Sấu"
+    },
+    "LION": {
+      "en": "Lion",
+      "vi": "Sư Tử"
+    },
+    "TIGER": {
+      "en": "Tiger",
+      "vi": "Hổ"
+    },
+    "ELEPHANT": {
+      "en": "Elephant",
+      "vi": "Voi"
+    },
+    "ORCA": {
+      "en": "Orca",
+      "vi": "Cá Voi Sát Thủ"
+    },
+    "PANDA": {
+      "en": "Panda",
+      "vi": "Gấu Trúc"
+    },
+    "EAGLE": {
+      "en": "Eagle",
+      "vi": "Chim Ưng"
+    },
+    "POLARBEAR": {
+      "en": "Polar Bear",
+      "vi": "Gấu Bắc Cực"
+    },
+    "RHINO": {
+      "en": "Rhino",
+      "vi": "Tê Giác"
+    },
+    "WOLF": {
+      "en": "Wolf",
+      "vi": "Sói"
+    },
+    "HORNBILL": {
+      "en": "Hornbill",
+      "vi": "Chim Mỏ Sừng"
+    },
+    "HIPPO": {
+      "en": "Hippo",
+      "vi": "Hà Mã"
+    },
+    "BROWNBEAR": {
+      "en": "Brown Bear",
+      "vi": "Gấu Nâu"
+    },
+    "MANATEE": {
+      "en": "Manatee",
+      "vi": "Bò Biển"
+    },
+    "OSTRICH": {
+      "en": "Ostrich",
+      "vi": "Đà Điểu"
+    },
+    "SMALLWHALE": {
+      "en": "Baby Whale",
+      "vi": "Cá Voi Con"
+    },
+    "GORILLA": {
+      "en": "Gorilla",
+      "vi": "Khỉ Đột"
+    },
+    "BELUGA": {
+      "en": "Beluga",
+      "vi": "Cá Voi Trắng"
+    },
+    "NARWHAL": {
+      "en": "Narwhal",
+      "vi": "Kỳ Lân Biển"
+    },
+    "SHRIMP": {
+      "en": "Shrimp",
+      "vi": "Tôm"
+    },
+    "SNAKE": {
+      "en": "Snake",
+      "vi": "Rắn"
+    },
+    "GAZELLE": {
+      "en": "Gazelle",
+      "vi": "Linh Dương Gazelle"
+    },
+    "SHOEBILL": {
+      "en": "Shoebill",
+      "vi": "Cò Mỏ Giày"
+    },
+    "HUSKY": {
+      "en": "Husky",
+      "vi": "Chó Husky"
+    },
+    "LOBSTER": {
+      "en": "Lobster",
+      "vi": "Tôm Hùm"
+    },
+    "SWAN": {
+      "en": "Swan",
+      "vi": "Thiên Nga"
+    },
+    "VULTURE": {
+      "en": "Vulture",
+      "vi": "Kền Kền"
+    },
+    "PLATYPUS": {
+      "en": "Platypus",
+      "vi": "Thú Mỏ Vịt"
+    },
+    "JAGUAR": {
+      "en": "Jaguar",
+      "vi": "Báo Đen"
+    },
+    "MOLE": {
+      "en": "Mole",
+      "vi": "Chuột Chũi"
+    },
+    "SQUID": {
+      "en": "Squid",
+      "vi": "Mực"
+    },
+    "FENNECFOX": {
+      "en": "Fennec Fox",
+      "vi": "Cáo Fennec"
+    },
+    "KIWI": {
+      "en": "Kiwi",
+      "vi": "Chim Kiwi"
+    },
+    "REINDEER": {
+      "en": "Reindeer",
+      "vi": "Tuần Lộc"
+    },
+    "SNOWMAN": {
+      "en": "Snowman",
+      "vi": "Người Tuyết"
+    },
+    "MOODENG": {
+      "en": "Moo Deng",
+      "vi": "Moo Deng"
+    },
+    "SNOWRABBIT": {
+      "en": "Snow Rabbit",
+      "vi": "Thỏ Tuyết"
+    },
+    "POSSUM": {
+      "en": "Possum",
+      "vi": "Chuột Chù"
+    },
+    "SNOWWEASEL": {
+      "en": "Snow Weasel",
+      "vi": "Chồn Tuyết"
+    },
+    "SNOWLEOPARD": {
+      "en": "Snow Leopard",
+      "vi": "Báo Tuyết"
+    },
+    "ARCTICFOX": {
+      "en": "Arctic Fox",
+      "vi": "Cáo Tuyết"
+    },
+    "PENGUIN": {
+      "en": "Penguin",
+      "vi": "Chim Cánh Cụt"
+    },
+    "MUDSKIPPER": {
+      "en": "Mudskipper",
+      "vi": "Cá Thòi Lòi"
+    },
+    "BAT": {
+      "en": "Bat",
+      "vi": "Dơi"
+    },
+    "SKUNK": {
+      "en": "Skunk",
+      "vi": "Chồn"
+    },
+    "RATTLESNAKE": {
+      "en": "Rattlesnake",
+      "vi": "Rắn Đuôi Chuông"
+    },
+    "KANGAROO": {
+      "en": "Kangaroo",
+      "vi": "Chuột Túi"
+    },
+    "KINGFISHER": {
+      "en": "Kingfisher",
+      "vi": "Chim Bói Cá"
+    },
+    "CARDINAL": {
+      "en": "Cardinal",
+      "vi": "Chim Hồng Y"
+    },
+    "PARROT": {
+      "en": "Parrot",
+      "vi": "Vẹt"
+    },
+    "WOODPECKER": {
+      "en": "Woodpecker",
+      "vi": "Chim Gõ Kiến"
+    },
+    "PEACOCK": {
+      "en": "Peacock",
+      "vi": "Công"
+    },
+    "LAMB": {
+      "en": "Lamb",
+      "vi": "Cừu Non"
+    },
+    "COW": {
+      "en": "Cow",
+      "vi": "Bò Sữa"
+    },
+    "SHARK": {
+      "en": "Shark",
+      "vi": "Cá Mập"
+    },
+    "BULL": {
+      "en": "Bull",
+      "vi": "Bò Đực"
+    },
+    "OX": {
+      "en": "Ox",
+      "vi": "Trâu"
+    },
+    "TURKEY": {
+      "en": "Turkey",
+      "vi": "Gà Tây"
+    },
+    "FRILLNECKEDLIZARD": {
+      "en": "Frill Necked Lizard",
+      "vi": "Thằn Lằn Cổ Diềm"
+    },
+    "TORTOISE": {
+      "en": "Tortoise",
+      "vi": "Rùa Cạn"
+    },
+    "SEAHORSE": {
+      "en": "Seahorse",
+      "vi": "Cá Ngựa"
+    },
+    "ALPACA": {
+      "en": "Alpaca",
+      "vi": "Lạc Đà Alpaca"
+    },
+    "COYOTE": {
+      "en": "Coyote",
+      "vi": "Sói Đồng Cỏ"
+    },
+    "KOALA": {
+      "en": "Koala",
+      "vi": "Gấu Túi"
+    },
+    "FOX": {
+      "en": "Fox",
+      "vi": "Cáo"
+    },
+    "MALLARD": {
+      "en": "Mallard",
+      "vi": "Vịt Trời"
+    },
+    "ARAPAIMA": {
+      "en": "Arapaima",
+      "vi": "Hải Tượng"
+    },
+    "CATFISH": {
+      "en": "Catfish",
+      "vi": "Cá Trê"
+    },
+    "SLOTH": {
+      "en": "Sloth",
+      "vi": "Con Lười"
+    },
+    "PORCUPINE": {
+      "en": "Porcupine",
+      "vi": "Con Nhím"
+    },
+    "KOMODO": {
+      "en": "Komodo",
+      "vi": "Komodo"
+    },
+    "AXOLOTLBLUE": {
+      "en": "Axolotl-Azure",
+      "vi": "Axolotl-Thủy"
+    },
+    "AXOLOTLWHITE": {
+      "en": "Axolotl-Pearl",
+      "vi": "Axolotl-Kim"
+    },
+    "AXOLOTLORANGE": {
+      "en": "Axolotl-Amber",
+      "vi": "Axolotl-Thổ"
+    },
+    "AXOLOTLGREEN": {
+      "en": "Axolotl-Jade",
+      "vi": "Axolotl-Mộc"
+    },
+    "AXOLOTLPINK": {
+      "en": "Axolotl-Coral",
+      "vi": "Axolotl-Hỏa"
+    },
+    "ARMADILLO": {
+      "en": "Armadillo",
+      "vi": "Tê Tê"
+    },
+    "LLAMA": {
+      "en": "Llama",
+      "vi": "Đà Mã"
+    },
+    "SERVAL": {
+      "en": "Serval",
+      "vi": "Mèo Đồng Cỏ"
+    },
+    "BABOON": {
+      "en": "Baboon",
+      "vi": "Khỉ Đầu Chó"
+    },
+    "IGUANA": {
+      "en": "Iguana",
+      "vi": "Rồng Nam Mỹ"
+    },
+    "MOUSE": {
+      "en": "Mouse",
+      "vi": "Chuột"
+    },
+    "DINGO": {
+      "en": "Dingo",
+      "vi": "Chó Dingo"
+    },
+    "JAVELINA": {
+      "en": "Javelina",
+      "vi": "Lợn Lòi"
+    },
+    "GEMSBOK": {
+      "en": "Gemsbok",
+      "vi": "Linh Dương Sừng Kiếm"
+    },
+    "REDPANDA": {
+      "en": "Red Panda",
+      "vi": "Gấu Trúc Đỏ"
+    },
+    "MEERKAT": {
+      "en": "Meerkat",
+      "vi": "Chồn Đất"
+    },
+    "PYTHON": {
+      "en": "Python",
+      "vi": "Trăn"
+    },
+    "MARTEN": {
+      "en": "Marten",
+      "vi": "Chồn Thông"
+    },
+    "ORANGUTAN": {
+      "en": "Orangutan",
+      "vi": "Đười Ươi"
+    },
+    "HEDGEHOG": {
+      "en": "Hedgehog",
+      "vi": "Nhím Gai"
+    },
+    "WILDBOAR": {
+      "en": "Wild Boar",
+      "vi": "Lợn Rừng"
+    },
+    "TASMANIANDEVIL": {
+      "en": "Tasmanian Devil",
+      "vi": "Quỷ Tasmanian"
+    },
+    "CARP": {
+      "en": "Carp",
+      "vi": "Cá Chép"
+    },
+    "HYENA": {
+      "en": "Hyena",
+      "vi": "Linh Cẩu"
+    },
+    "JERBOA": {
+      "en": "Jerboa",
+      "vi": "Chuột Nhảy"
+    },
+    "WOMBAT": {
+      "en": "Wombat",
+      "vi": "Gấu Mũi Trần"
+    },
+    "MOUSEDEER": {
+      "en": "Mouse Deer",
+      "vi": "Cheo Cheo"
+    },
+    "BANDICOOT": {
+      "en": "Bandicoot",
+      "vi": "Chuột Túi Bandicoot"
+    },
+    "KAKAPO": {
+      "en": "Kakapo",
+      "vi": "Vẹt Cú"
+    },
+    "JACKAL": {
+      "en": "Jackal",
+      "vi": "Chó Rừng"
+    },
+    "GILAMONSTER": {
+      "en": "Gila Monsters",
+      "vi": "Thằn lằn Nam Mỹ"
+    },
+    "MRFOOTBALL": {
+      "en": "Mr.Football",
+      "vi": "Ngài Bóng Đá"
+    },
+    "DONKEY": {
+      "en": "Donkey",
+      "vi": "Con Lừa"
+    },
+    "ANTELOPE": {
+      "en": "Antelope",
+      "vi": "Linh Dương"
+    },
+    "HORNEDLIZARD": {
+      "en": "Horned lizard",
+      "vi": "Thằn Lằn Sừng"
+    },
+    "LYNX": {
+      "en": "Lynx",
+      "vi": "Linh Miêu"
+    },
+    "PRONGHORN": {
+      "en": "Pronghorn",
+      "vi": "Linh Dương Sừng Nhánh"
+    },
+    "DRAGON": {
+      "en": "Dragon",
+      "vi": "Rồng"
+    },
+    "PIRANHA": {
+      "en": "Piranha",
+      "vi": "Cá Răng Đao"
+    },
+    "BADGER": {
+      "en": "Badger",
+      "vi": "Con Lửng"
+    },
+    "FROG": {
+      "en": "Frog",
+      "vi": "Ếch"
+    },
+    "BEAVER": {
+      "en": "Beaver",
+      "vi": "Hải Ly"
+    },
+    "NUMBAT": {
+      "en": "Numbat",
+      "vi": "Thú Numbat"
+    },
+    "QUOKKA": {
+      "en": "Quokka",
+      "vi": "Chuột Quokka"
+    },
+    "FERRET": {
+      "en": "Ferret",
+      "vi": "Chồn Sương"
+    },
+    "LEMUR": {
+      "en": "Lemur",
+      "vi": "Vượn Cáo"
+    },
+    "OTTER": {
+      "en": "Otter",
+      "vi": "Rái Cá"
+    },
+    "GOLDFISH": {
+      "en": "Goldfish",
+      "vi": "Cá Vàng"
+    },
+    "BASS": {
+      "en": "Seabass",
+      "vi": "Cá Vược"
+    },
+    "TUNA": {
+      "en": "Tuna",
+      "vi": "Cá Ngừ Đại Dương"
+    },
+    "ECHIDNA": {
+      "en": "Echidna",
+      "vi": "Thú Lông Nhím"
+    },
+    "CHIPMUNK": {
+      "en": "Chipmunk",
+      "vi": "Sóc Chuột"
+    },
+    "GOLDENMOLE": {
+      "en": "Golden Mole",
+      "vi": "Chuột Chũi Vàng"
+    },
+    "JACKRABBIT": {
+      "en": "Jackrabbit",
+      "vi": "Thỏ Rừng Tai To"
+    },
+    "COBRA": {
+      "en": "Cobra",
+      "vi": "Rắn Hổ Mang"
+    },
+    "LIONESS": {
+      "en": "Lioness",
+      "vi": "Sư Tử Cái"
+    },
+    "BUFFALO": {
+      "en": "Buffalo",
+      "vi": "Trâu"
+    },
+    "SALMON": {
+      "en": "Salmon",
+      "vi": "Cá Hồi"
+    },
+    "EMU": {
+      "en": "Emu",
+      "vi": "Đà Điểu Úc"
+    },
+    "BIGHORN": {
+      "en": "Bighorn",
+      "vi": "Cừu Sừng Lớn"
+    },
+    "PEGASUS": {
+      "en": "Pegasus",
+      "vi": "Thiên Mã"
+    },
+    "KIRIN": {
+      "en": "Kirin",
+      "vi": "Kỳ Lân"
+    },
+    "LUCKYBOXEPIC": {
+      "en": "Lucky Box",
+      "vi": "Túi mù"
+    },
+    "LUCKYBOXLEGENDARY": {
+      "en": "Lucky Box",
+      "vi": "Túi mù"
+    },
+    "LUCKYBOXMYTHIC": {
+      "en": "Lucky Box",
+      "vi": "Túi mù"
+    },
+    "RARITY_COMMON": {
+      "en": "COMMON",
+      "vi": "THƯỜNG"
+    },
+    "RARITY_RARE": {
+      "en": "RARE",
+      "vi": "HIẾM"
+    },
+    "RARITY_EPIC": {
+      "en": "EPIC",
+      "vi": "SỬ THI"
+    },
+    "RARITY_LEGENDARY": {
+      "en": "LEGENDARY",
+      "vi": "HUYỀN THOẠI"
+    },
+    "RARITY_MYTHIC": {
+      "en": "MYTHIC",
+      "vi": "THẦN THOẠI"
+    },
+    "RARITY_APEX": {
+      "en": "APEX",
+      "vi": "TỐI THƯỢNG"
+    },
+    "RARITY_LIMITED": {
+      "en": "LIMITED",
+      "vi": "LIMITED "
+    },
+    "HUD_REBIRTH_GIFTCODE": {
+      "en": "Giftcode",
+      "vi": "Mã Quà Tặng"
+    },
+    "HUD_COLLECTION_TITLE": {
+      "en": "COLLECTION",
+      "vi": "BỘ SƯU TẬP"
+    },
+    "HUD_COLLECTION_ALL": {
+      "en": "ALL",
+      "vi": "TẤT CẢ"
+    },
+    "HUD_COLLECTION_PET_COUNT": {
+      "en": "Pets",
+      "vi": "Thú Cưng"
+    },
+    "HUD_COLLECTION_MUTATION_COUNT": {
+      "en": "Mutations",
+      "vi": "Đột Biến"
+    },
+    "HUD_COLLECTION_WEATHER_COUNT": {
+      "en": "Weathers",
+      "vi": "Thời Tiết"
+    },
+    "HUD_COLLECTION_VALUE": {
+      "en": "Value:",
+      "vi": "Thu Nhập:"
+    },
+    "HUD_COLLECTION_FUSION_REQUIREMENTS": {
+      "en": "Fusion Requirements",
+      "vi": "Dung Hợp"
+    },
+    "HUD_LOADING": {
+      "en": "Loading data...",
+      "vi": "Đang tải dữ liệu..."
+    },
+    "HUD_FUSE": {
+      "en": "Fusion",
+      "vi": "Dung Hợp"
+    },
+    "HUD_FISH": {
+      "en": "Fishing",
+      "vi": "Câu Cá"
+    },
+    "HUD_DIG": {
+      "en": "Digging",
+      "vi": "Đào Thú Cưng"
+    },
+    "HUD_LUCKYBOX": {
+      "en": "Lucky Box",
+      "vi": "Túi Mù"
+    },
+    "HUD_EVENT": {
+      "en": "Event",
+      "vi": "Sự Kiện"
+    },
+    "HUD_ROAD": {
+      "en": "On Road",
+      "vi": "Trên Đường"
+    },
+    "HUD_OBTAIN_BY": {
+      "en": "Obtain by:",
+      "vi": "Nhận Qua:"
+    },
+    "ANY_RARITY": {
+      "en": "Any {0}",
+      "vi": "{0} bất kỳ"
+    }
+  },
+  "missing": [
+    "BULL_PUMPKIN",
+    "CHICK_PUMPKIN",
+    "GIRAFFE_PUMPKIN",
+    "GORILLA_PUMPKIN",
+    "JELLYFISH_PUMPKIN",
+    "PENGUIN_PUMPKIN",
+    "SQUID_PUMPKIN",
+    "WILDBOAR_PUMPKIN"
+  ]
+}

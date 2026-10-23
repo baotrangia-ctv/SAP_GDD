@@ -11,6 +11,18 @@ const PROP_FIELDS = {
   layout: ["enable", "type", "corner", "offset", "space", "size", "constraint", "direction", "fixedRowCount", "fixedColumnCount", "tableOffset", "tableSpace", "sortType", "ignoreInactive"]
 };
 const ENTITY_FIELDS = new Set(["_tag", "_entityId", "_entityName", "children", "prefabVariant", "activeValue", "unlockedValue", "editorLockValue", "editorVisibleValue", "propsData", "ecaScripts", "ecaProps", "componentList", "entityTagData", "layer", "discriminator", "version"]);
+function parseCsv(raw) {
+  const rows = []; let row = [], cell = "", quoted = false;
+  for (let i = 0; i < raw.length; i++) {
+    const ch = raw[i];
+    if (ch === '"') { if (quoted && raw[i + 1] === '"') { cell += '"'; i++; } else quoted = !quoted; }
+    else if (ch === "," && !quoted) { row.push(cell); cell = ""; }
+    else if ((ch === "\n" || ch === "\r") && !quoted) { if (ch === "\r" && raw[i + 1] === "\n") i++; row.push(cell); if (row.some(Boolean)) rows.push(row); row = []; cell = ""; }
+    else cell += ch;
+  }
+  row.push(cell); if (row.some(Boolean)) rows.push(row);
+  return rows;
+}
 
 function isWithin(parent, candidate) {
   const relative = path.relative(parent, candidate);
@@ -111,7 +123,25 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       tree
     });
     json(["data", "ui", `${ui.id}-sprites.json`], { sprites: [...sprites.values()], missing: [...sprites.values()].filter(item => item.missing), unsupported });
-    if (ui.id === "collection") json(["data", "ui", "collection-rules.json"], collectionRules(source));
+    if (ui.id === "collection") {
+      json(["data", "ui", "collection-rules.json"], collectionRules(source));
+      const keys = new Set();
+      function textKeys(node) { if (node.text?.key) keys.add(node.text.key); node.children.forEach(textKeys); }
+      textKeys(tree);
+      const hud = readFileSync(source("Assets/Scripts/HUDs/HudCollection.fcg"), "utf8");
+      const pet = readFileSync(source("Assets/Scripts/Configs/PetConfigs.fcg"), "utf8");
+      const rarityAt = pet.indexOf("RARITIES_NAME"), obtainAt = pet.indexOf("func GetPetObtainLocalization");
+      for (const code of [hud, pet.slice(rarityAt, rarityAt + 1200), pet.slice(obtainAt, obtainAt + 1000)])
+        for (const match of code.matchAll(/LocString\{"([A-Z][A-Z0-9_]+)"/g)) keys.add(match[1]);
+      const petRows = parseCsv(readFileSync(source("Assets/CSV/Pet.csv"), "utf8"));
+      const nameColumn = petRows[0].indexOf("Name");
+      for (const row of petRows.slice(2)) if (row[nameColumn]) keys.add(row[nameColumn]);
+      const rows = parseCsv(readFileSync(source("Assets/Localization/key.csv"), "utf8"));
+      const columns = { key: rows[0].indexOf("Key"), english: rows[0].indexOf("English"), vietnamese: rows[0].indexOf("Vietnamese") };
+      const entries = {};
+      for (const row of rows.slice(1)) if (keys.has(row[columns.key])) entries[row[columns.key]] = { en: row[columns.english] || "", vi: row[columns.vietnamese] || "" };
+      json(["data", "ui", "collection-i18n.json"], { source: "Assets/Localization/key.csv", entries, missing: [...keys].filter(key => !(key in entries)).sort() });
+    }
     console.log(`UI ${ui.id}: ${entityCount} entities, ${sprites.size} sprites, ${[...sprites.values()].filter(item => item.missing).length} missing, ${unsupported.length} entities with unsupported fields`);
   }
 }

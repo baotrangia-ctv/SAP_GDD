@@ -2,12 +2,17 @@
 
 Object.assign(pages, { uipreview: "UI Preview" });
 
-const uiPreview = { registry: null, screen: null, manifest: null, rendered: null, width: 1280, height: 720, open: true };
+const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", rendered: null, width: 1280, height: 720, open: true };
+function uiTranslate(key, args = []) {
+  const entry = uiPreview.i18n?.entries?.[key];
+  const pattern = (entry && (entry[uiPreview.language] || entry.en)) || key;
+  return String(pattern).replace(/\{(\d+)\}/g, (match, index) => args[Number(index)] ?? match);
+}
 
 function uiPreviewPage() {
   return '<div class="ui-preview-page"><div class="section-heading"><div><p class="eyebrow">UI GAME</p><h1>UI Preview</h1><p>HUD dựng từ cây entity của game. Dữ liệu người chơi trong trang này là mô phỏng.</p></div></div>' +
     '<div id="ui-preview-tabs" class="ui-preview-tabs"></div>' +
-    '<div class="ui-preview-toolbar"><button id="ui-open-toggle" type="button">Đóng UI</button><label><input id="ui-debug" type="checkbox"> Debug entity</label><label><input id="ui-show-inactive" type="checkbox"> Hiện inactive</label><span id="ui-preview-meta">Đang tải…</span></div>' +
+    '<div class="ui-preview-toolbar"><button id="ui-open-toggle" type="button">Đóng UI</button><label>Ngôn ngữ <select id="ui-language"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><label><input id="ui-debug" type="checkbox"> Debug entity</label><label><input id="ui-show-inactive" type="checkbox"> Hiện inactive</label><span id="ui-preview-meta">Đang tải…</span></div>' +
     '<div id="ui-preview-workspace" class="ui-preview-workspace"><div id="ui-preview-stage" class="ui-preview-stage"></div><aside id="ui-player-panel" class="ui-player-panel"></aside></div></div>';
 }
 
@@ -19,15 +24,18 @@ async function updateUiPreviewPage() {
     tabs.innerHTML = uiPreview.registry.screens.map(item => `<button type="button" data-ui-screen="${item.id}" ${item.status === "ready" ? "" : "disabled"} class="${item.id === "collection" ? "active" : ""}">${item.name}${item.status === "ready" ? "" : " · Sắp có"}</button>`).join("");
     const entry = uiPreview.registry.screens.find(item => item.id === "collection");
     if (!entry) throw new Error("Collection chưa có trong registry");
-    const [screen, manifest, rules] = await Promise.all([
+    const [screen, manifest, rules, i18n] = await Promise.all([
       fetch(entry.data).then(checkUiJson),
       fetch("./data/ui/collection-sprites.json").then(checkUiJson),
-      fetch(entry.rules).then(checkUiJson)
+      fetch(entry.rules).then(checkUiJson),
+      fetch("./data/ui/collection-i18n.json").then(checkUiJson)
     ]);
     if (s.page !== "uipreview") return;
     uiPreview.screen = screen;
     uiPreview.manifest = manifest;
     uiPreview.rules = rules;
+    uiPreview.i18n = i18n;
+    document.getElementById("ui-language").value = uiPreview.language;
     uiPreview.width = screen.referenceSize?.width || 1280;
     uiPreview.height = screen.referenceSize?.height || 720;
     try { localStorage.setItem("uiPreviewScreen", "collection"); } catch {}
@@ -81,6 +89,7 @@ document.addEventListener("click", event => {
 });
 document.addEventListener("change", event => {
   if (s.page !== "uipreview" || !uiPreview.rendered) return;
+  if (event.target.id === "ui-language") { uiPreview.language = event.target.value; updateUiPreviewPage(); return; }
   if (event.target.id === "ui-debug") uiPreview.rendered.canvas.classList.toggle("ui-debug", event.target.checked);
   if (event.target.id === "ui-show-inactive") uiPreview.rendered.canvas.classList.toggle("ui-show-inactive", event.target.checked);
 });

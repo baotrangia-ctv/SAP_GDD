@@ -60,7 +60,7 @@ const uiRenderer = (() => {
     if (!data) return;
     const span = document.createElement("span");
     span.className = "ui-text";
-    span.textContent = data.value || "";
+    span.textContent = data.key ? uiTranslate(data.key) : (data.value || "");
     span.style.fontSize = `${data.fontSize || 16}px`;
     span.style.color = data.color || "#fff";
     span.style.fontWeight = data.fontStyle?.bold ? "700" : "400";

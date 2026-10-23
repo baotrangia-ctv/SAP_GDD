@@ -23,7 +23,7 @@ function initCollectionPreview(screen, rules, rendered) {
   const petOwned = pet => state.mode === "all" || (state.mode === "random" && hash(pet.ID, state.seed) % 2 === 0) || (state.mode === "custom" && state.customPets.has(pet.ID));
   const effectOwned = (pet, row, type) => petOwned(pet) && (state.mode === "all" || (state.mode === "random" && hash(`${pet.ID}/${type}/${row.ID}`, state.seed) % 3 === 0) || (state.mode === "custom" && (type === "mutation" ? state.customMutations : state.customWeathers).has(`${pet.ID}/${row.ID}`)));
   function setVisible(el, visible) { if (el) { el.classList.toggle("ui-inactive", !visible); el.style.display = visible ? "" : "none"; } }
-  function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) span.textContent = String(value); }
+  function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) span.textContent = uiTranslate(String(value)); }
   function setImage(el, url, dark = false) {
     if (!el) return;
     const img = el.querySelector(":scope > .ui-sprite") || document.createElement("img");
@@ -120,10 +120,13 @@ function initCollectionPreview(screen, rules, rendered) {
     setText(directChild(detailPet, "Name"), owned ? pet.Name : rules.unowned.name);
     const rarity = directChild(detailPet, "RarityBG");
     if (rarity) rarity.style.backgroundColor = colors[pet.Rarity] || "#8DA6B6";
-    setText(directChild(rarity, "RarityName"), pet.Rarity);
+    setText(directChild(rarity, "RarityName"), `RARITY_${pet.Rarity}`);
     setVisible(named("Obtain"), owned);
     setVisible(unlock, !owned);
-    setText(directChild(unlock, "Label"), `Nhận từ: ${kind}`);
+    const obtainKeys = { giftcode: "HUD_REBIRTH_GIFTCODE", luckybox: "HUD_LUCKYBOX", fusion: "HUD_FUSE", road: "HUD_ROAD", fishing: "HUD_FISH", dig: "HUD_DIG", event: "HUD_EVENT" };
+    const obtainText = uiTranslate(obtainKeys[kind] || kind);
+    setText(directChild(unlock, "Label"), `${uiTranslate("HUD_OBTAIN_BY")} ${obtainText}`);
+    setText(byPath(base + "PetDetails/Obtain/BG/ObtainWay"), obtainText);
     setVisible(recipe, showRecipe);
     if (showRecipe) {
       let rank = Number(pet.Rank) - rules.recipe.previousRankOffset;
@@ -138,7 +141,7 @@ function initCollectionPreview(screen, rules, rendered) {
         const previousId = Number(previous?.ID);
         const isSecret = previousId !== rules.obtain.secretFusionException && previousId > rules.obtain.secretFusionStart && previousId <= rules.obtain.secretFusionStart + rules.obtain.secretFusionCount;
         const isSpecific = index === 1 && previous && isSecret;
-        setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? `Bất kỳ ${previous.Rarity}` : "chưa có dữ liệu");
+        setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? uiTranslate("ANY_RARITY", [uiTranslate(`RARITY_${previous.Rarity}`)]) : "chưa có dữ liệu");
         setImage(directChild(item, "Thumbnail"), isSpecific ? icon(iconSets.petIcons, previous.ID) : "");
         item.dataset.uiRecipeTarget = isSpecific ? previous.ID : "";
       });
@@ -148,9 +151,9 @@ function initCollectionPreview(screen, rules, rendered) {
     setVisible(info, !showRecipe && state.detailTab === "Info");
     setVisible(mw, !showRecipe && state.detailTab !== "Info");
     const value = owned ? `${big(pet.Value)}/s` : rules.details.unownedValue;
-    setText(byPath(base + "Info/Value/Content"), `Value ${value}`);
-    setText(byPath(base + "Info/Mutations/Content"), `Mutation (${owned ? mutationRows.filter(row => effectOwned(pet, row, "mutation")).length : 0}/${mutationRows.length})`);
-    setText(byPath(base + "Info/Weathers/Content"), `Weather (${owned ? weatherRows.filter(row => effectOwned(pet, row, "weather")).length : 0}/${weatherRows.length})`);
+    setText(byPath(base + "Info/Value/Content"), `${uiTranslate("HUD_COLLECTION_VALUE")} ${value}`);
+    setText(byPath(base + "Info/Mutations/Content"), `${uiTranslate("HUD_COLLECTION_MUTATION_COUNT")} (${owned ? mutationRows.filter(row => effectOwned(pet, row, "mutation")).length : 0}/${mutationRows.length})`);
+    setText(byPath(base + "Info/Weathers/Content"), `${uiTranslate("HUD_COLLECTION_WEATHER_COUNT")} (${owned ? weatherRows.filter(row => effectOwned(pet, row, "weather")).length : 0}/${weatherRows.length})`);
     const rows = state.detailTab === "Weathers" ? weatherRows : mutationRows;
     while (mwIcons.length < rows.length) mwIcons.push(cloneTemplate(mwTemplate, mwLayout));
     mwIcons.forEach((el, i) => {
