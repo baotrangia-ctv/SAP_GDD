@@ -1,0 +1,31 @@
+{
+  "screens": [
+    {
+      "id": "collection",
+      "name": "Collection",
+      "status": "ready",
+      "data": "./data/ui/collection.json",
+      "rules": "./data/ui/collection-rules.json"
+    },
+    {
+      "id": "shop",
+      "name": "Shop",
+      "status": "planned"
+    },
+    {
+      "id": "mail",
+      "name": "Mail",
+      "status": "planned"
+    },
+    {
+      "id": "mission",
+      "name": "Mission",
+      "status": "planned"
+    },
+    {
+      "id": "leaderboard",
+      "name": "Leaderboard",
+      "status": "planned"
+    }
+  ]
+}

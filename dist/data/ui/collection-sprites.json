@@ -1,0 +1,1074 @@
+{
+  "sprites": [
+    {
+      "key": "Assets/Sprites/Backgrounds/DarkBG.png",
+      "output": "./assets/ui-sprites/collection/Backgrounds__DarkBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/DarkBG"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/UIComponents/Backgrounds/BG.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container"
+      ]
+    },
+    {
+      "key": "lib://fftextures/WorkshopIconLibrary/UGC_Btn_02_Big_Normal.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/PreventCloseButton",
+        "PetsCollection/Container/PetsLayout/Pet (1)/ShowDetailsPetButton",
+        "PetsCollection/Container/PetDetails/Pet/ShowDetailsPetButton"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/TitleBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__TitleBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Title"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/CloseButton.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__CloseButton.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Title/CloseButton"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewUI/Assets/Img_bg02_BG.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/BG"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewUI/Assets/Img_decorate01.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/BG/DecorLeft"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/HalfContainerBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__HalfContainerBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/BG/Main"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewUI/Assets/Img_decorate02.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/BG/DecorRight"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/LongSelectTabBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__LongSelectTabBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/RarityTabsLayout/AllTabButton"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/NormalTabBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__NormalTabBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/RarityTabsLayout/CommonTabButton",
+        "PetsCollection/Container/RarityTabsLayout/RareTabButton",
+        "PetsCollection/Container/RarityTabsLayout/EpicTabButton",
+        "PetsCollection/Container/RarityTabsLayout/LegendaryTabButton",
+        "PetsCollection/Container/RarityTabsLayout/MythicTabButton",
+        "PetsCollection/Container/RarityTabsLayout/ApexTabButton",
+        "PetsCollection/Container/RarityTabsLayout/LimitedTabButton",
+        "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton",
+        "PetsCollection/Container/DetailsTabsLayout/WeathersTabButton"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/ItemBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__ItemBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetsLayout/Pet (1)",
+        "PetsCollection/Container/PetDetails/Pet",
+        "PetsCollection/Container/PetDetails/Obtain/BG",
+        "PetsCollection/Container/Recipe/Pet",
+        "PetsCollection/Container/Recipe/Pet"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/RarityBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__RarityBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetsLayout/Pet (1)/Rarity",
+        "PetsCollection/Container/PetDetails/Pet/Rarity",
+        "PetsCollection/Container/Recipe/Pet/Rarity",
+        "PetsCollection/Container/Recipe/Pet/Rarity"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Pets/PENGUIN.png",
+      "output": "./assets/ui-sprites/collection/Pets__PENGUIN.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetsLayout/Pet (1)/Thumbnail",
+        "PetsCollection/Container/PetDetails/Pet/Thumbnail",
+        "PetsCollection/Container/Recipe/Pet/Thumbnail",
+        "PetsCollection/Container/Recipe/Pet/Thumbnail"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewAssets/Assets/Icon_mutation.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/PetsLayout/Pet (1)/HasMW"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Backgrounds/SelectingBox.png",
+      "output": "./assets/ui-sprites/collection/Backgrounds__SelectingBox.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetsLayout/Pet (1)/SelectBorder"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/ShadowTriangleRounded.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/PageBtns/PrevPageButton",
+        "PetsCollection/Container/PageBtns/NextPageButton"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Backgrounds/BG.png",
+      "output": "./assets/ui-sprites/collection/Backgrounds__BG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails",
+        "PetsCollection/Container/PetDetails/Pet/RarityBG",
+        "PetsCollection/Container/Info",
+        "PetsCollection/Container/MutationsWeathers",
+        "PetsCollection/Container/UnlockObtain",
+        "PetsCollection/Container/Recipe"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/DecorateIcon4.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__DecorateIcon4.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails/Pet/Decor1"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/DecorateIcon6.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__DecorateIcon6.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails/Pet/Decor2"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/DecorateIcon3.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__DecorateIcon3.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails/Pet/Decor3"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/DecorateIcon5.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__DecorateIcon5.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails/Pet/Decor4"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/PetBaseIcon.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__PetBaseIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails/Pet/Decor5"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Icons/FishIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__FishIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetDetails/Obtain/BG/ObtainIcon",
+        "PetsCollection/Container/UnlockObtain/Icon"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/SelectTabBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__SelectTabBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/DetailsTabsLayout/InfoTabButton"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/ShopItemBG.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__ShopItemBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Info/Value",
+        "PetsCollection/Container/Info/Mutations",
+        "PetsCollection/Container/Info/Weathers"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Icons/MoneyIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__MoneyIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Info/Value/Icon"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Icons/Mutation3DIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__Mutation3DIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Info/Mutations/Icon"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Icons/Weather3DIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__Weather3DIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Info/Weathers/Icon"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Mutations/Sequin.png",
+      "output": "./assets/ui-sprites/collection/Mutations__Sequin.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/MutationsWeathers/MWLayout/Icon"
+      ]
+    },
+    {
+      "key": "lib://fftextures/WorkshopIconLibrary/UI_BG_icon_03.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/Recipe/Pet/Name/RedirectCollectionButton"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/AddIcon.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__AddIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Recipe/PlusIcon"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/NewAssets/FuseArrowIcon.png",
+      "output": "./assets/ui-sprites/collection/NewAssets__FuseArrowIcon.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/Recipe/FuseIcon"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Buttons/SkillButtonBG.png",
+      "output": "./assets/ui-sprites/collection/Buttons__SkillButtonBG.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetsCount",
+        "PetsCollection/Container/MutationsCount",
+        "PetsCollection/Container/WeathersCount"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/Guides/GuideCircle.png",
+      "output": "./assets/ui-sprites/collection/Guides__GuideCircle.png",
+      "missing": false,
+      "references": [
+        "PetsCollection/Container/PetsCount/Progress",
+        "PetsCollection/Container/MutationsCount/Progress",
+        "PetsCollection/Container/WeathersCount/Progress"
+      ]
+    }
+  ],
+  "missing": [
+    {
+      "key": "Assets/Sprites/UIComponents/Backgrounds/BG.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container"
+      ]
+    },
+    {
+      "key": "lib://fftextures/WorkshopIconLibrary/UGC_Btn_02_Big_Normal.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/PreventCloseButton",
+        "PetsCollection/Container/PetsLayout/Pet (1)/ShowDetailsPetButton",
+        "PetsCollection/Container/PetDetails/Pet/ShowDetailsPetButton"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewUI/Assets/Img_bg02_BG.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/BG"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewUI/Assets/Img_decorate01.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/BG/DecorLeft"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewUI/Assets/Img_decorate02.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/BG/DecorRight"
+      ]
+    },
+    {
+      "key": "Assets/_Test/NewAssets/Assets/Icon_mutation.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/PetsLayout/Pet (1)/HasMW"
+      ]
+    },
+    {
+      "key": "Assets/Sprites/ShadowTriangleRounded.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/PageBtns/PrevPageButton",
+        "PetsCollection/Container/PageBtns/NextPageButton"
+      ]
+    },
+    {
+      "key": "lib://fftextures/WorkshopIconLibrary/UI_BG_icon_03.png",
+      "output": null,
+      "missing": true,
+      "references": [
+        "PetsCollection/Container/Recipe/Pet/Name/RedirectCollectionButton"
+      ]
+    }
+  ],
+  "unsupported": [
+    {
+      "path": "PetsCollection/DarkBG",
+      "id": "YD8GYJ30",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PreventCloseButton",
+      "id": "zhclTSgQ",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Title/CloseButton",
+      "id": "GnjIZuxE",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Title",
+      "id": "JUnMlJee",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/BG/DecorLeft",
+      "id": "gr8BcPhJ",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/BG/Main",
+      "id": "y2VytDvF",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/BG/DecorRight",
+      "id": "XgiQWXKW",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/BG",
+      "id": "sRToCiPA",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/AllTabButton",
+      "id": "Ss6rC1EV",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/CommonTabButton",
+      "id": "pYbPgX1w",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/RareTabButton",
+      "id": "aXFzoEAP",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/EpicTabButton",
+      "id": "BHGjULlj",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/LegendaryTabButton",
+      "id": "aX7o89kh",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/MythicTabButton",
+      "id": "Ll09Iu8l",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/ApexTabButton",
+      "id": "MOHxOi6H",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/RarityTabsLayout/LimitedTabButton",
+      "id": "fGyAC2jh",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)/Rarity",
+      "id": "SFo9DTyt",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)/Thumbnail",
+      "id": "LbGrAXNQ",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)/HasMW",
+      "id": "ZeefSUio",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)/SelectBorder",
+      "id": "ll5sFpko",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)/ShowDetailsPetButton",
+      "id": "Q7eMSTgB",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)",
+      "id": "Y9R2FYBj",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PageBtns/PrevPageButton",
+      "id": "Y1t5L81k",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PageBtns/NextPageButton",
+      "id": "KqDUHT6I",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Decor1",
+      "id": "yYlS40CG",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Decor2",
+      "id": "rjVmB0pK",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Decor3",
+      "id": "KSg7J3fJ",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Decor4",
+      "id": "KRHC5dt6",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Decor5",
+      "id": "nUHXnN3W",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Rarity",
+      "id": "JIfUjK0t",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/Thumbnail",
+      "id": "GopiKdhn",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/ShowDetailsPetButton",
+      "id": "Z6sfJ0V6",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet/RarityBG",
+      "id": "pG0KrAI2",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Pet",
+      "id": "r6JjsVsl",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Obtain/BG/ObtainIcon",
+      "id": "pOrzzc1m",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails/Obtain/BG",
+      "id": "DC7W6bH4",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetDetails",
+      "id": "T8Qz3Fzt",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/DetailsTabsLayout/InfoTabButton",
+      "id": "s31m5yHS",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/DetailsTabsLayout/MutationsTabButton",
+      "id": "sb3JQllS",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/DetailsTabsLayout/WeathersTabButton",
+      "id": "n5i8bMrX",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info/Value/Icon",
+      "id": "kMbzMxFi",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info/Value",
+      "id": "TFWi8T1X",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info/Mutations/Icon",
+      "id": "dSkj46xg",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info/Mutations",
+      "id": "LeQvD0rb",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info/Weathers/Icon",
+      "id": "nEhjgYT1",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info/Weathers",
+      "id": "zoQwtiB5",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Info",
+      "id": "BIt7vEEJ",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/MutationsWeathers/MWLayout/Icon",
+      "id": "so6TgYB5",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/MutationsWeathers",
+      "id": "A6ebAkbk",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/UnlockObtain/Icon",
+      "id": "Mv4awOlH",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/UnlockObtain",
+      "id": "neVVrPZ5",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet/Rarity",
+      "id": "xyJ6Kvjl",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet/Thumbnail",
+      "id": "wcLYkQEa",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet",
+      "id": "Z6FABpf8",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet/Rarity",
+      "id": "KGT4qFz8",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet/Thumbnail",
+      "id": "Gtr519c6",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet/Name/RedirectCollectionButton",
+      "id": "UVZXTVBT",
+      "fields": [
+        "button.onClicks",
+        "button.clickHandlers"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/Pet",
+      "id": "Attj9eJg",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/PlusIcon",
+      "id": "zHeZosCR",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe/FuseIcon",
+      "id": "fWNzdTPe",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/Recipe",
+      "id": "rMZiGOTO",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsCount/Progress",
+      "id": "FOm9BnS9",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop",
+        "m_ApplyingPreviewAnimation"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/PetsCount",
+      "id": "QAgClHag",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/MutationsCount/Progress",
+      "id": "EezmOP8P",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/MutationsCount",
+      "id": "n6Qbisee",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/WeathersCount/Progress",
+      "id": "e1mIMOk9",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container/WeathersCount",
+      "id": "smcBiYdg",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection/Container",
+      "id": "jMGHqNVH",
+      "fields": [
+        "image.isApplyAnimation",
+        "image.animationAtlasID",
+        "image.animationFrameRate",
+        "image.animationLoop"
+      ]
+    },
+    {
+      "path": "PetsCollection",
+      "id": "CyEjtaLS",
+      "fields": [
+        "ecaScripts"
+      ]
+    }
+  ]
+}
