@@ -130,7 +130,18 @@ export function syncUiPreview(sourceRoot, gddRoot) {
         tint: "per-pixel RGB multiplication by Color with source sprite alpha retained",
         tintStatus: "matches requested blend model; Craftland runtime pixel output not verified",
         imageGradient: "vertical interpolation from GradientTop to GradientBottom when gradient is nonzero",
-        imageGradientStatus: "MCP documents top/bottom gradient colors; numeric mode semantics and runtime output are unverified"
+        imageGradientStatus: "MCP documents top/bottom gradient colors; numeric mode semantics and runtime output are unverified",
+        text: "source text fields retained; browser system font; lineSpacing numeric values map to CSS unitless line-height; text clips to RectTransform",
+        textStatus: "MCP documents field names and types but not font metrics, lineSpacing units, Overflow values, gradient semantics, or exact shadow/outline rasterization",
+        textBackground: "backgroundRGBA when alpha is nonzero; otherwise backgroundColor when background is enabled",
+        fill: "FillType values use simple/sliced/tiled/filled/fit rendering; horizontal/vertical/radial fills use CSS clip-path or conic mask",
+        fillStatus: "enum labels confirmed by MCP; radial origin/sweep/invert behavior and Fit sizing are approximations",
+        flip: "reverse.x/reverse.y map to visual axis flips; numeric flip is retained",
+        flipStatus: "all source flip values are zero; numeric FlipType behavior is not documented",
+        rotation: "CSS rotation uses the RectTransform pivot as transform origin",
+        rotationStatus: "all source rotations are zero; angle sign in nonzero runtime cases is unverified",
+        viewport: "root sizeDelta and selectable viewport aspect frame; cover-crop preview",
+        viewportStatus: "Editor docs describe root adaptation to device aspect ratio; reference resolution, match mode, and safe area are not specified"
       },
       tree
     });

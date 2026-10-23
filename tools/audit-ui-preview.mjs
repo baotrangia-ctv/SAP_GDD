@@ -72,11 +72,21 @@ assert.match(rendererSource, /function applyLayout\(/, "Shared layout engine mis
 assert.doesNotMatch(rendererSource, /function layoutPosition\(|function resizeGridItem\(/, "Duplicate layout placement implementation remains");
 for (const field of ["corner", "fixedRowCount", "fixedColumnCount", "tableOffset", "tableSpace", "ignoreInactive", "offset.down", "sortType"])
   assert.ok(rendererSource.includes(field), `Layout engine does not read ${field}`);
+const textNodes = [];
+(function collectText(node) { if (node.text) textNodes.push(node); node.children.forEach(collectText); })(data.tree);
+assert.equal(textNodes.length, 33, "Text entity count changed; review rendering audit coverage");
+for (const field of ["font", "lineSpacing", "overflow", "backgroundRGBA", "gradientTop", "gradientBottom", "shadowAlpha", "outlineAlpha", "transformOrigin", "webkitTextStroke", "applyFill"])
+  assert.ok(rendererSource.includes(field), `Text/transform/fill renderer does not cover ${field}`);
+assert.doesNotMatch(rendererSource, /font-family:\s*Arial|fontFamily\s*=\s*["']Arial|line-height:\s*1\.15/i, "Fixed Arial/line-height approximation remains");
+assert.ok(data.renderingPolicy?.textStatus && data.renderingPolicy?.fillStatus && data.renderingPolicy?.viewportStatus, "Unverified renderer policies must be visible in source data");
+const previewSource = readFileSync(path.join(gdd, "dist", "app-uipreview.js"), "utf8");
+for (const ratio of ["16:9", "18:9", "20:9", "4:3"]) assert.ok(previewSource.includes(ratio), `Missing viewport preset ${ratio}`);
+assert.match(previewSource, /safe area chưa xác minh|safe area/iu, "Viewport uncertainty must be visible in the UI");
 const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"];
 for (const file of previewModules) {
   const code = readFileSync(path.join(gdd, "dist", file), "utf8");
   assert.doesNotMatch(code, /scrollIntoView|\bscroll(?:To|By)\s*\(|\blocation\s*\.\s*(?:hash|href|assign|replace)|\bhistory\s*\.|\.focus\s*\(/, `Viewport/navigation side effect: ${file}`);
-  assert.doesNotMatch(code, /brightness\s*\(|mixBlendMode|\.style\.backgroundColor/, `Invalid sprite tint implementation: ${file}`);
+  assert.doesNotMatch(code, /brightness\s*\(|mixBlendMode|visual\.style\.backgroundColor/, `Invalid sprite tint implementation: ${file}`);
 }
 const key = item => `${item.id}\t${item.path}\t${item.type}`;
 const exportedKeys = new Set(exportedEntities.map(key));
@@ -121,6 +131,13 @@ const report = {
   layoutEntityCount: layoutNodes.length,
   mwGridMatchesSource: true,
   singleLayoutEngine: true,
+  textEntityCount: textNodes.length,
+  textPropertyRendering: true,
+  textOverflowClippedInPreview: true,
+  pivotTransformOrigin: true,
+  radialFillImplemented: true,
+  viewportPresetCount: 4,
+  viewportScalerUnverified: true,
   spriteCount: manifest.sprites.length, missingSprites: manifest.missing.map(item => item.key),
   missingCopiedFiles: missingFiles.map(item => item.output),
   imageEntityCount: imageEntities.length, unmanifestedImages, borderMismatches,

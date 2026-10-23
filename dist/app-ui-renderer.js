@@ -89,14 +89,27 @@ const uiRenderer = (() => {
     processSprite(source, data).then(rendered => {
       if (visual.dataset.uiRenderVersion !== String(version) || visual.dataset.uiSourceUrl !== source) return;
       if (visual.tagName === "IMG") visual.src = rendered;
+      else if (visual.classList.contains("ui-tiled")) visual.style.backgroundImage = `url("${rendered}")`;
       else visual.style.borderImageSource = `url("${rendered}")`;
     });
   }
   function mountSprite(layer, url, data, entry = null, simple = false) {
+    if (!simple && data.fillType === 2) {
+      const visual = document.createElement("div");
+      visual.className = "ui-sprite ui-tiled";
+      visual.style.backgroundImage = `url("${url}")`;
+      visual.style.backgroundRepeat = "repeat";
+      visual.style.backgroundSize = `${entry?.width || 100}px ${entry?.height || 100}px`;
+      visual.dataset.uiSourceUrl = url;
+      visual.dataset.uiRenderData = JSON.stringify({ color: data.color || "#FFFFFF", gradient: data.gradient || 0, gradientTop: data.gradientTop, gradientBottom: data.gradientBottom });
+      layer.appendChild(visual);
+      applyTint(visual, data.color || "#FFFFFF");
+      return visual;
+    }
     const sliced = !simple && data.fillType === 1 && (data.enableBorderImage !== false) && entry?.border && Object.values(entry.border).some(Number);
     const visual = document.createElement(sliced ? "div" : "img");
     visual.className = "ui-sprite";
-    if (visual.tagName === "IMG") { visual.src = url; visual.alt = ""; visual.draggable = false; }
+    if (visual.tagName === "IMG") { visual.src = url; visual.alt = ""; visual.draggable = false; if (data.fillType === 5) visual.style.objectFit = "contain"; }
     else {
       visual.classList.add("ui-sliced");
       const border = entry.border;
@@ -128,7 +141,35 @@ const uiRenderer = (() => {
     }
     if (data.reverse?.x) el.classList.add("ui-flip-x");
     if (data.reverse?.y) el.classList.add("ui-flip-y");
-    if (data.fillType === 3 && data.fillAmount != null && data.fillAmount > 0 && data.fillAmount < 1 && data.fillDir === 0) el.style.clipPath = `inset(0 ${100 * (1 - data.fillAmount)}% 0 0)`;
+    applyFill(el, data.fillType, data.fillDir, data.fillAmount, data.invertFill);
+  }
+  function applyFill(element, type, direction, amount, inverted = false) {
+    if (!element) return;
+    element.style.clipPath = "";
+    element.style.maskImage = "";
+    element.style.webkitMaskImage = "";
+    if (Number(type) !== 3 || amount == null) return;
+    const value = Math.max(0, Math.min(1, Number(amount) || 0));
+    const mode = Number(direction) || 0;
+    if (mode === 0) {
+      const left = inverted ? 100 * (1 - value) : 0;
+      const right = inverted ? 0 : 100 * (1 - value);
+      element.style.clipPath = `inset(0 ${right}% 0 ${left}%)`;
+      return;
+    }
+    if (mode === 1) {
+      const top = inverted ? 0 : 100 * (1 - value);
+      const bottom = inverted ? 100 * (1 - value) : 0;
+      element.style.clipPath = `inset(${top}% 0 ${bottom}% 0)`;
+      return;
+    }
+    if (mode >= 2 && mode <= 4) {
+      const sweep = value * (mode === 2 ? 90 : mode === 3 ? 180 : 360);
+      const start = inverted ? 90 : -90;
+      const mask = value <= 0 ? "conic-gradient(transparent 0deg 360deg)" : value >= 1 && mode === 4 ? "conic-gradient(#000 0deg 360deg)" : `conic-gradient(from ${start}deg, #000 0deg ${sweep}deg, transparent ${sweep}deg 360deg)`;
+      element.style.maskImage = mask;
+      element.style.webkitMaskImage = mask;
+    }
   }
   function setSprite(el, key, data, manifest) {
     if (!el) return;
@@ -158,26 +199,68 @@ const uiRenderer = (() => {
   function setTextOutlineColor(el, color) {
     const span = el?.querySelector(":scope > .ui-text");
     if (!span) return;
-    span.style.webkitTextStroke = color ? `${Math.max(1, Number(span.dataset.uiOutlineWidth) || 1)}px ${color}` : "";
+    const width = Math.max(0, Number(span.dataset.uiOutlineWidth) || 0);
+    const alpha = Math.max(0, Math.min(1, Number(span.dataset.uiOutlineAlpha) || 0));
+    span.style.webkitTextStroke = color && span.dataset.uiOutlineEnabled === "true" && width ? `${width}px ${withAlpha(color, alpha)}` : "";
     span.style.paintOrder = "stroke fill";
     span.dataset.uiRuntimeOutlineColor = color || "";
+  }
+  function withAlpha(color, alpha = 1) {
+    const value = rgb(color);
+    return `rgba(${value.r}, ${value.g}, ${value.b}, ${Math.max(0, Math.min(1, value.a * alpha))})`;
+  }
+  function toColor(value, fallback = "#FFFFFF") {
+    if (typeof value === "string") return value;
+    if (!value || typeof value !== "object") return fallback;
+    const alpha = Number(value.a ?? 1);
+    return `rgba(${Number(value.r ?? 255)}, ${Number(value.g ?? 255)}, ${Number(value.b ?? 255)}, ${alpha > 1 ? alpha / 255 : alpha})`;
+  }
+  function setTextColor(el, color) {
+    const span = el?.querySelector(":scope > .ui-text");
+    if (!span) return;
+    span.dataset.uiRuntimeColor = color || "";
+    if (span.dataset.uiGradient !== "0") return;
+    span.style.color = color || span.dataset.uiBaseColor || "#FFFFFF";
   }
   function text(el, data) {
     if (!data) return;
     const span = document.createElement("span");
     span.className = "ui-text";
+    span.dataset.uiTextProps = JSON.stringify(data);
     span.textContent = data.key ? uiTranslate(data.key) : (data.value || "");
     span.style.fontSize = `${data.fontSize || 16}px`;
     span.style.color = data.color || "#fff";
+    span.dataset.uiBaseColor = data.color || "#fff";
+    span.dataset.uiRuntimeColor = "";
+    span.dataset.uiFont = String(data.font || "Default");
+    span.dataset.uiLineSpacing = String(data.lineSpacing ?? 0);
+    span.dataset.uiOverflow = String(data.overflow ?? 0);
+    span.dataset.uiGradient = String(data.gradient ?? 0);
     span.style.fontWeight = data.fontStyle?.bold ? "700" : "400";
     span.style.fontStyle = data.fontStyle?.italic ? "italic" : "normal";
     span.style.textDecoration = data.fontStyle?.underline ? "underline" : "none";
     span.style.justifyContent = ({ left: "flex-start", center: "center", right: "flex-end" })[data.alignment?.h] || "center";
     span.style.alignItems = ({ top: "flex-start", middle: "center", bottom: "flex-end" })[data.alignment?.v] || "center";
-    if (data.shadow) span.style.textShadow = `${data.shadowOffset?.x || 1}px ${data.shadowOffset?.y || 1}px 1px ${data.shadowColor || "#000"}`;
-    if (data.outline) span.style.webkitTextStroke = `${data.outlineOffset || 1}px ${data.outlineColor || "#000"}`;
-    span.dataset.uiOutlineWidth = String(data.outlineOffset || 1);
+    const lineSpacing = Number(data.lineSpacing) || 0;
+    span.style.lineHeight = lineSpacing > 0 ? String(lineSpacing) : "normal";
+    span.style.overflow = "hidden";
+    span.style.overflowWrap = "anywhere";
+    span.style.fontFamily = "inherit";
+    span.dataset.uiBackgroundEnabled = String(!!data.background);
+    if (data.background) span.style.backgroundColor = Number(data.backgroundRGBA?.a || 0) > 0 ? toColor(data.backgroundRGBA) : (data.backgroundColor || "transparent");
+    if (Number(data.gradient) > 0) {
+      span.style.backgroundImage = `linear-gradient(to bottom, ${toColor(data.gradientTop, data.color)}, ${toColor(data.gradientBottom, data.color)})`;
+      span.style.backgroundClip = "text";
+      span.style.webkitBackgroundClip = "text";
+      span.style.webkitTextFillColor = "transparent";
+    }
+    const shadow = data.shadowOffset || { x: 0, y: 0 };
+    if (data.shadow) span.style.textShadow = `${Number(shadow.x) || 0}px ${Number(shadow.y) || 0}px 0 ${withAlpha(data.shadowColor || "#000", Number(data.shadowAlpha ?? 1))}`;
+    span.dataset.uiOutlineWidth = String(data.outlineOffset ?? 0);
+    span.dataset.uiOutlineAlpha = String(data.outlineAlpha ?? 1);
+    span.dataset.uiOutlineEnabled = String(!!data.outline);
     el.appendChild(span);
+    if (data.outline) setTextOutlineColor(el, data.outlineColor || "#000");
   }
   const layoutQueue = new WeakSet();
   function elementSize(element) {
@@ -314,6 +397,7 @@ const uiRenderer = (() => {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     const byId = new Map();
+    let domOrder = 0;
     function add(node, parent, parentRect) {
       const element = document.createElement(node.type === "UIButtonEntity" ? "button" : "div");
       element.className = "ui-entity";
@@ -324,6 +408,7 @@ const uiRenderer = (() => {
       element.dataset.uiSpriteKey = node.image?.spriteKey || node.button?.spriteKey || "";
       element.dataset.uiTransform = JSON.stringify(node.transform || {});
       element.dataset.uiBaseActive = String(!!node.active);
+      element.dataset.uiDomOrder = String(domOrder++);
       if (node.type === "UIButtonEntity") { element.type = "button"; element.setAttribute("aria-label", node.name); }
       if (!node.active) element.classList.add("ui-inactive");
       const r = rect(node.transform, parentRect);
@@ -341,6 +426,8 @@ const uiRenderer = (() => {
       element.dataset.uiPriority = String(node.priority ?? 0);
       element.dataset.uiHitTarget = String(!!node.button && !node.button.disableCollider);
       if (node.button?.disableCollider) element.disabled = true;
+      const pivot = node.transform?.pivot || { x: .5, y: .5 };
+      element.style.transformOrigin = `${pivot.x * 100}% ${(1 - pivot.y) * 100}%`;
       if (node.transform?.rotate) element.style.transform = `rotate(${-node.transform.rotate}deg)`;
       graphic(element, node.image || (node.button ? { ...node.button, color: node.button.normal } : null), manifest);
       if (node.button) {
@@ -364,5 +451,5 @@ const uiRenderer = (() => {
     layoutTree(canvas, data);
     return { canvas, byId };
   }
-  return { render, rect, setSprite, setImage, tint, setTextOutlineColor, refreshLayouts, setLayoutOptions, setSize };
+  return { render, rect, setSprite, setImage, tint, setTextColor, setTextOutlineColor, setFillAmount: (element, amount, data) => applyFill(element, data?.fillType, data?.fillDir, amount, data?.invertFill), refreshLayouts, setLayoutOptions, setSize };
 })();

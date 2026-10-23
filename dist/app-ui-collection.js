@@ -31,7 +31,7 @@ function initCollectionPreview(screen, rules, rendered) {
     el.style.display = visible ? "" : "none";
     if (wasVisible !== visible) uiRenderer.refreshLayouts(rendered.canvas, screen);
   }
-  function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) span.textContent = uiTranslate(String(value)); }
+  function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) { span.textContent = uiTranslate(String(value)); el.dataset.uiRuntimeContent = String(value); } }
   function setImage(el, url, dark = false) {
     if (!el) return;
     el.dataset.uiRuntimeUrl = url || "";
@@ -50,7 +50,7 @@ function initCollectionPreview(screen, rules, rendered) {
       const props = screenEntity(button)?.button || {};
       uiRenderer.setSprite(button, active ? config.selectedSprite : config.normalSprite, { ...props, color: props.normal, fillType: 1 }, uiPreview.manifest);
       const label = directChild(button, config.textChild)?.querySelector(":scope > .ui-text");
-      if (label) label.style.color = active ? config.selectedTextColor : config.normalTextColor;
+      if (label) uiRenderer.setTextColor(button && directChild(button, config.textChild), active ? config.selectedTextColor : config.normalTextColor);
     }
   }
   function screenEntity(el) { const path = el?.dataset.uiPath || el?.dataset.uiClonePath; if (!path) return null; const parts = path.split("/").slice(1); let node = screen.tree; for (const part of parts) node = node?.children.find(child => child.name === part); return node; }
@@ -76,7 +76,7 @@ function initCollectionPreview(screen, rules, rendered) {
     const root = named(group);
     setText(root && [...root.children].find(x => x.dataset.uiName?.endsWith("Amount")), `${amount}/${total}`);
     const bar = directChild(root, "Progress");
-    if (bar) bar.style.clipPath = `inset(0 ${total ? 100 * (1 - amount / total) : 100}% 0 0)`;
+    if (bar) uiRenderer.setFillAmount(bar, total ? amount / total : 0, screenEntity(bar)?.image || {});
   }
   function updateCounters() {
     const list = filtered();

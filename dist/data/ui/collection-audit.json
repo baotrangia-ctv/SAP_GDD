@@ -45,6 +45,13 @@
   "layoutEntityCount": 4,
   "mwGridMatchesSource": true,
   "singleLayoutEngine": true,
+  "textEntityCount": 33,
+  "textPropertyRendering": true,
+  "textOverflowClippedInPreview": true,
+  "pivotTransformOrigin": true,
+  "radialFillImplemented": true,
+  "viewportPresetCount": 4,
+  "viewportScalerUnverified": true,
   "spriteCount": 41,
   "missingSprites": [
     "Assets/Sprites/UIComponents/Backgrounds/BG.png",

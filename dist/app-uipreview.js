@@ -2,7 +2,7 @@
 
 Object.assign(pages, { uipreview: "UI Preview" });
 
-const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", rendered: null, width: 1280, height: 720, open: true };
+const uiPreview = { registry: null, screen: null, manifest: null, i18n: null, language: "vi", rendered: null, width: 1280, height: 720, aspect: "18:9", open: true };
 function uiTranslate(key, args = []) {
   const entry = uiPreview.i18n?.entries?.[key];
   const pattern = (entry && (entry[uiPreview.language] || entry.en)) || key;
@@ -12,7 +12,7 @@ function uiTranslate(key, args = []) {
 function uiPreviewPage() {
   return '<div class="ui-preview-page"><div class="section-heading"><div><p class="eyebrow">UI GAME</p><h1>UI Preview</h1><p>HUD dựng từ cây entity của game. Dữ liệu người chơi trong trang này là mô phỏng.</p></div></div>' +
     '<div id="ui-preview-tabs" class="ui-preview-tabs"></div>' +
-    '<div class="ui-preview-toolbar"><button id="ui-open-toggle" type="button">Đóng UI</button><label>Ngôn ngữ <select id="ui-language"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><label><input id="ui-debug" type="checkbox"> Debug entity</label><label><input id="ui-show-inactive" type="checkbox"> Hiện inactive</label><span id="ui-preview-meta">Đang tải…</span></div>' +
+    '<div class="ui-preview-toolbar"><button id="ui-open-toggle" type="button">Đóng UI</button><label>Ngôn ngữ <select id="ui-language"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><label>Tỉ lệ khung <select id="ui-preview-aspect"><option value="16:9">16:9</option><option value="18:9" selected>18:9</option><option value="20:9">20:9</option><option value="4:3">4:3</option></select></label><label><input id="ui-debug" type="checkbox"> Debug entity</label><label><input id="ui-show-inactive" type="checkbox"> Hiện inactive</label><span id="ui-preview-meta">Đang tải…</span></div>' +
     '<div id="ui-preview-workspace" class="ui-preview-workspace"><div id="ui-preview-stage" class="ui-preview-stage"></div><aside id="ui-player-panel" class="ui-player-panel"></aside></div>' +
     '<section id="ui-resource-panel" class="ui-resource-panel"><h2>Resource đang dùng</h2><label>Tìm entity/path <input id="ui-resource-search" type="search" placeholder="Tên hoặc đường dẫn"></label><div class="ui-resource-scroll"><table><thead><tr><th>Entity / path</th><th>Sprite</th><th>Trạng thái</th><th>Alpha .ui / web</th><th>Image / màu</th><th>Text / localization</th></tr></thead><tbody id="ui-resource-rows"></tbody></table></div></section></div>';
 }
@@ -44,7 +44,8 @@ async function updateUiPreviewPage() {
     uiPreview.rendered = rendered;
     const stage = document.getElementById("ui-preview-stage");
     stage.replaceChildren(rendered.canvas);
-    document.getElementById("ui-preview-meta").textContent = `${screen.entityCount} entity · ${manifest.missing.length} sprite thiếu · khung ${uiPreview.width}×${uiPreview.height} suy từ root (.ui); độ phân giải engine chưa xác minh`;
+    document.getElementById("ui-preview-aspect").value = uiPreview.aspect;
+    document.getElementById("ui-preview-meta").textContent = `${screen.entityCount} entity · ${manifest.missing.length} sprite thiếu · root ${uiPreview.width}×${uiPreview.height} từ .ui · khung ${uiPreview.aspect}; scaler và safe area chưa xác minh`;
     scaleUiPreview();
     if (typeof initCollectionPreview === "function") initCollectionPreview(screen, rules, rendered);
     renderUiResourcePanel();
@@ -115,9 +116,17 @@ function scaleUiPreview() {
   const stage = document.getElementById("ui-preview-stage");
   const canvas = uiPreview.rendered?.canvas;
   if (!stage || !canvas) return;
-  const scale = Math.min(1, stage.clientWidth / uiPreview.width);
+  const [ratioWidth, ratioHeight] = uiPreview.aspect.split(":").map(Number);
+  const ratio = ratioWidth / ratioHeight;
+  const frameWidth = stage.clientWidth;
+  if (!frameWidth) return;
+  stage.style.aspectRatio = `${ratioWidth} / ${ratioHeight}`;
+  stage.style.height = `${frameWidth / ratio}px`;
+  const frameHeight = stage.clientHeight;
+  const scale = Math.max(frameWidth / uiPreview.width, frameHeight / uiPreview.height);
+  canvas.style.left = `${(frameWidth - uiPreview.width * scale) / 2}px`;
+  canvas.style.top = `${(frameHeight - uiPreview.height * scale) / 2}px`;
   canvas.style.transform = `scale(${scale})`;
-  stage.style.height = `${Math.ceil(uiPreview.height * scale)}px`;
 }
 
 window.addEventListener("resize", scaleUiPreview);
@@ -132,6 +141,7 @@ document.addEventListener("click", event => {
 document.addEventListener("change", event => {
   if (s.page !== "uipreview" || !uiPreview.rendered) return;
   if (event.target.id === "ui-language") { uiPreview.language = event.target.value; updateUiPreviewPage(); return; }
+  if (event.target.id === "ui-preview-aspect") { uiPreview.aspect = event.target.value; scaleUiPreview(); document.getElementById("ui-preview-meta").textContent = `${uiPreview.screen.entityCount} entity · ${uiPreview.manifest.missing.length} sprite thiếu · root ${uiPreview.width}×${uiPreview.height} từ .ui · khung ${uiPreview.aspect}; scaler và safe area chưa xác minh`; }
   if (event.target.id === "ui-debug") uiPreview.rendered.canvas.classList.toggle("ui-debug", event.target.checked);
   if (event.target.id === "ui-show-inactive") uiPreview.rendered.canvas.classList.toggle("ui-show-inactive", event.target.checked);
 });

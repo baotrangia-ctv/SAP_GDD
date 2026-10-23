@@ -72,6 +72,42 @@ export async function auditBrowser(url, screen) {
         assert.equal(item.actual, item.expected, item.path);
         assert.equal(item.hit, item.type === "UIButtonEntity" ? "auto" : "none", item.path);
       }
+      const textRendering = await page.evaluate(() => {
+        const spans = [...document.querySelectorAll("#ui-preview-stage .ui-text")];
+        const entities = [...document.querySelectorAll("#ui-preview-stage .ui-entity")];
+        return {
+          count: spans.length,
+          spans: spans.map(span => ({ font: span.dataset.uiFont, lineSpacing: Number(span.dataset.uiLineSpacing), overflow: span.dataset.uiOverflow,
+            backgroundEnabled: span.dataset.uiBackgroundEnabled === "true", gradient: Number(span.dataset.uiGradient), overflowStyle: getComputedStyle(span).overflow,
+            lineHeight: getComputedStyle(span).lineHeight, fontFamily: getComputedStyle(span).fontFamily })),
+          transformOrigins: entities.map(el => {
+            const transform = JSON.parse(el.dataset.uiTransform || "{}");
+            const pivot = transform.pivot || { x: .5, y: .5 };
+            return { expected: `${pivot.x * 100}% ${(1 - pivot.y) * 100}%`, actual: el.style.transformOrigin };
+          }),
+          aspectOptions: [...document.querySelectorAll("#ui-preview-aspect option")].map(option => option.value),
+          selectedAspect: document.getElementById("ui-preview-aspect").value,
+          stageAspect: document.getElementById("ui-preview-stage").style.aspectRatio,
+          radialFill: document.querySelector('[data-ui-path="PetsCollection/Container/PetsCount/Progress"]')?.style.maskImage || ""
+        };
+      });
+      assert.ok(textRendering.count >= 33);
+      assert.ok(textRendering.spans.every(span => span.font && Number.isFinite(span.lineSpacing)), "Source text style metadata missing on rendered or cloned text");
+      assert.ok(textRendering.spans.every(span => span.overflowStyle === "hidden"), "UIText must clip to its RectTransform in the web preview");
+      assert.ok(textRendering.spans.every(span => !/Arial/i.test(span.fontFamily)), "UIText still uses Arial instead of the browser system font stack");
+      assert.ok(textRendering.transformOrigins.every(item => item.expected === item.actual), "Transform origin does not follow the source pivot");
+      assert.deepEqual(textRendering.aspectOptions, ["16:9", "18:9", "20:9", "4:3"]);
+      assert.equal(textRendering.selectedAspect, "18:9");
+      assert.match(textRendering.radialFill, /conic-gradient/);
+      await page.selectOption("#ui-preview-aspect", "4:3");
+      const alternateAspect = await page.evaluate(() => {
+        const stage = document.getElementById("ui-preview-stage");
+        return { selected: document.getElementById("ui-preview-aspect").value, width: stage.clientWidth, height: stage.clientHeight,
+          canvas: stage.firstElementChild.getBoundingClientRect().toJSON() };
+      });
+      assert.equal(alternateAspect.selected, "4:3");
+      assert.ok(Math.abs(alternateAspect.width / alternateAspect.height - 4 / 3) < .03, "4:3 viewport preset did not resize its frame");
+      await page.selectOption("#ui-preview-aspect", "18:9");
       // Keep table node identity and filter stable throughout gameplay.
       await page.evaluate(() => { window.auditResourceRows = [...document.querySelectorAll("#ui-resource-rows tr")]; });
       for (const rarity of ["Common", "Rare", "Epic", "Legendary", "Mythic", "Apex", "Limited", "All"]) {
@@ -188,7 +224,16 @@ export async function auditBrowser(url, screen) {
       assert.deepEqual(await measure(), before);
       assert.equal(await page.locator(".ui-resource-selected").count(), 0);
       assert.deepEqual(errors, [], "Browser console/page errors");
-      results.push({ viewport, clicks, petsClicked, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha, layoutPositions, measurements });
+      results.push({ viewport, clicks, petsClicked, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha,
+        textRendering: { count: textRendering.count, clipApplied: textRendering.spans.every(span => span.overflowStyle === "hidden"),
+          sourcePropertiesPresent: textRendering.spans.every(span => span.font && Number.isFinite(span.lineSpacing)),
+          systemFontFamilies: [...new Set(textRendering.spans.map(span => span.fontFamily))],
+          pivotOriginsMatch: textRendering.transformOrigins.every(item => item.expected === item.actual),
+          aspectOptions: textRendering.aspectOptions, selectedAspect: textRendering.selectedAspect, stageAspect: textRendering.stageAspect, alternateAspect, radialFill: textRendering.radialFill },
+        layoutPositions: Object.fromEntries(Object.entries(layoutPositions).map(([name, layout]) => [name, {
+          size: layout.size, cell: layout.cell, gap: layout.gap, count: layout.positions.length,
+          visibleCount: layout.positions.filter(point => point.visible).length, positions: layout.positions.slice(0, 16)
+        }])) });
       await page.close();
     }
   } finally { await browser.close(); }

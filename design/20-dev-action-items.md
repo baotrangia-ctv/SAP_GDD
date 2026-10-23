@@ -86,5 +86,32 @@ offset/space bằng 0 và `sortType=0`; cell size/spacing khớp size icon M/W,
 khoảng dọc và giới hạn năm cột trong FCG. Engine web ánh xạ corner thành bốn
 góc bắt đầu, dùng table offset như padding cộng thêm, table space như khoảng
 cách cell cộng thêm, và hiểu constraint 1/2 lần lượt là fixed row/column. Đây
-là giả định preview cho V2. Cần đối chiếu vị trí trong Editor/runtime trước
+Đây là giả định preview cho V2. Cần đối chiếu vị trí trong Editor/runtime trước
 khi dùng cấu hình V2 khác 0 hoặc tuyên bố vị trí khớp game.
+
+## DA-012 · Text, fill, rotation và viewport (2026-10-23)
+
+MCP `脚本手册/UGC_Wiki_Entities` ghi các trường `UITextEntity` như `Font`,
+`FontSize`, `LineSpacing`, `Overflow`, `ShadowColor/Offset/Alpha`,
+`OutlineColor/Offset/Alpha`, cùng gradient/background; tài liệu chủ yếu mô tả
+tên và kiểu, không nêu font `Default`, đơn vị/ý nghĩa line spacing, giá trị
+Overflow, baseline/wrap, hay thuật toán vẽ text. `脚本手册/UGC_Wiki_Enum`
+xác nhận `FillType` (0 Simple, 1 Sliced, 2 Tiled, 3 Filled, 5 Fit) và
+`FillDirectionType` (0 Horizontal, 1 Vertical, 2/3/4 Radial90/180/360),
+nhưng không giải thích điểm bắt đầu, chiều, cung fill, `InvertFill`, Fit, hoặc
+`FlipType`. Trong `.ui` 33 text node đều `font=Default`, `lineSpacing=0`,
+`overflow=0`; cả 68 image/button đều `flip=0`; ba progress image dùng
+`Radial360`, `fillAmount` 0.3/0.5 và `invertFill=true`; có bốn `reverse.x`.
+MCP Editor manual nói root/anchors thích ứng với tỉ lệ thiết bị nhưng không
+cho reference resolution, match-width/height, hoặc safe area. Mọi rotation và
+priority trong `.ui` đều bằng 0.
+
+Preview dùng font stack offline của trang; `lineSpacing=0` dùng line-height
+browser `normal`, giá trị dương map thành CSS unitless line-height; text bị
+clip trong RectTransform; background/gradient/shadow/outline và các kiểu fill
+được dựng bằng CSS. Rotation dùng pivot làm transform-origin, sign giữ theo
+quy ước web cũ. Đây là mô hình hiển thị; line spacing, overflow=0, text
+gradient, alpha/outline/shadow raster, radial fill geometry, Fit, numeric flip,
+rotation sign, priority/depth và safe-area behavior vẫn chưa xác minh. Preset
+16:9/18:9/20:9/4:3 chỉ đổi khung viewport và crop canvas; không khẳng định
+đây là cách game scale HUD.
