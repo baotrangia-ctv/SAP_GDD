@@ -151,49 +151,51 @@ function formatPoolCell(value) {
   return String(value);
 }
 
-function poolPetArt(petId) {
+function poolPetVisual(petId) {
   const pet = t("Pet.csv").rows.find(row => String(row.ID) === String(petId));
-  return pet ? petImageHtml(pet, "pool-art-pet") : "";
+  return pet ? { art: petImageHtml(pet, "pool-art-pet"), rarity: itemRarityKey({ TypeReward: "1", Value: pet.ID }) } : null;
 }
 
 function poolVisualGroup(items) {
-  const visuals = items.filter(Boolean).slice(0, 4);
+  const visuals = items.filter(item => item?.art).slice(0, 4);
   if (!visuals.length) return gameSpriteIconHtml("Pool", "Pool reward");
-  if (visuals.length === 1) return visuals[0];
-  return '<span class="pool-art-group">' + visuals.map((item, index) => '<span class="pool-art-mini pool-art-mini-' + index + '">' + item + '</span>').join("") + '</span>';
+  if (visuals.length === 1) return visuals[0].art;
+  return '<span class="pool-art-group">' + visuals.map((item, index) => '<span class="pool-art-mini pool-art-mini-' + index + ' ' + rarityBgClass(item.rarity) + '">' + item.art + '</span>').join("") + '</span>';
 }
 
-function poolRowArt(row) {
+function poolRowVisual(row) {
   if (s.poolView === "items") {
     const reward = giftRewardRows(row.GiftID).find(item => !item.missing);
-    return reward ? rewardVisual(reward) : gameSpriteIconHtml("RandomItem", "Random item");
+    return reward ? { art: rewardVisual(reward), rarity: itemRarityKey(reward) } : { art: gameSpriteIconHtml("RandomItem", "Random item"), rarity: "NONE" };
   }
   if (s.poolView === "secret" || (s.poolView === "dig" && s.poolSubView === "pets") || (s.poolView === "fishing" && s.poolSubView === "pets") || s.poolView === "guarantee") {
     const petId = row.petId || row.PetId;
-    const petArt = poolPetArt(petId);
-    return petArt || gameSpriteIconHtml("RandomPet", "Pet reward");
+    return poolPetVisual(petId) || { art: gameSpriteIconHtml("RandomPet", "Pet reward"), rarity: "NONE" };
   }
-  if (s.poolView === "dig" && s.poolSubView === "spot") return gameSpriteIconHtml("DigSpot", "Độ hiếm điểm " + row.spotRarity);
-  if (s.poolView === "dig" || (s.poolView === "fishing" && s.poolSubView === "chest")) return gameSpriteIconHtml("Chest", "Rương");
+  if (s.poolView === "dig" && s.poolSubView === "spot") return { art: gameSpriteIconHtml("DigSpot", "Độ hiếm điểm " + row.spotRarity), rarity: "NONE" };
+  if (s.poolView === "dig" || (s.poolView === "fishing" && s.poolSubView === "chest")) return { art: gameSpriteIconHtml("Chest", "Rương"), rarity: "NONE" };
   if (s.poolView === "fishing" && s.poolSubView === "rewards") {
     const reward = { TypeReward: row.ItemType, Value: row.RewardValue, Quantity: "1" };
-    return rewardVisual(reward);
+    return { art: rewardVisual(reward), rarity: itemRarityKey(reward) };
   }
   if (s.poolView === "events" && s.poolSubView === "collector") {
     const petIds = String(row.Pool || "").split(/[;|]/).filter(Boolean);
-    return poolVisualGroup(petIds.map(poolPetArt));
+    const visuals = petIds.map(poolPetVisual).filter(Boolean);
+    return { art: poolVisualGroup(visuals), rarity: visuals.length === 1 ? visuals[0].rarity : "NONE" };
   }
   if (s.poolView === "events" && s.poolSubView === "fuse") {
     const giftIds = String(row.Gift || "").split(";").filter(Boolean);
-    const giftArts = giftIds.map(giftId => {
+    const giftVisuals = giftIds.map(giftId => {
       const reward = giftRewardRows(giftId).find(item => !item.missing);
-      return reward ? rewardVisual(reward) : "";
+      return reward ? { art: rewardVisual(reward), rarity: itemRarityKey(reward) } : null;
     });
-    if (giftArts.some(Boolean)) return poolVisualGroup(giftArts);
+    const resolvedGiftVisuals = giftVisuals.filter(Boolean);
+    if (resolvedGiftVisuals.length) return { art: poolVisualGroup(resolvedGiftVisuals), rarity: resolvedGiftVisuals.length === 1 ? resolvedGiftVisuals[0].rarity : "NONE" };
     const petIds = String(row.Pool || "").split(/[;|]/).filter(Boolean);
-    return poolVisualGroup(petIds.map(poolPetArt));
+    const visuals = petIds.map(poolPetVisual).filter(Boolean);
+    return { art: poolVisualGroup(visuals), rarity: visuals.length === 1 ? visuals[0].rarity : "NONE" };
   }
-  return gameSpriteIconHtml("Pool", "Pool configuration");
+  return { art: gameSpriteIconHtml("Pool", "Pool configuration"), rarity: "NONE" };
 }
 
 function updatePoolRows() {
@@ -210,11 +212,14 @@ function updatePoolRows() {
     return true;
   });
   const end = Math.min(s.poolOffset + POOLS_PAGE_SIZE, rows.length);
-  body.innerHTML = rows.slice(s.poolOffset, end).map(row => '<tr><td class="pool-icon-cell"><span class="pool-row-art">' + poolRowArt(row) + '</span></td>' + model.columns.map(column => {
+  body.innerHTML = rows.slice(s.poolOffset, end).map(row => {
+    const visual = poolRowVisual(row);
+    return '<tr><td class="pool-icon-cell"><span class="pool-row-art ' + rarityBgClass(visual.rarity) + '">' + visual.art + '</span></td>' + model.columns.map(column => {
     const raw = column.value ? column.value(row) : row[column.key];
     const value = formatPoolCell(raw);
     return '<td title="' + esc(value) + '">' + esc(value) + "</td>";
-  }).join("") + "</tr>").join("") || '<tr><td class="empty" colspan="' + (Math.max(1, model.columns.length) + 1) + '">Không có dòng khớp.</td></tr>';
+    }).join("") + "</tr>";
+  }).join("") || '<tr><td class="empty" colspan="' + (Math.max(1, model.columns.length) + 1) + '">Không có dòng khớp.</td></tr>';
   const count = document.getElementById("pool-count"); if (count) count.textContent = Math.min(rows.length, POOLS_PAGE_SIZE) + " / " + rows.length + " dòng";
   const page = document.getElementById("pool-page"); if (page) page.textContent = "Dòng " + (rows.length ? s.poolOffset + 1 : 0) + "–" + end + " / " + rows.length;
   document.querySelectorAll("[data-pool-action]").forEach(button => {

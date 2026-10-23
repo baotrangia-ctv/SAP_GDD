@@ -31,6 +31,35 @@ const gameSpriteImageFiles = {
   summonmythic: "Summon-MYTHIC.png",
   summonapex: "Summon-APEX.png",
 };
+const itemRarityKeys = new Set(["COMMON", "RARE", "EPIC", "LEGENDARY", "MYTHIC", "APEX", "LIMITED", "NONE"]);
+
+function normalizedItemRarity(value) {
+  const key = String(value ?? "").trim().toUpperCase();
+  return itemRarityKeys.has(key) ? key : "NONE";
+}
+
+function rarityBgClass(value) {
+  return "rarity-bg-" + normalizedItemRarity(value);
+}
+
+function itemRarityKey(row) {
+  const [first = ""] = String(row?.Value ?? "").split(";");
+  const type = String(row?.TypeReward ?? "");
+  if (type === "1") {
+    const pet = t("Pet.csv").rows.find(item => String(item.ID) === first);
+    return normalizedItemRarity(pet?.Rarity);
+  }
+  if (type === "4") return normalizedItemRarity(first);
+  if (type === "10") {
+    const mutagen = t("Mutagen.csv").rows.find(item => String(item.ID) === first);
+    return normalizedItemRarity(mutagen?.Rarity);
+  }
+  if (type === "16") {
+    const weatherGen = t("WeatherGen.csv").rows.find(item => String(item.ID) === first);
+    return normalizedItemRarity(weatherGen?.Rarity);
+  }
+  return "NONE";
+}
 
 async function loadRewardDisplayData() {
   if (rewardDisplayData) return rewardDisplayData;
@@ -209,9 +238,9 @@ function rewardDescription(row) {
   if (type === "1") {
     const pet = t("Pet.csv").rows.find(item => String(item.ID) === first);
     const mutation = second && t("mutation.csv").rows.find(item => String(item.ID) === second);
-    const parts = [pet ? pet.Name : ("Pet #" + (first || "?")), pet?.Rarity, mutation && mutation.Name !== "NORMAL" ? mutation.Name : ""].filter(Boolean);
+    const parts = [pet ? pet.Name : ("Pet #" + (first || "?")), pet?.Rarity, mutation && String(mutation.Name).toUpperCase() !== "NORMAL" ? mutation.Name : ""].filter(Boolean);
     if (third) {
-      const weatherIds = third.split(",").map(id => id.trim()).filter(Boolean);
+      const weatherIds = third.split(",").map(id => id.trim()).filter(id => id && Number(id) !== 0);
       const effects = weatherIds.map(id => t("weatherEffects.csv").rows.find(item => String(item.ID) === id)).filter(Boolean);
       const names = effects.map(effect => effect.Name);
       if (weatherIds.length) parts.push("Weather " + (names.join(", ") || "chưa có dữ liệu") + (names.length < weatherIds.length ? " · chưa có dữ liệu" : ""));
@@ -246,8 +275,9 @@ function rewardCardHtml(row) {
   const qty = String(row.Quantity ?? "").trim() || "chưa có";
   const detail = rewardDescription(row);
   const rarityName = type === "4" ? String(row.Value ?? "").split(";")[0] : "";
+  const rarityClassName = rarityBgClass(itemRarityKey(row));
   const rewardReference = row.direct ? "Reward trực tiếp" : "Reward #" + esc(row.ID);
-  return '<article class="reward-item-card"><div class="reward-art">' + rewardVisual(row) + '</div><div class="reward-item-copy"><div class="reward-item-top"><span class="reward-type-tag">' + esc(rewardTypeName(type)) + '</span>' + (rarityName && colors[rarityName] ? rarity(rarityName) : "") + '</div><strong class="reward-item-amount">' + esc(rewardAmountLabel(row)) + '</strong><span class="reward-item-detail">' + esc(detail) + '</span><small>' + rewardReference + ' · Type ' + esc(type) + ' · Quantity ' + esc(qty) + '</small></div></article>';
+  return '<article class="reward-item-card ' + rarityClassName + '"><div class="reward-art ' + rarityClassName + '">' + rewardVisual(row) + '</div><div class="reward-item-copy"><div class="reward-item-top"><span class="reward-type-tag">' + esc(rewardTypeName(type)) + '</span>' + (rarityName && colors[rarityName] ? rarity(rarityName) : "") + '</div><strong class="reward-item-amount">' + esc(rewardAmountLabel(row)) + '</strong><span class="reward-item-detail">' + esc(detail) + '</span><small>' + rewardReference + ' · Type ' + esc(type) + ' · Quantity ' + esc(qty) + '</small></div></article>';
 }
 
 function giftRewardsHtml(giftId) {

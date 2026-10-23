@@ -31,3 +31,11 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Lý do:** Weather effect trên pet/WeatherGen và weather của world là hai catalog/icon set riêng.
 - **Phạm vi:** Sync chỉ copy sprite thời tiết cần dùng vào `dist/assets/weather-icons/`; nếu không tìm thấy nguồn sau hai phép dò tên thì ghi nhận trong `visualAssets.missingWeatherIcons`. Output của sync vẫn bị giới hạn trong `dist/`.
 - **Nguồn:** `EditorGenLib.fcc` · `RotationShopItems.csv` · `weather.csv` · `weatherEffects.csv` · `HudShop.fcg` · `HudRotationShop.fcg` · `RewardManager.fcg`.
+
+## D-005 — Nền item dùng rarity màu game khi có nguồn
+
+- **Trạng thái:** ✅ Quy tắc trình bày từ config game.
+- **Quyết định:** Nền shop Rotation dùng rarity pet/Mutagen từ CSV; WeatherGen dùng cột `Rarity` của `WeatherGen.csv`; reward pet, MutaGen, WeatherGen và pet ngẫu nhiên dùng nguồn tương ứng. Shop thường, weather summon, tiền, Dust, vé và spin giữ rarity NONE, màu `#8DA6B6`.
+- **Lý do:** Rarity chỉ được hiển thị khi có nguồn config; weather effect và weather summon không tự suy ra rarity.
+- **Phạm vi:** Art và viền item dùng palette `PetConfigs.RARITY_COLOR`: COMMON `#8CFF91`, RARE `#4CC8FE`, EPIC `#EA70FF`, LEGENDARY `#FED868`, MYTHIC `#FF6F6F`, APEX `#FF9F43`, LIMITED `#B3CA1F`, NONE `#8DA6B6`.
+- **Nguồn:** `PetConfigs.fcg` · `Mutagen.csv` · `WeatherGen.csv` · `reward.csv` · `RewardManager.fcg`.

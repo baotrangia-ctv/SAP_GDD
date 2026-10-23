@@ -161,12 +161,20 @@ function standardShopItemName(row) {
 function standardShopItemCard(row) {
   const title = standardShopItemName(row);
   const description = pretty(String(row.Description || "").replace(/^HUD_SHOP_DETAILS_/, ""));
-  return '<article class="shop-item-card"><div class="shop-item-card-head"><div class="shop-item-art">' + gameItemVisual(row.Name, title) + '</div><div class="shop-item-title"><span class="event-type-badge">Shop thường</span><h3>' + esc(title) + '</h3><small>Item #' + esc(row.ID) + ' · Sprite ' + esc(row.Name) + '</small></div><strong class="shop-item-price">' + esc(row.Cost || "—") + '<small>cost</small></strong></div><p class="shop-item-description">' + esc(description || "Chưa có mô tả") + '</p><div class="shop-item-meta"><span>Requirement ' + esc(row.Requirement || "0") + ' · raw</span><span>TimeLock ' + esc(row.TimeLock || "—") + ' · raw</span></div></article>';
+  return '<article class="shop-item-card rarity-bg-NONE"><div class="shop-item-card-head"><div class="shop-item-art rarity-bg-NONE">' + gameItemVisual(row.Name, title) + '</div><div class="shop-item-title"><span class="event-type-badge">Shop thường</span><h3>' + esc(title) + '</h3><small>Item #' + esc(row.ID) + ' · Sprite ' + esc(row.Name) + '</small></div><strong class="shop-item-price">' + esc(row.Cost || "—") + '<small>cost</small></strong></div><p class="shop-item-description">' + esc(description || "Chưa có mô tả") + '</p><div class="shop-item-meta"><span>Requirement ' + esc(row.Requirement || "0") + ' · raw</span><span>TimeLock ' + esc(row.TimeLock || "—") + ' · raw</span></div></article>';
 }
 
 function rotationItemPet(row, value) {
   const petId = String(value[0] || "");
   return t("Pet.csv").rows.find(pet => String(pet.ID) === petId);
+}
+
+function rotationItemRarityKey(row, value) {
+  const type = String(row.type);
+  if (type === "1") return itemRarityKey({ TypeReward: "1", Value: value[0] || "" });
+  if (type === "2") return itemRarityKey({ TypeReward: "10", Value: value[0] || "" });
+  if (type === "4") return itemRarityKey({ TypeReward: "16", Value: value[0] || "" });
+  return "NONE";
 }
 
 function rotationItemName(row, value) {
@@ -192,7 +200,7 @@ function rotationItemArt(row, value) {
   if (String(row.type) === "1") {
     const pet = rotationItemPet(row, value);
     if (!pet) return gameSpriteIconHtml("Pet", "Pet #" + (value[0] || "?"));
-    const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]) && item.Name !== "NORMAL") : null;
+    const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]) && String(item.Name).toUpperCase() !== "NORMAL") : null;
     const weatherEffect = value[2] && Number(value[2]) > 0 ? t("weatherEffects.csv").rows.find(item => String(item.ID) === String(value[2])) : null;
     return '<div class="shop-item-pet-visual">' + petImageHtml(pet, "shop-item-pet") + (mutation ? '<span class="shop-item-overlay" title="' + esc(mutation.Name) + '">' + systemIcon(s.data.visualAssets?.mutationIcons, mutation.ID, "✧") + '</span>' : '') + (weatherEffect ? '<span class="shop-item-overlay shop-item-overlay-weather" title="' + esc(weatherEffect.Name) + '">' + systemIcon(s.data.visualAssets?.weatherEffectIcons, weatherEffect.ID, "☁") + '</span>' : '') + '</div>';
   }
@@ -208,16 +216,26 @@ function rotationItemArt(row, value) {
 function rotationShopItemCard(row) {
   const value = String(row.value || "").split(";");
   const pet = String(row.type) === "1" ? rotationItemPet(row, value) : null;
+  const itemRarity = rotationItemRarityKey(row, value);
+  const itemRarityClass = rarityBgClass(itemRarity);
   const mutagen = String(row.type) === "2" ? t("Mutagen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
   const weather = String(row.type) === "3" ? t("weather.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
   const weatherGen = String(row.type) === "4" ? t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
   const typeLabel = pet ? "Pet" : mutagen ? "Mutagen" : weather ? "Summon weather" : weatherGen ? "WeatherGen" : "Type " + row.type;
   const effect = value[2] && Number(value[2]) > 0 ? t("weatherEffects.csv").rows.find(item => String(item.ID) === String(value[2])) : null;
-  const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]) && item.Name !== "NORMAL") : null;
+  const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]) && String(item.Name).toUpperCase() !== "NORMAL") : null;
   const detail = pet ? [pet.Rarity, mutation && "Mutation " + mutation.Name, value[2] && ("Weather " + (effect?.Name || "chưa có dữ liệu"))].filter(Boolean).join(" · ") : weather ? "Weather " + weather.Name : typeLabel;
   const coverage = row.wavePresencePercent == null ? "—" : row.wavePresencePercent.toFixed(1) + "%";
   const discount = row.discountPrice && row.discountPrice !== row.price ? '<s>' + esc(row.price) + '</s> ' + esc(row.discountPrice) : esc(row.discountPrice || row.price || "—");
-  return '<article class="shop-item-card"><div class="shop-item-card-head"><div class="shop-item-art">' + rotationItemArt(row, value) + '</div><div class="shop-item-title"><span class="event-type-badge">Wave ' + esc(row.waveId) + ' · ' + esc(row.durationMinutes) + ' phút</span><h3>' + esc(rotationItemName(row, value)) + '</h3><small>Item #' + esc(row.itemId) + ' · ' + esc(typeLabel) + '</small></div><strong class="shop-item-price">' + discount + '<small>price</small></strong></div><div class="shop-item-description">' + esc(detail || "—") + '</div><div class="shop-item-meta"><span>Stock ×' + esc(row.stock || "—") + '</span><span>Wave coverage ' + esc(row.wavePresenceCount) + '/' + esc(row.waveCount) + ' · ' + esc(coverage) + '</span></div></article>';
+  return '<article class="shop-item-card ' + itemRarityClass + '"><div class="shop-item-card-head"><div class="shop-item-art ' + itemRarityClass + '">' + rotationItemArt(row, value) + '</div><div class="shop-item-title"><span class="event-type-badge">Wave ' + esc(row.waveId) + ' · ' + esc(row.durationMinutes) + ' phút</span><h3>' + esc(rotationItemName(row, value)) + '</h3><small>Item #' + esc(row.itemId) + ' · ' + esc(typeLabel) + '</small></div><strong class="shop-item-price">' + discount + '<small>price</small></strong></div><div class="shop-item-description">' + esc(detail || "—") + '</div><div class="shop-item-meta"><span>Stock ×' + esc(row.stock || "—") + '</span><span>Wave coverage ' + esc(row.wavePresenceCount) + '/' + esc(row.waveCount) + ' · ' + esc(coverage) + '</span></div></article>';
+}
+
+function eventShopItemRarityKey(item) {
+  const reward = giftRewardRows(item.IDGift).find(row => !row.missing);
+  if (reward) return itemRarityKey(reward);
+  const resource = String(item.IconResource || item.NameLocalize || "");
+  const pet = t("Pet.csv").rows.find(row => row.Name === resource || row.Name === item.NameLocalize);
+  return pet ? itemRarityKey({ TypeReward: "1", Value: pet.ID }) : "NONE";
 }
 
 function eventShopItemTitle(item) {
@@ -274,12 +292,11 @@ function eventPoolEntryHtml(entry, pool) {
   const percent = pool.verified && entry.totalWeight > 0 ? weight / entry.totalWeight * 100 : null;
   const digits = percent === null ? 0 : percent >= 1 ? 1 : percent >= 0.1 ? 2 : percent >= 0.01 ? 3 : percent >= 0.001 ? 4 : 6;
   const chance = percent === null ? "Weight " + esc(entry.weight || "—") : Number(percent.toFixed(digits)).toLocaleString("en-US", { maximumFractionDigits: digits }) + "%";
-  const rewardArt = entry.pet ? petImageHtml(entry.pet, "event-pool-pet-art") : (() => {
-    const reward = giftRewardRows(entry.giftId).find(row => !row.missing);
-    return reward ? rewardVisual(reward) : '<span class="reward-art-mark">🎁</span>';
-  })();
+  const reward = entry.pet ? null : giftRewardRows(entry.giftId).find(row => !row.missing);
+  const itemRarity = entry.pet ? itemRarityKey({ TypeReward: "1", Value: entry.pet.ID }) : reward ? itemRarityKey(reward) : "NONE";
+  const rewardArt = entry.pet ? petImageHtml(entry.pet, "event-pool-pet-art") : reward ? rewardVisual(reward) : '<span class="reward-art-mark">🎁</span>';
   const rewardMap = String(entry.giftId || "").trim() ? giftRewardsHtml(entry.giftId) : '<div class="gift-unresolved">Chưa có Gift ID.</div>';
-  return '<article class="event-pool-entry"><div class="event-pool-outcome"><div class="event-pool-art">' + rewardArt + '</div><div><strong>' + chance + '</strong><small>' + esc(entry.detail || ("Pool item #" + entry.id)) + '</small><small>Weight ' + esc(entry.weight || "—") + '</small></div></div>' + rewardMap + '</article>';
+  return '<article class="event-pool-entry"><div class="event-pool-outcome"><div class="event-pool-art ' + rarityBgClass(itemRarity) + '">' + rewardArt + '</div><div><strong>' + chance + '</strong><small>' + esc(entry.detail || ("Pool item #" + entry.id)) + '</small><small>Weight ' + esc(entry.weight || "—") + '</small></div></div>' + rewardMap + '</article>';
 }
 
 function eventRandomPoolHtml(item, data) {
@@ -293,8 +310,9 @@ function eventShopCard(item, data) {
   const release = eventReleaseLabel(item, schedule, data);
   const limit = String(item.Limit ?? "").trim();
   const name = eventShopItemTitle(item);
+  const itemRarityClass = rarityBgClass(eventShopItemRarityKey(item));
   const rewardMapping = String(item.IDGift || "").trim() ? giftRewardsHtml(item.IDGift) : (eventRandomPoolHtml(item, data) || '<div class="event-no-gift">Item này không có Gift ID trực tiếp; reward pool được runtime chọn khi mua.</div>');
-  return '<article class="event-shop-card"><div class="event-shop-card-head"><div class="event-shop-art">' + eventShopItemArt(item) + '</div><div class="event-shop-name"><span class="event-type-badge">' + esc(eventShopItemTypeLabel(item.Name)) + '</span><h3>' + esc(name) + '</h3><small>Item #' + esc(item.ID) + ' · Shop ' + esc(item.ShopId || "—") + '</small></div><strong class="event-shop-cost">' + esc(item.Cost || "—") + '<small>cost</small></strong></div><div class="event-release-tag">◷ ' + esc(release) + '</div>' + rewardMapping + '<div class="event-shop-meta">' + (limit ? '<span>Limit: ' + esc(limit) + '</span>' : '<span>Limit không cấu hình</span>') + '<span>TimeLock: ' + esc(item.TimeLock || "—") + ' · raw</span></div></article>';
+  return '<article class="event-shop-card ' + itemRarityClass + '"><div class="event-shop-card-head"><div class="event-shop-art ' + itemRarityClass + '">' + eventShopItemArt(item) + '</div><div class="event-shop-name"><span class="event-type-badge">' + esc(eventShopItemTypeLabel(item.Name)) + '</span><h3>' + esc(name) + '</h3><small>Item #' + esc(item.ID) + ' · Shop ' + esc(item.ShopId || "—") + '</small></div><strong class="event-shop-cost">' + esc(item.Cost || "—") + '<small>cost</small></strong></div><div class="event-release-tag">◷ ' + esc(release) + '</div>' + rewardMapping + '<div class="event-shop-meta">' + (limit ? '<span>Limit: ' + esc(limit) + '</span>' : '<span>Limit không cấu hình</span>') + '<span>TimeLock: ' + esc(item.TimeLock || "—") + ' · raw</span></div></article>';
 }
 
 function renderShopContent(data) {
@@ -302,9 +320,9 @@ function renderShopContent(data) {
   if (!target) return;
   const f = s.data.codeFacts;
   const caveat = s.shopView === "rotation" ?
-    note("Wave coverage, không phải xác suất", "Phần trăm là số wave trong chu kỳ có item. Mỗi wave lấy danh sách và Count cố định từ RotationShopWaves.csv. Rotation Shop không có trường Rebirth.", "RotationShopConfigs.fcg · RotationShopManager.fcg", "info") :
-    s.shopView === "event" ? note("Event shop", "Chọn loại event để lọc shop. Gift ID được nối với Reward ID; nếu event có timestamp mở item, timeline quy ra ngày tính từ Start của event.", "EventSchedule.csv · shopEventItems.csv · EventShopConfigs.fcg · EventShopManager.fcg · reward.csv", "info") :
-      note("Shop thường · raw config", "Requirement và TimeLock giữ nguyên theo CSV; chưa đổi sang gate hoặc đơn vị khác khi code chưa xác nhận.", "shopItems.csv · ShopItemsConfigs.fcg", "info");
+    note("Wave coverage, không phải xác suất", "Phần trăm là số wave trong chu kỳ có item. Mỗi wave lấy danh sách và Count cố định từ RotationShopWaves.csv. Rotation Shop không có trường Rebirth. Màu nền theo rarity trong game; item không có rarity dùng màu trung tính.", "RotationShopConfigs.fcg · RotationShopManager.fcg", "info") :
+    s.shopView === "event" ? note("Event shop", "Chọn loại event để lọc shop. Gift ID được nối với Reward ID; nếu event có timestamp mở item, timeline quy ra ngày tính từ Start của event. Màu nền item theo rarity có trong config.", "EventSchedule.csv · shopEventItems.csv · EventShopConfigs.fcg · EventShopManager.fcg · reward.csv", "info") :
+      note("Shop thường · raw config", "Requirement và TimeLock giữ nguyên theo CSV; chưa đổi sang gate hoặc đơn vị khác khi code chưa xác nhận. Shop thường không có rarity nên dùng màu nền trung tính.", "shopItems.csv · ShopItemsConfigs.fcg", "info");
   target.innerHTML = '<section class="kpi-grid">' +
     kpi("ROTATION ITEMS", data.itemConfigCount, "RotationShopItems.csv · raw rows") +
     kpi("WAVES", data.waveCount, "RotationShopWaves.csv") +
