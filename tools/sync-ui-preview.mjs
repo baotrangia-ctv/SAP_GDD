@@ -98,7 +98,8 @@ export function syncUiPreview(sourceRoot, gddRoot) {
     const tree = normalize(parsed);
     json(["data", "ui", `${ui.id}.json`], {
       id: ui.id, source: uiRel.replaceAll("\\", "/"), entityCount,
-      referenceSize: null, referenceSizeNote: "chưa có dữ liệu trong .ui; kích thước khung xem là cấu hình preview",
+      referenceSize: { width: tree.transform?.sizeDelta?.x || null, height: tree.transform?.sizeDelta?.y || null },
+      referenceSizeNote: "suy từ sizeDelta của root; độ phân giải tham chiếu engine chưa có dữ liệu",
       tree
     });
     json(["data", "ui", `${ui.id}-sprites.json`], { sprites: [...sprites.values()], missing: [...sprites.values()].filter(item => item.missing), unsupported });

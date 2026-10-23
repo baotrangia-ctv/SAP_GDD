@@ -2,8 +2,11 @@
   "id": "collection",
   "source": "Assets/HUDs/PetsCollection.ui",
   "entityCount": 107,
-  "referenceSize": null,
-  "referenceSizeNote": "chưa có dữ liệu trong .ui; kích thước khung xem là cấu hình preview",
+  "referenceSize": {
+    "width": 1500,
+    "height": 750
+  },
+  "referenceSizeNote": "suy từ sizeDelta của root; độ phân giải tham chiếu engine chưa có dữ liệu",
   "tree": {
     "path": "PetsCollection",
     "id": "CyEjtaLS",
