@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
@@ -12,6 +12,7 @@ if (rootAt < 0 || !args[rootAt + 1]) {
 }
 const sourceRoot = path.resolve(args[rootAt + 1]);
 const gddRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const distRoot = path.resolve(gddRoot, "dist");
 const protectedGameRoot = path.resolve("D:\\Craftland\\StealAPet");
 const csvRoot = path.join(sourceRoot, "Assets", "CSV");
 const outPath = outputPath("dist", "data", "config-snapshot.json");
@@ -86,6 +87,7 @@ function outputPath(...parts) {
   const absolute = path.resolve(gddRoot, ...parts);
   if (isWithin(protectedGameRoot, absolute)) throw new Error("Refusing output under protected game project: " + absolute);
   if (!isWithin(gddRoot, absolute)) throw new Error("Refusing output outside GDD project: " + absolute);
+  if (!isWithin(distRoot, absolute)) throw new Error("Refusing output outside GDD dist: " + absolute);
   return absolute;
 }
 function ensureOutputDir(dir) {
@@ -383,6 +385,31 @@ if (rewardTable && !rewardTable.missing) {
 const petOutputRoot = outputPath("dist", "assets", "pets");
 const actionOutputRoot = outputPath("dist", "assets", "actions");
 const systemIconOutputRoot = outputPath("dist", "assets", "system-icons");
+const weatherSpriteRoot = path.resolve(sourceRoot, "Assets", "Sprites", "Weather");
+const weatherIconOutputRoot = outputPath("dist", "assets", "weather-icons");
+const weatherIcons = {};
+const missingWeatherIcons = [];
+for (const row of byName.get("weather.csv")?.rows ?? []) {
+  const iconName = String(row.Icon ?? "").trim();
+  const candidates = [iconName, iconName.replace(/Weather$/i, "")].filter(Boolean);
+  let sourcePath = "";
+  for (const candidate of candidates) {
+    const possiblePath = path.resolve(weatherSpriteRoot, candidate + ".png");
+    if (isWithin(weatherSpriteRoot, possiblePath) && existsSync(possiblePath)) {
+      sourcePath = possiblePath;
+      break;
+    }
+  }
+  if (!sourcePath) {
+    missingWeatherIcons.push({ id: String(row.ID), name: iconName });
+    continue;
+  }
+  const fileName = path.basename(sourcePath);
+  const destination = outputPath("dist", "assets", "weather-icons", fileName);
+  ensureOutputDir(weatherIconOutputRoot);
+  copyFileSync(sourcePath, destination);
+  weatherIcons[String(row.ID)] = "./assets/weather-icons/" + fileName;
+}
 const iconAliases = { ARCTICFOX: "ARTICFOX" };
 const petIcons = {};
 const missingPetIcons = [];
@@ -692,7 +719,7 @@ const output = {
     { path: "Assets/CSV/Compensate/*", reason: "Player compensation exports are excluded." }
   ],
   tables,
-  visualAssets: { petIcons, missingPetIcons, iconAliases, actionIcons, mutationIcons, weatherEffectIcons, missingSystemIcons },
+  visualAssets: { petIcons, missingPetIcons, iconAliases, actionIcons, mutationIcons, weatherEffectIcons, weatherIcons, missingWeatherIcons, missingSystemIcons },
   recentCommits,
   codeFacts: versionCode,
   findings

@@ -6,9 +6,9 @@ Private design dashboard generated from the checked-in StealAPet config snapshot
 
 Run from this folder:
 
-    node tools/sync-source-data.mjs --project-root "D:\Craftland\StealAPet"
+    node tools/sync-source-data.mjs --project-root "C:\_Code\craftland\StealAPet"
 
-The generator reads an allowlist of balance/progression CSVs and `.fcg` rules from the game checkout, then writes the snapshot and derived JSON under this project's `dist/data/`. The 2,060-row `RotationShopItems.csv` mirror is stored in `dist/data/tables/rotation-shop-items.json`; its schedule join is generated separately in `dist/data/shop-schedule.json`. `reward.csv` is mirrored as `dist/data/tables/rewards.json`, outside the snapshot and loaded only when its page tab opens; `dist/data/missions.json` contains code-verified reward/milestone pairings. It excludes operational gift-code and compensation exports. Existing GDD-local art is referenced when present; sync does not read or write game assets, and never writes into the game checkout.
+The generator reads an allowlist of balance/progression CSVs and `.fcg` rules from the game checkout, then writes the snapshot and derived JSON under this project's `dist/data/`. The 2,060-row `RotationShopItems.csv` mirror is stored in `dist/data/tables/rotation-shop-items.json`; its schedule join is generated separately in `dist/data/shop-schedule.json`. `reward.csv` is mirrored as `dist/data/tables/rewards.json`, outside the snapshot and loaded only when its page tab opens; `dist/data/missions.json` contains code-verified reward/milestone pairings. It excludes operational gift-code and compensation exports. Existing GDD-local pet/system art is referenced when present; sync copies only weather sprites from `Assets/Sprites/Weather` into `dist/assets/weather-icons/`. It never writes into the game checkout or outside this project's `dist/`.
 
 See [CLAUDE.md](CLAUDE.md) for the read-only source boundary, output guard, project map, and change workflow. Design rulings and open engineering follow-ups live in `design/`.
 
@@ -26,11 +26,11 @@ The model follows `PetParadeManager.CalculateRoadSpawnWeights`, `GetPetsCount`, 
 
 ## Shop Schedule
 
-Use **Lịch shop** to filter the Rotation Shop's scheduled items by wave or item ID/type/value. Cards show the pet, mutation or WeatherGen icon, stock, prices, and share of schedule waves containing that item. This is schedule coverage, not a random chance. Standard shop cards use the icon key from `shopItems.csv`. Event shop filters show the event name and Shop ID; item cards map Gift → Reward and visualize `TimeAvailable` relative to the scheduled event start when a schedule exists.
+Use **Lịch shop** to filter the Rotation Shop's scheduled items by wave or item ID/type/value. Cards show the pet, mutation or WeatherGen icon, stock, prices, and share of schedule waves containing that item. This is schedule coverage, not a random chance. Rotation item types follow `RSItemType`: Pet=1, Mutagen=2, Weather=3, WeatherGen=4. Weather=3 and standard-shop `Summon<X>` use the source weather sprite selected by `weather.csv` Icon; pet weather and WeatherGen use `weatherEffects.csv` icons. Standard shop cards otherwise use the icon key from `shopItems.csv`. Event shop filters show the event name and Shop ID; item cards map Gift → Reward and visualize `TimeAvailable` relative to the scheduled event start when a schedule exists.
 
 These pages are read-only views of repository CSV and FC config logic. Mutation and WeatherGen rows use the matching sprite from `Assets/Sprites/Mutations`; weather-effect sprites are joined by the `weatherEffects.csv` icon key. Derived rules are refreshed from `MutagenConfigs.fcg`, `WeatherGenConfigs.fcg`, `WeatherConfigs.fcg`, `LuckyBoxConfigs.fcg`, `LuckyBoxManager.fcg`, and `WeatherManager.fcg` by the same sync script.
 
-Core item and reward sprites used by the standalone shop, Activities rewards, and pool views are bundled under `dist/assets/game-sprites` so the displayed icons match the corresponding client UI.
+Core item and reward sprites used by the standalone shop, Activities rewards, and pool views are bundled under `dist/assets/game-sprites`; source weather sprites are generated into `dist/assets/weather-icons` and keyed by weather ID in `config-snapshot.json`. Weather-effect icons are keyed separately by weather-effect ID from `dist/assets/system-icons`.
 
 ## Missions & Rewards
 

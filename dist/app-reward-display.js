@@ -30,9 +30,6 @@ const gameSpriteImageFiles = {
   summonlegendary: "Summon-LEGENDARY.png",
   summonmythic: "Summon-MYTHIC.png",
   summonapex: "Summon-APEX.png",
-  summonrainy: "SummonRainy.png",
-  summonsnowy: "SummonSnowy.png",
-  summonwindy: "SummonWindy.png"
 };
 
 async function loadRewardDisplayData() {
@@ -160,10 +157,11 @@ function gameItemVisual(spriteName, label) {
   if (mutation) return systemIcon(s.data.visualAssets?.mutationIcons, mutation.ID, "✧");
   const effect = t("weatherEffects.csv").rows.find(row => String(row.Icon || row.Name).toLowerCase() === normalized || String(row.Name).toLowerCase() === normalized);
   if (effect) return systemIcon(s.data.visualAssets?.weatherEffectIcons, effect.ID, "☁");
-  const weather = t("weather.csv").rows.find(row => String(row.Icon || row.Name).toLowerCase() === normalized || String(row.Name).toLowerCase() === normalized);
+  const summonWeatherName = /^summon/i.test(key) ? key.replace(/^summon/i, "").toLowerCase() : "";
+  const weather = t("weather.csv").rows.find(row => String(row.Icon || row.Name).toLowerCase() === normalized || String(row.Name).toLowerCase() === normalized || (summonWeatherName && String(row.Name).toLowerCase() === summonWeatherName));
   if (weather) {
-    const shopSprite = "Summon" + weather.Name;
-    if (gameSpriteImageFiles[shopSprite.toLowerCase()]) return gameSpriteIconHtml(shopSprite, label || weather.Name);
+    const weatherIconPath = s.data.visualAssets?.weatherIcons?.[String(weather.ID)];
+    if (weatherIconPath) return systemIcon(s.data.visualAssets?.weatherIcons, weather.ID, "☁");
     const firstEffectId = String(weather.Effects || "").split(";")[0];
     const weatherEffect = firstEffectId && t("weatherEffects.csv").rows.find(row => String(row.ID) === firstEffectId);
     if (weatherEffect) return systemIcon(s.data.visualAssets?.weatherEffectIcons, weatherEffect.ID, "☁");
@@ -171,12 +169,20 @@ function gameItemVisual(spriteName, label) {
   return gameSpriteIconHtml(key, label);
 }
 
+function rewardPetVisual(pet, rawWeatherIds) {
+  if (!pet) return '<span class="reward-art-mark">🐾</span>';
+  const effects = String(rawWeatherIds ?? "").split(",").map(id => id.trim()).filter(id => /^\d+$/.test(id) && Number(id) > 0)
+    .map(id => t("weatherEffects.csv").rows.find(item => String(item.ID) === id)).filter(Boolean);
+  const weatherIcons = effects.length ? '<span class="reward-pet-weather">' + effects.map(effect => '<span class="reward-pet-weather-icon" title="' + esc(effect.Name) + '">' + systemIcon(s.data.visualAssets?.weatherEffectIcons, effect.ID, "☁") + '</span>').join("") + '</span>' : "";
+  return '<span class="reward-pet-visual">' + petImageHtml(pet, "reward-art-pet") + weatherIcons + '</span>';
+}
+
 function rewardVisual(row) {
-  const [first = "", second = ""] = String(row.Value ?? "").split(";");
+  const [first = "", second = "", third = ""] = String(row.Value ?? "").split(";");
   const type = String(row.TypeReward ?? "");
   if (type === "1") {
     const pet = t("Pet.csv").rows.find(item => String(item.ID) === first);
-    return pet ? petImageHtml(pet, "reward-art-pet") : '<span class="reward-art-mark">🐾</span>';
+    return rewardPetVisual(pet, third);
   }
   if (type === "4") return gameSpriteIconHtml("Summon" + first, "Summon " + (first || "pet"));
   if (type === "6") {
@@ -204,7 +210,12 @@ function rewardDescription(row) {
     const pet = t("Pet.csv").rows.find(item => String(item.ID) === first);
     const mutation = second && t("mutation.csv").rows.find(item => String(item.ID) === second);
     const parts = [pet ? pet.Name : ("Pet #" + (first || "?")), pet?.Rarity, mutation && mutation.Name !== "NORMAL" ? mutation.Name : ""].filter(Boolean);
-    if (third) parts.push("Weather " + third);
+    if (third) {
+      const weatherIds = third.split(",").map(id => id.trim()).filter(Boolean);
+      const effects = weatherIds.map(id => t("weatherEffects.csv").rows.find(item => String(item.ID) === id)).filter(Boolean);
+      const names = effects.map(effect => effect.Name);
+      if (weatherIds.length) parts.push("Weather " + (names.join(", ") || "chưa có dữ liệu") + (names.length < weatherIds.length ? " · chưa có dữ liệu" : ""));
+    }
     if (fourth) parts.push("Level " + fourth);
     return parts.join(" · ");
   }

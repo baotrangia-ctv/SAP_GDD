@@ -172,14 +172,18 @@ function rotationItemPet(row, value) {
 function rotationItemName(row, value) {
   if (String(row.type) === "1") return rotationItemPet(row, value)?.Name || "Pet #" + (value[0] || "?");
   if (String(row.type) === "2") {
-    const gen = t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0]));
-    const effect = gen && t("weatherEffects.csv").rows.find(item => String(item.ID) === String(gen.WeatherEffect));
-    return effect?.Name || "WeatherGen #" + (value[0] || "?");
-  }
-  if (String(row.type) === "3") {
     const mutagen = t("Mutagen.csv").rows.find(item => String(item.ID) === String(value[0]));
     const mutation = mutagen && t("mutation.csv").rows.find(item => String(item.ID) === String(mutagen.Mutation));
     return mutation?.Name || "Mutagen #" + (value[0] || "?");
+  }
+  if (String(row.type) === "3") {
+    const weather = t("weather.csv").rows.find(item => String(item.ID) === String(value[0]));
+    return weather ? "Summon " + weather.Name : "Summon weather #" + (value[0] || "?");
+  }
+  if (String(row.type) === "4") {
+    const gen = t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0]));
+    const effect = gen && t("weatherEffects.csv").rows.find(item => String(item.ID) === String(gen.WeatherEffect));
+    return effect?.Name || "WeatherGen #" + (value[0] || "?");
   }
   return "Item #" + row.itemId;
 }
@@ -188,22 +192,29 @@ function rotationItemArt(row, value) {
   if (String(row.type) === "1") {
     const pet = rotationItemPet(row, value);
     if (!pet) return gameSpriteIconHtml("Pet", "Pet #" + (value[0] || "?"));
-    const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1])) : null;
-    const weather = value[2] ? t("weather.csv").rows.find(item => String(item.ID) === String(value[2])) : null;
-    return '<div class="shop-item-pet-visual">' + petImageHtml(pet, "shop-item-pet") + (mutation ? '<span class="shop-item-overlay" title="' + esc(mutation.Name) + '">' + systemIcon(s.data.visualAssets?.mutationIcons, mutation.ID, "✧") + '</span>' : '') + (weather ? '<span class="shop-item-overlay shop-item-overlay-weather" title="' + esc(weather.Name) + '">' + gameItemVisual(weather.Icon || weather.Name, weather.Name) + '</span>' : '') + '</div>';
+    const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]) && item.Name !== "NORMAL") : null;
+    const weatherEffect = value[2] && Number(value[2]) > 0 ? t("weatherEffects.csv").rows.find(item => String(item.ID) === String(value[2])) : null;
+    return '<div class="shop-item-pet-visual">' + petImageHtml(pet, "shop-item-pet") + (mutation ? '<span class="shop-item-overlay" title="' + esc(mutation.Name) + '">' + systemIcon(s.data.visualAssets?.mutationIcons, mutation.ID, "✧") + '</span>' : '') + (weatherEffect ? '<span class="shop-item-overlay shop-item-overlay-weather" title="' + esc(weatherEffect.Name) + '">' + systemIcon(s.data.visualAssets?.weatherEffectIcons, weatherEffect.ID, "☁") + '</span>' : '') + '</div>';
   }
-  if (String(row.type) === "2") return rewardVisual({ TypeReward: "16", Value: value[0] || "", Quantity: "1" });
-  if (String(row.type) === "3") return rewardVisual({ TypeReward: "10", Value: value[0] || "", Quantity: "1" });
+  if (String(row.type) === "2") return rewardVisual({ TypeReward: "10", Value: value[0] || "", Quantity: "1" });
+  if (String(row.type) === "3") {
+    const weather = t("weather.csv").rows.find(item => String(item.ID) === String(value[0]));
+    return weather ? gameItemVisual(weather.Icon || weather.Name, "Summon " + weather.Name) : gameSpriteIconHtml("Weather", "Weather #" + (value[0] || "?"));
+  }
+  if (String(row.type) === "4") return rewardVisual({ TypeReward: "16", Value: value[0] || "", Quantity: "1" });
   return gameSpriteIconHtml("ShopItem", "Item #" + row.itemId);
 }
 
 function rotationShopItemCard(row) {
   const value = String(row.value || "").split(";");
   const pet = String(row.type) === "1" ? rotationItemPet(row, value) : null;
-  const mutagen = String(row.type) === "3" ? t("Mutagen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
-  const weatherGen = String(row.type) === "2" ? t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
-  const typeLabel = pet ? "Pet" : mutagen ? "Mutagen" : weatherGen ? "WeatherGen" : "Type " + row.type;
-  const detail = pet ? [pet.Rarity, value[1] && value[1] !== "0" ? "Mutation " + (t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]))?.Name || value[1]) : "", value[2] ? "Weather " + (t("weather.csv").rows.find(item => String(item.ID) === String(value[2]))?.Name || value[2]) : ""].filter(Boolean).join(" · ") : typeLabel;
+  const mutagen = String(row.type) === "2" ? t("Mutagen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
+  const weather = String(row.type) === "3" ? t("weather.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
+  const weatherGen = String(row.type) === "4" ? t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
+  const typeLabel = pet ? "Pet" : mutagen ? "Mutagen" : weather ? "Summon weather" : weatherGen ? "WeatherGen" : "Type " + row.type;
+  const effect = value[2] && Number(value[2]) > 0 ? t("weatherEffects.csv").rows.find(item => String(item.ID) === String(value[2])) : null;
+  const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]) && item.Name !== "NORMAL") : null;
+  const detail = pet ? [pet.Rarity, mutation && "Mutation " + mutation.Name, value[2] && ("Weather " + (effect?.Name || "chưa có dữ liệu"))].filter(Boolean).join(" · ") : weather ? "Weather " + weather.Name : typeLabel;
   const coverage = row.wavePresencePercent == null ? "—" : row.wavePresencePercent.toFixed(1) + "%";
   const discount = row.discountPrice && row.discountPrice !== row.price ? '<s>' + esc(row.price) + '</s> ' + esc(row.discountPrice) : esc(row.discountPrice || row.price || "—");
   return '<article class="shop-item-card"><div class="shop-item-card-head"><div class="shop-item-art">' + rotationItemArt(row, value) + '</div><div class="shop-item-title"><span class="event-type-badge">Wave ' + esc(row.waveId) + ' · ' + esc(row.durationMinutes) + ' phút</span><h3>' + esc(rotationItemName(row, value)) + '</h3><small>Item #' + esc(row.itemId) + ' · ' + esc(typeLabel) + '</small></div><strong class="shop-item-price">' + discount + '<small>price</small></strong></div><div class="shop-item-description">' + esc(detail || "—") + '</div><div class="shop-item-meta"><span>Stock ×' + esc(row.stock || "—") + '</span><span>Wave coverage ' + esc(row.wavePresenceCount) + '/' + esc(row.waveCount) + ' · ' + esc(coverage) + '</span></div></article>';

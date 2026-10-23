@@ -23,3 +23,11 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Quyết định:** Có thể hiển thị gate và giá trị cấu hình; không đưa ra phút tới mục tiêu hoặc kết luận retention nếu chưa xác nhận logic income và có dữ liệu phù hợp.
 - **Lý do:** CSV Rebirth và spawn chưa đủ mô tả thu nhập trong base, hành vi trộm/phòng thủ hoặc thời gian chơi thực tế.
 - **Nguồn:** `README.md` phần Data boundaries; `plans/PLAN-features-from-pvz.md` F10 và §5.
+
+## D-004 — Map Rotation Shop và icon thời tiết theo enum nguồn
+
+- **Trạng thái:** ✅ Đã xác nhận từ `RSItemType`, CSV và UI game.
+- **Quyết định:** Rotation Shop dùng Pet=1, Mutagen=2, Weather=3, WeatherGen=4. Pet weather và WeatherGen lấy icon từ `weatherEffects.csv`; item Weather và shop thường `Summon<X>` lấy icon thời tiết gốc qua `weather.csv` → `Assets/Sprites/Weather`.
+- **Lý do:** Weather effect trên pet/WeatherGen và weather của world là hai catalog/icon set riêng.
+- **Phạm vi:** Sync chỉ copy sprite thời tiết cần dùng vào `dist/assets/weather-icons/`; nếu không tìm thấy nguồn sau hai phép dò tên thì ghi nhận trong `visualAssets.missingWeatherIcons`. Output của sync vẫn bị giới hạn trong `dist/`.
+- **Nguồn:** `EditorGenLib.fcc` · `RotationShopItems.csv` · `weather.csv` · `weatherEffects.csv` · `HudShop.fcg` · `HudRotationShop.fcg` · `RewardManager.fcg`.

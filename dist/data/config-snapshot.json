@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T18:06:55.406Z",
+  "generatedAt": "2026-10-23T00:39:36.113Z",
   "sourceLabel": "StealAPet repository",
   "sourceBranch": "dev",
   "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34",
@@ -11097,6 +11097,20 @@
       "9": "./assets/system-icons/Sparkle.png",
       "10": "./assets/system-icons/Aurora.png"
     },
+    "weatherIcons": {
+      "1": "./assets/weather-icons/Rainy.png",
+      "2": "./assets/weather-icons/Snowy.png",
+      "3": "./assets/weather-icons/Windy.png",
+      "4": "./assets/weather-icons/Shadowfall.png",
+      "5": "./assets/weather-icons/Rainbow.png",
+      "6": "./assets/weather-icons/Tempest.png",
+      "7": "./assets/weather-icons/NebulaWeather.png",
+      "8": "./assets/weather-icons/HighTideWeather.png",
+      "9": "./assets/weather-icons/HeavyRainWeather.png",
+      "10": "./assets/weather-icons/GroundShakeWeather.png",
+      "11": "./assets/weather-icons/GiftboxStormWeather.png"
+    },
+    "missingWeatherIcons": [],
     "missingSystemIcons": []
   },
   "recentCommits": [
