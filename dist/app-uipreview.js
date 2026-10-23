@@ -12,7 +12,7 @@ function uiTranslate(key, args = []) {
 function uiPreviewPage() {
   return '<div class="ui-preview-page"><div class="section-heading"><div><p class="eyebrow">UI GAME</p><h1>UI Preview</h1><p>HUD dựng từ cây entity của game. Dữ liệu người chơi trong trang này là mô phỏng.</p></div></div>' +
     '<div id="ui-preview-tabs" class="ui-preview-tabs"></div>' +
-    '<div class="ui-preview-toolbar"><button id="ui-open-toggle" type="button">Đóng UI</button><label>Ngôn ngữ <select id="ui-language"><option value="vi">Tiếng Việt</option><option value="en">English</option></select></label><label>Tỉ lệ khung <select id="ui-preview-aspect"><option value="16:9">16:9</option><option value="18:9" selected>18:9</option><option value="20:9">20:9</option><option value="4:3">4:3</option></select></label><label><input id="ui-debug" type="checkbox"> Debug entity</label><label><input id="ui-show-inactive" type="checkbox"> Hiện inactive</label><span id="ui-preview-meta">Đang tải…</span></div>' +
+    uiStageToolbar() +
     '<div id="ui-preview-workspace" class="ui-preview-workspace"><div id="ui-preview-stage" class="ui-preview-stage"></div><aside id="ui-player-panel" class="ui-player-panel"></aside></div>' +
     '<section id="ui-resource-panel" class="ui-resource-panel"><h2>Resource đang dùng</h2><label>Tìm entity/path <input id="ui-resource-search" type="search" placeholder="Tên hoặc đường dẫn"></label><div class="ui-resource-scroll"><table><thead><tr><th>Entity / path</th><th>Sprite</th><th>Trạng thái</th><th>Alpha .ui / web</th><th>Image / màu</th><th>Text / localization</th></tr></thead><tbody id="ui-resource-rows"></tbody></table></div></section></div>';
 }
@@ -40,10 +40,9 @@ async function updateUiPreviewPage() {
     uiPreview.width = screen.referenceSize?.width || 1280;
     uiPreview.height = screen.referenceSize?.height || 720;
     try { localStorage.setItem("uiPreviewScreen", "collection"); } catch {}
-    const rendered = uiRenderer.render(screen, manifest, uiPreview.width, uiPreview.height);
-    uiPreview.rendered = rendered;
     const stage = document.getElementById("ui-preview-stage");
-    stage.replaceChildren(rendered.canvas);
+    const rendered = uiStageMount(stage, uiPreview);
+    uiPreview.rendered = rendered;
     document.getElementById("ui-preview-aspect").value = uiPreview.aspect;
     document.getElementById("ui-preview-meta").textContent = `${screen.entityCount} entity · ${manifest.missing.length} sprite thiếu · root ${uiPreview.width}×${uiPreview.height} từ .ui · khung ${uiPreview.aspect}; scaler và safe area chưa xác minh`;
     scaleUiPreview();
@@ -59,26 +58,7 @@ async function updateUiPreviewPage() {
 function renderUiResourcePanel() {
   const tbody = document.getElementById("ui-resource-rows");
   if (!tbody || !uiPreview.screen) return;
-  const rows = [];
-  function walk(node, parentAlpha = 1) {
-    const effectiveAlpha = parentAlpha * (node.alpha ?? 100) / 100;
-    if (node.image || node.button || node.text) {
-      const data = node.image || node.button || {};
-      const element = uiPreview.rendered?.byId.get(node.id);
-      const runtimeUrl = element?.dataset.uiRuntimeUrl || "";
-      const key = element?.dataset.uiSpriteKey || data.spriteKey || "";
-      const sprite = uiPreview.manifest.sprites.find(item => item.key === key);
-      const text = node.text;
-      const color = node.button ? `normal ${node.button.normal || ""} · pressed ${node.button.pressed || ""} · disabled ${node.button.disabled || ""}` : (data.color || "");
-      const kind = ({ 0: "simple", 1: "sliced", 2: "tiled", 3: "fill", 5: "fit" })[data.fillType] || "";
-      const border = sprite?.border ? `${sprite.border.left}/${sprite.border.right}/${sprite.border.top}/${sprite.border.bottom}` : "—";
-      const shown = uiPreview.rendered?.byId.get(node.id)?.querySelector(":scope > .ui-text")?.textContent;
-      const label = text ? `${text.key || "chuỗi thô"} · ${shown ?? uiTranslate(text.key || text.value)} · ${text.fontSize || "?"}px${text.outline ? " · outline" : ""}` : "";
-      rows.push(`<tr data-resource-id="${esc(node.id)}" data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${runtimeUrl || sprite?.output ? `<img src="${esc(runtimeUrl || sprite.output)}" alt="">` : ""}${esc(runtimeUrl ? runtimeUrl.split("/").at(-1) : key.split("/").at(-1) || "—")}<small>${esc(runtimeUrl || key || "")}</small></td><td>${runtimeUrl ? "Runtime" : key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${node.alpha ?? 100}%<small>Web cộng dồn: ${Number((effectiveAlpha * 100).toFixed(4))}% · cascade game chưa xác minh</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
-    }
-    node.children.forEach(child => walk(child, effectiveAlpha));
-  }
-  walk(uiPreview.screen.tree);
+  const rows = uiResourceRows(uiPreview);
   // Keep row nodes and scroll geometry stable during gameplay updates.
   const filter = document.getElementById("ui-resource-search")?.value.toLocaleLowerCase() || "";
   const existing = new Map([...tbody.rows].map(row => [row.dataset.resourceId, row]));
@@ -116,17 +96,7 @@ function scaleUiPreview() {
   const stage = document.getElementById("ui-preview-stage");
   const canvas = uiPreview.rendered?.canvas;
   if (!stage || !canvas) return;
-  const [ratioWidth, ratioHeight] = uiPreview.aspect.split(":").map(Number);
-  const ratio = ratioWidth / ratioHeight;
-  const frameWidth = stage.clientWidth;
-  if (!frameWidth) return;
-  stage.style.aspectRatio = `${ratioWidth} / ${ratioHeight}`;
-  stage.style.height = `${frameWidth / ratio}px`;
-  const frameHeight = stage.clientHeight;
-  const scale = Math.max(frameWidth / uiPreview.width, frameHeight / uiPreview.height);
-  canvas.style.left = `${(frameWidth - uiPreview.width * scale) / 2}px`;
-  canvas.style.top = `${(frameHeight - uiPreview.height * scale) / 2}px`;
-  canvas.style.transform = `scale(${scale})`;
+  uiStageScale(stage, canvas, uiPreview);
 }
 
 window.addEventListener("resize", scaleUiPreview);
