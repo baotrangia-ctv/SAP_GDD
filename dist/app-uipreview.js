@@ -39,9 +39,21 @@ async function updateUiPreviewPage() {
     document.getElementById("ui-preview-meta").textContent = `${screen.entityCount} entity · ${manifest.missing.length} sprite thiếu · khung ${uiPreview.width}×${uiPreview.height} suy từ root (.ui); độ phân giải engine chưa xác minh`;
     scaleUiPreview();
     if (typeof initCollectionPreview === "function") initCollectionPreview(screen, rules, rendered);
+    const audit = auditUiPreviewDom(screen.tree, rendered.canvas);
+    document.getElementById("ui-preview-meta").dataset.uiAudit = JSON.stringify(audit);
+    document.getElementById("ui-preview-meta").textContent += ` · DOM ${audit.actual}/${audit.expected}, lệch ${audit.mismatches}`;
   } catch (error) {
     document.getElementById("ui-preview-stage").textContent = "Không tải được UI Preview: " + error.message;
   }
+}
+
+function auditUiPreviewDom(tree, canvas) {
+  const source = [];
+  function collect(node) { source.push(`${node.id}\t${node.path}\t${node.type}`); node.children.forEach(collect); }
+  collect(tree);
+  const dom = [...canvas.querySelectorAll("[data-ui-path]")].map(el => `${el.dataset.uiId}\t${el.dataset.uiPath}\t${el.dataset.uiType}`);
+  const sourceSet = new Set(source), domSet = new Set(dom);
+  return { expected: source.length, actual: dom.length, mismatches: source.filter(x => !domSet.has(x)).length + dom.filter(x => !sourceSet.has(x)).length };
 }
 
 function checkUiJson(response) {
