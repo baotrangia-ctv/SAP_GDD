@@ -674,7 +674,7 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 .ui-canvas{position:absolute;top:0;left:0;transform-origin:top left;isolation:isolate}
 .ui-entity{isolation:isolate;position:absolute;box-sizing:border-box;min-width:0;min-height:0;padding:0;margin:0;border:0;background:transparent;color:inherit;overflow:visible}
 .ui-entity:not(button){pointer-events:none}
-button.ui-entity{font:inherit;pointer-events:auto}
+button.ui-entity{font:inherit;pointer-events:auto;touch-action:manipulation}
 button.ui-entity[data-ui-hit-target="false"]{pointer-events:none}
 .ui-visual{position:absolute;inset:0;pointer-events:none;isolation:isolate}
 .ui-entity.ui-inactive{display:none}
@@ -688,7 +688,6 @@ button.ui-entity[data-ui-hit-target="false"]{pointer-events:none}
 .ui-flip-y>.ui-visual>.ui-sprite{transform:scaleY(-1)}
 .ui-debug .ui-entity{outline:1px solid #ffaf4a88}
 .ui-closed>.ui-entity{display:none}
-.ui-tab-active{filter:brightness(1.18);outline:2px solid #fff9}
 .ui-player-panel{border:1px solid #3c4c65;border-radius:12px;padding:14px;background:#152238;color:#eaf2ff}
 .ui-player-panel h2{font-size:17px;margin:0 0 8px}.ui-player-panel p{font-size:12px;color:#aec2d8}
 .ui-player-panel label{display:block;margin:9px 0;font-size:13px}.ui-player-panel input,.ui-player-panel select{max-width:100%}

@@ -18,6 +18,7 @@ function initCollectionPreview(screen, rules, rendered) {
   const mwLayout = named("MWLayout");
   let petCards = [petTemplate];
   let mwIcons = [mwTemplate];
+  const rarityColor = value => rules.rarityColors?.values?.[String(value).toUpperCase()]?.value || "#FFFFFF";
   const icon = (set, id) => set?.[String(id)] || "";
   const hash = (value, seed) => { let n = seed | 0; for (const ch of String(value)) n = Math.imul(n ^ ch.charCodeAt(0), 16777619); return n >>> 0; };
   const petOwned = pet => state.mode === "all" || (state.mode === "random" && hash(pet.ID, state.seed) % 2 === 0) || (state.mode === "custom" && state.customPets.has(pet.ID));
@@ -27,10 +28,9 @@ function initCollectionPreview(screen, rules, rendered) {
   function setImage(el, url, dark = false) {
     if (!el) return;
     el.dataset.uiRuntimeUrl = url || "";
-    const img = el.querySelector(":scope > .ui-visual > .ui-sprite") || document.createElement("img");
-    if (!img.parentElement) { img.className = "ui-sprite"; img.alt = ""; el.querySelector(":scope > .ui-visual").prepend(img); }
-    if (url) { img.src = url; img.style.display = "block"; } else img.style.display = "none";
-    img.style.filter = dark ? "brightness(0.12)" : "none";
+    const source = screenEntity(el)?.image || {};
+    const color = typeof dark === "string" ? dark : dark ? rules.unowned.tint : source.color || "#FFFFFF";
+    uiRenderer.setImage(el, url, { ...source, color });
   }
   function updateTabVisuals(group, activeName) {
     const config = rules.tabVisuals?.[group];
@@ -46,7 +46,7 @@ function initCollectionPreview(screen, rules, rendered) {
       if (label) label.style.color = active ? config.selectedTextColor : config.normalTextColor;
     }
   }
-  function screenEntity(el) { const path = el?.dataset.uiPath; if (!path) return null; const parts = path.split("/").slice(1); let node = screen.tree; for (const part of parts) node = node?.children.find(child => child.name === part); return node; }
+  function screenEntity(el) { const path = el?.dataset.uiPath || el?.dataset.uiClonePath; if (!path) return null; const parts = path.split("/").slice(1); let node = screen.tree; for (const part of parts) node = node?.children.find(child => child.name === part); return node; }
   function directChild(root, name) { return root ? [...root.children].find(el => el.dataset.uiName === name) : null; }
   function cloneTemplate(template, container) {
     const clone = template.cloneNode(true);
@@ -93,7 +93,7 @@ function initCollectionPreview(screen, rules, rendered) {
     setText(directChild(card, "Name"), owned ? pet.Name : rules.unowned.name);
     setImage(directChild(card, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
     const rarity = directChild(card, "Rarity");
-    if (rarity) { rarity.querySelector(":scope > .ui-visual").style.backgroundColor = owned ? (colors[pet.Rarity] || "#8DA6B6") : rules.unowned.tint; rarity.querySelector(":scope > .ui-visual > .ui-sprite")?.setAttribute("style", "display:none"); }
+    if (rarity) uiRenderer.tint(rarity, owned ? rarityColor(pet.Rarity) : rules.unowned.tint);
     const hasMW = directChild(card, "HasMW");
     setText(directChild(hasMW, "Count"), mutationRows.filter(row => effectOwned(pet, row, "mutation")).length + weatherRows.filter(row => effectOwned(pet, row, "weather")).length);
     setVisible(directChild(card, "SelectBorder"), pet.ID === state.selected?.ID);
@@ -121,7 +121,11 @@ function initCollectionPreview(screen, rules, rendered) {
     setImage(directChild(detailPet, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
     setText(directChild(detailPet, "Name"), owned ? pet.Name : rules.unowned.name);
     const rarity = directChild(detailPet, "RarityBG");
-    if (rarity) rarity.querySelector(":scope > .ui-visual").style.backgroundColor = colors[pet.Rarity] || "#8DA6B6";
+    if (rarity) {
+      const color = rarityColor(pet.Rarity);
+      uiRenderer.tint(rarity, color);
+      uiRenderer.setTextOutlineColor(directChild(rarity, "RarityName"), color);
+    }
     setText(directChild(rarity, "RarityName"), `RARITY_${pet.Rarity}`);
     setVisible(named("Obtain"), owned);
     setVisible(unlock, !owned);
@@ -151,6 +155,8 @@ function initCollectionPreview(screen, rules, rendered) {
         const isSpecific = index === 1 && previous && isSecret;
         setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? uiTranslate("ANY_RARITY", [uiTranslate(`RARITY_${previous.Rarity}`)]) : "chưa có dữ liệu");
         setImage(directChild(item, "Thumbnail"), isSpecific ? icon(iconSets.petIcons, previous.ID) : "");
+        const materialRarity = directChild(item, "Rarity");
+        if (materialRarity) uiRenderer.tint(materialRarity, rarityColor(isSpecific ? previous.Rarity : pet.Rarity));
         const redirect = item.querySelector('button[data-ui-hit-target="true"]');
         if (redirect) {
           redirect.dataset.uiRecipeTarget = isSpecific ? previous.ID : "";
@@ -172,11 +178,8 @@ function initCollectionPreview(screen, rules, rendered) {
     while (mwIcons.length < rows.length) mwIcons.push(cloneTemplate(mwTemplate, mwLayout));
     mwIcons.forEach((el, i) => {
       const row = rows[i]; setVisible(el, !!row); if (!row) return;
-      el.style.left = `${(i % rules.mwGrid.columns) * rules.mwGrid.size}px`;
-      el.style.top = `${Math.floor(i / rules.mwGrid.columns) * (rules.mwGrid.size + rules.mwGrid.verticalSpacing)}px`;
-      setImage(el, state.detailTab === "Weathers" ? icon(iconSets.weatherEffectIcons, row.ID) : icon(iconSets.mutationIcons, row.ID));
-      const img = el.querySelector(":scope > .ui-visual > .ui-sprite");
-      if (img) img.style.filter = effectOwned(pet, row, state.detailTab === "Weathers" ? "weather" : "mutation") ? "none" : "brightness(.27)";
+      const ownedEffect = effectOwned(pet, row, state.detailTab === "Weathers" ? "weather" : "mutation");
+      setImage(el, state.detailTab === "Weathers" ? icon(iconSets.weatherEffectIcons, row.ID) : icon(iconSets.mutationIcons, row.ID), ownedEffect ? rules.details.ownedIconColor : rules.details.unownedIconColor);
     });
     document.querySelectorAll("[data-ui-custom-effect]").forEach(el => el.checked = (el.dataset.uiCustomEffect === "mutation" ? state.customMutations : state.customWeathers).has(`${pet.ID}/${el.value}`));
     const customPet = document.getElementById("ui-custom-pet"); if (customPet) customPet.checked = state.customPets.has(pet.ID);
@@ -194,10 +197,6 @@ function initCollectionPreview(screen, rules, rendered) {
     updateDetails(); updateCounters();
     if (state.loading) { petCards.forEach(card => setVisible(card, false)); [named("PetDetails"), named("DetailsTabsLayout"), named("Info"), named("MutationsWeathers")].forEach(el => setVisible(el, false)); }
     updateTabVisuals("rarity", `${state.rarity[0]}${state.rarity.slice(1).toLowerCase()}TabButton`);
-    for (const [rarity, config] of Object.entries(rules.rarityTabs)) {
-      const tab = named(`${rarity[0]}${rarity.slice(1).toLowerCase()}TabButton`);
-      if (tab) tab.classList.toggle("ui-tab-active", state.rarity === rarity);
-    }
     if (typeof renderUiResourcePanel === "function") renderUiResourcePanel();
   }
   function selectPage(page) {

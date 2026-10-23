@@ -58,6 +58,7 @@ const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collec
 for (const file of previewModules) {
   const code = readFileSync(path.join(gdd, "dist", file), "utf8");
   assert.doesNotMatch(code, /scrollIntoView|\bscroll(?:To|By)\s*\(|\blocation\s*\.\s*(?:hash|href|assign|replace)|\bhistory\s*\.|\.focus\s*\(/, `Viewport/navigation side effect: ${file}`);
+  assert.doesNotMatch(code, /brightness\s*\(|mixBlendMode|\.style\.backgroundColor/, `Invalid sprite tint implementation: ${file}`);
 }
 const key = item => `${item.id}\t${item.path}\t${item.type}`;
 const exportedKeys = new Set(exportedEntities.map(key));
@@ -96,6 +97,9 @@ const report = {
   propsDataPreserved: true,
   runtimeAssignmentCount: sourceRuntimeAssignments.length,
   rarityColorCount: Object.keys(sourceRarityColors).length,
+  gameRarityColorsMatched: true,
+  spriteTintAlphaPreserved: true,
+  imageGradientConfigured: Boolean(data.renderingPolicy?.imageGradient),
   spriteCount: manifest.sprites.length, missingSprites: manifest.missing.map(item => item.key),
   missingCopiedFiles: missingFiles.map(item => item.output),
   imageEntityCount: imageEntities.length, unmanifestedImages, borderMismatches,

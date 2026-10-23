@@ -126,7 +126,11 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       renderingPolicy: {
         alpha: "subtree-composite", alphaStatus: "existing web approximation retained; runtime cascade unverified",
         hitTest: "button-rect-unless-disableCollider", hitTestStatus: "DisableCollider documented; alpha threshold and image blocking unverified",
-        stacking: "source-tree-order", stackingStatus: "all source priorities are zero; engine depth ordering unverified"
+        stacking: "source-tree-order", stackingStatus: "all source priorities are zero; engine depth ordering unverified",
+        tint: "per-pixel RGB multiplication by Color with source sprite alpha retained",
+        tintStatus: "matches requested blend model; Craftland runtime pixel output not verified",
+        imageGradient: "vertical interpolation from GradientTop to GradientBottom when gradient is nonzero",
+        imageGradientStatus: "MCP documents top/bottom gradient colors; numeric mode semantics and runtime output are unverified"
       },
       tree
     });

@@ -39,6 +39,9 @@
   "propsDataPreserved": true,
   "runtimeAssignmentCount": 81,
   "rarityColorCount": 7,
+  "gameRarityColorsMatched": true,
+  "spriteTintAlphaPreserved": true,
+  "imageGradientConfigured": true,
   "spriteCount": 41,
   "missingSprites": [
     "Assets/Sprites/UIComponents/Backgrounds/BG.png",

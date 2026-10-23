@@ -54,3 +54,18 @@ RGB gradient, tint, text outline/shadow vẫn thuộc giới hạn DA-003/006.
 Bảng ghi alpha gốc và alpha cộng dồn web; không báo alpha hiệu dụng game
 khi chưa biết cascade. Cần kiểm runtime bốn entity và vùng chồng lấn trước
 khi đóng DA-009 hoặc tuyên bố khớp game.
+
+## DA-010 · UI image tint/gradient output (2026-10-23)
+
+MCP Craftland `脚本手册/UGC_Wiki_Entities` xác nhận `UIWidgetImage.Color`
+là `Color`; `Gradient` là `int`; `GradientTop` và `GradientBottom` là hai
+màu ở đầu/trên và cuối/dưới. Tài liệu không liệt kê ý nghĩa số của các mode
+`Gradient`. Trong `PetsCollection.ui`, 9 image dùng `gradient=1`, một image
+dùng `gradient=2`; mọi màu đầu/cuối có alpha 1.
+
+Preview dùng phép nhân từng kênh RGB giữa pixel sprite, `Color` và nội suy
+dọc từ `gradientTop` đến `gradientBottom` khi `gradient > 0`; alpha sprite
+được giữ nguyên. Đây là mô hình preview theo cấu trúc trường `.ui`, chưa được
+đối chiếu pixel với runtime. Cần xác minh các mode gradient 1/2, phép nhân
+Color và kết quả trên sprite 9-grid bằng Editor hoặc ảnh runtime trước khi
+tuyên bố parity.
