@@ -14,35 +14,37 @@ const uiRenderer = (() => {
     const anchorY = parent.height * (a.y + (b.y - a.y) * p.y);
     return { left: anchorX + pos.x - width * p.x, top: parent.height - anchorY - pos.y - height * (1 - p.y), width, height };
   }
-  function spriteUrl(key, manifest) { return manifest.sprites.find(item => item.key === key)?.output || null; }
+  function spriteEntry(key, manifest) { return manifest.sprites.find(item => item.key === key); }
   function graphic(el, data, manifest) {
     if (!data) return;
-    const url = spriteUrl(data.spriteKey, manifest);
+    const entry = spriteEntry(data.spriteKey, manifest);
+    const url = entry?.output;
     if (url) {
-      const img = document.createElement("img");
-      img.className = "ui-sprite";
-      img.src = url;
-      img.alt = "";
-      img.draggable = false;
-      el.appendChild(img);
-      const border = data.slicedBorder;
-      if (border && Object.values(border).some(Number)) {
-        img.classList.add("ui-sliced");
-        img.style.borderWidth = `${border.top}px ${border.right}px ${border.bottom}px ${border.left}px`;
-        img.style.borderImageSource = `url("${url}")`;
-        img.style.borderImageSlice = `${border.top} ${border.right} ${border.bottom} ${border.left} fill`;
+      const sliced = data.fillType === 1 && (data.enableBorderImage !== false);
+      const border = entry.border;
+      const visual = document.createElement(sliced && border && Object.values(border).some(Number) ? "div" : "img");
+      visual.className = "ui-sprite";
+      if (visual.tagName === "IMG") { visual.src = url; visual.alt = ""; visual.draggable = false; }
+      else {
+        visual.classList.add("ui-sliced");
+        visual.style.borderWidth = `${border.top}px ${border.right}px ${border.bottom}px ${border.left}px`;
+        visual.style.borderImageSource = `url("${url}")`;
+        visual.style.borderImageSlice = `${border.top} ${border.right} ${border.bottom} ${border.left} ${data.centerInvisible ? "" : "fill"}`.trim();
+        visual.style.borderImageRepeat = data.fillType === 2 ? "repeat" : "stretch";
       }
+      el.appendChild(visual);
       if (data.color && data.color.toUpperCase() !== "#FFFFFF") {
         el.style.backgroundColor = data.color;
-        img.style.mixBlendMode = "multiply";
+        visual.style.mixBlendMode = "multiply";
       }
     } else if (data.spriteKey) {
       el.classList.add("ui-missing-sprite");
       el.title = `Sprite thiếu: ${data.spriteKey}`;
+      el.dataset.uiMissingSprite = data.spriteKey;
     }
     if (data.reverse?.x) el.classList.add("ui-flip-x");
     if (data.reverse?.y) el.classList.add("ui-flip-y");
-    if (data.fillType && data.fillAmount != null && data.fillAmount > 0 && data.fillAmount < 1) el.style.clipPath = `inset(0 ${100 * (1 - data.fillAmount)}% 0 0)`;
+    if (data.fillType === 3 && data.fillAmount != null && data.fillAmount > 0 && data.fillAmount < 1 && data.fillDir === 0) el.style.clipPath = `inset(0 ${100 * (1 - data.fillAmount)}% 0 0)`;
   }
   function text(el, data) {
     if (!data) return;

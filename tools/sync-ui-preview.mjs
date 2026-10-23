@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const UI_FILES = [{ id: "collection", name: "Collection", file: "PetsCollection.ui", status: "ready" }];
 const PLANNED = ["Shop", "Mail", "Mission", "Leaderboard"].map(name => ({ id: name.toLowerCase(), name, status: "planned" }));
 const PROP_FIELDS = {
-  image: ["source", "color", "reverse", "fillType", "slicedBorder", "tiledBorder", "centerInvisible", "fillDir", "fillAmount", "invertFill", "flip", "gradient", "gradientTop", "gradientBottom"],
+  image: ["source", "color", "reverse", "fillType", "slicedBorder", "tiledBorder", "centerInvisible", "fillDir", "fillAmount", "invertFill", "flip", "gradient", "gradientTop", "gradientBottom", "isApplyAnimation", "animationAtlasID", "animationFrameRate", "animationLoop"],
   button: ["spriteName", "normal", "highlight", "pressed", "disabled", "enableBorderImage", "disableCollider", "fillType", "slicedBorder", "tiledBorder", "centerInvisible", "fillDir", "fillAmount", "invertFill", "reverse", "flip", "gradient", "gradientTop", "gradientBottom"],
   text: ["value", "key", "font", "fontSize", "fontStyle", "color", "alignment", "lineSpacing", "background", "backgroundColor", "overflow", "backgroundRGBA", "shadow", "shadowColor", "shadowOffset", "gradient", "gradientTop", "gradientBottom", "outline", "outlineColor", "outlineAlpha", "outlineOffset", "shadowAlpha"],
   layout: ["enable", "type", "corner", "offset", "space", "size", "constraint", "direction", "fixedRowCount", "fixedColumnCount", "tableOffset", "tableSpace", "sortType", "ignoreInactive"]
@@ -44,27 +44,35 @@ export function syncUiPreview(sourceRoot, gddRoot) {
     const sprites = new Map();
     const unsupported = [];
     let entityCount = 0;
-    function sprite(ref, entityPath) {
+    function sprite(ref, entityPath, origin = ".ui") {
       if (!ref || typeof ref !== "object") return null;
       const filePath = String(ref.filePath || "");
       if (!filePath) return null;
       const key = filePath.replaceAll("\\", "/");
       if (!sprites.has(key)) {
-        const entry = { key, output: null, missing: false, references: [] };
-        if (key.startsWith("lib://") || !key.startsWith("Assets/Sprites/") || !key.toLowerCase().endsWith(".png")) entry.missing = true;
+        const entry = { key, output: null, missing: false, references: [], origins: [], border: null, width: null, height: null };
+        if (key.startsWith("lib://") || !key.startsWith("Assets/") || !key.toLowerCase().endsWith(".png")) entry.missing = true;
         else {
           const input = source(key);
           if (!existsSync(input)) entry.missing = true;
           else {
-            const name = key.slice("Assets/Sprites/".length).replaceAll("/", "__");
+            const name = key.startsWith("Assets/Sprites/") ? key.slice("Assets/Sprites/".length).replaceAll("/", "__") : key.slice("Assets/".length).replaceAll("/", "__");
             const url = `./assets/ui-sprites/${ui.id}/${name}`;
             copyFileSync(input, output("assets", "ui-sprites", ui.id, name));
             entry.output = url;
+            const png = readFileSync(input);
+            if (png.toString("ascii", 1, 4) === "PNG") { entry.width = png.readUInt32BE(16); entry.height = png.readUInt32BE(20); }
+            const meta = input + ".meta";
+            if (existsSync(meta)) {
+              const data = JSON.parse(readFileSync(meta, "utf8"));
+              entry.border = { left: Number(data.borderLeft) || 0, right: Number(data.borderRight) || 0, top: Number(data.borderTop) || 0, bottom: Number(data.borderBottom) || 0 };
+            }
           }
         }
         sprites.set(key, entry);
       }
       sprites.get(key).references.push(entityPath);
+      if (!sprites.get(key).origins.includes(origin)) sprites.get(key).origins.push(origin);
       return key;
     }
     function normalize(node, parentPath = "") {
