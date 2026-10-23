@@ -31,6 +31,20 @@ function initCollectionPreview(screen, rules, rendered) {
     if (url) { img.src = url; img.style.display = "block"; } else img.style.display = "none";
     img.style.filter = dark ? "brightness(0.12)" : "none";
   }
+  function updateTabVisuals(group, activeName) {
+    const config = rules.tabVisuals?.[group];
+    if (!config) return;
+    const names = group === "rarity" ? Object.keys(rules.rarityTabs).map(r => `${r[0]}${r.slice(1).toLowerCase()}TabButton`) : Object.keys(rules.details.tabs).map(r => `${r}TabButton`);
+    for (const name of names) {
+      const button = named(name);
+      if (!button) continue;
+      const active = name === activeName;
+      uiRenderer.setSprite(button, active ? config.selectedSprite : config.normalSprite, { ...screenEntity(button)?.button, fillType: 1 }, uiPreview.manifest);
+      const label = directChild(button, config.textChild)?.querySelector(":scope > .ui-text");
+      if (label) label.style.color = active ? config.selectedTextColor : config.normalTextColor;
+    }
+  }
+  function screenEntity(el) { const path = el?.dataset.uiPath; if (!path) return null; const parts = path.split("/").slice(1); let node = screen.tree; for (const part of parts) node = node?.children.find(child => child.name === part); return node; }
   function directChild(root, name) { return root ? [...root.children].find(el => el.dataset.uiName === name) : null; }
   function cloneTemplate(template, container) {
     const clone = template.cloneNode(true);
@@ -130,6 +144,7 @@ function initCollectionPreview(screen, rules, rendered) {
       });
     }
     setVisible(tabs, !showRecipe);
+    updateTabVisuals("details", `${state.detailTab}TabButton`);
     setVisible(info, !showRecipe && state.detailTab === "Info");
     setVisible(mw, !showRecipe && state.detailTab !== "Info");
     const value = owned ? `${big(pet.Value)}/s` : rules.details.unownedValue;
@@ -162,6 +177,7 @@ function initCollectionPreview(screen, rules, rendered) {
     setVisible(named("NextPageButton"), total > 1 && state.page < total - 1);
     updateDetails(); updateCounters();
     if (state.loading) { petCards.forEach(card => setVisible(card, false)); [named("PetDetails"), named("DetailsTabsLayout"), named("Info"), named("MutationsWeathers")].forEach(el => setVisible(el, false)); }
+    updateTabVisuals("rarity", `${state.rarity[0]}${state.rarity.slice(1).toLowerCase()}TabButton`);
     for (const [rarity, config] of Object.entries(rules.rarityTabs)) {
       const tab = named(`${rarity[0]}${rarity.slice(1).toLowerCase()}TabButton`);
       if (tab) tab.classList.toggle("ui-tab-active", state.rarity === rarity);

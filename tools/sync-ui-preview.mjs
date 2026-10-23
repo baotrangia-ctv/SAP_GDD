@@ -139,8 +139,16 @@ function collectionRules(source) {
   const mutationStart = find(manager, /MUTATION_START_INDEX = \d+/, managerFile);
   const weatherStart = find(manager, /WEATHER_START_INDEX = \d+/, managerFile);
   const required = (lines, pattern, file) => find(lines, pattern, file).source;
+  const tabCalls = hud.map((line, index) => ({ line, index })).filter(item => /SetTabButtonState\(/.test(item.line) && /EResSprite\./.test(item.line));
+  const tabGroups = [...new Map(tabCalls.map(({ line, index }) => {
+    const match = line.match(/SetTabButtonState\([^,]+, "(Text|Label)", EResSprite\.(\w+), EResSprite\.(\w+),/);
+    if (!match) throw new Error(`Unrecognized tab state call at ${hudFile}:${index + 1}`);
+    return [match[1] + match[2] + match[3], { textChild: match[1], selectedSprite: `Assets/Sprites/NewAssets/${match[2]}.png`, normalSprite: `Assets/Sprites/NewAssets/${match[3]}.png`, selectedTextColor: find(hud, /ACTIVE_TEXT_COLOR = #/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0], normalTextColor: find(hud, /DEFAULT_TEXT_COLOR = #/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0], source: `${hudFile}:${index + 1}` }];
+  }))].map(([, value]) => value);
+  if (tabGroups.length !== 2) throw new Error("Expected rarity and details tab sprite rules");
   return {
     sourceFiles: [hudFile, managerFile, petFile],
+    tabVisuals: { rarity: tabGroups.find(group => group.textChild === "Text"), details: tabGroups.find(group => group.textChild === "Label") },
     rarityTabs: rarityMap,
     page: {
       size: Number(page.line.match(/=\s*(\d+)/)[1]), source: page.source,

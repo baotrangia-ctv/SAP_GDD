@@ -4,6 +4,24 @@
     "Assets/Scripts/Manager/CollectionManager.fcg",
     "Assets/Scripts/Configs/PetConfigs.fcg"
   ],
+  "tabVisuals": {
+    "rarity": {
+      "textChild": "Text",
+      "selectedSprite": "Assets/Sprites/NewAssets/LongSelectTabBG.png",
+      "normalSprite": "Assets/Sprites/NewAssets/NormalTabBG.png",
+      "selectedTextColor": "#FFFFFF",
+      "normalTextColor": "#1F64C4",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:205"
+    },
+    "details": {
+      "textChild": "Label",
+      "selectedSprite": "Assets/Sprites/NewAssets/SelectTabBG.png",
+      "normalSprite": "Assets/Sprites/NewAssets/NormalTabBG.png",
+      "selectedTextColor": "#FFFFFF",
+      "normalTextColor": "#1F64C4",
+      "source": "Assets/Scripts/HUDs/HudCollection.fcg:664"
+    }
+  },
   "rarityTabs": {
     "ALL": {
       "index": 0,

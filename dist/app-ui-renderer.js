@@ -46,6 +46,16 @@ const uiRenderer = (() => {
     if (data.reverse?.y) el.classList.add("ui-flip-y");
     if (data.fillType === 3 && data.fillAmount != null && data.fillAmount > 0 && data.fillAmount < 1 && data.fillDir === 0) el.style.clipPath = `inset(0 ${100 * (1 - data.fillAmount)}% 0 0)`;
   }
+  function setSprite(el, key, data, manifest) {
+    if (!el) return;
+    el.querySelector(":scope > .ui-sprite")?.remove();
+    el.classList.remove("ui-missing-sprite", "ui-flip-x", "ui-flip-y");
+    delete el.dataset.uiMissingSprite;
+    graphic(el, { ...data, spriteKey: key }, manifest);
+    const sprite = el.querySelector(":scope > .ui-sprite");
+    if (sprite) el.prepend(sprite);
+    el.dataset.uiSpriteKey = key;
+  }
   function text(el, data) {
     if (!data) return;
     const span = document.createElement("span");
@@ -111,5 +121,5 @@ const uiRenderer = (() => {
     add(data.tree, canvas, { width, height });
     return { canvas, byId };
   }
-  return { render, rect };
+  return { render, rect, setSprite };
 })();
