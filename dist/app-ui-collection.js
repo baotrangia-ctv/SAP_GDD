@@ -39,7 +39,8 @@ function initCollectionPreview(screen, rules, rendered) {
       const button = named(name);
       if (!button) continue;
       const active = name === activeName;
-      uiRenderer.setSprite(button, active ? config.selectedSprite : config.normalSprite, { ...screenEntity(button)?.button, fillType: 1 }, uiPreview.manifest);
+      const props = screenEntity(button)?.button || {};
+      uiRenderer.setSprite(button, active ? config.selectedSprite : config.normalSprite, { ...props, color: props.normal, fillType: 1 }, uiPreview.manifest);
       const label = directChild(button, config.textChild)?.querySelector(":scope > .ui-text");
       if (label) label.style.color = active ? config.selectedTextColor : config.normalTextColor;
     }
@@ -185,6 +186,7 @@ function initCollectionPreview(screen, rules, rendered) {
       const tab = named(`${rarity[0]}${rarity.slice(1).toLowerCase()}TabButton`);
       if (tab) tab.classList.toggle("ui-tab-active", state.rarity === rarity);
     }
+    if (typeof renderUiResourcePanel === "function") renderUiResourcePanel();
   }
   function selectPage(page) {
     const count = Math.ceil(filtered().length / rules.page.size);

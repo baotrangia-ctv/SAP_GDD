@@ -102,6 +102,7 @@ const uiRenderer = (() => {
       element.dataset.uiType = node.type;
       element.dataset.uiId = node.id;
       element.dataset.uiName = node.name;
+      element.dataset.uiSpriteKey = node.image?.spriteKey || node.button?.spriteKey || "";
       element.title = node.path;
       if (node.type === "UIButtonEntity") { element.type = "button"; element.setAttribute("aria-label", node.name); }
       if (!node.active) element.classList.add("ui-inactive");
@@ -112,7 +113,14 @@ const uiRenderer = (() => {
       element.style.height = `${Math.max(0, r.height)}px`;
       element.style.opacity = String((node.alpha ?? 100) / 100);
       if (node.transform?.rotate) element.style.transform = `rotate(${-node.transform.rotate}deg)`;
-      graphic(element, node.image || node.button, manifest);
+      graphic(element, node.image || (node.button ? { ...node.button, color: node.button.normal } : null), manifest);
+      if (node.button) {
+        const tint = color => { element.style.backgroundColor = color || ""; const visual = element.querySelector(":scope > .ui-sprite"); if (visual) visual.style.mixBlendMode = color?.toUpperCase() === "#FFFFFF" ? "normal" : "multiply"; };
+        element.addEventListener("pointerenter", () => tint(node.button.highlight));
+        element.addEventListener("pointerleave", () => tint(element.disabled ? node.button.disabled : node.button.normal));
+        element.addEventListener("pointerdown", () => tint(node.button.pressed));
+        element.addEventListener("pointerup", () => tint(node.button.highlight));
+      }
       text(element, node.text);
       parent.appendChild(element);
       byId.set(node.id, element);
