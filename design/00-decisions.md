@@ -54,3 +54,10 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Quyết định:** Cho chọn sở hữu tất cả, không sở hữu, ngẫu nhiên theo seed hoặc tự chọn pet/mutation/weather. Hiển thị nhãn “Người chơi giả lập”; không ghi hoặc suy ra sở hữu thật.
 - **Giới hạn:** Các cặp pet và effect trong chế độ ngẫu nhiên chỉ để kiểm tra trạng thái HUD, không mô tả tỉ lệ sở hữu trong game.
 - **Nguồn:** `plans/PLAN-ui-preview.md` §3.4; `CollectionManager.fcg` về dữ liệu sở hữu.
+
+## D-008 — Mở rộng nguồn đọc cho độ chính xác UI Collection
+
+- **Trạng thái:** ✅ Người dùng đã đồng ý ngày 2026-10-23.
+- **Quyết định:** Cho phép đọc-only `.png.meta` của các sprite UI Collection được dùng để lấy border 9-grid; `Assets/Localization/key.csv` để trích duy nhất các key Collection thực sự dùng; sprite runtime mà `HudCollection.fcg` hoặc config gán cho UI này; và file/bảng định nghĩa `EResSprite`/`Res.Sprite` cần để ánh xạ chúng. Không mirror toàn bộ localization hoặc asset ngoài phạm vi UI Collection.
+- **Giới hạn:** Không đọc `Compensate/**` và `giftcode.csv`; không ghi hay chạy Git ghi trong project game. Mọi JSON và sprite dẫn xuất chỉ ghi dưới `dist/` của GDD với guard đường dẫn.
+- **Nguồn:** Yêu cầu sửa UI Preview > Collection ngày 2026-10-23.
