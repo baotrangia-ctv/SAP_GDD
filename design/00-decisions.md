@@ -1,5 +1,14 @@
 # Quyết định thiết kế
 
+## D-010 — UI Proposal là patch do GDD sở hữu (2026-10-23)
+
+- **Quyết định:** Theo `plans/PLAN-ui-proposal.md` §3, đề xuất JSON áp lên cây UI đã sync, dùng cùng renderer/stage với UI Preview. Không vẽ HTML riêng từng màn.
+- **Nguồn:** `design/ui-proposals/<screen>/<id>.json`, PNG mới trong `assets/` cùng screen; reason bắt buộc mỗi op, border 9-grid do người đề xuất khai báo. Demo chỉ là “ví dụ để kiểm pipeline”, chưa phải thiết kế được duyệt.
+- **Ranh giới:** Giữ nguyên allowlist D-006/D-008. Pipeline chỉ đọc snapshot GDD và `.fcg` Collection liên quan đã được phép; chỉ ghi output dưới `dist/`. Không đọc giftcode/Compensate, không ghi hoặc build repo game.
+- **Prompt:** Sinh từ diff + template, chỉ là văn bản để người dùng dùng ở phiên riêng trong game. Nêu binding có bằng chứng và phần cần dev; không tự tạo binding.
+- **Tham khảo:** PvZ GDD chỉ đọc để học bảng resource real/approx/new và kiểm theo `.ui` thật; không copy code hay lấy thiết kế/màu/số của dự án đó.
+- **Giới hạn:** MCP xác nhận tên/kiểu widget; schema patch là schema chuẩn hóa của GDD. Các thuật toán render/scale chưa xác minh vẫn giữ DA-002–014.
+
 Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định đã có trong README và plan; đây không phải đề xuất số balance mới.
 
 ## D-001 — Giữ site tĩnh
