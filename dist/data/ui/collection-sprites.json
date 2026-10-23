@@ -463,10 +463,12 @@
       "missing": false,
       "references": [
         "PetsCollection/Container/PetDetails/Obtain/BG/ObtainIcon",
-        "PetsCollection/Container/UnlockObtain/Icon"
+        "PetsCollection/Container/UnlockObtain/Icon",
+        "runtime:obtain:fishing"
       ],
       "origins": [
-        ".ui"
+        ".ui",
+        "runtime-code"
       ],
       "border": {
         "left": 0,
@@ -697,6 +699,126 @@
       },
       "width": 88,
       "height": 88
+    },
+    {
+      "key": "Assets/Sprites/Icons/FusionSecret.png",
+      "declaredKey": "Assets/Sprites/Icons/FusionSecret.png",
+      "output": "./assets/ui-sprites/collection/Icons__FusionSecret.png",
+      "missing": false,
+      "references": [
+        "runtime:obtain:fusion"
+      ],
+      "origins": [
+        "runtime-code"
+      ],
+      "border": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "width": 256,
+      "height": 256
+    },
+    {
+      "key": "Assets/Sprites/Icons/DigIcon.png",
+      "declaredKey": "Assets/Sprites/Icons/DigIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__DigIcon.png",
+      "missing": false,
+      "references": [
+        "runtime:obtain:dig"
+      ],
+      "origins": [
+        "runtime-code"
+      ],
+      "border": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "width": 96,
+      "height": 96
+    },
+    {
+      "key": "Assets/Sprites/Pets/LUCKYBOXMYTHIC.png",
+      "declaredKey": "Assets/Sprites/Pets/LUCKYBOXMYTHIC.png",
+      "output": "./assets/ui-sprites/collection/Pets__LUCKYBOXMYTHIC.png",
+      "missing": false,
+      "references": [
+        "runtime:obtain:luckybox"
+      ],
+      "origins": [
+        "runtime-code"
+      ],
+      "border": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "Assets/Sprites/Icons/Event3DIcon.png",
+      "declaredKey": "Assets/Sprites/Icons/Event3DIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__Event3DIcon.png",
+      "missing": false,
+      "references": [
+        "runtime:obtain:event"
+      ],
+      "origins": [
+        "runtime-code"
+      ],
+      "border": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "Assets/Sprites/Icons/Giftcode3DIcon.png",
+      "declaredKey": "Assets/Sprites/Icons/Giftcode3DIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__Giftcode3DIcon.png",
+      "missing": false,
+      "references": [
+        "runtime:obtain:giftcode"
+      ],
+      "origins": [
+        "runtime-code"
+      ],
+      "border": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "Assets/Sprites/Icons/Road3DIcon.png",
+      "declaredKey": "Assets/Sprites/Icons/Road3DIcon.png",
+      "output": "./assets/ui-sprites/collection/Icons__Road3DIcon.png",
+      "missing": false,
+      "references": [
+        "runtime:obtain:road"
+      ],
+      "origins": [
+        "runtime-code"
+      ],
+      "border": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "width": 128,
+      "height": 128
     }
   ],
   "missing": [

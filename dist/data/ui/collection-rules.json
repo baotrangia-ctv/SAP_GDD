@@ -106,6 +106,24 @@
     "source": "Assets/Scripts/HUDs/HudCollection.fcg:38"
   },
   "obtain": {
+    "icons": {
+      "fusion": "FusionSecret",
+      "fishing": "FishIcon",
+      "dig": "DigIcon",
+      "luckybox": "LUCKYBOXMYTHIC",
+      "event": "Event3DIcon",
+      "giftcode": "Giftcode3DIcon",
+      "road": "Road3DIcon"
+    },
+    "iconSpriteKeys": {
+      "fusion": "Assets/Sprites/Icons/FusionSecret.png",
+      "fishing": "Assets/Sprites/Icons/FishIcon.png",
+      "dig": "Assets/Sprites/Icons/DigIcon.png",
+      "luckybox": "Assets/Sprites/Pets/LUCKYBOXMYTHIC.png",
+      "event": "Assets/Sprites/Icons/Event3DIcon.png",
+      "giftcode": "Assets/Sprites/Icons/Giftcode3DIcon.png",
+      "road": "Assets/Sprites/Icons/Road3DIcon.png"
+    },
     "showOwnedPanelWhenOwned": true,
     "showUnlockWhenUnowned": true,
     "source": "Assets/Scripts/HUDs/HudCollection.fcg:492",

@@ -126,6 +126,12 @@ function initCollectionPreview(screen, rules, rendered) {
     setVisible(unlock, !owned);
     const obtainKeys = { giftcode: "HUD_REBIRTH_GIFTCODE", luckybox: "HUD_LUCKYBOX", fusion: "HUD_FUSE", road: "HUD_ROAD", fishing: "HUD_FISH", dig: "HUD_DIG", event: "HUD_EVENT" };
     const obtainText = uiTranslate(obtainKeys[kind] || kind);
+    const obtainSprite = rules.obtain.iconSpriteKeys?.[kind];
+    if (obtainSprite) {
+      for (const target of [byPath(base + "PetDetails/Obtain/BG/ObtainIcon"), byPath(base + "UnlockObtain/Icon")]) {
+        if (target) uiRenderer.setSprite(target, obtainSprite, screenEntity(target)?.image || {}, uiPreview.manifest);
+      }
+    }
     setText(directChild(unlock, "Label"), `${uiTranslate("HUD_OBTAIN_BY")} ${obtainText}`);
     setText(byPath(base + "PetDetails/Obtain/BG/ObtainWay"), obtainText);
     setVisible(recipe, showRecipe);

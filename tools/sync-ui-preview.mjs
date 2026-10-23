@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -124,9 +124,15 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       referenceSizeNote: "suy từ sizeDelta của root; độ phân giải tham chiếu engine chưa có dữ liệu",
       tree
     });
-    json(["data", "ui", `${ui.id}-sprites.json`], { sprites: [...sprites.values()], missing: [...sprites.values()].filter(item => item.missing), unsupported });
     if (ui.id === "collection") {
-      json(["data", "ui", "collection-rules.json"], collectionRules(source));
+      const rules = collectionRules(source);
+      const files = readdirSync(source("Assets/Sprites"), { recursive: true }).filter(name => String(name).toLowerCase().endsWith(".png")).map(name => `Assets/Sprites/${String(name).replaceAll("\\", "/")}`);
+      for (const [kind, name] of Object.entries(rules.obtain.icons)) {
+        const matches = files.filter(file => file.split("/").at(-1) === `${name}.png`);
+        if (matches.length === 1) { rules.obtain.iconSpriteKeys[kind] = matches[0]; sprite({ filePath: matches[0] }, `runtime:obtain:${kind}`, "runtime-code"); }
+        else rules.obtain.iconSpriteKeys[kind] = null;
+      }
+      json(["data", "ui", "collection-rules.json"], rules);
       const keys = new Set();
       function textKeys(node) { if (node.text?.key) keys.add(node.text.key); node.children.forEach(textKeys); }
       textKeys(tree);
@@ -144,6 +150,7 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       for (const row of rows.slice(1)) if (keys.has(row[columns.key])) entries[row[columns.key]] = { en: row[columns.english] || "", vi: row[columns.vietnamese] || "" };
       json(["data", "ui", "collection-i18n.json"], { source: "Assets/Localization/key.csv", entries, missing: [...keys].filter(key => !(key in entries)).sort() });
     }
+    json(["data", "ui", `${ui.id}-sprites.json`], { sprites: [...sprites.values()], missing: [...sprites.values()].filter(item => item.missing), unsupported });
     console.log(`UI ${ui.id}: ${entityCount} entities, ${sprites.size} sprites, ${[...sprites.values()].filter(item => item.missing).length} missing, ${unsupported.length} entities with unsupported fields`);
   }
 }
@@ -178,6 +185,10 @@ function collectionRules(source) {
     return [match[1] + match[2] + match[3], { textChild: match[1], selectedSprite: `Assets/Sprites/NewAssets/${match[2]}.png`, normalSprite: `Assets/Sprites/NewAssets/${match[3]}.png`, selectedTextColor: find(hud, /ACTIVE_TEXT_COLOR = #/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0], normalTextColor: find(hud, /DEFAULT_TEXT_COLOR = #/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0], source: `${hudFile}:${index + 1}` }];
   }))].map(([, value]) => value);
   if (tabGroups.length !== 2) throw new Error("Expected rarity and details tab sprite rules");
+  const iconFunction = petCode.slice(Number(find(petCode, /func GetPetObtainIcon\(/, petFile).source.split(":").at(-1)) - 1, Number(find(petCode, /func GetPetObtainBadgeIcon\(/, petFile).source.split(":").at(-1)) - 1).join("\n");
+  const iconMatches = [...iconFunction.matchAll(/source == PET_OBTAIN_SOURCE_(\w+)[\s\S]*?return EResSprite\.(\w+)/g)];
+  const obtainIcons = Object.fromEntries(iconMatches.map(match => [match[1].toLowerCase(), match[2]]));
+  obtainIcons.road = [...iconFunction.matchAll(/return EResSprite\.(\w+)/g)].at(-1)?.[1];
   return {
     sourceFiles: [hudFile, managerFile, petFile],
     tabVisuals: { rarity: tabGroups.find(group => group.textChild === "Text"), details: tabGroups.find(group => group.textChild === "Label") },
@@ -217,6 +228,7 @@ function collectionRules(source) {
       source: required(hud, /MW_LAYOUT_MAX_ICONS_PER_ROW int = \d+/, hudFile)
     },
     obtain: {
+      icons: obtainIcons, iconSpriteKeys: {},
       showOwnedPanelWhenOwned: true, showUnlockWhenUnowned: true,
       source: required(hud, /_UnlockObtainWidget<UIWidget>\.IsVisible = !isOwned/, hudFile),
       sourceFunction: "PetConfigs.GetPetObtainSource(petId, fishingPool, digPool)",
