@@ -60,5 +60,48 @@
         "gr8BcPhJ"
       ]
     }
-  ]
+  ],
+  "bindings": [
+    {
+      "id": "JRxpWV4m",
+      "path": "PetsCollection/Container/Title/Label",
+      "file": "Assets/Scripts/HUDs/HudCollection.fcg",
+      "line": 132,
+      "kind": "child-name-candidate",
+      "note": "Trùng tên: cần dev xác nhận identity/alias, chưa khẳng định binding chính xác"
+    },
+    {
+      "id": "JRxpWV4m",
+      "path": "PetsCollection/Container/Title/Label",
+      "file": "Assets/Scripts/HUDs/HudCollection.fcg",
+      "line": 662,
+      "kind": "child-name-candidate",
+      "note": "Trùng tên: cần dev xác nhận identity/alias, chưa khẳng định binding chính xác"
+    },
+    {
+      "id": "JRxpWV4m",
+      "path": "PetsCollection/Container/Title/Label",
+      "file": "Assets/Scripts/HUDs/HudCollection.fcg",
+      "line": 663,
+      "kind": "child-name-candidate",
+      "note": "Trùng tên: cần dev xác nhận identity/alias, chưa khẳng định binding chính xác"
+    },
+    {
+      "id": "JRxpWV4m",
+      "path": "PetsCollection/Container/Title/Label",
+      "file": "Assets/Scripts/HUDs/HudCollection.fcg",
+      "line": 664,
+      "kind": "child-name-candidate",
+      "note": "Trùng tên: cần dev xác nhận identity/alias, chưa khẳng định binding chính xác"
+    }
+  ],
+  "bindingScan": {
+    "files": [
+      "Assets/Scripts/HUDs/HudCollection.fcg",
+      "Assets/Scripts/Manager/CollectionManager.fcg",
+      "Assets/Scripts/Configs/PetConfigs.fcg",
+      "Assets/Scripts/ClientConfigs/PetConfigs_Client.fcg"
+    ],
+    "status": "literal candidates; dynamic aliases/runtime writes require developer review"
+  }
 }

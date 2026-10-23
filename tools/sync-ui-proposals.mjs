@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, realpathSync, writeFi
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PATCH_FIELDS, ENTITY_TYPES, validateField } from './ui-proposal-fields.mjs';
+import { generatePrompt } from './ui-proposal-prompt.mjs';
 
 export const GDD_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const GAME_ROOT = String.raw`C:\_Code\craftland\StealAPet`;
@@ -169,10 +170,12 @@ export function syncUiProposals({ root = GDD_ROOT, dryRun = false } = {}) {
       }
       const assets = prepareAssets(proposal, sourceManifest, root);
       const result = applyProposal(base, assets.manifest, proposal);
+      const prompt = generatePrompt({ proposal, result, base, root, gameRoot: GAME_ROOT, checkedPath: guard });
+      output.set(`data/ui/proposals/${proposal.id}-prompt.md`, prompt);
       all.push({ proposal, ...result });
       addJson(proposal.id, result.screen); addJson(proposal.id + '-diff', result.diff); addJson(proposal.id + '-resources', { resources: result.resources, manifest: result.manifest });
       for (const copy of assets.copies) output.set(copy.output.slice(2), copy.buffer);
-      registry.proposals.push({ ...result.screen.proposal, data: `./data/ui/proposals/${proposal.id}.json`, diff: `./data/ui/proposals/${proposal.id}-diff.json`, resources: `./data/ui/proposals/${proposal.id}-resources.json` });
+      registry.proposals.push({ ...result.screen.proposal, data: `./data/ui/proposals/${proposal.id}.json`, diff: `./data/ui/proposals/${proposal.id}-diff.json`, resources: `./data/ui/proposals/${proposal.id}-resources.json`, prompt: `./data/ui/proposals/${proposal.id}-prompt.md` });
     }
   }
   addJson('registry', registry);
