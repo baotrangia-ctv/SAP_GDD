@@ -671,9 +671,10 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 #ui-preview-meta{font-size:12px;color:#a9bdd6}
 .ui-preview-workspace{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px;align-items:start}
 .ui-preview-stage{width:100%;min-width:0;overflow:hidden;position:relative;border:1px solid #4c617e;border-radius:14px;background:linear-gradient(135deg,#152842,#0b1220)}
-.ui-canvas{position:relative;transform-origin:top left;isolation:isolate}
+.ui-canvas{position:absolute;top:0;left:0;transform-origin:top left;isolation:isolate}
 .ui-entity{position:absolute;box-sizing:border-box;min-width:0;min-height:0;padding:0;margin:0;border:0;background:transparent;color:inherit;overflow:visible}
-button.ui-entity{cursor:pointer;font:inherit}
+.ui-entity:not(button){pointer-events:none}
+button.ui-entity{cursor:pointer;font:inherit;pointer-events:auto}
 .ui-entity.ui-inactive{display:none}
 .ui-show-inactive .ui-entity.ui-inactive{display:block;opacity:.32!important}
 .ui-sprite{display:block;width:100%;height:100%;object-fit:fill;pointer-events:none}
@@ -685,6 +686,7 @@ button.ui-entity{cursor:pointer;font:inherit}
 .ui-debug .ui-entity{outline:1px solid #ffaf4a88}
 .ui-debug .ui-entity:hover::after{content:attr(data-ui-path);position:absolute;top:0;left:0;z-index:9999;background:#102039;color:#fff;font:11px Arial;padding:3px 5px;white-space:nowrap;pointer-events:none}
 .ui-closed>.ui-entity{display:none}
+.ui-tab-active{filter:brightness(1.18);outline:2px solid #fff9}
 .ui-player-panel{border:1px solid #3c4c65;border-radius:12px;padding:14px;background:#152238;color:#eaf2ff}
 .ui-player-panel h2{font-size:17px;margin:0 0 8px}.ui-player-panel p{font-size:12px;color:#aec2d8}
 .ui-player-panel label{display:block;margin:9px 0;font-size:13px}.ui-player-panel input,.ui-player-panel select{max-width:100%}

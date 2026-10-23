@@ -111,8 +111,10 @@ export function syncUiPreview(sourceRoot, gddRoot) {
 function collectionRules(source) {
   const hudFile = "Assets/Scripts/HUDs/HudCollection.fcg";
   const managerFile = "Assets/Scripts/Manager/CollectionManager.fcg";
+  const petFile = "Assets/Scripts/Configs/PetConfigs.fcg";
   const hud = readFileSync(source(hudFile), "utf8").split(/\r?\n/);
   const manager = readFileSync(source(managerFile), "utf8").split(/\r?\n/);
+  const petCode = readFileSync(source(petFile), "utf8").split(/\r?\n/);
   function find(lines, pattern, file) {
     const index = lines.findIndex(line => pattern.test(line));
     if (index < 0) throw new Error(`Collection rule missing from ${file}: ${pattern}`);
@@ -130,7 +132,7 @@ function collectionRules(source) {
   const weatherStart = find(manager, /WEATHER_START_INDEX = \d+/, managerFile);
   const required = (lines, pattern, file) => find(lines, pattern, file).source;
   return {
-    sourceFiles: [hudFile, managerFile],
+    sourceFiles: [hudFile, managerFile, petFile],
     rarityTabs: rarityMap,
     page: {
       size: Number(page.line.match(/=\s*(\d+)/)[1]), source: page.source,
@@ -140,7 +142,12 @@ function collectionRules(source) {
       label: "(currentPageIndex + 1) / totalPages when totalPages > 1",
       labelSource: required(hud, /_PageLabel<UIWidgetLabel>\.Content = \(_CurrentPageIndex \+ 1\)/, hudFile)
     },
-    petFilter: { excludeLuckyBox: true, source: required(hud, /if PetConfigs.IsLuckyBoxPetId\(petId\)/, hudFile) },
+    petFilter: {
+      excludeLuckyBox: true, source: required(hud, /if PetConfigs.IsLuckyBoxPetId\(petId\)/, hudFile),
+      luckyBoxStart: Number(find(petCode, /LUCKY_BOX_START_INDEX int = \d+/, petFile).line.match(/=\s*(\d+)/)[1]),
+      luckyBoxCount: Number(find(petCode, /LUCKY_BOX_COUNT int = \d+/, petFile).line.match(/=\s*(\d+)/)[1]),
+      rangeSource: required(petCode, /return LUCKY_BOX_START_INDEX < petId && petId <= LUCKY_BOX_START_INDEX \+ LUCKY_BOX_COUNT/, petFile)
+    },
     unowned: { name: "???", tint: "#111111", source: required(hud, /if !CollectionManager.IsOwnPet/, hudFile), tintSource: required(hud, /DEFAULT_COLOR = #111111/, hudFile) },
     details: {
       defaultTab: "Info", source: required(hud, /_CurrentDetailsTab = DETAILS_TAB_INFO/, hudFile),
@@ -155,11 +162,23 @@ function collectionRules(source) {
       unownedIconColor: find(hud, /NOT_OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]+/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0],
       iconSource: required(hud, /icon<UIWidgetImage>\.Color = NOT_OWNED_MW_ICON_COLOR/, hudFile)
     },
+    mwGrid: {
+      size: Number(find(hud, /MW_ICON_SIZE int = \d+/, hudFile).line.match(/=\s*(\d+)/)[1]),
+      verticalSpacing: Number(find(hud, /MW_LAYOUT_VERTICAL_SPACING int = \d+/, hudFile).line.match(/=\s*(\d+)/)[1]),
+      columns: Number(find(hud, /MW_LAYOUT_MAX_ICONS_PER_ROW int = \d+/, hudFile).line.match(/=\s*(\d+)/)[1]),
+      source: required(hud, /MW_LAYOUT_MAX_ICONS_PER_ROW int = \d+/, hudFile)
+    },
     obtain: {
       showOwnedPanelWhenOwned: true, showUnlockWhenUnowned: true,
       source: required(hud, /_UnlockObtainWidget<UIWidget>\.IsVisible = !isOwned/, hudFile),
       sourceFunction: "PetConfigs.GetPetObtainSource(petId, fishingPool, digPool)",
-      sourceFunctionAt: required(hud, /var source int = PetConfigs.GetPetObtainSource/, hudFile)
+      sourceFunctionAt: required(hud, /var source int = PetConfigs.GetPetObtainSource/, hudFile),
+      precedence: ["giftcode", "luckybox", "fusion", "road", "fishing", "dig", "event"],
+      precedenceSource: required(petCode, /func GetPetObtainSource\(/, petFile),
+      giftcodePetIds: [...find(petCode, /PET_OBTAIN_GIFTCODE_PET_IDS List<int> = List<int>\{/, petFile).line.match(/\{([^}]*)\}/)[1].matchAll(/\d+/g)].map(x => Number(x[0])),
+      luckyboxPetIds: [...find(petCode, /PET_OBTAIN_LUCKYBOX_PET_IDS List<int> = List<int>\{/, petFile).line.match(/\{([^}]*)\}/)[1].matchAll(/\d+/g)].map(x => Number(x[0])),
+      secretFusionStart: Number(find(petCode, /SECRET_FUSION_PET_START_INDEX int = \d+/, petFile).line.match(/=\s*(\d+)/)[1]),
+      specialListSource: required(petCode, /PET_OBTAIN_GIFTCODE_PET_IDS List<int>/, petFile)
     },
     recipe: {
       when: "unowned and PetConfigs.GetPetObtainSource(...) == PET_OBTAIN_SOURCE_FUSION",

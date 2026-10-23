@@ -1,7 +1,8 @@
 {
   "sourceFiles": [
     "Assets/Scripts/HUDs/HudCollection.fcg",
-    "Assets/Scripts/Manager/CollectionManager.fcg"
+    "Assets/Scripts/Manager/CollectionManager.fcg",
+    "Assets/Scripts/Configs/PetConfigs.fcg"
   ],
   "rarityTabs": {
     "ALL": {
@@ -48,7 +49,10 @@
   },
   "petFilter": {
     "excludeLuckyBox": true,
-    "source": "Assets/Scripts/HUDs/HudCollection.fcg:257"
+    "source": "Assets/Scripts/HUDs/HudCollection.fcg:257",
+    "luckyBoxStart": 6000,
+    "luckyBoxCount": 3,
+    "rangeSource": "Assets/Scripts/Configs/PetConfigs.fcg:578"
   },
   "unowned": {
     "name": "???",
@@ -77,12 +81,37 @@
     "unownedIconColor": "#444444",
     "iconSource": "Assets/Scripts/HUDs/HudCollection.fcg:736"
   },
+  "mwGrid": {
+    "size": 50,
+    "verticalSpacing": 4,
+    "columns": 5,
+    "source": "Assets/Scripts/HUDs/HudCollection.fcg:38"
+  },
   "obtain": {
     "showOwnedPanelWhenOwned": true,
     "showUnlockWhenUnowned": true,
     "source": "Assets/Scripts/HUDs/HudCollection.fcg:492",
     "sourceFunction": "PetConfigs.GetPetObtainSource(petId, fishingPool, digPool)",
-    "sourceFunctionAt": "Assets/Scripts/HUDs/HudCollection.fcg:486"
+    "sourceFunctionAt": "Assets/Scripts/HUDs/HudCollection.fcg:486",
+    "precedence": [
+      "giftcode",
+      "luckybox",
+      "fusion",
+      "road",
+      "fishing",
+      "dig",
+      "event"
+    ],
+    "precedenceSource": "Assets/Scripts/Configs/PetConfigs.fcg:598",
+    "giftcodePetIds": [
+      1047
+    ],
+    "luckyboxPetIds": [
+      1053,
+      1046
+    ],
+    "secretFusionStart": 1000,
+    "specialListSource": "Assets/Scripts/Configs/PetConfigs.fcg:106"
   },
   "recipe": {
     "when": "unowned and PetConfigs.GetPetObtainSource(...) == PET_OBTAIN_SOURCE_FUSION",

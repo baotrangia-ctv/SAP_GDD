@@ -55,7 +55,7 @@ function scaleUiPreview() {
   if (!stage || !canvas) return;
   const scale = Math.min(1, stage.clientWidth / uiPreview.width);
   canvas.style.transform = `scale(${scale})`;
-  stage.style.minHeight = `${Math.ceil(uiPreview.height * scale)}px`;
+  stage.style.height = `${Math.ceil(uiPreview.height * scale)}px`;
 }
 
 window.addEventListener("resize", scaleUiPreview);
