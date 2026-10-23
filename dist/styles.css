@@ -676,8 +676,7 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 .ui-entity:not(button){pointer-events:none}
 button.ui-entity{cursor:pointer;font:inherit;pointer-events:auto}
 button.ui-entity[data-ui-hit-target="false"]{pointer-events:none}
-.ui-visual{position:absolute;inset:0;pointer-events:none;opacity:var(--ui-alpha,1);isolation:isolate}
-.ui-entity>.ui-text{opacity:var(--ui-alpha,1)}
+.ui-visual{position:absolute;inset:0;pointer-events:none;isolation:isolate}
 .ui-entity.ui-inactive{display:none}
 .ui-show-inactive .ui-entity.ui-inactive{display:block;opacity:.32!important}
 .ui-sprite{display:block;width:100%;height:100%;object-fit:fill;pointer-events:none}

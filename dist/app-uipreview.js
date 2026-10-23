@@ -59,7 +59,8 @@ function renderUiResourcePanel() {
   const tbody = document.getElementById("ui-resource-rows");
   if (!tbody || !uiPreview.screen) return;
   const rows = [];
-  function walk(node) {
+  function walk(node, parentAlpha = 1) {
+    const effectiveAlpha = parentAlpha * (node.alpha ?? 100) / 100;
     if (node.image || node.button || node.text) {
       const data = node.image || node.button || {};
       const element = uiPreview.rendered?.byId.get(node.id);
@@ -72,9 +73,9 @@ function renderUiResourcePanel() {
       const border = sprite?.border ? `${sprite.border.left}/${sprite.border.right}/${sprite.border.top}/${sprite.border.bottom}` : "—";
       const shown = uiPreview.rendered?.byId.get(node.id)?.querySelector(":scope > .ui-text")?.textContent;
       const label = text ? `${text.key || "chuỗi thô"} · ${shown ?? uiTranslate(text.key || text.value)} · ${text.fontSize || "?"}px${text.outline ? " · outline" : ""}` : "";
-      rows.push(`<tr data-resource-id="${esc(node.id)}" data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${runtimeUrl || sprite?.output ? `<img src="${esc(runtimeUrl || sprite.output)}" alt="">` : ""}${esc(runtimeUrl ? runtimeUrl.split("/").at(-1) : key.split("/").at(-1) || "—")}<small>${esc(runtimeUrl || key || "")}</small></td><td>${runtimeUrl ? "Runtime" : key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${node.alpha ?? 100}%<small>Web: ${node.alpha ?? 100}% · visual riêng; cascade game chưa xác minh</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
+      rows.push(`<tr data-resource-id="${esc(node.id)}" data-resource-path="${esc(node.path)}"><td>${esc(node.path)}</td><td>${runtimeUrl || sprite?.output ? `<img src="${esc(runtimeUrl || sprite.output)}" alt="">` : ""}${esc(runtimeUrl ? runtimeUrl.split("/").at(-1) : key.split("/").at(-1) || "—")}<small>${esc(runtimeUrl || key || "")}</small></td><td>${runtimeUrl ? "Runtime" : key ? (sprite?.missing || !sprite ? "Thiếu" : "Có file") : "—"}<small>${sprite ? `${sprite.width || "?"}×${sprite.height || "?"} · border ${border} · ${(sprite.origins || []).join(", ")}` : ""}</small></td><td>${node.alpha ?? 100}%<small>Web cộng dồn: ${Number((effectiveAlpha * 100).toFixed(4))}% · cascade game chưa xác minh</small></td><td>${esc(kind)}<small>${esc(color)}${data.centerInvisible ? " · center hidden" : ""}</small></td><td>${esc(label)}</td></tr>`);
     }
-    node.children.forEach(walk);
+    node.children.forEach(child => walk(child, effectiveAlpha));
   }
   walk(uiPreview.screen.tree);
   // Keep row nodes and scroll geometry stable during gameplay updates.

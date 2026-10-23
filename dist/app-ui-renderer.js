@@ -112,9 +112,10 @@ const uiRenderer = (() => {
       element.style.top = `${r.top}px`;
       element.style.width = `${Math.max(0, r.width)}px`;
       element.style.height = `${Math.max(0, r.height)}px`;
-      // Alpha affects the visual, never the hit rectangle. Cascade is an
-      // explicit provisional policy in collection.json, pending runtime QA.
-      element.style.setProperty("--ui-alpha", String((node.alpha ?? 100) / 100));
+      // Retain the existing web composite/cascade until runtime evidence
+      // establishes whether Craftland applies alpha to descendants.
+      // CSS opacity never disables a button's hit rectangle.
+      element.style.opacity = String((node.alpha ?? 100) / 100);
       element.dataset.uiAlpha = String(node.alpha ?? 100);
       element.dataset.uiPriority = String(node.priority ?? 0);
       element.dataset.uiHitTarget = String(!!node.button && !node.button.disableCollider);

@@ -43,14 +43,14 @@ outline/shadow như thế nào; Image có chặn click và cách priority/depth 
 thứ tự cây chọn đối tượng trên cùng. Không có runtime/controller source
 trong allowlist; không mở rộng đọc source engine hoặc chạy Studio.
 
-Web dùng chính sách tạm ghi trong JSON `renderingPolicy`: alpha/100 chỉ
-trên lớp visual của từng widget (sprite/tint hoặc text), hit target button
+Web dùng chính sách tạm ghi trong JSON `renderingPolicy`: giữ phép composite/cascade CSS
+alpha/100 vốn có của preview, chưa đổi sang alpha riêng vì thiếu chứng cứ; hit target button
 không phụ thuộc alpha và tắt khi disableCollider=true. Non-button xuyên
 click; thứ tự cây quyết định lớp trên, không thêm z-index theo tên. Đây là
-suy luận triển khai, **chưa phải quy tắc engine đã xác nhận**. RarityName
-hiện giữ alpha riêng 100 dưới RarityBG=90; cần ảnh/runtime để chốt cascade.
+mô hình web, **chưa phải quy tắc engine đã xác nhận**. RarityName có alpha
+gốc 100, web cộng dồn thành 90 dưới RarityBG=90; cần ảnh/runtime để chốt cascade.
 Gradient alpha hiện đều 1 nên không thêm phép blend chưa có bằng chứng;
 RGB gradient, tint, text outline/shadow vẫn thuộc giới hạn DA-003/006.
-Bảng ghi alpha gốc và alpha visual web; không báo alpha hiệu dụng game
+Bảng ghi alpha gốc và alpha cộng dồn web; không báo alpha hiệu dụng game
 khi chưa biết cascade. Cần kiểm runtime bốn entity và vùng chồng lấn trước
 khi đóng DA-009 hoặc tuyên bố khớp game.

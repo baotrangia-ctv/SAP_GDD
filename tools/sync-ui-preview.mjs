@@ -124,7 +124,7 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       referenceSize: { width: tree.transform?.sizeDelta?.x || null, height: tree.transform?.sizeDelta?.y || null },
       referenceSizeNote: "suy từ sizeDelta của root; độ phân giải tham chiếu engine chưa có dữ liệu",
       renderingPolicy: {
-        alpha: "widget-visual-only", alphaStatus: "inferred; runtime cascade unverified",
+        alpha: "subtree-composite", alphaStatus: "existing web approximation retained; runtime cascade unverified",
         hitTest: "button-rect-unless-disableCollider", hitTestStatus: "DisableCollider documented; alpha threshold and image blocking unverified",
         stacking: "source-tree-order", stackingStatus: "all source priorities are zero; engine depth ordering unverified"
       },
