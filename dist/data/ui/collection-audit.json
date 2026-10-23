@@ -42,6 +42,9 @@
   "gameRarityColorsMatched": true,
   "spriteTintAlphaPreserved": true,
   "imageGradientConfigured": true,
+  "layoutEntityCount": 4,
+  "mwGridMatchesSource": true,
+  "singleLayoutEngine": true,
   "spriteCount": 41,
   "missingSprites": [
     "Assets/Sprites/UIComponents/Backgrounds/BG.png",

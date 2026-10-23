@@ -7,7 +7,7 @@
         "width": 1440,
         "height": 1100
       },
-      "clicks": 211,
+      "clicks": 212,
       "petsClicked": 173,
       "scroll": "unchanged before/after every mouse click",
       "sample": {
@@ -61,6 +61,257 @@
           "entityOpacity": "0.01"
         }
       ],
+      "layoutPositions": {
+        "rarity": {
+          "size": {
+            "width": 190,
+            "height": 540
+          },
+          "cell": {
+            "x": 190,
+            "y": 50
+          },
+          "gap": {
+            "x": 0,
+            "y": 7
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 57,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 114,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 171,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 228,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 285,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 342,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 399,
+              "visible": true
+            }
+          ]
+        },
+        "pets": {
+          "size": {
+            "width": 416,
+            "height": 430
+          },
+          "cell": {
+            "x": 100,
+            "y": 100
+          },
+          "gap": {
+            "x": 4,
+            "y": 8
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 329,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 329,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 329,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 329,
+              "visible": true
+            }
+          ]
+        },
+        "details": {
+          "size": {
+            "width": 336,
+            "height": 60
+          },
+          "cell": {
+            "x": 108,
+            "y": 60
+          },
+          "gap": {
+            "x": 6,
+            "y": 0
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 114,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 228,
+              "y": 0,
+              "visible": true
+            }
+          ]
+        },
+        "mw": {
+          "size": {
+            "width": 274,
+            "height": 104
+          },
+          "cell": {
+            "x": 50,
+            "y": 50
+          },
+          "gap": {
+            "x": 6,
+            "y": 4
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 56,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 112,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 168,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 224,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 56,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 112,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 168,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 224,
+              "y": 54,
+              "visible": true
+            }
+          ]
+        }
+      },
       "measurements": [
         {
           "selector": "#ui-preview-stage button[data-ui-name=\"CommonTabButton\"]",
@@ -3515,6 +3766,23 @@
         },
         {
           "selector": "#ui-preview-stage button[data-ui-name=\"InfoTabButton\"]",
+          "before": {
+            "y": 379,
+            "x": 0,
+            "hash": "#uipreview/collection",
+            "top": 227,
+            "left": 0
+          },
+          "after": {
+            "y": 379,
+            "x": 0,
+            "hash": "#uipreview/collection",
+            "top": 227,
+            "left": 0
+          }
+        },
+        {
+          "selector": "#ui-preview-stage button[data-ui-name=\"MutationsTabButton\"]",
           "before": {
             "y": 379,
             "x": 0,
@@ -3656,7 +3924,7 @@
         "width": 390,
         "height": 844
       },
-      "clicks": 211,
+      "clicks": 212,
       "petsClicked": 173,
       "scroll": "unchanged before/after every mouse click",
       "sample": {
@@ -3710,6 +3978,257 @@
           "entityOpacity": "0.01"
         }
       ],
+      "layoutPositions": {
+        "rarity": {
+          "size": {
+            "width": 190,
+            "height": 540
+          },
+          "cell": {
+            "x": 190,
+            "y": 50
+          },
+          "gap": {
+            "x": 0,
+            "y": 7
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 57,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 114,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 171,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 228,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 285,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 342,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 399,
+              "visible": true
+            }
+          ]
+        },
+        "pets": {
+          "size": {
+            "width": 416,
+            "height": 430
+          },
+          "cell": {
+            "x": 100,
+            "y": 100
+          },
+          "gap": {
+            "x": 4,
+            "y": 8
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 5,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 113,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 221,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 329,
+              "visible": true
+            },
+            {
+              "x": 104,
+              "y": 329,
+              "visible": true
+            },
+            {
+              "x": 208,
+              "y": 329,
+              "visible": true
+            },
+            {
+              "x": 312,
+              "y": 329,
+              "visible": true
+            }
+          ]
+        },
+        "details": {
+          "size": {
+            "width": 336,
+            "height": 60
+          },
+          "cell": {
+            "x": 108,
+            "y": 60
+          },
+          "gap": {
+            "x": 6,
+            "y": 0
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 114,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 228,
+              "y": 0,
+              "visible": true
+            }
+          ]
+        },
+        "mw": {
+          "size": {
+            "width": 274,
+            "height": 104
+          },
+          "cell": {
+            "x": 50,
+            "y": 50
+          },
+          "gap": {
+            "x": 6,
+            "y": 4
+          },
+          "positions": [
+            {
+              "x": 0,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 56,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 112,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 168,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 224,
+              "y": 0,
+              "visible": true
+            },
+            {
+              "x": 0,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 56,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 112,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 168,
+              "y": 54,
+              "visible": true
+            },
+            {
+              "x": 224,
+              "y": 54,
+              "visible": true
+            }
+          ]
+        }
+      },
       "measurements": [
         {
           "selector": "#ui-preview-stage button[data-ui-name=\"CommonTabButton\"]",
@@ -7164,6 +7683,23 @@
         },
         {
           "selector": "#ui-preview-stage button[data-ui-name=\"InfoTabButton\"]",
+          "before": {
+            "y": 367,
+            "x": 0,
+            "hash": "#uipreview/collection",
+            "top": 227,
+            "left": 83
+          },
+          "after": {
+            "y": 367,
+            "x": 0,
+            "hash": "#uipreview/collection",
+            "top": 227,
+            "left": 83
+          }
+        },
+        {
+          "selector": "#ui-preview-stage button[data-ui-name=\"MutationsTabButton\"]",
           "before": {
             "y": 367,
             "x": 0,

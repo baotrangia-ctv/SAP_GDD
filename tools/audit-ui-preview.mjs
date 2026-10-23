@@ -54,6 +54,24 @@ const sourceRuntimeAssignments = readFileSync(path.join(sourceRoot, "Assets", "S
   return match ? [{ target: match[1].trim(), widgetType: match[2], property: match[3], expression: match[4], source: `Assets/Scripts/HUDs/HudCollection.fcg:${index + 1}` }] : [];
 });
 assert.deepEqual(rules.runtimeAssignments, sourceRuntimeAssignments, "Runtime UI property assignments are incomplete or changed");
+const layoutNodes = [];
+function collectLayouts(node) {
+  if (node.layout?.enable) layoutNodes.push(node);
+  node.children.forEach(collectLayouts);
+}
+collectLayouts(data.tree);
+assert.equal(layoutNodes.length, 4, "Expected four active Collection layout entities");
+assert.ok(layoutNodes.every(node => node.type === "UILayoutEntityV2" && node.layout.type === "grid"), "Collection layouts must retain their source layout data");
+const mwLayout = layoutNodes.find(node => node.name === "MWLayout");
+const mwColumns = Math.floor((mwLayout.transform.sizeDelta.x - mwLayout.layout.offset.left - mwLayout.layout.offset.right + mwLayout.layout.space.x) / (mwLayout.layout.size.x + mwLayout.layout.space.x));
+assert.equal(mwLayout.layout.size.y, rules.mwGrid.size, "MW icon size differs between .ui and HudCollection.fcg");
+assert.equal(mwLayout.layout.space.y, rules.mwGrid.verticalSpacing, "MW vertical spacing differs between .ui and HudCollection.fcg");
+assert.equal(mwColumns, rules.mwGrid.columns, "MW grid column count differs between .ui geometry and HudCollection.fcg");
+const rendererSource = readFileSync(path.join(gdd, "dist", "app-ui-renderer.js"), "utf8");
+assert.match(rendererSource, /function applyLayout\(/, "Shared layout engine missing");
+assert.doesNotMatch(rendererSource, /function layoutPosition\(|function resizeGridItem\(/, "Duplicate layout placement implementation remains");
+for (const field of ["corner", "fixedRowCount", "fixedColumnCount", "tableOffset", "tableSpace", "ignoreInactive", "offset.down", "sortType"])
+  assert.ok(rendererSource.includes(field), `Layout engine does not read ${field}`);
 const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"];
 for (const file of previewModules) {
   const code = readFileSync(path.join(gdd, "dist", file), "utf8");
@@ -100,6 +118,9 @@ const report = {
   gameRarityColorsMatched: true,
   spriteTintAlphaPreserved: true,
   imageGradientConfigured: Boolean(data.renderingPolicy?.imageGradient),
+  layoutEntityCount: layoutNodes.length,
+  mwGridMatchesSource: true,
+  singleLayoutEngine: true,
   spriteCount: manifest.sprites.length, missingSprites: manifest.missing.map(item => item.key),
   missingCopiedFiles: missingFiles.map(item => item.output),
   imageEntityCount: imageEntities.length, unmanifestedImages, borderMismatches,

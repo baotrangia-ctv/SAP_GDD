@@ -69,3 +69,22 @@ dọc từ `gradientTop` đến `gradientBottom` khi `gradient > 0`; alpha sprit
 đối chiếu pixel với runtime. Cần xác minh các mode gradient 1/2, phép nhân
 Color và kết quả trên sprite 9-grid bằng Editor hoặc ảnh runtime trước khi
 tuyên bố parity.
+
+## DA-011 · UILayoutEntityV2 grid semantics (2026-10-23)
+
+MCP Craftland `脚本手册/UGC_Wiki_Entities` ghi nhận các trường của
+`UIWidgetLayout` đời cũ: `CellSize`, `CellSpace`, `Constraint`,
+`ConstraintCount`, offset dọc/ngang, `SortType` và `IgnoreInactive`. Tài liệu
+nói `IgnoreInactive` sắp child active trước rồi đến inactive; `LayoutSortType`
+có các giá trị 0 theo hierarchy, 1 priority cao xuống thấp, 2 priority thấp
+lên cao. `FillDirectionType` định nghĩa ngang=0, dọc=1. Tài liệu không mô tả
+`UILayoutEntityV2.corner`, `tableOffset`, `tableSpace` hoặc ý nghĩa fixed row /
+fixed column của V2.
+
+Bốn layout hiện có trong `.ui` dùng `constraint=0`, `corner=0`, table
+offset/space bằng 0 và `sortType=0`; cell size/spacing khớp size icon M/W,
+khoảng dọc và giới hạn năm cột trong FCG. Engine web ánh xạ corner thành bốn
+góc bắt đầu, dùng table offset như padding cộng thêm, table space như khoảng
+cách cell cộng thêm, và hiểu constraint 1/2 lần lượt là fixed row/column. Đây
+là giả định preview cho V2. Cần đối chiếu vị trí trong Editor/runtime trước
+khi dùng cấu hình V2 khác 0 hoặc tuyên bố vị trí khớp game.

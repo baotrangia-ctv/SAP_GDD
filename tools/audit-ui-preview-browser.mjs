@@ -96,6 +96,46 @@ export async function auditBrowser(url, screen) {
         await click(button(`${tab}TabButton`));
         assert.equal(await page.evaluate(() => collectionPreview.detailTab), tab);
       }
+      await click(button("MutationsTabButton"));
+      const layoutPositions = await page.evaluate(tree => {
+        const sourceNodes = new Map();
+        function index(node) { sourceNodes.set(node.path, node); node.children.forEach(index); }
+        index(tree);
+        const paths = {
+          rarity: "PetsCollection/Container/RarityTabsLayout",
+          pets: "PetsCollection/Container/PetsLayout",
+          details: "PetsCollection/Container/DetailsTabsLayout",
+          mw: "PetsCollection/Container/MutationsWeathers/MWLayout"
+        };
+        const result = {};
+        for (const [key, path] of Object.entries(paths)) {
+          const source = sourceNodes.get(path);
+          const root = document.querySelector(`[data-ui-path="${path}"]`);
+          const children = [...root.children].filter(child => child.classList.contains("ui-entity"));
+          result[key] = {
+            size: { width: Number.parseFloat(root.style.width), height: Number.parseFloat(root.style.height) },
+            cell: source.layout.size,
+            gap: source.layout.space,
+            positions: children.map(child => ({ x: Number.parseFloat(child.style.left), y: Number.parseFloat(child.style.top), visible: getComputedStyle(child).display !== "none" }))
+          };
+        }
+        return result;
+      }, screen.tree);
+      const near = (actual, expected, label) => assert.ok(Math.abs(actual - expected) < 1e-6, `${label}: expected ${expected}, received ${actual}`);
+      assert.equal(layoutPositions.rarity.positions.length, 8);
+      layoutPositions.rarity.positions.forEach((point, index) => { near(point.x, 0, `rarity ${index} x`); near(point.y, index * 57, `rarity ${index} y`); });
+      const petColumns = Math.floor((416 + 4) / (layoutPositions.pets.cell.x + 4));
+      assert.equal(petColumns, 4, "PetsLayout column count from .ui geometry");
+      layoutPositions.pets.positions.slice(0, 16).forEach((point, index) => {
+        near(point.x, index % petColumns * 104, `pet ${index} x`);
+        near(point.y, Math.floor(index / petColumns) * 108 + 5, `pet ${index} y`);
+      });
+      layoutPositions.details.positions.forEach((point, index) => { near(point.x, index * 114, `details ${index} x`); near(point.y, 0, `details ${index} y`); });
+      assert.equal(layoutPositions.mw.positions.filter(point => point.visible).length, layoutPositions.mw.positions.length, "Mutation icons should be visible in this state");
+      layoutPositions.mw.positions.slice(0, 6).forEach((point, index) => {
+        near(point.x, index % 5 * 56, `M/W icon ${index} x`);
+        near(point.y, Math.floor(index / 5) * 54, `M/W icon ${index} y`);
+      });
       const selectedBeforeDetails = await page.evaluate(() => collectionPreview.selected.ID);
       await click('[data-ui-path="PetsCollection/Container/PetDetails/Pet/ShowDetailsPetButton"]');
       assert.equal(await page.evaluate(() => collectionPreview.selected.ID), selectedBeforeDetails, "Details button is outside the game's _PetWidgets list");
@@ -148,7 +188,7 @@ export async function auditBrowser(url, screen) {
       assert.deepEqual(await measure(), before);
       assert.equal(await page.locator(".ui-resource-selected").count(), 0);
       assert.deepEqual(errors, [], "Browser console/page errors");
-      results.push({ viewport, clicks, petsClicked, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha, measurements });
+      results.push({ viewport, clicks, petsClicked, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha, layoutPositions, measurements });
       await page.close();
     }
   } finally { await browser.close(); }

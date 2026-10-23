@@ -179,21 +179,134 @@ const uiRenderer = (() => {
     span.dataset.uiOutlineWidth = String(data.outlineOffset || 1);
     el.appendChild(span);
   }
-  function layoutPosition(layout, index, parent) {
-    if (!layout?.enable) return null;
+  const layoutQueue = new WeakSet();
+  function elementSize(element) {
+    return { width: Number.parseFloat(element.style.width) || 0, height: Number.parseFloat(element.style.height) || 0 };
+  }
+  function resizeKeepPivot(element, width, height) {
+    const current = elementSize(element);
+    const transform = (() => { try { return JSON.parse(element.dataset.uiTransform || "{}"); } catch { return {}; } })();
+    const pivot = transform.pivot || { x: .5, y: .5 };
+    const left = Number.parseFloat(element.style.left) || 0;
+    const top = Number.parseFloat(element.style.top) || 0;
+    const pivotX = left + current.width * pivot.x;
+    const pivotY = top + current.height * (1 - pivot.y);
+    element.style.width = `${Math.max(0, width)}px`;
+    element.style.height = `${Math.max(0, height)}px`;
+    element.style.left = `${pivotX - width * pivot.x}px`;
+    element.style.top = `${pivotY - height * (1 - pivot.y)}px`;
+  }
+  function childIsActive(element) {
+    return !element.classList.contains("ui-inactive") && element.style.display !== "none";
+  }
+  function layoutOptions(element) {
+    try { return JSON.parse(element.dataset.uiLayoutOptions || "{}"); } catch { return {}; }
+  }
+  function applyLayout(element, node) {
+    const layout = node.layout;
+    if (!layout?.enable) return;
+    const options = layoutOptions(element);
+    const children = [...element.children].filter(child => child.classList.contains("ui-entity"));
+    const ordered = children.map((child, index) => ({ child, index, priority: Number(child.dataset.uiPriority || 0), active: childIsActive(child) }));
+    ordered.sort((a, b) => {
+      if (layout.ignoreInactive && a.active !== b.active) return Number(b.active) - Number(a.active);
+      if (layout.sortType === 1 && a.priority !== b.priority) return b.priority - a.priority;
+      if (layout.sortType === 2 && a.priority !== b.priority) return a.priority - b.priority;
+      return a.index - b.index;
+    });
+
     const cell = layout.size || { x: 0, y: 0 };
     const gap = layout.space || { x: 0, y: 0 };
     const offset = layout.offset || {};
-    if (layout.type === "grid") {
-      const available = Math.max(1, parent.width - (offset.left || 0) - (offset.right || 0));
-      const columns = layout.direction === 1 ? 1 : Math.max(1, Math.floor((available + gap.x) / (cell.x + gap.x)));
-      const col = layout.direction === 1 ? 0 : index % columns;
-      const row = layout.direction === 1 ? index : Math.floor(index / columns);
-      return { left: (offset.left || 0) + col * (cell.x + gap.x), top: (offset.up || 0) + row * (cell.y + gap.y), width: cell.x, height: cell.y };
+    const tableOffset = layout.tableOffset || {};
+    const tableSpace = Number(layout.tableSpace) || 0;
+    const left = (Number(offset.left) || 0) + (Number(tableOffset.left) || 0);
+    const right = (Number(offset.right) || 0) + (Number(tableOffset.right) || 0);
+    const top = (Number(offset.up) || 0) + (Number(tableOffset.up) || 0);
+    const bottom = (Number(offset.down) || 0) + (Number(tableOffset.down) || 0);
+    const gapX = (Number(gap.x) || 0) + tableSpace;
+    const gapY = (Number(gap.y) || 0) + tableSpace;
+    let parent = elementSize(element);
+    let columns = 1, rows = 1;
+    const direction = Number(layout.direction) === 1 ? "vertical" : "horizontal";
+    const constraint = Number(layout.constraint) || 0;
+    const fixedRows = Math.max(1, Number(layout.fixedRowCount) || 1);
+    const fixedColumns = Math.max(1, Number(layout.fixedColumnCount) || 1);
+    const maxColumns = Math.max(0, Number(options.maxColumns) || 0);
+    const fixedRowsMode = constraint === 1;
+    const fixedColumnsMode = constraint === 2;
+
+    if (options.resizeHeightToVisibleRows) {
+      const visibleCount = ordered.filter(item => item.active).length;
+      const columnsForHeight = maxColumns || Math.max(1, Math.floor((parent.width - left - right + gapX) / Math.max(1, cell.x + gapX)));
+      rows = visibleCount ? Math.ceil(visibleCount / columnsForHeight) : 0;
+      const height = rows ? rows * cell.y + (rows - 1) * gapY + top + bottom : top + bottom;
+      resizeKeepPivot(element, parent.width, height);
+      element.dataset.uiRuntimeSize = JSON.stringify({ width: parent.width, height });
+      parent = elementSize(element);
     }
-    if (layout.type === "horizontal") return { left: (offset.left || 0) + index * (cell.x + gap.x), top: offset.up || 0, width: cell.x, height: cell.y };
-    if (layout.type === "vertical") return { left: offset.left || 0, top: (offset.up || 0) + index * (cell.y + gap.y), width: cell.x, height: cell.y };
-    return null;
+
+    if (direction === "vertical") {
+      rows = fixedRowsMode ? fixedRows : Math.max(1, Math.floor((parent.height - top - bottom + gapY) / Math.max(1, cell.y + gapY)));
+      columns = fixedColumnsMode ? fixedColumns : maxColumns || Math.ceil(ordered.length / rows);
+      if (!fixedRowsMode && !fixedColumnsMode && maxColumns) rows = Math.max(1, Math.ceil(ordered.length / maxColumns));
+    } else {
+      columns = fixedColumnsMode ? fixedColumns : maxColumns || Math.max(1, Math.floor((parent.width - left - right + gapX) / Math.max(1, cell.x + gapX)));
+      rows = fixedRowsMode ? fixedRows : Math.max(1, Math.ceil(ordered.length / columns));
+    }
+    columns = Math.max(1, columns);
+    rows = Math.max(1, rows);
+    const corner = Number(layout.corner) || 0;
+    const reverseColumns = corner === 1 || corner === 3;
+    const reverseRows = corner === 2 || corner === 3;
+
+    ordered.forEach((item, index) => {
+      let column = direction === "vertical" ? Math.floor(index / rows) : index % columns;
+      let row = direction === "vertical" ? index % rows : Math.floor(index / columns);
+      const cellLeft = reverseColumns ? parent.width - right - cell.x - column * (cell.x + gapX) : left + column * (cell.x + gapX);
+      const cellTop = reverseRows ? parent.height - bottom - cell.y - row * (cell.y + gapY) : top + row * (cell.y + gapY);
+      let transform = {};
+      try { transform = JSON.parse(item.child.dataset.uiTransform || "{}"); } catch {}
+      const childRect = rect(transform, parent);
+      const pivot = transform.pivot || { x: .5, y: .5 };
+      const width = childRect.width || cell.x;
+      const height = childRect.height || cell.y;
+      item.child.style.left = `${cellLeft + cell.x / 2 - width * pivot.x}px`;
+      item.child.style.top = `${cellTop + cell.y / 2 - height * (1 - pivot.y)}px`;
+      item.child.style.width = `${Math.max(0, width)}px`;
+      item.child.style.height = `${Math.max(0, height)}px`;
+    });
+  }
+  function layoutTree(canvas, data) {
+    const byId = new Map(), byPath = new Map();
+    (function index(node) { byId.set(node.id, node); byPath.set(node.path, node); node.children.forEach(index); })(data.tree);
+    function walk(node, element) {
+      applyLayout(element, node);
+      for (const child of [...element.children].filter(item => item.classList.contains("ui-entity"))) {
+        const childNode = byId.get(child.dataset.uiId) || byPath.get(child.dataset.uiPath || child.dataset.uiClonePath);
+        if (childNode) walk(childNode, child);
+      }
+    }
+    walk(data.tree, canvas.firstElementChild);
+  }
+  function refreshLayouts(canvas, data) {
+    if (!canvas || layoutQueue.has(canvas)) return;
+    layoutQueue.add(canvas);
+    const callback = () => { layoutQueue.delete(canvas); layoutTree(canvas, data); };
+    if (window.requestAnimationFrame) window.requestAnimationFrame(callback);
+    else window.setTimeout(callback, 0);
+  }
+  function setLayoutOptions(element, options, canvas, data) {
+    if (!element) return;
+    element.dataset.uiLayoutOptions = JSON.stringify(options || {});
+    refreshLayouts(canvas, data);
+  }
+  function setSize(element, size, canvas, data) {
+    if (!element) return;
+    const current = elementSize(element);
+    resizeKeepPivot(element, Number.isFinite(size.width) ? size.width : current.width, Number.isFinite(size.height) ? size.height : current.height);
+    element.dataset.uiRuntimeSize = JSON.stringify(elementSize(element));
+    refreshLayouts(canvas, data);
   }
   function render(data, manifest, width, height) {
     const canvas = document.createElement("div");
@@ -201,7 +314,7 @@ const uiRenderer = (() => {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     const byId = new Map();
-    function add(node, parent, parentRect, index = 0, parentLayout = null) {
+    function add(node, parent, parentRect) {
       const element = document.createElement(node.type === "UIButtonEntity" ? "button" : "div");
       element.className = "ui-entity";
       element.dataset.uiPath = node.path;
@@ -209,9 +322,13 @@ const uiRenderer = (() => {
       element.dataset.uiId = node.id;
       element.dataset.uiName = node.name;
       element.dataset.uiSpriteKey = node.image?.spriteKey || node.button?.spriteKey || "";
+      element.dataset.uiTransform = JSON.stringify(node.transform || {});
+      element.dataset.uiBaseActive = String(!!node.active);
       if (node.type === "UIButtonEntity") { element.type = "button"; element.setAttribute("aria-label", node.name); }
       if (!node.active) element.classList.add("ui-inactive");
-      const r = layoutPosition(parentLayout, index, parentRect) || rect(node.transform, parentRect);
+      const r = rect(node.transform, parentRect);
+      element.dataset.uiBaseWidth = String(Math.max(0, r.width));
+      element.dataset.uiBaseHeight = String(Math.max(0, r.height));
       element.style.left = `${r.left}px`;
       element.style.top = `${r.top}px`;
       element.style.width = `${Math.max(0, r.width)}px`;
@@ -240,11 +357,12 @@ const uiRenderer = (() => {
       text(element, node.text);
       parent.appendChild(element);
       byId.set(node.id, element);
-      node.children.forEach((child, childIndex) => add(child, element, r, childIndex, node.layout));
+      node.children.forEach(child => add(child, element, r));
       return element;
     }
     add(data.tree, canvas, { width, height });
+    layoutTree(canvas, data);
     return { canvas, byId };
   }
-  return { render, rect, setSprite, setImage, tint, setTextOutlineColor };
+  return { render, rect, setSprite, setImage, tint, setTextOutlineColor, refreshLayouts, setLayoutOptions, setSize };
 })();

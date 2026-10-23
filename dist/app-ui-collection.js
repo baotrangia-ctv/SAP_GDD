@@ -16,6 +16,7 @@ function initCollectionPreview(screen, rules, rendered) {
   const petLayout = named("PetsLayout");
   const mwTemplate = byPath(base + "MutationsWeathers/MWLayout/Icon");
   const mwLayout = named("MWLayout");
+  uiRenderer.setLayoutOptions(mwLayout, { maxColumns: rules.mwGrid.columns, resizeHeightToVisibleRows: true }, rendered.canvas, screen);
   let petCards = [petTemplate];
   let mwIcons = [mwTemplate];
   const rarityColor = value => rules.rarityColors?.values?.[String(value).toUpperCase()]?.value || "#FFFFFF";
@@ -23,7 +24,13 @@ function initCollectionPreview(screen, rules, rendered) {
   const hash = (value, seed) => { let n = seed | 0; for (const ch of String(value)) n = Math.imul(n ^ ch.charCodeAt(0), 16777619); return n >>> 0; };
   const petOwned = pet => state.mode === "all" || (state.mode === "random" && hash(pet.ID, state.seed) % 2 === 0) || (state.mode === "custom" && state.customPets.has(pet.ID));
   const effectOwned = (pet, row, type) => petOwned(pet) && (state.mode === "all" || (state.mode === "random" && hash(`${pet.ID}/${type}/${row.ID}`, state.seed) % 3 === 0) || (state.mode === "custom" && (type === "mutation" ? state.customMutations : state.customWeathers).has(`${pet.ID}/${row.ID}`)));
-  function setVisible(el, visible) { if (el) { el.classList.toggle("ui-inactive", !visible); el.style.display = visible ? "" : "none"; } }
+  function setVisible(el, visible) {
+    if (!el) return;
+    const wasVisible = !el.classList.contains("ui-inactive") && el.style.display !== "none";
+    el.classList.toggle("ui-inactive", !visible);
+    el.style.display = visible ? "" : "none";
+    if (wasVisible !== visible) uiRenderer.refreshLayouts(rendered.canvas, screen);
+  }
   function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) span.textContent = uiTranslate(String(value)); }
   function setImage(el, url, dark = false) {
     if (!el) return;
@@ -55,16 +62,9 @@ function initCollectionPreview(screen, rules, rendered) {
     delete clone.dataset.uiPath;
     delete clone.dataset.uiId;
     container.appendChild(clone);
+    uiRenderer.refreshLayouts(rendered.canvas, screen);
     return clone;
   }
-  function resizeGridItem(el, index, layoutNode) {
-    const grid = layoutNode.layout;
-    if (!grid) return;
-    const cell = grid.size, gap = grid.space, cols = Math.max(1, Math.floor((layoutNode.transform.sizeDelta.x - grid.offset.left - grid.offset.right + gap.x) / (cell.x + gap.x)));
-    el.style.left = `${grid.offset.left + index % cols * (cell.x + gap.x)}px`;
-    el.style.top = `${grid.offset.up + Math.floor(index / cols) * (cell.y + gap.y)}px`;
-  }
-  const layoutNode = screen.tree.children.find(x => x.name === "Container").children.find(x => x.name === "PetsLayout");
   const allPets = pets.filter(pet => {
     const id = Number(pet.ID), f = rules.petFilter;
     return !(id > f.luckyBoxStart && id <= f.luckyBoxStart + f.luckyBoxCount);
@@ -88,7 +88,6 @@ function initCollectionPreview(screen, rules, rendered) {
     setVisible(card, !!pet);
     if (!pet) return;
     card.dataset.uiPetId = pet.ID;
-    resizeGridItem(card, index, layoutNode);
     const owned = petOwned(pet);
     setText(directChild(card, "Name"), owned ? pet.Name : rules.unowned.name);
     setImage(directChild(card, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
