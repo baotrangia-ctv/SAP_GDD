@@ -178,13 +178,22 @@ function collectionRules(source) {
       giftcodePetIds: [...find(petCode, /PET_OBTAIN_GIFTCODE_PET_IDS List<int> = List<int>\{/, petFile).line.match(/\{([^}]*)\}/)[1].matchAll(/\d+/g)].map(x => Number(x[0])),
       luckyboxPetIds: [...find(petCode, /PET_OBTAIN_LUCKYBOX_PET_IDS List<int> = List<int>\{/, petFile).line.match(/\{([^}]*)\}/)[1].matchAll(/\d+/g)].map(x => Number(x[0])),
       secretFusionStart: Number(find(petCode, /SECRET_FUSION_PET_START_INDEX int = \d+/, petFile).line.match(/=\s*(\d+)/)[1]),
+      secretFusionCount: Number(find(petCode, /SECRET_FUSION_PET_COUNT int = \d+/, petFile).line.match(/=\s*(\d+)/)[1]),
+      secretFusionException: Number(find(petCode, /if petId == \d+/, petFile).line.match(/==\s*(\d+)/)[1]),
+      canFuseColumn: "CanFuse", canFuseSource: required(petCode, /CsvConfigEnum.Pet_CanFuse/, petFile),
+      roadWeightColumns: [1, 2, 3, 4, 5].map(index => `Weight${index}`),
+      roadSource: required(petCode, /return _PetId2Weight1\[petId\] != 0 \|\| _PetId2Weight2/, petFile),
       specialListSource: required(petCode, /PET_OBTAIN_GIFTCODE_PET_IDS List<int>/, petFile)
     },
     recipe: {
       when: "unowned and PetConfigs.GetPetObtainSource(...) == PET_OBTAIN_SOURCE_FUSION",
       conditionSource: required(hud, /if !isOwned && CanOpenRecipe\(petId\)/, hudFile),
       equalitySource: required(hud, /return source == PetConfigs.PET_OBTAIN_SOURCE_FUSION/, hudFile),
-      hidesDetailsTabs: true, source: required(hud, /func OpenRecipe\(\)/, hudFile)
+      hidesDetailsTabs: true, source: required(hud, /func OpenRecipe\(\)/, hudFile),
+      previousRankOffset: Number(find(hud, /var previousRank int = petRank - \d+/, hudFile).line.match(/-\s*(\d+)/)[1]),
+      previousRankSource: required(hud, /var previousRank int = petRank - \d+/, hudFile),
+      previousPetSelection: "scan descending from previousRank; skip ranks without a pet or with CanFuse=false",
+      previousPetSelectionSource: required(petCode, /func GetPetIdWithPrevRank\(/, petFile)
     },
     counters: {
       pets: { owned: "GetPCPetsCountByRarity", total: "GetCollectionPetIdsByRarity.length", source: required(hud, /var ownPetsCount int = CollectionManager.GetPCPetsCountByRarity/, hudFile) },

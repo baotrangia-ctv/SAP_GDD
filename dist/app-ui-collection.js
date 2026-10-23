@@ -86,9 +86,10 @@ function initCollectionPreview(screen, rules, rendered) {
     const id = Number(pet.ID), o = rules.obtain;
     if (o.giftcodePetIds.includes(id)) return "giftcode";
     if (o.luckyboxPetIds.includes(id)) return "luckybox";
-    const fuse = pet.CanFuse === "1";
-    const road = [1, 2, 3, 4, 5].some(n => Number(pet[`Weight${n}`]) > 0);
-    if (fuse && (id > rules.obtain.secretFusionStart || !road)) return "fusion";
+    const fuse = pet[o.canFuseColumn] === "1";
+    const road = o.roadWeightColumns.some(column => Number(pet[column]) > 0);
+    const secret = id !== o.secretFusionException && id > o.secretFusionStart && id <= o.secretFusionStart + o.secretFusionCount;
+    if (fuse && (secret || !road)) return "fusion";
     if (road) return "road";
     return "chưa có dữ liệu";
   }
@@ -111,11 +112,19 @@ function initCollectionPreview(screen, rules, rendered) {
     setText(directChild(unlock, "Label"), `Nhận từ: ${kind}`);
     setVisible(recipe, showRecipe);
     if (showRecipe) {
-      const previous = allPets.filter(row => Number(row.Rank) < Number(pet.Rank)).at(-1);
+      let rank = Number(pet.Rank) - rules.recipe.previousRankOffset;
+      let previous = null;
+      while (rank >= 1 && !previous) {
+        const candidate = allPets.find(row => Number(row.Rank) === rank);
+        if (candidate?.[rules.obtain.canFuseColumn] === "1") previous = candidate;
+        else rank -= 1;
+      }
       const materials = [...recipe.children].filter(el => el.dataset.uiName === "Pet");
       materials.forEach((item, index) => {
-        const isSpecific = index === 1 && previous && Number(previous.ID) > rules.obtain.secretFusionStart;
-        setText(directChild(item, "Name"), isSpecific ? previous.Name : `Any ${pet.Rarity}`);
+        const previousId = Number(previous?.ID);
+        const isSecret = previousId !== rules.obtain.secretFusionException && previousId > rules.obtain.secretFusionStart && previousId <= rules.obtain.secretFusionStart + rules.obtain.secretFusionCount;
+        const isSpecific = index === 1 && previous && isSecret;
+        setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? `Bất kỳ ${previous.Rarity}` : "chưa có dữ liệu");
         setImage(directChild(item, "Thumbnail"), isSpecific ? icon(iconSets.petIcons, previous.ID) : "");
         item.dataset.uiRecipeTarget = isSpecific ? previous.ID : "";
       });

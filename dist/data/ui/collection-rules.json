@@ -111,6 +111,18 @@
       1046
     ],
     "secretFusionStart": 1000,
+    "secretFusionCount": 54,
+    "secretFusionException": 1033,
+    "canFuseColumn": "CanFuse",
+    "canFuseSource": "Assets/Scripts/Configs/PetConfigs.fcg:186",
+    "roadWeightColumns": [
+      "Weight1",
+      "Weight2",
+      "Weight3",
+      "Weight4",
+      "Weight5"
+    ],
+    "roadSource": "Assets/Scripts/Configs/PetConfigs.fcg:590",
     "specialListSource": "Assets/Scripts/Configs/PetConfigs.fcg:106"
   },
   "recipe": {
@@ -118,7 +130,11 @@
     "conditionSource": "Assets/Scripts/HUDs/HudCollection.fcg:441",
     "equalitySource": "Assets/Scripts/HUDs/HudCollection.fcg:865",
     "hidesDetailsTabs": true,
-    "source": "Assets/Scripts/HUDs/HudCollection.fcg:803"
+    "source": "Assets/Scripts/HUDs/HudCollection.fcg:803",
+    "previousRankOffset": 1,
+    "previousRankSource": "Assets/Scripts/HUDs/HudCollection.fcg:822",
+    "previousPetSelection": "scan descending from previousRank; skip ranks without a pet or with CanFuse=false",
+    "previousPetSelectionSource": "Assets/Scripts/Configs/PetConfigs.fcg:736"
   },
   "counters": {
     "pets": {
