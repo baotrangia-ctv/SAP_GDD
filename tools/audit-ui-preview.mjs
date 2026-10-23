@@ -82,6 +82,13 @@ assert.ok(data.renderingPolicy?.textStatus && data.renderingPolicy?.fillStatus &
 const previewSource = readFileSync(path.join(gdd, "dist", "app-uipreview.js"), "utf8");
 for (const ratio of ["16:9", "18:9", "20:9", "4:3"]) assert.ok(previewSource.includes(ratio), `Missing viewport preset ${ratio}`);
 assert.match(previewSource, /safe area chưa xác minh|safe area/iu, "Viewport uncertainty must be visible in the UI");
+const inspectorPath = path.join(gdd, "dist", "app-ui-inspector.js");
+assert.ok(existsSync(inspectorPath), "Separate Widget Inspector module missing");
+const inspectorSource = readFileSync(inspectorPath, "utf8");
+for (const feature of ["contextmenu", "preventDefault", "getBoundingClientRect", "ui-show-inactive", "propsData", "ecaProps", "uiCloneTemplatePath", "uiCloneIndex", "runtimeValues", "execCommand", "Escape", "hudCollectionAssignmentsForTheseProperties"])
+  assert.ok(inspectorSource.includes(feature), `Inspector does not cover ${feature}`);
+assert.doesNotMatch(inspectorSource, /pointerenter|pointerleave|\.title\s*=|:hover/, "Inspector must not introduce hover or tooltip behavior");
+assert.match(readFileSync(path.join(gdd, "dist", "index.html"), "utf8"), /app-ui-inspector\.js/, "Inspector module is not loaded by index.html");
 const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"];
 for (const file of previewModules) {
   const code = readFileSync(path.join(gdd, "dist", file), "utf8");
@@ -138,6 +145,9 @@ const report = {
   radialFillImplemented: true,
   viewportPresetCount: 4,
   viewportScalerUnverified: true,
+  inspectorModule: true,
+  inspectorContextMenuAndGeometryHitTest: true,
+  inspectorCloneIdentityAndFullProps: true,
   spriteCount: manifest.sprites.length, missingSprites: manifest.missing.map(item => item.key),
   missingCopiedFiles: missingFiles.map(item => item.output),
   imageEntityCount: imageEntities.length, unmanifestedImages, borderMismatches,

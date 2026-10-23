@@ -16,28 +16,42 @@ function initCollectionPreview(screen, rules, rendered) {
   const petLayout = named("PetsLayout");
   const mwTemplate = byPath(base + "MutationsWeathers/MWLayout/Icon");
   const mwLayout = named("MWLayout");
-  uiRenderer.setLayoutOptions(mwLayout, { maxColumns: rules.mwGrid.columns, resizeHeightToVisibleRows: true }, rendered.canvas, screen);
+  uiRenderer.setLayoutOptions(mwLayout, { maxColumns: rules.mwGrid.columns, resizeHeightToVisibleRows: true, sizeSource: rules.mwGrid.source }, rendered.canvas, screen);
   let petCards = [petTemplate];
   let mwIcons = [mwTemplate];
   const rarityColor = value => rules.rarityColors?.values?.[String(value).toUpperCase()]?.value || "#FFFFFF";
+  const rarityColorSource = value => rules.rarityColors?.values?.[String(value).toUpperCase()]?.source || "dist/data/ui/collection-rules.json";
   const icon = (set, id) => set?.[String(id)] || "";
   const hash = (value, seed) => { let n = seed | 0; for (const ch of String(value)) n = Math.imul(n ^ ch.charCodeAt(0), 16777619); return n >>> 0; };
   const petOwned = pet => state.mode === "all" || (state.mode === "random" && hash(pet.ID, state.seed) % 2 === 0) || (state.mode === "custom" && state.customPets.has(pet.ID));
   const effectOwned = (pet, row, type) => petOwned(pet) && (state.mode === "all" || (state.mode === "random" && hash(`${pet.ID}/${type}/${row.ID}`, state.seed) % 3 === 0) || (state.mode === "custom" && (type === "mutation" ? state.customMutations : state.customWeathers).has(`${pet.ID}/${row.ID}`)));
-  function setVisible(el, visible) {
+  function recordRuntime(el, property, value, source = "dist/app-ui-collection.js (preview simulation)") {
+    if (!el) return;
+    let values = {};
+    try { values = JSON.parse(el.dataset.uiRuntimeValues || "{}"); } catch {}
+    values[property] = { value, source };
+    el.dataset.uiRuntimeValues = JSON.stringify(values);
+  }
+  function sourceFor(target, property, fragment = "") {
+    return rules.runtimeAssignments.find(item => item.target === target && item.property === property && (!fragment || item.expression.includes(fragment)))?.source || "dist/app-ui-collection.js (preview simulation)";
+  }
+  function setVisible(el, visible, source) {
     if (!el) return;
     const wasVisible = !el.classList.contains("ui-inactive") && el.style.display !== "none";
     el.classList.toggle("ui-inactive", !visible);
-    el.style.display = visible ? "" : "none";
+    el.style.removeProperty("display");
+    recordRuntime(el, "IsVisible", visible, source || "dist/app-ui-collection.js (preview simulation)");
     if (wasVisible !== visible) uiRenderer.refreshLayouts(rendered.canvas, screen);
   }
-  function setText(el, value) { const span = el?.querySelector(":scope > .ui-text"); if (span) { span.textContent = uiTranslate(String(value)); el.dataset.uiRuntimeContent = String(value); } }
-  function setImage(el, url, dark = false) {
+  function setText(el, value, source) { const span = el?.querySelector(":scope > .ui-text"); if (span) { span.textContent = uiTranslate(String(value)); el.dataset.uiRuntimeContent = String(value); recordRuntime(el, "Content", String(value), source); } }
+  function setImage(el, url, dark = false, sources = {}) {
     if (!el) return;
     el.dataset.uiRuntimeUrl = url || "";
     const source = screenEntity(el)?.image || {};
     const color = typeof dark === "string" ? dark : dark ? rules.unowned.tint : source.color || "#FFFFFF";
     uiRenderer.setImage(el, url, { ...source, color });
+    recordRuntime(el, "SpriteName", url || "", sources.sprite || "dist/app-ui-collection.js (preview simulation)");
+    recordRuntime(el, "Color", color, sources.color || "dist/app-ui-collection.js (preview simulation)");
   }
   function updateTabVisuals(group, activeName) {
     const config = rules.tabVisuals?.[group];
@@ -48,19 +62,36 @@ function initCollectionPreview(screen, rules, rendered) {
       if (!button) continue;
       const active = name === activeName;
       const props = screenEntity(button)?.button || {};
-      uiRenderer.setSprite(button, active ? config.selectedSprite : config.normalSprite, { ...props, color: props.normal, fillType: 1 }, uiPreview.manifest);
-      const label = directChild(button, config.textChild)?.querySelector(":scope > .ui-text");
-      if (label) uiRenderer.setTextColor(button && directChild(button, config.textChild), active ? config.selectedTextColor : config.normalTextColor);
+      const sprite = active ? config.selectedSprite : config.normalSprite;
+      const spriteSource = config.source || "dist/data/ui/collection-rules.json";
+      const color = active ? config.selectedTextColor : config.normalTextColor;
+      const colorSource = sourceFor("tabText", "Color", active ? "ACTIVE_TEXT_COLOR" : "DEFAULT_TEXT_COLOR");
+      uiRenderer.setSprite(button, sprite, { ...props, color: props.normal, fillType: 1 }, uiPreview.manifest);
+      recordRuntime(button, "SpriteResource", sprite, spriteSource);
+      const labelElement = directChild(button, config.textChild);
+      if (labelElement?.querySelector(":scope > .ui-text")) {
+        uiRenderer.setTextColor(labelElement, color);
+        recordRuntime(labelElement, "Color", color, colorSource);
+      }
     }
   }
   function screenEntity(el) { const path = el?.dataset.uiPath || el?.dataset.uiClonePath; if (!path) return null; const parts = path.split("/").slice(1); let node = screen.tree; for (const part of parts) node = node?.children.find(child => child.name === part); return node; }
   function directChild(root, name) { return root ? [...root.children].find(el => el.dataset.uiName === name) : null; }
   function cloneTemplate(template, container) {
     const clone = template.cloneNode(true);
-    clone.querySelectorAll("[data-ui-path]").forEach(el => { el.dataset.uiClonePath = el.dataset.uiPath; delete el.dataset.uiPath; delete el.dataset.uiId; });
-    clone.dataset.uiClonePath = template.dataset.uiPath;
-    delete clone.dataset.uiPath;
-    delete clone.dataset.uiId;
+    const templatePath = template.dataset.uiPath || template.dataset.uiClonePath;
+    const cloneIndex = [...container.children].filter(el => el.dataset.uiCloneTemplatePath === templatePath).length + 1;
+    for (const el of [clone, ...clone.querySelectorAll("[data-ui-path]")]) {
+      const sourcePath = el.dataset.uiPath || el.dataset.uiClonePath || templatePath;
+      const sourceId = el.dataset.uiId || el.dataset.uiSourceEntityId || "";
+      el.dataset.uiClonePath = sourcePath;
+      el.dataset.uiCloneTemplatePath = templatePath;
+      el.dataset.uiCloneIndex = String(cloneIndex);
+      el.dataset.uiSourceEntityId = sourceId;
+      el.dataset.uiEntityKey = `clone:${templatePath}#${cloneIndex}:${sourceId || sourcePath}`;
+      delete el.dataset.uiPath;
+      delete el.dataset.uiId;
+    }
     container.appendChild(clone);
     uiRenderer.refreshLayouts(rendered.canvas, screen);
     return clone;
@@ -76,7 +107,11 @@ function initCollectionPreview(screen, rules, rendered) {
     const root = named(group);
     setText(root && [...root.children].find(x => x.dataset.uiName?.endsWith("Amount")), `${amount}/${total}`);
     const bar = directChild(root, "Progress");
-    if (bar) uiRenderer.setFillAmount(bar, total ? amount / total : 0, screenEntity(bar)?.image || {});
+    if (bar) {
+      const fillAmount = total ? amount / total : 0;
+      uiRenderer.setFillAmount(bar, fillAmount, screenEntity(bar)?.image || {});
+      recordRuntime(bar, "FillAmount", fillAmount, sourceFor("progress", "FillAmount", fillAmount ? "Convert.IntToFloat" : "progress.FillAmount = 0"));
+    }
   }
   function updateCounters() {
     const list = filtered();
@@ -85,16 +120,23 @@ function initCollectionPreview(screen, rules, rendered) {
     counter("WeathersCount", ownCount(weatherRows, "weather", list), list.length * weatherRows.length);
   }
   function renderPetCard(card, pet, index) {
-    setVisible(card, !!pet);
+    setVisible(card, !!pet, sourceFor("petWidget", "IsVisible", pet ? "true" : "false"));
     if (!pet) return;
     card.dataset.uiPetId = pet.ID;
     const owned = petOwned(pet);
-    setText(directChild(card, "Name"), owned ? pet.Name : rules.unowned.name);
-    setImage(directChild(card, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
+    setText(directChild(card, "Name"), owned ? pet.Name : rules.unowned.name, owned ? "Assets/CSV/Pet.csv (preview row)" : rules.unowned.nameSource);
+    setImage(directChild(card, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned, {
+      sprite: sourceFor("thumbnail", "SpriteName"),
+      color: owned ? "Assets/HUDs/PetsCollection.ui (base image Color)" : rules.runtimeColorRules.petUnowned.source
+    });
     const rarity = directChild(card, "Rarity");
-    if (rarity) uiRenderer.tint(rarity, owned ? rarityColor(pet.Rarity) : rules.unowned.tint);
+    if (rarity) {
+      const color = owned ? rarityColor(pet.Rarity) : rules.unowned.tint;
+      uiRenderer.tint(rarity, color);
+      recordRuntime(rarity, "Color", color, owned ? rarityColorSource(pet.Rarity) : rules.runtimeColorRules.petUnowned.source);
+    }
     const hasMW = directChild(card, "HasMW");
-    setText(directChild(hasMW, "Count"), mutationRows.filter(row => effectOwned(pet, row, "mutation")).length + weatherRows.filter(row => effectOwned(pet, row, "weather")).length);
+    setText(directChild(hasMW, "Count"), mutationRows.filter(row => effectOwned(pet, row, "mutation")).length + weatherRows.filter(row => effectOwned(pet, row, "weather")).length, sourceFor("countLabel", "Content"));
     setVisible(directChild(card, "SelectBorder"), pet.ID === state.selected?.ID);
   }
   function obtainKind(pet) {
@@ -117,15 +159,21 @@ function initCollectionPreview(screen, rules, rendered) {
     const owned = petOwned(pet), kind = obtainKind(pet), showRecipe = !owned && kind === "fusion";
     setVisible(panel, true);
     const detailPet = byPath(base + "PetDetails/Pet");
-    setImage(directChild(detailPet, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned);
-    setText(directChild(detailPet, "Name"), owned ? pet.Name : rules.unowned.name);
+    setImage(directChild(detailPet, "Thumbnail"), icon(iconSets.petIcons, pet.ID), !owned, {
+      sprite: sourceFor("thumbnail", "SpriteName"),
+      color: owned ? "Assets/HUDs/PetsCollection.ui (base image Color)" : rules.runtimeColorRules.petUnowned.source
+    });
+    setText(directChild(detailPet, "Name"), owned ? pet.Name : rules.unowned.name, owned ? "Assets/CSV/Pet.csv (preview row)" : rules.unowned.nameSource);
     const rarity = directChild(detailPet, "RarityBG");
     if (rarity) {
       const color = rarityColor(pet.Rarity);
       uiRenderer.tint(rarity, color);
-      uiRenderer.setTextOutlineColor(directChild(rarity, "RarityName"), color);
+      recordRuntime(rarity, "Color", color, rarityColorSource(pet.Rarity));
+      const rarityName = directChild(rarity, "RarityName");
+      uiRenderer.setTextOutlineColor(rarityName, color);
+      recordRuntime(rarityName, "OutlineColor", color, sourceFor("rarityName", "OutlineColor"));
     }
-    setText(directChild(rarity, "RarityName"), `RARITY_${pet.Rarity}`);
+    setText(directChild(rarity, "RarityName"), `RARITY_${pet.Rarity}`, sourceFor("rarityName", "Content"));
     setVisible(named("Obtain"), owned);
     setVisible(unlock, !owned);
     const obtainKeys = { giftcode: "HUD_REBIRTH_GIFTCODE", luckybox: "HUD_LUCKYBOX", fusion: "HUD_FUSE", road: "HUD_ROAD", fishing: "HUD_FISH", dig: "HUD_DIG", event: "HUD_EVENT" };
@@ -133,11 +181,14 @@ function initCollectionPreview(screen, rules, rendered) {
     const obtainSprite = rules.obtain.iconSpriteKeys?.[kind];
     if (obtainSprite) {
       for (const target of [byPath(base + "PetDetails/Obtain/BG/ObtainIcon"), byPath(base + "UnlockObtain/Icon")]) {
-        if (target) uiRenderer.setSprite(target, obtainSprite, screenEntity(target)?.image || {}, uiPreview.manifest);
+        if (target) {
+          uiRenderer.setSprite(target, obtainSprite, screenEntity(target)?.image || {}, uiPreview.manifest);
+          recordRuntime(target, "SpriteName", obtainSprite, target.dataset.uiPath?.includes("UnlockObtain") ? sourceFor("_UnlockObtainIcon", "SpriteName") : sourceFor("_ObtainIcon", "SpriteName"));
+        }
       }
     }
-    setText(directChild(unlock, "Label"), `${uiTranslate("HUD_OBTAIN_BY")} ${obtainText}`);
-    setText(byPath(base + "PetDetails/Obtain/BG/ObtainWay"), obtainText);
+    setText(directChild(unlock, "Label"), `${uiTranslate("HUD_OBTAIN_BY")} ${obtainText}`, sourceFor("_UnlockObtainLabel", "Content"));
+    setText(byPath(base + "PetDetails/Obtain/BG/ObtainWay"), obtainText, sourceFor("_ObtainWay", "Content"));
     setVisible(recipe, showRecipe);
     if (showRecipe) {
       let rank = Number(pet.Rank) - rules.recipe.previousRankOffset;
@@ -152,10 +203,15 @@ function initCollectionPreview(screen, rules, rendered) {
         const previousId = Number(previous?.ID);
         const isSecret = previousId !== rules.obtain.secretFusionException && previousId > rules.obtain.secretFusionStart && previousId <= rules.obtain.secretFusionStart + rules.obtain.secretFusionCount;
         const isSpecific = index === 1 && previous && isSecret;
-        setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? uiTranslate("ANY_RARITY", [uiTranslate(`RARITY_${previous.Rarity}`)]) : "chưa có dữ liệu");
-        setImage(directChild(item, "Thumbnail"), isSpecific ? icon(iconSets.petIcons, previous.ID) : "");
+        setText(directChild(item, "Name"), isSpecific ? previous.Name : previous ? uiTranslate("ANY_RARITY", [uiTranslate(`RARITY_${previous.Rarity}`)]) : "chưa có dữ liệu", isSpecific ? "Assets/CSV/Pet.csv (preview row)" : sourceFor("petName", "Content", "ANY_RARITY"));
+        setImage(directChild(item, "Thumbnail"), isSpecific ? icon(iconSets.petIcons, previous.ID) : "", false, { sprite: sourceFor("thumbnail", "SpriteName"), color: "Assets/HUDs/PetsCollection.ui (base image Color)" });
         const materialRarity = directChild(item, "Rarity");
-        if (materialRarity) uiRenderer.tint(materialRarity, rarityColor(isSpecific ? previous.Rarity : pet.Rarity));
+        if (materialRarity) {
+          const materialRarityValue = isSpecific ? previous.Rarity : pet.Rarity;
+          const color = rarityColor(materialRarityValue);
+          uiRenderer.tint(materialRarity, color);
+          recordRuntime(materialRarity, "Color", color, rarityColorSource(materialRarityValue));
+        }
         const redirect = item.querySelector('button[data-ui-hit-target="true"]');
         if (redirect) {
           redirect.dataset.uiRecipeTarget = isSpecific ? previous.ID : "";
@@ -170,15 +226,19 @@ function initCollectionPreview(screen, rules, rendered) {
     setVisible(info, !showRecipe && state.detailTab === "Info");
     setVisible(mw, !showRecipe && state.detailTab !== "Info");
     const value = owned ? `${big(pet.Value)}/s` : rules.details.unownedValue;
-    setText(byPath(base + "Info/Value/Content"), `${uiTranslate("HUD_COLLECTION_VALUE")} ${value}`);
-    setText(byPath(base + "Info/Mutations/Content"), `${uiTranslate("HUD_COLLECTION_MUTATION_COUNT")} (${owned ? mutationRows.filter(row => effectOwned(pet, row, "mutation")).length : 0}/${mutationRows.length})`);
-    setText(byPath(base + "Info/Weathers/Content"), `${uiTranslate("HUD_COLLECTION_WEATHER_COUNT")} (${owned ? weatherRows.filter(row => effectOwned(pet, row, "weather")).length : 0}/${weatherRows.length})`);
+    setText(byPath(base + "Info/Value/Content"), `${uiTranslate("HUD_COLLECTION_VALUE")} ${value}`, sourceFor("valueContent", "Content"));
+    setText(byPath(base + "Info/Mutations/Content"), `${uiTranslate("HUD_COLLECTION_MUTATION_COUNT")} (${owned ? mutationRows.filter(row => effectOwned(pet, row, "mutation")).length : 0}/${mutationRows.length})`, sourceFor("mutationsContent", "Content"));
+    setText(byPath(base + "Info/Weathers/Content"), `${uiTranslate("HUD_COLLECTION_WEATHER_COUNT")} (${owned ? weatherRows.filter(row => effectOwned(pet, row, "weather")).length : 0}/${weatherRows.length})`, sourceFor("weathersContent", "Content"));
     const rows = state.detailTab === "Weathers" ? weatherRows : mutationRows;
     while (mwIcons.length < rows.length) mwIcons.push(cloneTemplate(mwTemplate, mwLayout));
     mwIcons.forEach((el, i) => {
       const row = rows[i]; setVisible(el, !!row); if (!row) return;
       const ownedEffect = effectOwned(pet, row, state.detailTab === "Weathers" ? "weather" : "mutation");
-      setImage(el, state.detailTab === "Weathers" ? icon(iconSets.weatherEffectIcons, row.ID) : icon(iconSets.mutationIcons, row.ID), ownedEffect ? rules.details.ownedIconColor : rules.details.unownedIconColor);
+      const color = ownedEffect ? rules.details.ownedIconColor : rules.details.unownedIconColor;
+      setImage(el, state.detailTab === "Weathers" ? icon(iconSets.weatherEffectIcons, row.ID) : icon(iconSets.mutationIcons, row.ID), color, {
+        sprite: state.detailTab === "Weathers" ? sourceFor("icon", "SpriteName", "WeatherConfigs") : sourceFor("icon", "SpriteName", "MutationConfigs"),
+        color: ownedEffect ? rules.runtimeColorRules.mutationWeatherOwned.source : rules.runtimeColorRules.mutationWeatherUnowned.source
+      });
     });
     document.querySelectorAll("[data-ui-custom-effect]").forEach(el => el.checked = (el.dataset.uiCustomEffect === "mutation" ? state.customMutations : state.customWeathers).has(`${pet.ID}/${el.value}`));
     const customPet = document.getElementById("ui-custom-pet"); if (customPet) customPet.checked = state.customPets.has(pet.ID);

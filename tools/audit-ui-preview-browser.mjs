@@ -10,6 +10,7 @@ export async function auditBrowser(url, screen) {
   try {
     for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
       const page = await browser.newPage({ viewport });
+      await page.context().grantPermissions(["clipboard-read", "clipboard-write"], { origin: new URL(url).origin }).catch(() => {});
       const errors = [];
       page.on("pageerror", error => errors.push(error.message));
       page.on("console", message => { if (message.type() === "error" && !message.location().url.endsWith("/favicon.ico")) errors.push(message.text()); });
@@ -172,6 +173,71 @@ export async function auditBrowser(url, screen) {
         near(point.x, index % 5 * 56, `M/W icon ${index} x`);
         near(point.y, Math.floor(index / 5) * 54, `M/W icon ${index} y`);
       });
+      const inspectorBefore = { ...await measure(), state: await page.evaluate(() => ({ rarity: collectionPreview.rarity, page: collectionPreview.page, selected: collectionPreview.selected.ID })) };
+      await page.evaluate(() => { window.auditInspectorContextPrevented = false; document.addEventListener("contextmenu", event => { if (event.target.closest(".ui-canvas")) window.auditInspectorContextPrevented = event.defaultPrevented; }); });
+      const clonePoint = await page.evaluate(() => {
+        const clone = document.querySelector('[data-ui-clone-template-path="PetsCollection/Container/PetsLayout/Pet (1)"][data-ui-clone-index="1"]');
+        const rect = clone.getBoundingClientRect(); return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+      });
+      await page.mouse.click(clonePoint.x, clonePoint.y, { button: "right" });
+      await page.waitForSelector(".ui-inspector-dialog");
+      const inspectorOpen = await page.evaluate(async () => {
+        const dialog = document.querySelector(".ui-inspector-dialog"), rect = dialog.getBoundingClientRect();
+        const first = document.querySelector(".ui-inspector-layer-choice");
+        const cloneText = dialog.innerText;
+        return { layers: document.querySelectorAll(".ui-inspector-layer-choice").length, cloneIdentity: cloneText.includes("PetsCollection/Container/PetsLayout/Pet (1)"),
+          requiredFields: ["_entityId", "Transform", "propsData đầy đủ", "ecaProps", "HudCollection.fcg"].every(value => cloneText.includes(value)),
+          rightClickPrevented: window.auditInspectorContextPrevented, rect: rect.toJSON(), width: window.innerWidth, height: window.innerHeight,
+          firstPath: first?.textContent || "", selectedOutline: document.querySelector(".ui-inspector-selected")?.dataset.uiClonePath || document.querySelector(".ui-inspector-selected")?.dataset.uiPath || "" };
+      });
+      assert.ok(inspectorOpen.layers > 1, "Inspector should list overlapping widgets");
+      assert.ok(inspectorOpen.cloneIdentity, "Inspector omitted clone template path/index");
+      assert.ok(inspectorOpen.requiredFields, "Inspector omitted required identity/property/source fields");
+      assert.ok(inspectorOpen.rightClickPrevented, "Canvas context menu was not prevented");
+      assert.ok(inspectorOpen.rect.left >= 0 && inspectorOpen.rect.top >= 0 && inspectorOpen.rect.right <= inspectorOpen.width && inspectorOpen.rect.bottom <= inspectorOpen.height, "Inspector dialog escaped viewport");
+      const selectedBeforeRow = inspectorOpen.selectedOutline;
+      if (inspectorOpen.layers > 1) await page.locator(".ui-inspector-layer-choice").nth(1).dispatchEvent("click");
+      const rowSelectionChanged = await page.evaluate(previous => {
+        const current = document.querySelector(".ui-inspector-selected"); return (current?.dataset.uiClonePath || current?.dataset.uiPath || "") !== previous;
+      }, selectedBeforeRow);
+      assert.ok(rowSelectionChanged, "Selecting an overlap row did not inspect that widget");
+      await page.locator(".ui-inspector-copy").dispatchEvent("click");
+      await page.waitForFunction(() => document.querySelector(".ui-inspector-copy-status")?.textContent.includes("sao chép") || document.querySelector(".ui-inspector-copy-status")?.textContent.includes("Không sao chép"));
+      const copyStatus = await page.locator(".ui-inspector-copy-status").innerText();
+      assert.match(copyStatus, /đã sao chép/i, `Inspector JSON copy failed: ${copyStatus}`);
+      await page.keyboard.press("Escape");
+      assert.equal(await page.locator(".ui-inspector-dialog").count(), 0, "Escape did not close Inspector");
+      const outsideContextDefaultPrevented = await page.evaluate(() => {
+        const event = new MouseEvent("contextmenu", { bubbles: true, cancelable: true });
+        document.getElementById("ui-resource-panel").dispatchEvent(event); return event.defaultPrevented;
+      });
+      assert.equal(outsideContextDefaultPrevented, false, "Outside context menu should keep its default behavior");
+      const inspectorUnchanged = { ...await measure(), state: await page.evaluate(() => ({ rarity: collectionPreview.rarity, page: collectionPreview.page, selected: collectionPreview.selected.ID })) };
+      assert.deepEqual(inspectorUnchanged, inspectorBefore, "Right-click Inspector changed UI state, hash, or scroll");
+      await page.locator("#ui-show-inactive").check();
+      const hiddenHit = await page.evaluate(() => {
+        const canvas = document.querySelector(".ui-canvas"), hidden = document.querySelector('[data-ui-path="PetsCollection/Container/LoadingLabel"]');
+        const rect = hidden.getBoundingClientRect(), point = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+        return { display: getComputedStyle(hidden).display, path: hidden.dataset.uiPath, hit: uiWidgetInspector.hitTest(canvas, point.x, point.y).includes(hidden) };
+      });
+      assert.equal(hiddenHit.display, "block");
+      assert.ok(hiddenHit.hit, "Show inactive did not include an inactive widget in geometric hit-testing");
+      await page.locator("#ui-show-inactive").uncheck();
+      const alphaZeroHit = await page.evaluate(() => {
+        const canvas = document.querySelector(".ui-canvas"), button = document.querySelector('[data-ui-path="PetsCollection/Container/PetsLayout/Pet (1)/ShowDetailsPetButton"]');
+        const rect = button.getBoundingClientRect(), point = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+        return { alpha: button.dataset.uiAlpha, hit: uiWidgetInspector.hitTest(canvas, point.x, point.y).includes(button) };
+      });
+      assert.equal(alphaZeroHit.alpha, "0");
+      assert.ok(alphaZeroHit.hit, "Alpha-zero widget was omitted from geometric hit-testing");
+      const clonePointAfter = await page.evaluate(() => {
+        const clone = document.querySelector('[data-ui-clone-template-path="PetsCollection/Container/PetsLayout/Pet (1)"][data-ui-clone-index="1"]');
+        const rect = clone.getBoundingClientRect(); return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+      });
+      await page.mouse.click(clonePointAfter.x, clonePointAfter.y, { button: "right" });
+      await page.waitForSelector(".ui-inspector-dialog");
+      await page.mouse.click(1, 1);
+      assert.equal(await page.locator(".ui-inspector-dialog").count(), 0, "Outside click did not close Inspector");
       const selectedBeforeDetails = await page.evaluate(() => collectionPreview.selected.ID);
       await click('[data-ui-path="PetsCollection/Container/PetDetails/Pet/ShowDetailsPetButton"]');
       assert.equal(await page.evaluate(() => collectionPreview.selected.ID), selectedBeforeDetails, "Details button is outside the game's _PetWidgets list");
@@ -225,6 +291,9 @@ export async function auditBrowser(url, screen) {
       assert.equal(await page.locator(".ui-resource-selected").count(), 0);
       assert.deepEqual(errors, [], "Browser console/page errors");
       results.push({ viewport, clicks, petsClicked, scroll: "unchanged before/after every mouse click", sample: measurements[0], alpha,
+        inspector: { layers: inspectorOpen.layers, cloneIdentity: inspectorOpen.cloneIdentity, requiredFields: inspectorOpen.requiredFields,
+          rightClickPrevented: inspectorOpen.rightClickPrevented, dialogWithinViewport: true, rowSelectionChanged, copyStatus,
+          inactiveHit: hiddenHit.hit, alphaZeroHit: alphaZeroHit.hit, outsideContextDefaultPreserved: true, closeByEscapeAndOutsideClick: true },
         textRendering: { count: textRendering.count, clipApplied: textRendering.spans.every(span => span.overflowStyle === "hidden"),
           sourcePropertiesPresent: textRendering.spans.every(span => span.font && Number.isFinite(span.lineSpacing)),
           systemFontFamilies: [...new Set(textRendering.spans.map(span => span.fontFamily))],

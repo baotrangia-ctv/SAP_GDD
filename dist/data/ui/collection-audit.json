@@ -52,6 +52,9 @@
   "radialFillImplemented": true,
   "viewportPresetCount": 4,
   "viewportScalerUnverified": true,
+  "inspectorModule": true,
+  "inspectorContextMenuAndGeometryHitTest": true,
+  "inspectorCloneIdentityAndFullProps": true,
   "spriteCount": 41,
   "missingSprites": [
     "Assets/Sprites/UIComponents/Backgrounds/BG.png",

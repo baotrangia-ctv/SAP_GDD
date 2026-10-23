@@ -178,6 +178,7 @@ const uiRenderer = (() => {
     delete el.dataset.uiMissingSprite;
     graphic(el, { ...data, spriteKey: key }, manifest);
     el.dataset.uiSpriteKey = key;
+    el.dataset.uiRuntimeSpriteKey = key;
   }
   function setImage(el, url, data = {}) {
     if (!el) return;
@@ -186,9 +187,11 @@ const uiRenderer = (() => {
     if (!layer.parentElement) el.prepend(layer);
     layer.replaceChildren();
     el.classList.remove("ui-missing-sprite");
+    el.dataset.uiSpriteKey = data.spriteKey || "";
+    el.dataset.uiRuntimeSpriteKey = url || data.spriteKey || "";
+    el.dataset.uiRuntimeColor = data.color || "#FFFFFF";
     if (!url) return;
     const visual = mountSprite(layer, url, { ...data, fillType: 0 }, null, true);
-    el.dataset.uiSpriteKey = data.spriteKey || "";
     visual.dataset.uiSpriteKey = data.spriteKey || "";
   }
   function tint(el, color) {
@@ -326,6 +329,7 @@ const uiRenderer = (() => {
       const height = rows ? rows * cell.y + (rows - 1) * gapY + top + bottom : top + bottom;
       resizeKeepPivot(element, parent.width, height);
       element.dataset.uiRuntimeSize = JSON.stringify({ width: parent.width, height });
+      element.dataset.uiRuntimeSizeSource = options.sizeSource || "dist/app-ui-renderer.js (layout calculation)";
       parent = elementSize(element);
     }
 
@@ -402,6 +406,7 @@ const uiRenderer = (() => {
       const element = document.createElement(node.type === "UIButtonEntity" ? "button" : "div");
       element.className = "ui-entity";
       element.dataset.uiPath = node.path;
+      element.dataset.uiEntityKey = `source:${node.id}`;
       element.dataset.uiType = node.type;
       element.dataset.uiId = node.id;
       element.dataset.uiName = node.name;

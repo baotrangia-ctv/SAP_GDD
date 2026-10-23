@@ -61,6 +61,19 @@
           "entityOpacity": "0.01"
         }
       ],
+      "inspector": {
+        "layers": 10,
+        "cloneIdentity": true,
+        "requiredFields": true,
+        "rightClickPrevented": true,
+        "dialogWithinViewport": true,
+        "rowSelectionChanged": true,
+        "copyStatus": "JSON đã sao chép",
+        "inactiveHit": true,
+        "alphaZeroHit": true,
+        "outsideContextDefaultPreserved": true,
+        "closeByEscapeAndOutsideClick": true
+      },
       "textRendering": {
         "count": 63,
         "clipApplied": true,
@@ -413,6 +426,19 @@
           "entityOpacity": "0.01"
         }
       ],
+      "inspector": {
+        "layers": 10,
+        "cloneIdentity": true,
+        "requiredFields": true,
+        "rightClickPrevented": true,
+        "dialogWithinViewport": true,
+        "rowSelectionChanged": true,
+        "copyStatus": "JSON đã sao chép",
+        "inactiveHit": true,
+        "alphaZeroHit": true,
+        "outsideContextDefaultPreserved": true,
+        "closeByEscapeAndOutsideClick": true
+      },
       "textRendering": {
         "count": 63,
         "clipApplied": true,

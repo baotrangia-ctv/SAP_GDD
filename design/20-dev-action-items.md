@@ -115,3 +115,16 @@ gradient, alpha/outline/shadow raster, radial fill geometry, Fit, numeric flip,
 rotation sign, priority/depth và safe-area behavior vẫn chưa xác minh. Preset
 16:9/18:9/20:9/4:3 chỉ đổi khung viewport và crop canvas; không khẳng định
 đây là cách game scale HUD.
+
+## DA-013 · Inspector source mapping và web hit order (2026-10-23)
+
+Widget Inspector đọc `propsData`/`ecaProps` đầy đủ từ JSON; giá trị dynamic
+hiện trên canvas được ghi từ web preview và có nguồn `.ui`, `HudCollection.fcg`
+hoặc module mô phỏng khi xác định được. MCP/runtime hiện không cung cấp bảng
+ánh xạ từ alias cục bộ trong FCG (ví dụ `petName`, `rarity`, `icon`) sang
+`EResKeyPetsCollection`/entity path. Vì vậy panel liệt kê các assignment cùng
+property như nguồn tham khảo, nhưng ghi rõ alias chưa được gắn chính xác với
+entity đang chọn. Hit-test dùng AABB của `getBoundingClientRect()` (gồm scale /
+rotation CSS), alpha-zero vẫn được xét, inactive thêm vào khi checkbox bật;
+stack order là web CSS z-index/DOM order, không phải hit-order đã xác minh của
+Craftland. Cần source mapping/runtime inspector của Editor để đóng các mục này.
