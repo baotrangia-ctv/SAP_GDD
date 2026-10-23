@@ -80,7 +80,7 @@ for (const field of ["font", "lineSpacing", "overflow", "backgroundRGBA", "gradi
 assert.doesNotMatch(rendererSource, /font-family:\s*Arial|fontFamily\s*=\s*["']Arial|line-height:\s*1\.15/i, "Fixed Arial/line-height approximation remains");
 assert.ok(data.renderingPolicy?.textStatus && data.renderingPolicy?.fillStatus && data.renderingPolicy?.viewportStatus, "Unverified renderer policies must be visible in source data");
 const previewSource = readFileSync(path.join(gdd, "dist", "app-uipreview.js"), "utf8");
-for (const ratio of ["16:9", "18:9", "20:9", "4:3"]) assert.ok(previewSource.includes(ratio), `Missing viewport preset ${ratio}`);
+for (const ratio of ["16:9", "18:9", "20:9", "4:3"]) assert.ok((previewSource + readFileSync(path.join(gdd, "dist", "app-ui-shared.js"), "utf8")).includes(ratio), `Missing viewport preset ${ratio}`);
 assert.match(previewSource, /safe area chưa xác minh|safe area/iu, "Viewport uncertainty must be visible in the UI");
 const inspectorPath = path.join(gdd, "dist", "app-ui-inspector.js");
 assert.ok(existsSync(inspectorPath), "Separate Widget Inspector module missing");
