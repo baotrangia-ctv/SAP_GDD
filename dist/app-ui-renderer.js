@@ -41,6 +41,7 @@ const uiRenderer = (() => {
       el.classList.add("ui-missing-sprite");
       el.title = `Sprite thiếu: ${data.spriteKey}`;
       el.dataset.uiMissingSprite = data.spriteKey;
+      el.dataset.uiMissingLabel = data.spriteKey.split("/").at(-1);
     }
     if (data.reverse?.x) el.classList.add("ui-flip-x");
     if (data.reverse?.y) el.classList.add("ui-flip-y");

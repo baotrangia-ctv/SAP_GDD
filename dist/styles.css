@@ -681,6 +681,7 @@ button.ui-entity{cursor:pointer;font:inherit;pointer-events:auto}
 .ui-sprite.ui-sliced{box-sizing:border-box;border-style:solid;pointer-events:none}
 .ui-text{position:absolute;inset:0;display:flex;white-space:pre-wrap;line-height:1.15;pointer-events:none;font-family:Arial,sans-serif}
 .ui-missing-sprite{background:repeating-linear-gradient(45deg,#59436a88,#59436a88 8px,#202b4a88 8px,#202b4a88 16px)}
+.ui-missing-sprite::after{content:attr(data-ui-missing-label);position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;font:10px/1.2 sans-serif;color:#fff;background:#1a233aaa;text-align:center;word-break:break-all;pointer-events:none}
 .ui-flip-x>.ui-sprite{transform:scaleX(-1)}
 .ui-flip-y>.ui-sprite{transform:scaleY(-1)}
 .ui-debug .ui-entity{outline:1px solid #ffaf4a88}

@@ -60,9 +60,11 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       if (!ref || typeof ref !== "object") return null;
       const filePath = String(ref.filePath || "");
       if (!filePath) return null;
-      const key = filePath.replaceAll("\\", "/");
+      const declaredKey = filePath.replaceAll("\\", "/");
+      const key = declaredKey === "Assets/Sprites/ShadowTriangleRounded.png" && existsSync(source("Assets/Sprites/Shapes/ShadowTriangleRounded.png"))
+        ? "Assets/Sprites/Shapes/ShadowTriangleRounded.png" : declaredKey;
       if (!sprites.has(key)) {
-        const entry = { key, output: null, missing: false, references: [], origins: [], border: null, width: null, height: null };
+        const entry = { key, declaredKey, output: null, missing: false, references: [], origins: [], border: null, width: null, height: null };
         if (key.startsWith("lib://") || !key.startsWith("Assets/") || !key.toLowerCase().endsWith(".png")) entry.missing = true;
         else {
           const input = source(key);

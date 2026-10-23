@@ -3575,7 +3575,7 @@
                     "b": 255,
                     "a": 1
                   },
-                  "spriteKey": "Assets/Sprites/ShadowTriangleRounded.png"
+                  "spriteKey": "Assets/Sprites/Shapes/ShadowTriangleRounded.png"
                 },
                 "text": null,
                 "layout": null,
@@ -3767,7 +3767,7 @@
                     "b": 255,
                     "a": 1
                   },
-                  "spriteKey": "Assets/Sprites/ShadowTriangleRounded.png"
+                  "spriteKey": "Assets/Sprites/Shapes/ShadowTriangleRounded.png"
                 },
                 "text": null,
                 "layout": null,
