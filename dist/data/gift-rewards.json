@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-22T18:06:55.402Z",
-  "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34",
+  "generatedAt": "2026-10-23T10:51:22.322Z",
+  "sourceCommit": "1075dcec8441ebe381c4ac625b389e29af4741d1",
   "sourceFacts": {
     "giftIdsResolveToRewardIdLists": true,
     "rewardCatalogIsRewardCsv": true,
@@ -8,7 +8,7 @@
       "ID",
       "Reward"
     ],
-    "referencedGiftCount": 145
+    "referencedGiftCount": 146
   },
   "giftLinks": [
     {
@@ -1016,6 +1016,13 @@
       "giftId": "56002",
       "rewardIds": [
         "56002"
+      ],
+      "resolved": true
+    },
+    {
+      "giftId": "56003",
+      "rewardIds": [
+        "56003"
       ],
       "resolved": true
     },

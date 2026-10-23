@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-22T18:06:55.403Z",
-  "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34",
+  "generatedAt": "2026-10-23T10:51:22.323Z",
+  "sourceCommit": "1075dcec8441ebe381c4ac625b389e29af4741d1",
   "sourceFacts": {
     "dailyMissionsLoadedByActivitiesConfig": true,
     "dailyRewardsLoadedByActivitiesConfig": true,
@@ -771,13 +771,13 @@
   "rewardTable": {
     "path": "Assets/CSV/reward.csv",
     "file": "tables/rewards.json",
-    "rowCount": 201,
+    "rowCount": 202,
     "headers": [
       "ID",
       "TypeReward",
       "Value",
       "Quantity"
     ],
-    "sha256": "75d58da59c26cb3d589df9cd9898caa7d50ff8be981ccd4555a202150355a47d"
+    "sha256": "1af2bc24df113f479037f90b0ae98620efb5d58f82d5a5410a997c2316644054"
   }
 }
