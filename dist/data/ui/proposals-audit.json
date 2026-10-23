@@ -1,0 +1,97 @@
+{
+  "cases": 153,
+  "proposals": 1,
+  "fieldCount": 74,
+  "idempotent": true,
+  "invalidBatchWritesNothing": true,
+  "allFiveOps": true,
+  "newAssetCopyAndBorder": true,
+  "duplicatePathsRequireId": true,
+  "emptyAndCancelledDiff": true,
+  "browser": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1100
+      },
+      "id": "collection-pipeline-example",
+      "modes": [
+        {
+          "mode": "current",
+          "entityCount": 107,
+          "layers": 1,
+          "labelLeft": "40px"
+        },
+        {
+          "mode": "proposed",
+          "entityCount": 107,
+          "layers": 1,
+          "labelLeft": "44px"
+        },
+        {
+          "mode": "overlay",
+          "entityCount": 107,
+          "layers": 2,
+          "labelLeft": "44px"
+        }
+      ],
+      "tapAndRightClickInspector": true,
+      "clipboardSuccessAndFailure": true,
+      "resourceFilters": true,
+      "deepLinkAndRememberedSelection": true,
+      "previewRestored": true,
+      "horizontalOverflow": false,
+      "consoleErrors": 0,
+      "structuralFixture": {
+        "operations": 5,
+        "expectedEntities": 108,
+        "domMatchesAllModes": true,
+        "addedRemovedFilters": true,
+        "retainedCollectionBinding": true,
+        "storageDeniedHandled": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "id": "collection-pipeline-example",
+      "modes": [
+        {
+          "mode": "current",
+          "entityCount": 107,
+          "layers": 1,
+          "labelLeft": "40px"
+        },
+        {
+          "mode": "proposed",
+          "entityCount": 107,
+          "layers": 1,
+          "labelLeft": "44px"
+        },
+        {
+          "mode": "overlay",
+          "entityCount": 107,
+          "layers": 2,
+          "labelLeft": "44px"
+        }
+      ],
+      "tapAndRightClickInspector": true,
+      "clipboardSuccessAndFailure": true,
+      "resourceFilters": true,
+      "deepLinkAndRememberedSelection": true,
+      "previewRestored": true,
+      "horizontalOverflow": false,
+      "consoleErrors": 0,
+      "structuralFixture": {
+        "operations": 5,
+        "expectedEntities": 108,
+        "domMatchesAllModes": true,
+        "addedRemovedFilters": true,
+        "retainedCollectionBinding": true,
+        "storageDeniedHandled": true
+      }
+    }
+  ]
+}

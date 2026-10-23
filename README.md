@@ -2,6 +2,33 @@
 
 Private design dashboard generated from the checked-in StealAPet config snapshot and source references.
 
+## UI Proposal
+
+Mở `#uiproposal/collection/collection-pipeline-example` hoặc mục **UI Proposal**
+ngay dưới UI Preview. Trang so sánh Hiện tại/Đề xuất/Chồng lớp trên renderer
+chung, có Inspector (right-click hoặc bật chạm Inspect), prompt tự sinh và
+bảng resource có bộ lọc. Demo chỉ là “ví dụ để kiểm pipeline”, chưa duyệt.
+
+Nguồn JSON/PNG do GDD sở hữu ở `design/ui-proposals/`; [hợp đồng schema,
+74 field và nguồn MCP](design/ui-proposals/README.md). Không ghi repo game.
+
+```powershell
+node tools/sync-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet"
+node tools/sync-ui-proposals.mjs
+node tools/audit-ui-proposals.mjs
+python -m http.server 8080 --directory dist
+# Khi đã có server và Playwright trong môi trường QA:
+node tools/audit-ui-proposals.mjs --browser-url http://localhost:8080
+```
+
+Audit Proposal: 153 case tĩnh; browser 1440×1100/390×844, ba chế độ, opacity,
+Inspector, clipboard thành công/bị chặn, lọc/tìm, deep-link/storage, fixture
+cấu trúc 108 entity khớp DOM; console sạch, không tràn ngang. Report ở
+`dist/data/ui/proposals-audit.json`; ảnh QA cùng thư mục. UI Preview hồi quy
+107/107 entity, 173 pet và 214 click/viewport. Chưa khẳng định parity game;
+xem DA-002–015. Snapshot config đã regenerate theo checkout hiện tại
+master/1075dcec, khác snapshot GDD cũ dev/290aacf2; không sửa config game.
+
 ## Refresh the data
 
 Run from this folder:

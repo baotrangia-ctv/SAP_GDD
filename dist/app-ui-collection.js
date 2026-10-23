@@ -288,7 +288,7 @@ function initCollectionPreview(screen, rules, rendered, options = {}) {
     let button = event.target.closest("[data-ui-name]"); if (!button) return;
     while (button && button !== rendered.canvas && !/^(CloseButton|DarkBG|PreventCloseButton|PrevPageButton|NextPageButton|(All|Common|Rare|Epic|Legendary|Mythic|Apex|Limited|Info|Mutations|Weathers)TabButton)$/.test(button.dataset.uiName || "")) button = button.parentElement?.closest("[data-ui-name]");
     const name = button && button !== rendered.canvas ? button.dataset.uiName : "";
-    if (name === "CloseButton" || name === "DarkBG") { context.open = false; rendered.canvas.classList.add("ui-closed"); document.getElementById("ui-open-toggle").textContent = "Mở UI"; return; }
+    if (name === "CloseButton" || name === "DarkBG") { context.open = false; rendered.canvas.classList.add("ui-closed"); document.getElementById("ui-open-toggle").textContent = "Mở UI"; options.onClose?.(); return; }
     if (name === "PreventCloseButton") return;
     if (state.loading) return;
     if (name === "PrevPageButton") { selectPage(state.page - 1); return; }

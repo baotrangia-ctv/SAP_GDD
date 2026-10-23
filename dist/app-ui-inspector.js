@@ -8,7 +8,7 @@
 
   function sourceIndex() {
     const byPath = new Map();
-    const root = uiPreview.screen?.tree;
+    const root = s.page === 'uiproposal' && typeof uiProposal !== 'undefined' && canvasRoot?.dataset.proposalLayer === 'current' ? uiProposal.base?.tree : uiPreview.screen?.tree;
     if (!root) return byPath;
     (function walk(node) { byPath.set(node.path, node); node.children.forEach(walk); })(root);
     return byPath;

@@ -33,6 +33,11 @@ function reindex(tree, baseline) {
     ids.add(n.id); paths.add(n.path); n.children.forEach(child => walk(child, n.path));
   }
   walk(tree);
+  const all = nodes(tree);
+  for (const p of paths) {
+    const group = all.filter(n => n.path === p);
+    if (group.length > 1 && group.some(n => !baseline.some(b => b.path === p && b.id === n.id))) throw new Error('New ambiguous entity path: ' + p);
+  }
 }
 function spriteCheck(key, manifest) {
   const entry = manifest.sprites.find(item => item.key === key);
@@ -76,6 +81,7 @@ export function applyProposal(base, sourceManifest, proposal) {
       let node = op.op === 'add' ? null : lookup(op.path, op.id);
       if (op.id != null && node.id !== op.id) throw new Error('Entity id/path mismatch');
       const oldPath = node?.path, oldNode = node ? clone(node) : null;
+      const structuralIds = [];
       let field, before, after;
       if (op.op === 'set') {
         if (!Object.hasOwn(op, 'value')) throw new Error('set needs value');
@@ -86,35 +92,43 @@ export function applyProposal(base, sourceManifest, proposal) {
         spriteCheck(op.sprite, manifest); before = get(node, field); after = op.sprite; put(node, field, after);
       } else if (op.op === 'add') {
         const parent = lookup(op.parent, op.parentId); node = newEntity(op.entity, manifest);
+        structuralIds.push(parent.id);
         for (const child of nodes(node)) { if (retiredIds.has(child.id)) throw new Error('Reused entity id: ' + child.id); retiredIds.add(child.id); }
         insert(parent, node, op.index); field = 'entity'; before = null;
       } else if (op.op === 'remove') {
         const parent = parentOf(node); if (!parent) throw new Error('Cannot remove root');
+        structuralIds.push(parent.id);
         parent.children.splice(parent.children.indexOf(node), 1); removedEntities.push(clone(node)); field = 'entity'; before = oldNode; after = null;
       } else if (op.op === 'move') {
         const parent = parentOf(node), nextParent = lookup(op.parent, op.parentId);
         if (!parent || nodes(node).includes(nextParent)) throw new Error('Cannot move root or create a cycle');
-        before = { parent: parent.path, index: parent.children.indexOf(node) }; field = 'parent/index';
-        parent.children.splice(before.index, 1); insert(nextParent, node, op.index); after = { parent: nextParent.path, index: nextParent.children.indexOf(node) };
+        structuralIds.push(parent.id, nextParent.id);
+        before = { parent: parent.path, parentId: parent.id, index: parent.children.indexOf(node) }; field = 'parent/index';
+        parent.children.splice(before.index, 1); insert(nextParent, node, op.index); after = { parent: nextParent.path, parentId: nextParent.id, index: nextParent.children.indexOf(node) };
       }
       reindex(screen.tree, nodes(base.tree));
       if (op.op === 'add') after = clone(node);
       operations.push({ index: index + 1, op: op.op, path: oldPath || node.path, afterPath: op.op === 'remove' ? null : node.path, id: node.id, field, before: clone(before ?? null), after: clone(after ?? null), reason: op.reason,
-        affectedIds: ['add', 'remove', 'move'].includes(op.op) ? nodes(oldNode || node).map(n => n.id) : [node.id] });
+        affectedIds: [...new Set(['add', 'remove', 'move'].includes(op.op) ? [...nodes(oldNode || node).map(n => n.id), ...structuralIds] : [node.id])] });
     } catch (error) { throw new Error(`${proposal.id} op ${index + 1}: ${error.message}`); }
   }
   const originalById = new Map(nodes(base.tree).map(n => [n.id, n]));
-  for (const node of nodes(screen.tree)) {
-    const original = originalById.get(node.id);
-    node.proposalState = !original ? 'added' : same(original, node) ? 'unchanged' : 'changed';
-  }
-  // Comparing ancestors' child arrays would mark every parent as changed.
-  for (const node of nodes(screen.tree)) {
-    const original = originalById.get(node.id);
-    if (original) { const own = n => Object.fromEntries(Object.entries(n).filter(([k]) => !['children', 'proposalState'].includes(k))); node.proposalState = same(own(original), own(node)) ? 'unchanged' : 'changed'; }
-  }
-  for (const tree of removedEntities) for (const n of nodes(tree)) n.proposalState = 'removed';
-  const changes = operations.filter(item => !same(item.before, item.after));
+  const finalById = new Map(nodes(screen.tree).map(n => [n.id, n]));
+  const location = tree => new Map(nodes(tree).flatMap(parent => parent.children.map((n, index) => [n.id, { parent: parent.id, index }])));
+  const oldLocations = location(base.tree), finalLocations = location(screen.tree);
+  const own = n => n && Object.fromEntries(Object.entries(n).filter(([k]) => !['children', 'proposalState'].includes(k)));
+  const movedIds = new Set(operations.filter(op => op.op === 'move').map(op => op.id));
+  const netChanged = new Set([...originalById.keys(), ...finalById.keys()].filter(id => {
+    const a = originalById.get(id), b = finalById.get(id);
+    return !same(own(a), own(b)) || !same(a?.children.map(c => c.id), b?.children.map(c => c.id)) || !same(oldLocations.get(id)?.parent, finalLocations.get(id)?.parent) || (movedIds.has(id) && !same(oldLocations.get(id)?.index, finalLocations.get(id)?.index));
+  }));
+  for (const node of nodes(screen.tree)) node.proposalState = !originalById.has(node.id) ? 'added' : netChanged.has(node.id) ? 'changed' : 'unchanged';
+  const changes = operations.filter(item => !same(item.before, item.after) && item.affectedIds.some(id => netChanged.has(id)));
+  // Tombstones represent the source-before tree, excluding transient additions
+  // and descendants that were moved out and still exist after the patch.
+  const removedIds = new Set([...originalById.keys()].filter(id => !finalById.has(id)));
+  function tombstone(node) { return { ...clone(node), proposalState: 'removed', children: node.children.filter(n => removedIds.has(n.id)).map(tombstone) }; }
+  removedEntities.splice(0, removedEntities.length, ...nodes(base.tree).filter(n => removedIds.has(n.id) && !removedIds.has(oldLocations.get(n.id)?.parent)).map(tombstone));
   screen.entityCount = nodes(screen.tree).length;
   screen.proposal = Object.fromEntries(['id', 'screen', 'title', 'author', 'status', 'summary'].map(k => [k, proposal[k]]));
   screen.removedEntities = removedEntities;
@@ -150,11 +164,15 @@ export function prepareAssets(proposal, manifest, root = GDD_ROOT) {
 
 export function syncUiProposals({ root = GDD_ROOT, dryRun = false } = {}) {
   root = path.resolve(root);
-  if (within(GAME_ROOT, root)) throw new Error('GDD output must not be in game project');
+  if (within(GAME_ROOT, root) || within(realpathSync(GAME_ROOT), realpathSync(root))) throw new Error('GDD output must not be in game project');
   const dist = guard(root, path.join(root, 'dist'));
   const proposalRoot = guard(root, path.join(root, 'design', 'ui-proposals'));
   const output = new Map(), registry = { proposals: [] }, all = [], ids = new Set();
-  const addJson = (name, data) => output.set(`data/ui/proposals/${name}.json`, JSON.stringify(data, null, 2) + '\n');
+  const addJson = (name, data) => {
+    const destination = `data/ui/proposals/${name}.json`;
+    if (output.has(destination)) throw new Error('Proposal output filename collision: ' + destination);
+    output.set(destination, JSON.stringify(data, null, 2) + '\n');
+  };
   for (const screen of readdirSync(proposalRoot, { withFileTypes: true }).filter(item => item.isDirectory()).sort((a,b) => a.name.localeCompare(b.name))) {
     if (screen.name !== 'collection') throw new Error('Unregistered proposal screen: ' + screen.name);
     const folder = guard(proposalRoot, path.join(proposalRoot, screen.name));

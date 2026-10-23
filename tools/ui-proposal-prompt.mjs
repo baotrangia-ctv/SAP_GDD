@@ -52,5 +52,6 @@ export function generatePrompt({ proposal, result, base, root, gameRoot, checked
     if (!allowed) throw new Error('Prompt contains path outside game/GDD');
   }
   if (/\b(?:giftcode|Compensate)[\\/.]/i.test(prompt)) throw new Error('Operational path in prompt');
+  if (/(?:^|\s)(?:\\\\[^\s]+|\/(?:etc|home|Users|tmp|var)\/[^\s]+|\.\.[\\/])/m.test(prompt)) throw new Error('Prompt contains path outside game/GDD');
   return prompt;
 }

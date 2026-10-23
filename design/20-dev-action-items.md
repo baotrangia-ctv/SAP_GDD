@@ -1,5 +1,26 @@
 # Việc kỹ thuật còn mở
 
+## DA-015 · Field patch và binding UI Proposal (2026-10-23)
+
+MCP đã xác nhận UIWidget, UIWidgetLabel/Image/Button và enum fill; 74 field
+chuẩn hóa được whitelist theo renderer và PetsCollection.ui. MCP chưa có
+tài liệu serialization LayoutV2 phù hợp (tìm “UILayout”/“布局”); layout,
+reverse/background lấy từ .ui và nhánh web đã có, chưa khẳng định thuật toán
+engine. Không mở patch font/overflow/gradient/animation hoặc field ngoài
+tập; tập chính xác được ghi ở `design/ui-proposals/README.md`.
+
+Prompt quét literal ID/key/tên trong bốn .fcg Collection đã allowlist;
+trùng tên là candidate cần dev xác nhận. Demo Label có bốn candidate
+HudCollection :132/:662/:663/:664, không phải bằng chứng cả bốn gán lên
+Title/Label. Alias runtime, GetChildren/GetChildByIndex, EResKey mapping và
+widget mới cần dev kiểm/viết code. Không tự thêm binding/đọc engine source.
+Nếu bỏ template Collection thiết yếu, preview giữ cây visual và báo cần
+dev xác nhận tương tác. Editor/runtime và DA-002–014 tiếp tục mở.
+
+Audit Proposal: 153 case tĩnh, hai viewport, đủ năm op bằng fixture mạng
+tạm (108 entity sau patch); UI Preview hồi quy 107/107. Kiểm tra web không
+đóng các giới hạn engine ở trên.
+
 Chỉ ghi các việc cần xác minh có bằng chứng từ snapshot/code. Không ghi đề xuất balance chưa được duyệt.
 
 | ID | Việc | Bằng chứng | Trạng thái |

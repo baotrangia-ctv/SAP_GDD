@@ -34,7 +34,7 @@ export function validateField(node, field, value) {
   if (type === 'integer') valid = Number.isInteger(value) && value >= 0;
   if (type === 'boolean' || type === 'string') valid = typeof value === type;
   if (type === 'color') valid = typeof value === 'string' && /^#(?:[\da-f]{3}|[\da-f]{6}|[\da-f]{8})$/i.test(value);
-  if (type === 'positive') valid = Number.isFinite(value) && value > 0;
+  if (type === 'positive') valid = Number.isInteger(value) && value > 0;
   if (type === 'unit') valid = Number.isFinite(value) && value >= 0 && value <= 1;
   if (type === 'alpha') valid = Number.isFinite(value) && value >= 0 && value <= 100;
   if (type === 'horizontal') valid = ['left', 'center', 'right'].includes(value);
@@ -42,4 +42,6 @@ export function validateField(node, field, value) {
   if (!valid) throw new Error(`Invalid ${type} value for ${field}: ${JSON.stringify(value)}`);
   if (/fillType$/.test(field) && ![0, 1, 2, 3, 5].includes(value)) throw new Error(`Unsupported fillType: ${value}`);
   if (/fillDir$/.test(field) && value > 4) throw new Error(`Unsupported fillDir: ${value}`);
+  const maxEnum = { 'layout.corner': 3, 'layout.constraint': 2, 'layout.direction': 1, 'layout.sortType': 2 }[field];
+  if (maxEnum != null && value > maxEnum) throw new Error(`Unsupported layout enum: ${field}=${value}`);
 }

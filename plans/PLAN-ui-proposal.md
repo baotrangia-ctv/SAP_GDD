@@ -1,6 +1,6 @@
 # Plan: tab "UI Proposal" — đề xuất chỉnh UI game, kèm prompt Codex và resource mới
 
-**Trạng thái 2026-10-23:** chưa triển khai. Prompt giao Codex: `plans/PROMPT-codex-ui-proposal.md`.
+**Trạng thái 2026-10-23:** hoàn tất bước 0–6. Có một demo draft “ví dụ để kiểm pipeline”, schema/validator 74 field, prompt từ template và bốn .fcg Collection, trang so sánh/Inspector/resource. Audit 153 case; browser 1440×1100 và 390×844, ba chế độ, 107/107 entity demo; fixture cấu trúc mạng tạm 108 entity; UI Preview hồi quy 173 pet/214 click mỗi viewport, console sạch. Chi tiết: `design/ui-proposals/README.md`; giới hạn engine/binding: DA-002–015. Prompt giao Codex gốc: `plans/PROMPT-codex-ui-proposal.md`.
 
 Mục tiêu: một tab mới cạnh "UI Preview". Tab render **UI sau khi áp đề xuất** bằng đúng renderer của UI Preview, rồi hiện:
 1. **Preview** — UI đề xuất (có công tắc Hiện tại / Đề xuất / Chồng lớp để so).

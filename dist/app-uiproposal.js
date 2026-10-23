@@ -64,14 +64,21 @@ function mountUiProposal() {
   const rendered = uiPreview.rendered;
   rendered.canvas.dataset.proposalLayer = current ? 'current' : 'proposed';
   uiProposal.baseline = null;
+  const oldPanel = document.getElementById('ui-player-panel');
+  oldPanel.replaceWith(oldPanel.cloneNode(false));
   let baselineBinding = null;
   const refresh = () => { baselineBinding?.refresh(); if (typeof renderUiProposalResources === 'function') renderUiProposalResources(); };
   // Structural patches can invalidate Collection's template bindings. Show the
   // tree faithfully and request developer bindings instead of inventing them.
   const structural = uiProposal.diff.operations.some(op => ['add', 'remove', 'move'].includes(op.op));
+  const essentialPaths = ['PetsCollection/Container/PetsLayout/Pet (1)', 'PetsCollection/Container/MutationsWeathers/MWLayout/Icon'];
+  const canBind = screen => {
+    const paths = new Set(); (function walk(n) { paths.add(n.path); n.children.forEach(walk); })(screen.tree);
+    return essentialPaths.every(p => paths.has(p));
+  };
   const bind = (screen, rendered, passive = false) => {
-    if (structural) return null;
-    return initCollectionPreview(screen, uiPreview.rules, rendered, { context: uiPreview, passive, onUpdate: passive ? () => {} : refresh });
+    if (!canBind(screen)) return null;
+    return initCollectionPreview(screen, uiPreview.rules, rendered, { context: uiPreview, passive, onUpdate: passive ? () => {} : refresh, onClose: () => uiProposal.baseline?.canvas.classList.add('ui-closed') });
   };
   if (uiProposal.mode === 'overlay') {
     const context = { ...uiPreview, screen: uiProposal.base };
@@ -82,7 +89,7 @@ function mountUiProposal() {
     baselineBinding = bind(context.screen, baseline, true);
   }
   bind(uiPreview.screen, rendered);
-  if (structural) document.getElementById('ui-player-panel').textContent = 'Cây đã áp patch. Cần dev xác nhận binding tương tác cho thay đổi cấu trúc.';
+  if (!canBind(uiPreview.screen)) document.getElementById('ui-player-panel').textContent = 'Cây đã áp patch. Thiếu template Collection; cần dev xác nhận binding tương tác.';
   document.getElementById('ui-proposal-warning').textContent = structural ? 'Có add/remove/move: mô phỏng tương tác cần dev xác nhận binding; không tự suy code mới.' : '';
   document.getElementById('ui-open-toggle').textContent = uiPreview.open ? 'Đóng UI' : 'Mở UI';
   rendered.canvas.classList.toggle('ui-closed', !uiPreview.open);
