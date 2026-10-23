@@ -160,6 +160,14 @@ function gameItemVisual(spriteName, label) {
   if (mutation) return systemIcon(s.data.visualAssets?.mutationIcons, mutation.ID, "✧");
   const effect = t("weatherEffects.csv").rows.find(row => String(row.Icon || row.Name).toLowerCase() === normalized || String(row.Name).toLowerCase() === normalized);
   if (effect) return systemIcon(s.data.visualAssets?.weatherEffectIcons, effect.ID, "☁");
+  const weather = t("weather.csv").rows.find(row => String(row.Icon || row.Name).toLowerCase() === normalized || String(row.Name).toLowerCase() === normalized);
+  if (weather) {
+    const shopSprite = "Summon" + weather.Name;
+    if (gameSpriteImageFiles[shopSprite.toLowerCase()]) return gameSpriteIconHtml(shopSprite, label || weather.Name);
+    const firstEffectId = String(weather.Effects || "").split(";")[0];
+    const weatherEffect = firstEffectId && t("weatherEffects.csv").rows.find(row => String(row.ID) === firstEffectId);
+    if (weatherEffect) return systemIcon(s.data.visualAssets?.weatherEffectIcons, weatherEffect.ID, "☁");
+  }
   return gameSpriteIconHtml(key, label);
 }
 
