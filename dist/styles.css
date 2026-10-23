@@ -664,9 +664,9 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 /* HUD preview uses source pixel coordinates inside a scaled reference canvas. */
 .ui-preview-page{max-width:none}
 .ui-preview-tabs,.ui-preview-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0}
-.ui-preview-tabs button,.ui-preview-toolbar button{border:1px solid #42546e;border-radius:10px;background:#1a2940;color:#eaf2ff;padding:9px 14px;cursor:pointer}
+.ui-preview-tabs button,.ui-preview-toolbar button{border:1px solid #42546e;border-radius:10px;background:#1a2940;color:#eaf2ff;padding:9px 14px}
 .ui-preview-tabs button.active{background:#2863a8;border-color:#7cc6ff}
-.ui-preview-tabs button:disabled{opacity:.45;cursor:not-allowed}
+.ui-preview-tabs button:disabled{opacity:.45}
 .ui-preview-toolbar label{display:flex;align-items:center;gap:5px}
 #ui-preview-meta{font-size:12px;color:#a9bdd6}
 .ui-preview-workspace{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px;align-items:start}
@@ -674,7 +674,7 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
 .ui-canvas{position:absolute;top:0;left:0;transform-origin:top left;isolation:isolate}
 .ui-entity{isolation:isolate;position:absolute;box-sizing:border-box;min-width:0;min-height:0;padding:0;margin:0;border:0;background:transparent;color:inherit;overflow:visible}
 .ui-entity:not(button){pointer-events:none}
-button.ui-entity{cursor:pointer;font:inherit;pointer-events:auto}
+button.ui-entity{font:inherit;pointer-events:auto}
 button.ui-entity[data-ui-hit-target="false"]{pointer-events:none}
 .ui-visual{position:absolute;inset:0;pointer-events:none;isolation:isolate}
 .ui-entity.ui-inactive{display:none}
@@ -687,7 +687,6 @@ button.ui-entity[data-ui-hit-target="false"]{pointer-events:none}
 .ui-flip-x>.ui-visual>.ui-sprite{transform:scaleX(-1)}
 .ui-flip-y>.ui-visual>.ui-sprite{transform:scaleY(-1)}
 .ui-debug .ui-entity{outline:1px solid #ffaf4a88}
-.ui-debug .ui-entity:hover::after{content:attr(data-ui-path);position:absolute;top:0;left:0;z-index:9999;background:#102039;color:#fff;font:11px Arial;padding:3px 5px;white-space:nowrap;pointer-events:none}
 .ui-closed>.ui-entity{display:none}
 .ui-tab-active{filter:brightness(1.18);outline:2px solid #fff9}
 .ui-player-panel{border:1px solid #3c4c65;border-radius:12px;padding:14px;background:#152238;color:#eaf2ff}

@@ -42,7 +42,6 @@ const uiRenderer = (() => {
       }
     } else if (data.spriteKey) {
       layer.classList.add("ui-missing-sprite");
-      el.title = `Sprite thiếu: ${data.spriteKey}`;
       el.dataset.uiMissingSprite = data.spriteKey;
       layer.dataset.uiMissingLabel = data.spriteKey.split("/").at(-1);
     }
@@ -104,7 +103,6 @@ const uiRenderer = (() => {
       element.dataset.uiId = node.id;
       element.dataset.uiName = node.name;
       element.dataset.uiSpriteKey = node.image?.spriteKey || node.button?.spriteKey || "";
-      element.title = node.path;
       if (node.type === "UIButtonEntity") { element.type = "button"; element.setAttribute("aria-label", node.name); }
       if (!node.active) element.classList.add("ui-inactive");
       const r = layoutPosition(parentLayout, index, parentRect) || rect(node.transform, parentRect);
@@ -123,11 +121,20 @@ const uiRenderer = (() => {
       if (node.transform?.rotate) element.style.transform = `rotate(${-node.transform.rotate}deg)`;
       graphic(element, node.image || (node.button ? { ...node.button, color: node.button.normal } : null), manifest);
       if (node.button) {
-        const tint = color => { const layer = element.querySelector(":scope > .ui-visual"); if (layer) layer.style.backgroundColor = color || ""; const visual = layer?.querySelector(".ui-sprite"); if (visual) visual.style.mixBlendMode = color?.toUpperCase() === "#FFFFFF" ? "normal" : "multiply"; };
-        element.addEventListener("pointerenter", () => tint(node.button.highlight));
-        element.addEventListener("pointerleave", () => tint(element.disabled ? node.button.disabled : node.button.normal));
-        element.addEventListener("pointerdown", () => tint(node.button.pressed));
-        element.addEventListener("pointerup", () => tint(node.button.highlight));
+        const tint = color => {
+          const layer = element.querySelector(":scope > .ui-visual");
+          if (layer) layer.style.backgroundColor = color || "";
+          const visual = layer?.querySelector(".ui-sprite");
+          if (visual) visual.style.mixBlendMode = color?.toUpperCase() === "#FFFFFF" ? "normal" : "multiply";
+        };
+        const normal = () => tint(node.button.disableCollider ? node.button.disabled : node.button.normal);
+        normal();
+        element.addEventListener("pointerdown", () => {
+          if (!node.button.disableCollider) tint(node.button.pressed);
+        });
+        element.addEventListener("pointerup", normal);
+        element.addEventListener("pointercancel", normal);
+        element.addEventListener("pointerleave", normal);
       }
       text(element, node.text);
       parent.appendChild(element);

@@ -68,7 +68,7 @@ function renderUiResourcePanel() {
       const key = element?.dataset.uiSpriteKey || data.spriteKey || "";
       const sprite = uiPreview.manifest.sprites.find(item => item.key === key);
       const text = node.text;
-      const color = node.button ? `normal ${node.button.normal || ""} · hover ${node.button.highlight || ""} · pressed ${node.button.pressed || ""} · disabled ${node.button.disabled || ""}` : (data.color || "");
+      const color = node.button ? `normal ${node.button.normal || ""} · pressed ${node.button.pressed || ""} · disabled ${node.button.disabled || ""}` : (data.color || "");
       const kind = ({ 0: "simple", 1: "sliced", 2: "tiled", 3: "fill", 5: "fit" })[data.fillType] || "";
       const border = sprite?.border ? `${sprite.border.left}/${sprite.border.right}/${sprite.border.top}/${sprite.border.bottom}` : "—";
       const shown = uiPreview.rendered?.byId.get(node.id)?.querySelector(":scope > .ui-text")?.textContent;

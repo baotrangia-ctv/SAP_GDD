@@ -177,7 +177,6 @@ function initCollectionPreview(screen, rules, rendered) {
       setImage(el, state.detailTab === "Weathers" ? icon(iconSets.weatherEffectIcons, row.ID) : icon(iconSets.mutationIcons, row.ID));
       const img = el.querySelector(":scope > .ui-visual > .ui-sprite");
       if (img) img.style.filter = effectOwned(pet, row, state.detailTab === "Weathers" ? "weather" : "mutation") ? "none" : "brightness(.27)";
-      el.title = row.Name;
     });
     document.querySelectorAll("[data-ui-custom-effect]").forEach(el => el.checked = (el.dataset.uiCustomEffect === "mutation" ? state.customMutations : state.customWeathers).has(`${pet.ID}/${el.value}`));
     const customPet = document.getElementById("ui-custom-pet"); if (customPet) customPet.checked = state.customPets.has(pet.ID);
