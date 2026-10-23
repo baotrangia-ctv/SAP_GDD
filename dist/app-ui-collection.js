@@ -2,8 +2,10 @@
 
 const collectionPreview = { rarity: "ALL", page: 0, selected: null, detailTab: "Info", mode: "all", seed: 42, loading: false, customPets: new Set(), customMutations: new Set(), customWeathers: new Set() };
 
-function initCollectionPreview(screen, rules, rendered) {
-  const state = collectionPreview;
+function initCollectionPreview(screen, rules, rendered, options = {}) {
+  const context = options.context || uiPreview;
+  const state = options.state || collectionPreview;
+  const notify = options.onUpdate || renderUiResourcePanel;
   const pets = t("Pet.csv").rows;
   const mutationRows = t("mutation.csv").rows.filter(row => Number(row.ID) >= rules.details.mutationStartId);
   const weatherRows = t("weatherEffects.csv").rows.filter(row => Number(row.ID) >= rules.details.weatherStartId);
@@ -66,7 +68,7 @@ function initCollectionPreview(screen, rules, rendered) {
       const spriteSource = config.source || "dist/data/ui/collection-rules.json";
       const color = active ? config.selectedTextColor : config.normalTextColor;
       const colorSource = sourceFor("tabText", "Color", active ? "ACTIVE_TEXT_COLOR" : "DEFAULT_TEXT_COLOR");
-      uiRenderer.setSprite(button, sprite, { ...props, color: props.normal, fillType: 1 }, uiPreview.manifest);
+      uiRenderer.setSprite(button, sprite, { ...props, color: props.normal, fillType: 1 }, context.manifest);
       recordRuntime(button, "SpriteResource", sprite, spriteSource);
       const labelElement = directChild(button, config.textChild);
       if (labelElement?.querySelector(":scope > .ui-text")) {
@@ -182,7 +184,7 @@ function initCollectionPreview(screen, rules, rendered) {
     if (obtainSprite) {
       for (const target of [byPath(base + "PetDetails/Obtain/BG/ObtainIcon"), byPath(base + "UnlockObtain/Icon")]) {
         if (target) {
-          uiRenderer.setSprite(target, obtainSprite, screenEntity(target)?.image || {}, uiPreview.manifest);
+          uiRenderer.setSprite(target, obtainSprite, screenEntity(target)?.image || {}, context.manifest);
           recordRuntime(target, "SpriteName", obtainSprite, target.dataset.uiPath?.includes("UnlockObtain") ? sourceFor("_UnlockObtainIcon", "SpriteName") : sourceFor("_ObtainIcon", "SpriteName"));
         }
       }
@@ -256,7 +258,7 @@ function initCollectionPreview(screen, rules, rendered) {
     updateDetails(); updateCounters();
     if (state.loading) { petCards.forEach(card => setVisible(card, false)); [named("PetDetails"), named("DetailsTabsLayout"), named("Info"), named("MutationsWeathers")].forEach(el => setVisible(el, false)); }
     updateTabVisuals("rarity", `${state.rarity[0]}${state.rarity.slice(1).toLowerCase()}TabButton`);
-    if (typeof renderUiResourcePanel === "function") renderUiResourcePanel();
+    notify();
   }
   function selectPage(page) {
     const count = Math.ceil(filtered().length / rules.page.size);
@@ -265,7 +267,7 @@ function initCollectionPreview(screen, rules, rendered) {
   }
   function setRarity(rarity) { if (!rules.rarityTabs[rarity]) return; state.rarity = rarity; state.page = 0; state.selected = currentPagePets()[0] || null; state.detailTab = "Info"; updateCards(); }
   const panel = document.getElementById("ui-player-panel");
-  panel.innerHTML = '<h2>Người chơi giả lập</h2><p>Chỉ mô phỏng sở hữu để xem trạng thái HUD. Không phải dữ liệu người chơi thật.</p>' +
+  if (!options.passive) panel.innerHTML = '<h2>Người chơi giả lập</h2><p>Chỉ mô phỏng sở hữu để xem trạng thái HUD. Không phải dữ liệu người chơi thật.</p>' +
     '<label>Trạng thái <select id="ui-player-mode"><option value="all">Sở hữu tất cả</option><option value="none">Không sở hữu</option><option value="random">Ngẫu nhiên có seed</option><option value="custom">Tự chọn</option></select></label>' +
     '<label>Seed <input id="ui-player-seed" type="number" value="42"></label><label><input id="ui-loading" type="checkbox"> Giả lập dữ liệu đang tải</label><p id="ui-custom-selected"></p><label><input id="ui-custom-pet" type="checkbox"> Sở hữu pet đang chọn</label>' +
     '<details><summary>Mutation của pet</summary>' + mutationRows.map(row => `<label><input type="checkbox" data-ui-custom-effect="mutation" value="${esc(row.ID)}"> ${esc(row.Name)}</label>`).join("") + '</details>' +
@@ -273,7 +275,7 @@ function initCollectionPreview(screen, rules, rendered) {
   state.selected = currentPagePets()[0] || null;
   setVisible(named("LoadingLabel"), false);
   updateCards();
-  rendered.canvas.addEventListener("click", event => {
+  if (!options.passive) rendered.canvas.addEventListener("click", event => {
     const hitButton = event.target.closest('button[data-ui-hit-target="true"]');
     if (!hitButton || hitButton.disabled) return;
     const recipeTarget = hitButton.dataset.uiRecipeTarget;
@@ -286,7 +288,7 @@ function initCollectionPreview(screen, rules, rendered) {
     let button = event.target.closest("[data-ui-name]"); if (!button) return;
     while (button && button !== rendered.canvas && !/^(CloseButton|DarkBG|PreventCloseButton|PrevPageButton|NextPageButton|(All|Common|Rare|Epic|Legendary|Mythic|Apex|Limited|Info|Mutations|Weathers)TabButton)$/.test(button.dataset.uiName || "")) button = button.parentElement?.closest("[data-ui-name]");
     const name = button && button !== rendered.canvas ? button.dataset.uiName : "";
-    if (name === "CloseButton" || name === "DarkBG") { uiPreview.open = false; rendered.canvas.classList.add("ui-closed"); document.getElementById("ui-open-toggle").textContent = "Mở UI"; return; }
+    if (name === "CloseButton" || name === "DarkBG") { context.open = false; rendered.canvas.classList.add("ui-closed"); document.getElementById("ui-open-toggle").textContent = "Mở UI"; return; }
     if (name === "PreventCloseButton") return;
     if (state.loading) return;
     if (name === "PrevPageButton") { selectPage(state.page - 1); return; }
@@ -294,10 +296,10 @@ function initCollectionPreview(screen, rules, rendered) {
     const tab = name.match(/^(All|Common|Rare|Epic|Legendary|Mythic|Apex|Limited)TabButton$/);
     if (tab) { setRarity(tab[1].toUpperCase()); return; }
     const detailsTab = name.match(/^(Info|Mutations|Weathers)TabButton$/);
-    if (detailsTab) { state.detailTab = detailsTab[1]; updateDetails(); renderUiResourcePanel(); return; }
+    if (detailsTab) { state.detailTab = detailsTab[1]; updateDetails(); notify(); return; }
     if (card) { state.selected = pets.find(pet => pet.ID === card.dataset.uiPetId); state.detailTab = "Info"; updateCards(); }
   });
-  panel.addEventListener("change", event => {
+  if (!options.passive) panel.addEventListener("change", event => {
     const el = event.target;
     if (el.id === "ui-player-mode") state.mode = el.value;
     if (el.id === "ui-player-seed") state.seed = Number(el.value) || 0;
@@ -306,4 +308,5 @@ function initCollectionPreview(screen, rules, rendered) {
     if (el.dataset.uiCustomEffect && state.selected) { const set = el.dataset.uiCustomEffect === "mutation" ? state.customMutations : state.customWeathers; const key = `${state.selected.ID}/${el.value}`; if (el.checked) { set.add(key); state.customPets.add(state.selected.ID); } else set.delete(key); state.mode = "custom"; panel.querySelector("#ui-player-mode").value = "custom"; }
     updateCards();
   });
+  return { refresh: updateCards };
 }

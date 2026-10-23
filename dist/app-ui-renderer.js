@@ -395,7 +395,7 @@ const uiRenderer = (() => {
     element.dataset.uiRuntimeSize = JSON.stringify(elementSize(element));
     refreshLayouts(canvas, data);
   }
-  function render(data, manifest, width, height) {
+  function render(data, manifest, width, height, options = {}) {
     const canvas = document.createElement("div");
     canvas.className = "ui-canvas";
     canvas.style.width = `${width}px`;
@@ -406,6 +406,7 @@ const uiRenderer = (() => {
       const element = document.createElement(node.type === "UIButtonEntity" ? "button" : "div");
       element.className = "ui-entity";
       element.dataset.uiPath = node.path;
+      if (options.proposalStates) element.dataset.proposalState = options.proposalStates[node.id] || node.proposalState || "unchanged";
       element.dataset.uiEntityKey = `source:${node.id}`;
       element.dataset.uiType = node.type;
       element.dataset.uiId = node.id;
