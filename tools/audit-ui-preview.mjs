@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import assert from "node:assert/strict";
 
 const gdd = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
@@ -19,14 +20,24 @@ const exportedEntities = [];
 function sourceWalk(node, parent = "") {
   const name = node._entityName || "PetsCollection";
   const p = parent ? `${parent}/${name}` : name;
-  sourceEntities.push({ id: node._entityId, path: p, type: node._tag?.type });
+  sourceEntities.push({ id: node._entityId, path: p, type: node._tag?.type, alpha: node.propsData?.alpha ?? 100, disableCollider: node.propsData?.button?.disableCollider });
   (node.children || []).forEach(child => sourceWalk(child, p));
 }
 function exportWalk(node) {
-  exportedEntities.push({ id: node.id, path: node.path, type: node.type });
+  exportedEntities.push({ id: node.id, path: node.path, type: node.type, alpha: node.alpha, disableCollider: node.button?.disableCollider });
   (node.children || []).forEach(exportWalk);
 }
 sourceWalk(original); exportWalk(data.tree);
+for (const node of sourceEntities) {
+  const exported = exportedEntities.find(item => item.id === node.id);
+  assert.equal(exported?.alpha, node.alpha, `Alpha mismatch: ${node.path}`);
+  assert.equal(exported?.disableCollider, node.disableCollider, `Collider mismatch: ${node.path}`);
+}
+const previewModules = ["app-uipreview.js", "app-ui-renderer.js", "app-ui-collection.js"];
+for (const file of previewModules) {
+  const code = readFileSync(path.join(gdd, "dist", file), "utf8");
+  assert.doesNotMatch(code, /scrollIntoView|\bscroll(?:To|By)\s*\(|\blocation\s*\.\s*(?:hash|href|assign|replace)|\bhistory\s*\.|\.focus\s*\(/, `Viewport/navigation side effect: ${file}`);
+}
 const key = item => `${item.id}\t${item.path}\t${item.type}`;
 const exportedKeys = new Set(exportedEntities.map(key));
 const sourceKeys = new Set(sourceEntities.map(key));
@@ -57,6 +68,8 @@ inspect(data.tree);
 const report = {
   source: "Assets/HUDs/PetsCollection.ui", sourceEntityCount: sourceEntities.length,
   exportEntityCount: exportedEntities.length, missingEntities, extraEntities,
+  nonDefaultAlpha: exportedEntities.filter(item => item.alpha !== 100),
+  viewportSideEffectScan: "passed",
   unsupportedEntityCount: manifest.unsupported.length,
   unsupportedFieldCount: manifest.unsupported.reduce((sum, item) => sum + item.fields.length, 0),
   spriteCount: manifest.sprites.length, missingSprites: manifest.missing.map(item => item.key),
@@ -71,3 +84,10 @@ if (!out.startsWith(path.resolve(gdd, "dist") + path.sep) || out.startsWith(sour
 writeFileSync(out, JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify(report, null, 2));
 if (missingEntities.length || extraEntities.length || missingFiles.length || unmanifestedImages.length || borderMismatches.length || missingKeys.length) process.exitCode = 1;
+const browserAt = args.indexOf("--browser-url");
+if (browserAt >= 0) {
+  const { auditBrowser } = await import("./audit-ui-preview-browser.mjs");
+  const browserReport = await auditBrowser(args[browserAt + 1], data);
+  // This destination shares the checked guard used by the static report.
+  writeFileSync(path.join(path.dirname(out), "collection-browser-audit.json"), JSON.stringify(browserReport, null, 2) + "\n");
+}

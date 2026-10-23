@@ -26,7 +26,7 @@ Mở **UI Preview → Collection** hoặc `http://localhost:8080/#uipreview/coll
 
 Collection có bộ chọn **Tiếng Việt / English** (mặc định tiếng Việt) và bảng **Resource đang dùng** cuối trang. Bảng cho xem đường dẫn entity, sprite hiện dùng, kích thước/border 9-grid, màu button, loại image và localization; có thể lọc theo path. Bảng chỉ hiển thị, không chọn/scroll/focus từ preview; hàng được giữ theo ID và chỉ cập nhật ô thay đổi. Cột alpha ghi giá trị gốc `.ui` và alpha cộng dồn web (giữ phép composite/cascade CSS trước đây); cascade/raycast engine chưa xác minh (DA-009). Button alpha 0 vẫn có vùng click RectTransform; `disableCollider` tắt vùng click. Sync chỉ trích key Collection từ `Assets/Localization/key.csv` vào `dist/data/ui/collection-i18n.json`; sprite `.ui` và icon Obtain gán bằng code nằm trong manifest riêng. `dist/data/ui/collection-audit.json` ghi sprite/key còn thiếu và đối chiếu border với `.png.meta`.
 
-Audit hiện tại: 107/107 entity (gồm root), DOM 107/107 path+ID+type, không lệch; 35 sprite tham chiếu, 27 copy được, 8 thiếu/ngoài allowlist. Có 69 entity với 272 trường chưa được renderer xử lý (phần lớn metadata animation và callback). Kích thước 1500×750 suy từ root `.ui`, chưa xác minh độ phân giải engine. Font, 9-slice, tint, outline và nguồn Obtain/Recipe cần đối chiếu ảnh game trước khi xem là bản sao hình ảnh 1-1. Danh sách chi tiết ở `dist/data/ui/collection-audit.json`, `collection-sprites.json` và `design/20-dev-action-items.md`.
+Audit hiện tại: 107/107 entity (gồm root), DOM 107/107 path+ID+type, không lệch; 41 sprite tham chiếu, 34 copy được, 7 thiếu/ngoài allowlist. Có 57 entity với 76 trường chưa được renderer xử lý (phần lớn metadata animation và callback). Kích thước 1500×750 suy từ root `.ui`, chưa xác minh độ phân giải engine. Font, 9-slice, tint, outline và nguồn Obtain/Recipe cần đối chiếu ảnh game trước khi xem là bản sao hình ảnh 1-1. Danh sách chi tiết ở `dist/data/ui/collection-audit.json`, `collection-sprites.json` và `design/20-dev-action-items.md`.
 
 ## Pet Parade spawn explorer
 
@@ -67,3 +67,29 @@ Use **Pool & phần thưởng** to review `PoolRandomItem`, secret reward pools,
 The linked Google Sheets could not be read with the available connector during this build. The site labels its snapshot as repository CSV/code data and does not claim it is a fresh pull from those sheets. The gift view projects only referenced Gift `ID` → `Reward` ID links from `giftcode.csv`; redeem codes, limits, and availability fields are excluded. It has no validated session-time simulator or retention telemetry; pacing is shown as configured progression gates and event cadence.
 
 The site source is its own Git checkout. It does not commit or push the StealAPet game repository.
+
+### QA alpha / scroll Collection
+
+Audit tĩnh kiểm tra alpha/collider với `.ui` và chặn lệnh cuộn, focus hoặc
+navigation trong ba module preview. Để chạy thêm kiểm thử trình duyệt (cần
+Playwright trong môi trường QA và Microsoft Edge đã cài):
+
+```powershell
+$env:NODE_PATH = "C:\Users\trang\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules"
+node tools/audit-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet" --browser-url http://localhost:8080
+```
+
+Có thể đặt `UI_AUDIT_BROWSER=chrome` nếu dùng Chrome. Browser audit dùng
+click theo tọa độ, không dựa vào thao tác click tự cuộn của Playwright;
+kiểm tra hit target, alpha, tab, toàn bộ pet qua mọi trang, prev/next, nút chi tiết,
+Recipe redirect, close/open, lọc bảng và giữ DOM hàng theo ID. Kết quả
+trước/sau mỗi click lưu ở `dist/data/ui/collection-browser-audit.json`.
+Viewport kiểm tra: 1440×1100 và 390×844. Chỉ bỏ qua 404 `/favicon.ico`
+mặc định; lỗi console/page khác làm audit thất bại. Đây là QA hành vi web,
+không thay thế xác nhận engine ở DA-009.
+
+Lần QA 2026-10-23: 107/107 entity, 173 pet và 211 click mỗi viewport
+(422 click tổng); window scroll, scrollTop/scrollLeft của bảng và hash
+không đổi sau mỗi click. Kiểm tra trực tiếp trong trình duyệt: chọn pet,
+next/prev, tab chi tiết, Recipe Thỏ Tuyết → Chuột Chũi và Close. Các giới hạn
+asset/font/render vẫn giữ nguyên; chưa tuyên bố khớp game.

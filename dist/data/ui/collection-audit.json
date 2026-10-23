@@ -4,6 +4,36 @@
   "exportEntityCount": 107,
   "missingEntities": [],
   "extraEntities": [],
+  "nonDefaultAlpha": [
+    {
+      "id": "Q7eMSTgB",
+      "path": "PetsCollection/Container/PetsLayout/Pet (1)/ShowDetailsPetButton",
+      "type": "UIButtonEntity",
+      "alpha": 0,
+      "disableCollider": false
+    },
+    {
+      "id": "Z6sfJ0V6",
+      "path": "PetsCollection/Container/PetDetails/Pet/ShowDetailsPetButton",
+      "type": "UIButtonEntity",
+      "alpha": 0,
+      "disableCollider": false
+    },
+    {
+      "id": "pG0KrAI2",
+      "path": "PetsCollection/Container/PetDetails/Pet/RarityBG",
+      "type": "UIImageEntity",
+      "alpha": 90
+    },
+    {
+      "id": "UVZXTVBT",
+      "path": "PetsCollection/Container/Recipe/Pet/Name/RedirectCollectionButton",
+      "type": "UIButtonEntity",
+      "alpha": 1,
+      "disableCollider": false
+    }
+  ],
+  "viewportSideEffectScan": "passed",
   "unsupportedEntityCount": 57,
   "unsupportedFieldCount": 76,
   "spriteCount": 41,
