@@ -5,8 +5,8 @@
 ## Quy tắc cứng
 
 - Site chạy tĩnh trong `dist/`: không thêm Express, server ứng dụng, framework hay build step.
-- `D:\Craftland\StealAPet` là project game chỉ đọc. Chỉ đọc CSV trong `Assets/CSV/**` và file `.fcg` để xác minh logic. Không chạy Studio/build, không tạo file, không dùng lệnh Git ghi ở repo game.
-- Mọi script sync chỉ ghi trong project GDD; giữ guard đích output. `giftcode.csv` là dữ liệu vận hành: chỉ được chiếu các cột `ID` và `Reward` cho Gift ID đang được config hiển thị tham chiếu; không ghi hoặc render Code, Name, Limit, Start, End, Reuse hay Rebirth. Không đọc `Compensate/**` hoặc asset game làm nguồn sync.
+- `C:\_Code\craftland\StealAPet` là project game chỉ đọc. Chỉ đọc CSV trong `Assets/CSV/**`, file `.fcg`, `Assets/HUDs/<UI đã đăng ký>.ui` và đúng các sprite được file `.ui` đó tham chiếu. Phase hiện tại chỉ đăng ký `PetsCollection.ui`. Không chạy Studio/build, không tạo file, không dùng lệnh Git ghi ở repo game.
+- Mọi script sync chỉ ghi trong project GDD; giữ guard đích output. `giftcode.csv` là dữ liệu vận hành: chỉ được chiếu các cột `ID` và `Reward` cho Gift ID đang được config hiển thị tham chiếu; không ghi hoặc render Code, Name, Limit, Start, End, Reuse hay Rebirth. Không đọc `Compensate/**` hoặc asset game ngoài sprite được `.ui` đã đăng ký tham chiếu làm nguồn sync.
 - Commit message bắt buộc theo Conventional Commits 1.0.0 (`type(scope): description`); chi tiết ở `AGENTS.md`.
 - Không commit/push trong repo game. Trong GDD chỉ commit local cho từng thay đổi của plan; không push, amend, rebase, reset hoặc tạo tag.
 - Không bịa số. Dùng CSV/code đã kiểm chứng; thiếu nguồn thì ghi “chưa có dữ liệu”. Balance target và mô phỏng chỉ thêm khi có quyết định hoặc cơ chế nguồn đã xác nhận.
@@ -17,7 +17,7 @@
 Chạy từ thư mục project GDD:
 
 ```powershell
-node tools/sync-source-data.mjs --project-root "D:\Craftland\StealAPet"
+node tools/sync-source-data.mjs --project-root "C:\_Code\craftland\StealAPet"
 python -m http.server 8080 --directory dist
 ```
 

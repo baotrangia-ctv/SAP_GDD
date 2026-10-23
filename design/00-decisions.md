@@ -39,3 +39,11 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Lý do:** Rarity chỉ được hiển thị khi có nguồn config; weather effect và weather summon không tự suy ra rarity.
 - **Phạm vi:** Art và viền item dùng palette `PetConfigs.RARITY_COLOR`: COMMON `#8CFF91`, RARE `#4CC8FE`, EPIC `#EA70FF`, LEGENDARY `#FED868`, MYTHIC `#FF6F6F`, APEX `#FF9F43`, LIMITED `#B3CA1F`, NONE `#8DA6B6`.
 - **Nguồn:** `PetConfigs.fcg` · `Mutagen.csv` · `WeatherGen.csv` · `reward.csv` · `RewardManager.fcg`.
+
+## D-006 — Đọc HUD UI và sprite tham chiếu cho UI Preview
+
+- **Trạng thái:** ✅ Đã chốt theo yêu cầu triển khai UI Preview.
+- **Quyết định:** Mở rộng allowlist đọc-only của checkout game cho `Assets/HUDs/<UI đã đăng ký>.ui` và đúng các sprite mà file đó tham chiếu. Phase này chỉ đăng ký `PetsCollection.ui`. Dữ liệu dẫn xuất và sprite copy chỉ ghi dưới `dist/` của GDD.
+- **Lý do:** Bố cục Collection cần lấy trực tiếp từ cây entity và asset gốc; không tự dựng tọa độ hoặc màu.
+- **Giới hạn:** Không chạy Studio/build, không ghi vào checkout game, không đọc `Compensate/**` hoặc `giftcode.csv` cho tính năng này.
+- **Nguồn:** `plans/PLAN-ui-preview.md` §2–3; yêu cầu UI Preview.
