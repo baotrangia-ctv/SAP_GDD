@@ -12,6 +12,20 @@ The generator reads an allowlist of balance/progression CSVs and `.fcg` rules fr
 
 See [CLAUDE.md](CLAUDE.md) for the read-only source boundary, output guard, project map, and change workflow. Design rulings and open engineering follow-ups live in `design/`.
 
+## UI Preview · Collection
+
+Chạy sync HUD riêng rồi serve site:
+
+```powershell
+node tools/sync-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet"
+node tools/audit-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet"
+python -m http.server 8080 --directory dist
+```
+
+Mở **UI Preview → Collection** hoặc `http://localhost:8080/#uipreview/collection`. Sub-tab Shop, Mail, Mission, Leaderboard hiện “Sắp có”. Trang đọc cây entity từ `PetsCollection.ui`, rule từ `HudCollection.fcg`/`CollectionManager.fcg`/`PetConfigs.fcg`, và dữ liệu pet/effect từ snapshot GDD hiện có. Có thể xem rarity, phân trang, chọn pet, ba tab chi tiết, bật debug/inactive và giả lập sở hữu; đây không phải dữ liệu người chơi thật. Nếu snapshot GDD cũ, cập nhật snapshot theo runbook riêng trước khi đối chiếu dữ liệu.
+
+Audit hiện tại: 107/107 entity (gồm root), DOM 107/107 path+ID+type, không lệch; 35 sprite tham chiếu, 27 copy được, 8 thiếu/ngoài allowlist. Có 69 entity với 272 trường chưa được renderer xử lý (phần lớn metadata animation và callback). Kích thước 1500×750 suy từ root `.ui`, chưa xác minh độ phân giải engine. Font, 9-slice, tint, outline và nguồn Obtain/Recipe cần đối chiếu ảnh game trước khi xem là bản sao hình ảnh 1-1. Danh sách chi tiết ở `dist/data/ui/collection-audit.json`, `collection-sprites.json` và `design/20-dev-action-items.md`.
+
 ## Pet Parade spawn explorer
 
 Use **Pet spawn lab** to inspect each road pet's probability for a selected cycle day and match composition. Set Rebirth for each of the six player slots, or disable unused slots; the page maps levels into the five runtime pools and shows each pet's pool odds, combined match chance, and expected appearances per 60 slots. The roster groups pets from Common through Apex, then sorts by `Rank` ascending inside each rarity group. Weekend Event is a separate toggle, not inferred from Saturday or Sunday. The default player levels are an editable example, not match telemetry.

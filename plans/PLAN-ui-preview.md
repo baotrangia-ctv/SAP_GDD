@@ -1,5 +1,7 @@
 # Plan: tab "UI Preview" — hiển thị UI game trên web (phase 1: Collection)
 
+**Trạng thái 2026-10-23:** Đã triển khai bước 0–5 trong GDD: allowlist, sync layout/sprite/rule, renderer, tương tác giả lập, audit và tài liệu. Audit dữ liệu/DOM: 107/107 entity, 0 lệch ID/path/type; còn 8 sprite thiếu và 272 trường unsupported trên 69 entity. Nghiệm thu hình ảnh 1-1 chờ ảnh game cho các trạng thái nêu ở §5. Xem `design/20-dev-action-items.md` DA-002–005.
+
 Mục tiêu: dựng lại UI thật của game (đọc từ file `.ui` của Studio) trên web, **1-1 về cây entity, anchor/size/vị trí, sprite, text**, và tương tác được như trong game. Phase này chỉ làm **PetsCollection**; kiến trúc phải cho phép thêm UI khác (Shop, Mail, Mission…) chỉ bằng thêm một mục registry + một module.
 
 ## 1. Kết quả khảo sát (đã kiểm chứng trong project game)

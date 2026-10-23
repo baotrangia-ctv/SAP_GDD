@@ -47,3 +47,10 @@ Ngày ghi nhận: 2026-10-22. Các mục dưới đây ghi lại quyết định
 - **Lý do:** Bố cục Collection cần lấy trực tiếp từ cây entity và asset gốc; không tự dựng tọa độ hoặc màu.
 - **Giới hạn:** Không chạy Studio/build, không ghi vào checkout game, không đọc `Compensate/**` hoặc `giftcode.csv` cho tính năng này.
 - **Nguồn:** `plans/PLAN-ui-preview.md` §2–3; yêu cầu UI Preview.
+
+## D-007 — Dùng sở hữu giả lập trong Collection preview
+
+- **Trạng thái:** ✅ Đã triển khai cho preview tĩnh.
+- **Quyết định:** Cho chọn sở hữu tất cả, không sở hữu, ngẫu nhiên theo seed hoặc tự chọn pet/mutation/weather. Hiển thị nhãn “Người chơi giả lập”; không ghi hoặc suy ra sở hữu thật.
+- **Giới hạn:** Các cặp pet và effect trong chế độ ngẫu nhiên chỉ để kiểm tra trạng thái HUD, không mô tả tỉ lệ sở hữu trong game.
+- **Nguồn:** `plans/PLAN-ui-preview.md` §3.4; `CollectionManager.fcg` về dữ liệu sở hữu.

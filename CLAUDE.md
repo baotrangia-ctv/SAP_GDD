@@ -18,6 +18,8 @@ Chạy từ thư mục project GDD:
 
 ```powershell
 node tools/sync-source-data.mjs --project-root "C:\_Code\craftland\StealAPet"
+node tools/sync-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet"
+node tools/audit-ui-preview.mjs --project-root "C:\_Code\craftland\StealAPet"
 python -m http.server 8080 --directory dist
 ```
 
@@ -29,6 +31,7 @@ Mở `http://localhost:8080`. Sync chỉ đọc allowlist CSV và `.fcg` từ ch
 - `design/00-decisions.md`: quyết định đã chốt và trạng thái nguồn.
 - `design/20-dev-action-items.md`: việc kỹ thuật còn mở có bằng chứng.
 - `tools/sync-source-data.mjs`: đọc config được allowlist, tạo snapshot và JSON dẫn xuất.
+- `tools/sync-ui-preview.mjs`: chỉ đọc `PetsCollection.ui`, `.fcg` liên quan và sprite HUD trong allowlist; tạo dữ liệu UI Preview tách riêng, không đọc giftcode/compensation.
 - `dist/index.html`, `dist/styles.css`: shell, sidebar và layout.
 - `dist/app-core.js`: helper và các trang tổng quan/progression/roster/cadence.
 - `dist/app-*.js`: module theo trang hoặc nhóm trang liên quan; router ở `app-router.js`.
