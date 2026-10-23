@@ -102,8 +102,80 @@ export function syncUiPreview(sourceRoot, gddRoot) {
       tree
     });
     json(["data", "ui", `${ui.id}-sprites.json`], { sprites: [...sprites.values()], missing: [...sprites.values()].filter(item => item.missing), unsupported });
+    if (ui.id === "collection") json(["data", "ui", "collection-rules.json"], collectionRules(source));
     console.log(`UI ${ui.id}: ${entityCount} entities, ${sprites.size} sprites, ${[...sprites.values()].filter(item => item.missing).length} missing, ${unsupported.length} entities with unsupported fields`);
   }
+}
+
+function collectionRules(source) {
+  const hudFile = "Assets/Scripts/HUDs/HudCollection.fcg";
+  const managerFile = "Assets/Scripts/Manager/CollectionManager.fcg";
+  const hud = readFileSync(source(hudFile), "utf8").split(/\r?\n/);
+  const manager = readFileSync(source(managerFile), "utf8").split(/\r?\n/);
+  function find(lines, pattern, file) {
+    const index = lines.findIndex(line => pattern.test(line));
+    if (index < 0) throw new Error(`Collection rule missing from ${file}: ${pattern}`);
+    return { line: lines[index], source: `${file}:${index + 1}` };
+  }
+  const rarityStart = find(hud, /RARITY_INDEX Map<RarityEnum, int>/, hudFile);
+  const rarityMap = {};
+  for (let i = Number(rarityStart.source.split(":").at(-1)); i < hud.length && !hud[i].includes("}"); i++) {
+    const match = hud[i].match(/RarityEnum\.(\w+):\s*(\d+)/);
+    if (match) rarityMap[match[1].toUpperCase()] = { index: Number(match[2]), source: `${hudFile}:${i + 1}` };
+  }
+  if (Object.keys(rarityMap).length !== 8) throw new Error("Expected eight verified Collection rarity tabs");
+  const page = find(hud, /MAX_PETS_PER_PAGE int = \d+/, hudFile);
+  const mutationStart = find(manager, /MUTATION_START_INDEX = \d+/, managerFile);
+  const weatherStart = find(manager, /WEATHER_START_INDEX = \d+/, managerFile);
+  const required = (lines, pattern, file) => find(lines, pattern, file).source;
+  return {
+    sourceFiles: [hudFile, managerFile],
+    rarityTabs: rarityMap,
+    page: {
+      size: Number(page.line.match(/=\s*(\d+)/)[1]), source: page.source,
+      grouping: "sequential chunks; totalPages = number of chunks; index starts at 0",
+      groupingSource: required(hud, /for i = 0, List.Length\(pets\), MAX_PETS_PER_PAGE/, hudFile),
+      boundsSource: required(hud, /_TotalPages <= 0 \|\| pageIndex < 0 \|\| pageIndex >= _TotalPages/, hudFile),
+      label: "(currentPageIndex + 1) / totalPages when totalPages > 1",
+      labelSource: required(hud, /_PageLabel<UIWidgetLabel>\.Content = \(_CurrentPageIndex \+ 1\)/, hudFile)
+    },
+    petFilter: { excludeLuckyBox: true, source: required(hud, /if PetConfigs.IsLuckyBoxPetId\(petId\)/, hudFile) },
+    unowned: { name: "???", tint: "#111111", source: required(hud, /if !CollectionManager.IsOwnPet/, hudFile), tintSource: required(hud, /DEFAULT_COLOR = #111111/, hudFile) },
+    details: {
+      defaultTab: "Info", source: required(hud, /_CurrentDetailsTab = DETAILS_TAB_INFO/, hudFile),
+      tabs: { Info: 0, Mutations: 1, Weathers: 2 },
+      tabsSource: required(hud, /DETAILS_TAB_INFO int = 0/, hudFile),
+      ownedValue: "PetConfigs.GetPetValue(petId) formatted by BigNumberHandler.ToDisplayFormat(..., 1) + '/s'",
+      valueSource: required(hud, /valueText = BigNumberHandler.ToDisplayFormat/, hudFile),
+      unownedValue: "???", unownedValueSource: required(hud, /var valueText string = "\?\?\?"/, hudFile),
+      mutationStartId: Number(mutationStart.line.match(/=\s*(\d+)/)[1]), mutationStartSource: mutationStart.source,
+      weatherStartId: Number(weatherStart.line.match(/=\s*(\d+)/)[1]), weatherStartSource: weatherStart.source,
+      ownedIconColor: find(hud, /OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]+/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0],
+      unownedIconColor: find(hud, /NOT_OWNED_MW_ICON_COLOR = #[0-9A-Fa-f]+/, hudFile).line.match(/#[0-9A-Fa-f]+/)[0],
+      iconSource: required(hud, /icon<UIWidgetImage>\.Color = NOT_OWNED_MW_ICON_COLOR/, hudFile)
+    },
+    obtain: {
+      showOwnedPanelWhenOwned: true, showUnlockWhenUnowned: true,
+      source: required(hud, /_UnlockObtainWidget<UIWidget>\.IsVisible = !isOwned/, hudFile),
+      sourceFunction: "PetConfigs.GetPetObtainSource(petId, fishingPool, digPool)",
+      sourceFunctionAt: required(hud, /var source int = PetConfigs.GetPetObtainSource/, hudFile)
+    },
+    recipe: {
+      when: "unowned and PetConfigs.GetPetObtainSource(...) == PET_OBTAIN_SOURCE_FUSION",
+      conditionSource: required(hud, /if !isOwned && CanOpenRecipe\(petId\)/, hudFile),
+      equalitySource: required(hud, /return source == PetConfigs.PET_OBTAIN_SOURCE_FUSION/, hudFile),
+      hidesDetailsTabs: true, source: required(hud, /func OpenRecipe\(\)/, hudFile)
+    },
+    counters: {
+      pets: { owned: "GetPCPetsCountByRarity", total: "GetCollectionPetIdsByRarity.length", source: required(hud, /var ownPetsCount int = CollectionManager.GetPCPetsCountByRarity/, hudFile) },
+      mutations: { owned: "GetPCMutationsCountByRarity", total: "GetPetCountByRarity * (GetMutationCount - 1)", source: required(manager, /totalCount = PetConfigs.GetPetCountByRarity\(rarity\) \* \(MutationConfigs.GetMutationCount\(\) - 1\)/, managerFile) },
+      weathers: { owned: "GetPCWeathersCountByRarity", total: "GetPetCountByRarity * (GetWeatherEffectCount - WEATHER_START_INDEX + 1)", source: required(manager, /totalCount = PetConfigs.GetPetCountByRarity\(rarity\) \* \(WeatherConfigs.GetWeatherEffectCount/, managerFile) },
+      progress: "owned / total; 0 when total <= 0 or owned < 0", source: required(hud, /progress<UIWidgetImage>\.FillAmount = Convert.IntToFloat\(owned\)/, hudFile)
+    },
+    loading: { visibleWhen: "Collection database not ready", source: required(hud, /if !DatabaseController.IsDatabaseReady\(thisEntity<Player>\.UserUID, DatabaseType.Collection\)/, hudFile) },
+    close: { function: "CloseCollection sets Collection widget IsVisible = false", source: required(hud, /func CloseCollection\(\)/, hudFile), buttonRoutingUnverified: true },
+    ownership: { source: required(manager, /func IsOwnPet\(/, managerFile), simulated: true }
+  };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
