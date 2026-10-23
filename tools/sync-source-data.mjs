@@ -59,6 +59,7 @@ const codeFiles = [
   "Assets/Scripts/Events/FuseContract/EventFuseConfigs.fcg",
   "Assets/Scripts/Events/Core/EventShopManager.fcg",
   "Assets/Scripts/Events/Core/EventShopConfigs.fcg",
+  "Assets/Scripts/Events/Core/EventSettings.fcg",
   "Assets/Scripts/Events/Ball/EventStealABallManager.fcg",
   "Assets/Scripts/Utils/WeightedRandom.fcg",
   "Assets/Scripts/Configs/GlobalConfigs.fcg",
@@ -337,6 +338,8 @@ const rotationScheduleItems = rotationWaves.flatMap((wave) => wave.items.map((en
 const randomItemPoolUsesWeightedDraw = /GetRandomWeightedIndex\(rewardWeight\)/.test(weightedRandomRules) && /GetRewardRandomItem\(\)[\s\S]*?CalculateRewardRandomItemWeight/.test(weightedRandomRules) && /WeightedRandom\.GetRewardRandomItem\(\)/.test(eventShopRules + eventBallRules);
 const randomPetPoolUsesWeightedDraw = /GetRandomWeightedIndex\(petRewardWeight\)/.test(weightedRandomRules) && /WeightedRandom\.GetPetInSecretPool\(/.test(collectorManagerRules);
 const randomPetPoolId = Number(rewardRandomRules.match(/\bCURREWARDID\s*=\s*(\d+)/)?.[1]) || null;
+const eventTypeList = code["Assets/Scripts/Events/Core/EventSettings.fcg"]?.match(/EVENT_TYPES\s+List<EventType>\s*=\s*List<EventType>\s*\{([\s\S]*?)\}/)?.[1] || "";
+const eventTypeNames = Object.fromEntries([...eventTypeList.matchAll(/EventType\.(\w+)/g)].map(([_, name], id) => [String(id), name.replace(/^Event/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")]));
 const rotationScheduleData = {
   generatedAt: new Date().toISOString(),
   sourceCommit: runGit("rev-parse", "HEAD"),
@@ -350,7 +353,11 @@ const rotationScheduleData = {
   shopItemsHeaders: byName.get("shopItems.csv")?.headers ?? [],
   eventShopItems: byPath.get("Assets/CSV/Event/shopEventItems.csv")?.rows ?? [],
   eventShopItemsHeaders: byPath.get("Assets/CSV/Event/shopEventItems.csv")?.headers ?? [],
-  eventSchedule: byPath.get("Assets/CSV/Event/EventSchedule.csv")?.rows ?? [],
+  eventSchedule: (byPath.get("Assets/CSV/Event/EventSchedule.csv")?.rows ?? []).map(row => ({
+    ...row,
+    eventName: eventTypeNames[String(row.EventType)] || ""
+  })),
+  eventTypeNames,
   eventScheduleHeaders: byPath.get("Assets/CSV/Event/EventSchedule.csv")?.headers ?? [],
   eventShopFacts: {
     timeAvailableIsTimestamp: /_ItemID2TimeAvailable\[itemId\]\s*<=\s*TimeManager\.GetCurrentTimestamp\(\)/.test(code["Assets/Scripts/Events/Core/EventShopConfigs.fcg"]),

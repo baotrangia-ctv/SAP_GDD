@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T17:28:38.214Z",
+  "generatedAt": "2026-10-22T18:06:55.261Z",
   "sourceCommit": "290aacf250f613ab8348adb125adbd9cbd80fd34",
   "waveCount": 60,
   "itemConfigCount": 2060,
@@ -5542,9 +5542,19 @@
       "Priority": "10",
       "CurrencyType": "6",
       "ShopId": "12",
-      "MilestoneId": "0"
+      "MilestoneId": "0",
+      "eventName": "Rarity Contract"
     }
   ],
+  "eventTypeNames": {
+    "0": "Collector",
+    "1": "Fuse Contract",
+    "2": "Dig Meteorite",
+    "3": "Whack A Mole",
+    "4": "Steal A Ball",
+    "5": "Kick Ball",
+    "6": "Rarity Contract"
+  },
   "eventScheduleHeaders": [
     "ID",
     "EventType",

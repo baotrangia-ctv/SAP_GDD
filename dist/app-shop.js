@@ -58,7 +58,12 @@ function shopEventTypeOptions(data) {
   const itemShopIds = new Set((data.eventShopItems || []).map(row => String(row.ShopId || "")));
   const scheduledShopIds = new Set(schedules.map(row => String(row.ShopId || "")));
   if ([...itemShopIds].some(shopId => shopId && !scheduledShopIds.has(shopId))) shopsByType.set("unknown", new Set([...itemShopIds].filter(shopId => shopId && !scheduledShopIds.has(shopId))));
-  return [...shopsByType.entries()].map(([type, shops]) => [type, type === "unknown" ? "Chưa có event schedule · Shop " + [...shops].join(", ") : "Event type " + type + " · Shop " + [...shops].join(", ")]);
+  return [...shopsByType.entries()].map(([type, shops]) => {
+    const schedule = schedules.find(row => String(row.EventType) === type);
+    const eventName = schedule?.eventName || (type === "unknown" ? "Event chưa có tên" : "Event " + type);
+    const shopLabels = [...shops].map(shopId => "Shop #" + shopId).join(", ");
+    return [type, eventName + " · " + shopLabels];
+  });
 }
 
 function shopFilters(data) {
@@ -72,12 +77,10 @@ function shopFilters(data) {
 
 function shopTable(data) {
   if (s.shopView === "rotation") {
-    return '<div class="table-wrap data-table-view"><table><thead><tr><th>Wave</th><th>ID</th><th>Type</th><th>Value</th><th class="num">Stock</th><th class="num">Price</th><th class="num">DiscountPrice</th><th class="num">Wave coverage</th></tr></thead><tbody id="shop-rows"></tbody></table></div>';
+    return '<div id="shop-cards" class="shop-item-grid"></div>';
   }
   if (s.shopView === "event") return '<div id="shop-release-timeline"></div><div id="shop-event-items" class="event-shop-grid"></div>';
-  const rows = data.shopItems || [];
-  const headers = data.shopItemsHeaders || [];
-  return '<div class="table-wrap data-table-view"><table><thead><tr>' + headers.map(key => "<th>" + esc(key) + "</th>").join("") + '</tr></thead><tbody id="shop-rows"></tbody></table></div><div class="table-foot"><span>' + rows.length + " rows · raw CSV values</span><span>Requirement/TimeLock chưa được đổi đơn vị</span></div>";
+  return '<div id="shop-cards" class="shop-item-grid"></div>';
 }
 
 function eventTypeForShop(data, shopId) {
@@ -135,19 +138,75 @@ function eventReleaseTimeline(data, rows) {
       const aDay = Number(a[0].replace("Ngày ", "")), bDay = Number(b[0].replace("Ngày ", ""));
       return (Number.isFinite(aDay) ? aDay : 99999) - (Number.isFinite(bDay) ? bDay : 99999);
     });
-    return '<section class="event-release-visual"><div class="event-release-head"><div><h2>Ngày mở item · Shop ' + esc(shopId) + '</h2><p>' + (schedule ? 'Event bắt đầu: ' + esc(startDate) : 'Chưa có event schedule') + (timeIsTimestamp ? ' · TimeAvailable là timestamp' : ' · unit TimeAvailable chưa xác nhận') + '</p></div>' + (schedule ? '<span class="event-type-badge">Event ' + esc(schedule.EventType) + ' · Shop ' + esc(schedule.ShopId) + '</span>' : '') + '</div><div class="event-release-days">' + (days.map(([label, entries]) => '<div class="event-release-day"><span>' + esc(label) + '</span><strong>' + entries.length + ' item' + (entries.length === 1 ? "" : "s") + '</strong><div class="event-release-dots">' + entries.slice(0, 14).map((item, index) => '<i style="--release-color:' + (index % 3 === 0 ? "#82e0ba" : index % 3 === 1 ? "#73d2e8" : "#b49cff") + '" title="' + esc(item.NameLocalize || item.Name) + '"></i>').join("") + '</div></div>').join("") || '<div class="empty">Không có item cho event này.</div>') + '</div></section>';
+    const eventName = schedule?.eventName || (schedule ? "Event " + schedule.EventType : "Chưa có event schedule");
+    return '<section class="event-release-visual"><div class="event-release-head"><div><h2>' + esc(eventName) + ' · Shop #' + esc(shopId) + '</h2><p>' + (schedule ? 'Event bắt đầu: ' + esc(startDate) : 'Chưa có event schedule') + (timeIsTimestamp ? ' · TimeAvailable là timestamp' : ' · unit TimeAvailable chưa xác nhận') + '</p></div>' + (schedule ? '<span class="event-type-badge">EventType ' + esc(schedule.EventType) + ' · Shop #' + esc(schedule.ShopId) + '</span>' : '') + '</div><div class="event-release-days">' + (days.map(([label, entries]) => '<div class="event-release-day"><span>' + esc(label) + '</span><strong>' + entries.length + ' item' + (entries.length === 1 ? "" : "s") + '</strong><div class="event-release-dots">' + entries.slice(0, 14).map((item, index) => '<i style="--release-color:' + (index % 3 === 0 ? "#82e0ba" : index % 3 === 1 ? "#73d2e8" : "#b49cff") + '" title="' + esc(item.NameLocalize || item.Name) + '"></i>').join("") + '</div></div>').join("") || '<div class="empty">Không có item cho event này.</div>') + '</div></section>';
   }).join("") || '<section class="event-release-visual"><div class="empty">Không có item cho event này.</div></section>';
 }
 
 function eventShopItemArt(item) {
+  const itemType = String(item.Name || "").toLowerCase();
+  if (itemType === "randompet" || itemType === "randomitem") return gameItemVisual(item.IconResource || item.Name, eventShopItemTitle(item));
   const rewards = giftRewardRows(item.IDGift).filter(row => !row.missing);
   if (rewards.length) return rewardVisual(rewards[0]);
-  if (String(item.Name).toLowerCase() === "randompet") return '<span class="reward-art-mark">🐾</span>';
-  if (String(item.Name).toLowerCase() === "randomitem") return '<span class="reward-art-mark">🎁</span>';
   const resource = String(item.IconResource || item.NameLocalize || "");
   const pet = t("Pet.csv").rows.find(row => row.Name === resource || row.Name === item.NameLocalize);
   if (pet) return petImageHtml(pet, "event-shop-art-pet");
   return '<span class="reward-art-mark">🎁</span>';
+}
+
+function standardShopItemName(row) {
+  return pretty(String(row.NameLocalize || row.Name || "Item").replace(/^HUD_SHOP_ITEM_/, ""));
+}
+
+function standardShopItemCard(row) {
+  const title = standardShopItemName(row);
+  const description = pretty(String(row.Description || "").replace(/^HUD_SHOP_DETAILS_/, ""));
+  return '<article class="shop-item-card"><div class="shop-item-card-head"><div class="shop-item-art">' + gameItemVisual(row.Name, title) + '</div><div class="shop-item-title"><span class="event-type-badge">Shop thường</span><h3>' + esc(title) + '</h3><small>Item #' + esc(row.ID) + ' · Sprite ' + esc(row.Name) + '</small></div><strong class="shop-item-price">' + esc(row.Cost || "—") + '<small>cost</small></strong></div><p class="shop-item-description">' + esc(description || "Chưa có mô tả") + '</p><div class="shop-item-meta"><span>Requirement ' + esc(row.Requirement || "0") + ' · raw</span><span>TimeLock ' + esc(row.TimeLock || "—") + ' · raw</span></div></article>';
+}
+
+function rotationItemPet(row, value) {
+  const petId = String(value[0] || "");
+  return t("Pet.csv").rows.find(pet => String(pet.ID) === petId);
+}
+
+function rotationItemName(row, value) {
+  if (String(row.type) === "1") return rotationItemPet(row, value)?.Name || "Pet #" + (value[0] || "?");
+  if (String(row.type) === "2") {
+    const gen = t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0]));
+    const effect = gen && t("weatherEffects.csv").rows.find(item => String(item.ID) === String(gen.WeatherEffect));
+    return effect?.Name || "WeatherGen #" + (value[0] || "?");
+  }
+  if (String(row.type) === "3") {
+    const mutagen = t("Mutagen.csv").rows.find(item => String(item.ID) === String(value[0]));
+    const mutation = mutagen && t("mutation.csv").rows.find(item => String(item.ID) === String(mutagen.Mutation));
+    return mutation?.Name || "Mutagen #" + (value[0] || "?");
+  }
+  return "Item #" + row.itemId;
+}
+
+function rotationItemArt(row, value) {
+  if (String(row.type) === "1") {
+    const pet = rotationItemPet(row, value);
+    if (!pet) return gameSpriteIconHtml("Pet", "Pet #" + (value[0] || "?"));
+    const mutation = value[1] && value[1] !== "0" ? t("mutation.csv").rows.find(item => String(item.ID) === String(value[1])) : null;
+    const weather = value[2] ? t("weather.csv").rows.find(item => String(item.ID) === String(value[2])) : null;
+    return '<div class="shop-item-pet-visual">' + petImageHtml(pet, "shop-item-pet") + (mutation ? '<span class="shop-item-overlay" title="' + esc(mutation.Name) + '">' + systemIcon(s.data.visualAssets?.mutationIcons, mutation.ID, "✧") + '</span>' : '') + (weather ? '<span class="shop-item-overlay shop-item-overlay-weather" title="' + esc(weather.Name) + '">' + gameItemVisual(weather.Icon || weather.Name, weather.Name) + '</span>' : '') + '</div>';
+  }
+  if (String(row.type) === "2") return rewardVisual({ TypeReward: "16", Value: value[0] || "", Quantity: "1" });
+  if (String(row.type) === "3") return rewardVisual({ TypeReward: "10", Value: value[0] || "", Quantity: "1" });
+  return gameSpriteIconHtml("ShopItem", "Item #" + row.itemId);
+}
+
+function rotationShopItemCard(row) {
+  const value = String(row.value || "").split(";");
+  const pet = String(row.type) === "1" ? rotationItemPet(row, value) : null;
+  const mutagen = String(row.type) === "3" ? t("Mutagen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
+  const weatherGen = String(row.type) === "2" ? t("WeatherGen.csv").rows.find(item => String(item.ID) === String(value[0])) : null;
+  const typeLabel = pet ? "Pet" : mutagen ? "Mutagen" : weatherGen ? "WeatherGen" : "Type " + row.type;
+  const detail = pet ? [pet.Rarity, value[1] && value[1] !== "0" ? "Mutation " + (t("mutation.csv").rows.find(item => String(item.ID) === String(value[1]))?.Name || value[1]) : "", value[2] ? "Weather " + (t("weather.csv").rows.find(item => String(item.ID) === String(value[2]))?.Name || value[2]) : ""].filter(Boolean).join(" · ") : typeLabel;
+  const coverage = row.wavePresencePercent == null ? "—" : row.wavePresencePercent.toFixed(1) + "%";
+  const discount = row.discountPrice && row.discountPrice !== row.price ? '<s>' + esc(row.price) + '</s> ' + esc(row.discountPrice) : esc(row.discountPrice || row.price || "—");
+  return '<article class="shop-item-card"><div class="shop-item-card-head"><div class="shop-item-art">' + rotationItemArt(row, value) + '</div><div class="shop-item-title"><span class="event-type-badge">Wave ' + esc(row.waveId) + ' · ' + esc(row.durationMinutes) + ' phút</span><h3>' + esc(rotationItemName(row, value)) + '</h3><small>Item #' + esc(row.itemId) + ' · ' + esc(typeLabel) + '</small></div><strong class="shop-item-price">' + discount + '<small>price</small></strong></div><div class="shop-item-description">' + esc(detail || "—") + '</div><div class="shop-item-meta"><span>Stock ×' + esc(row.stock || "—") + '</span><span>Wave coverage ' + esc(row.wavePresenceCount) + '/' + esc(row.waveCount) + ' · ' + esc(coverage) + '</span></div></article>';
 }
 
 function eventShopItemTitle(item) {
@@ -249,7 +308,7 @@ function renderShopContent(data) {
 function filteredShopRows(data) {
   const query = s.shopSearch.trim().toLowerCase();
   return data.items.filter(row => (s.shopWave === "all" || row.waveId === s.shopWave) &&
-    (!query || [row.waveId, row.itemId, row.type, row.value, row.stock, row.price, row.discountPrice].join(" ").toLowerCase().includes(query)));
+    (!query || [row.waveId, row.itemId, row.type, row.value, row.stock, row.price, row.discountPrice, rotationItemName(row, String(row.value || "").split(";"))].join(" ").toLowerCase().includes(query)));
 }
 
 function updateEventShopRows(data) {
@@ -265,22 +324,22 @@ function updateEventShopRows(data) {
 
 function updateShopRows(data) {
   if (s.shopView === "event") { updateEventShopRows(data); return; }
-  const body = document.getElementById("shop-rows");
-  if (!body) return;
+  const list = document.getElementById("shop-cards");
+  if (!list) return;
   if (s.shopView === "standard") {
     const rows = data.shopItems || [];
     const query = s.shopSearch.trim().toLowerCase();
     const headers = data.shopItemsHeaders || [];
-    const filtered = rows.filter(row => !query || headers.some(key => String(row[key] ?? "").toLowerCase().includes(query)));
-    body.innerHTML = filtered.map(row => "<tr>" + headers.map(key => '<td title="' + esc(row[key]) + '">' + esc(row[key]) + "</td>").join("") + "</tr>").join("") || '<tr><td class="empty" colspan="' + Math.max(1, headers.length) + '">Không có dòng khớp.</td></tr>';
-    const count = document.getElementById("shop-count"); if (count) count.textContent = filtered.length + " / " + rows.length + " dòng";
+    const filtered = rows.filter(row => !query || headers.some(key => String(row[key] ?? "").toLowerCase().includes(query)) || standardShopItemName(row).toLowerCase().includes(query));
+    list.innerHTML = filtered.map(standardShopItemCard).join("") || '<div class="empty">Không có dòng khớp.</div>';
+    const count = document.getElementById("shop-count"); if (count) count.textContent = filtered.length + " / " + rows.length + " item";
     return;
   }
   const rows = filteredShopRows(data);
   const end = Math.min(s.shopOffset + SHOP_PAGE_SIZE, rows.length);
-  body.innerHTML = rows.slice(s.shopOffset, end).map(row => '<tr><td class="mono">Wave ' + esc(row.waveId) + ' · ' + esc(row.durationMinutes) + "m</td><td class=\"mono\">" + esc(row.itemId) + "</td><td>" + esc(row.type) + "</td><td>" + esc(row.value) + '</td><td class="num">' + esc(row.stock) + '</td><td class="num">' + esc(row.price) + '</td><td class="num">' + esc(row.discountPrice) + '</td><td class="num">' + esc(row.wavePresenceCount) + "/" + esc(row.waveCount) + " · " + (row.wavePresencePercent == null ? "—" : row.wavePresencePercent.toFixed(1) + "%") + "</td></tr>").join("") || '<tr><td class="empty" colspan="8">Không có dòng khớp.</td></tr>';
-  const count = document.getElementById("shop-count"); if (count) count.textContent = Math.min(rows.length, SHOP_PAGE_SIZE) + " / " + rows.length + " dòng";
-  const page = document.getElementById("shop-page"); if (page) page.textContent = "Rows " + (rows.length ? s.shopOffset + 1 : 0) + "–" + end + " / " + rows.length;
+  list.innerHTML = rows.slice(s.shopOffset, end).map(rotationShopItemCard).join("") || '<div class="empty">Không có dòng khớp.</div>';
+  const count = document.getElementById("shop-count"); if (count) count.textContent = Math.min(rows.length, SHOP_PAGE_SIZE) + " / " + rows.length + " item";
+  const page = document.getElementById("shop-page"); if (page) page.textContent = "Items " + (rows.length ? s.shopOffset + 1 : 0) + "–" + end + " / " + rows.length;
   document.querySelectorAll("[data-shop-action]").forEach(button => { button.disabled = button.dataset.shopAction === "prev" ? s.shopOffset <= 0 : end >= rows.length; });
 }
 

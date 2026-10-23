@@ -30,7 +30,7 @@ async function updatePoolsPage() {
   const target = document.getElementById("pools-data");
   if (!target) return;
   try {
-    await loadPoolsData();
+    await Promise.all([loadPoolsData(), loadRewardDisplayData()]);
     if (s.page !== "pools" || !document.getElementById("pools-data")) return;
     renderPoolsContent();
   } catch (error) {
@@ -151,11 +151,56 @@ function formatPoolCell(value) {
   return String(value);
 }
 
+function poolPetArt(petId) {
+  const pet = t("Pet.csv").rows.find(row => String(row.ID) === String(petId));
+  return pet ? petImageHtml(pet, "pool-art-pet") : "";
+}
+
+function poolVisualGroup(items) {
+  const visuals = items.filter(Boolean).slice(0, 4);
+  if (!visuals.length) return gameSpriteIconHtml("Pool", "Pool reward");
+  if (visuals.length === 1) return visuals[0];
+  return '<span class="pool-art-group">' + visuals.map((item, index) => '<span class="pool-art-mini pool-art-mini-' + index + '">' + item + '</span>').join("") + '</span>';
+}
+
+function poolRowArt(row) {
+  if (s.poolView === "items") {
+    const reward = giftRewardRows(row.GiftID).find(item => !item.missing);
+    return reward ? rewardVisual(reward) : gameSpriteIconHtml("RandomItem", "Random item");
+  }
+  if (s.poolView === "secret" || (s.poolView === "dig" && s.poolSubView === "pets") || (s.poolView === "fishing" && s.poolSubView === "pets") || s.poolView === "guarantee") {
+    const petId = row.petId || row.PetId;
+    const petArt = poolPetArt(petId);
+    return petArt || gameSpriteIconHtml("RandomPet", "Pet reward");
+  }
+  if (s.poolView === "dig" && s.poolSubView === "spot") return gameSpriteIconHtml("DigSpot", "Độ hiếm điểm " + row.spotRarity);
+  if (s.poolView === "dig" || (s.poolView === "fishing" && s.poolSubView === "chest")) return gameSpriteIconHtml("Chest", "Rương");
+  if (s.poolView === "fishing" && s.poolSubView === "rewards") {
+    const reward = { TypeReward: row.ItemType, Value: row.RewardValue, Quantity: "1" };
+    return rewardVisual(reward);
+  }
+  if (s.poolView === "events" && s.poolSubView === "collector") {
+    const petIds = String(row.Pool || "").split(/[;|]/).filter(Boolean);
+    return poolVisualGroup(petIds.map(poolPetArt));
+  }
+  if (s.poolView === "events" && s.poolSubView === "fuse") {
+    const giftIds = String(row.Gift || "").split(";").filter(Boolean);
+    const giftArts = giftIds.map(giftId => {
+      const reward = giftRewardRows(giftId).find(item => !item.missing);
+      return reward ? rewardVisual(reward) : "";
+    });
+    if (giftArts.some(Boolean)) return poolVisualGroup(giftArts);
+    const petIds = String(row.Pool || "").split(/[;|]/).filter(Boolean);
+    return poolVisualGroup(petIds.map(poolPetArt));
+  }
+  return gameSpriteIconHtml("Pool", "Pool configuration");
+}
+
 function updatePoolRows() {
   const headRow = document.getElementById("pool-headers"), body = document.getElementById("pool-rows");
   if (!headRow || !body) return;
   const model = poolTableModel();
-  headRow.innerHTML = model.columns.map(column => "<th>" + esc(column.label || column.key) + "</th>").join("");
+  headRow.innerHTML = "<th>Hình</th>" + model.columns.map(column => "<th>" + esc(column.label || column.key) + "</th>").join("");
   const query = s.poolSearch.trim().toLowerCase();
   const rows = model.rows.filter(row => {
     const haystack = model.columns.map(column => column.value ? column.value(row) : row[column.key]).join(" ").toLowerCase();
@@ -165,11 +210,11 @@ function updatePoolRows() {
     return true;
   });
   const end = Math.min(s.poolOffset + POOLS_PAGE_SIZE, rows.length);
-  body.innerHTML = rows.slice(s.poolOffset, end).map(row => "<tr>" + model.columns.map(column => {
+  body.innerHTML = rows.slice(s.poolOffset, end).map(row => '<tr><td class="pool-icon-cell"><span class="pool-row-art">' + poolRowArt(row) + '</span></td>' + model.columns.map(column => {
     const raw = column.value ? column.value(row) : row[column.key];
     const value = formatPoolCell(raw);
     return '<td title="' + esc(value) + '">' + esc(value) + "</td>";
-  }).join("") + "</tr>").join("") || '<tr><td class="empty" colspan="' + Math.max(1, model.columns.length) + '">Không có dòng khớp.</td></tr>';
+  }).join("") + "</tr>").join("") || '<tr><td class="empty" colspan="' + (Math.max(1, model.columns.length) + 1) + '">Không có dòng khớp.</td></tr>';
   const count = document.getElementById("pool-count"); if (count) count.textContent = Math.min(rows.length, POOLS_PAGE_SIZE) + " / " + rows.length + " dòng";
   const page = document.getElementById("pool-page"); if (page) page.textContent = "Dòng " + (rows.length ? s.poolOffset + 1 : 0) + "–" + end + " / " + rows.length;
   document.querySelectorAll("[data-pool-action]").forEach(button => {

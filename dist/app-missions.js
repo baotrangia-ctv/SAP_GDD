@@ -6,6 +6,7 @@ if (!s.missionView) s.missionView = "daily";
 if (!s.missionSubView) s.missionSubView = "onboard";
 if (s.missionType === undefined) s.missionType = "all";
 if (s.missionRebirth === undefined) s.missionRebirth = "all";
+if (s.missionUserType === undefined) s.missionUserType = "all";
 
 let missionBalanceData = null;
 let missionBalanceLoading = null;
@@ -63,8 +64,7 @@ function missionGiftId(row) {
 
 function missionRowTypes(row) {
   if (s.missionView === "onboard-revival" && s.missionSubView === "onboard") return [String(row.RewardType ?? "")];
-  if (s.missionView === "onboard-revival" && s.missionSubView === "revival") return [String(row.RewardType ?? "")];
-  return giftRewardTypeIds(missionGiftId(row));
+  return [];
 }
 
 function missionTypeOptions(rows) {
@@ -72,22 +72,35 @@ function missionTypeOptions(rows) {
 }
 
 function missionFilterbar(rows) {
-  const types = missionTypeOptions(rows);
-  const typeSelect = '<label class="mission-filter"><span>Loại quà</span><select id="mission-type" class="field-select"><option value="all">Tất cả loại</option>' + types.map(type =>
-    '<option value="' + esc(type) + '"' + (s.missionType === type ? " selected" : "") + '>' + esc(rewardTypeName(type)) + "</option>").join("") + "</select></label>";
-  let extraFilters = "";
+  let filters = "";
   if (s.missionView === "daily") {
+    const userTypes = [...new Set(rows.map(row => row.UserType).filter(Boolean))].sort();
+    const userTypeSelect = '<label class="mission-filter"><span>User type</span><select id="mission-user-type" class="field-select"><option value="all">Tất cả user type</option>' + userTypes.map(value =>
+      '<option value="' + esc(value) + '"' + (s.missionUserType === value ? " selected" : "") + '>' + esc(value) + "</option>").join("") + "</select></label>";
     const rebirths = [...new Set(rows.map(row => row.RebirthLevel).filter(Boolean))].sort((a, b) => Number(a) - Number(b));
-    extraFilters = '<label class="mission-filter"><span>Rebirth tối thiểu</span><select id="mission-rebirth" class="field-select"><option value="all">Tất cả</option>' + rebirths.map(value =>
+    const rebirthSelect = '<label class="mission-filter"><span>Rebirth tối thiểu</span><select id="mission-rebirth" class="field-select"><option value="all">Tất cả</option>' + rebirths.map(value =>
       '<option value="' + esc(value) + '"' + (s.missionRebirth === value ? " selected" : "") + '>RB ≥ ' + esc(value) + "</option>").join("") + "</select></label>";
+    filters = userTypeSelect + rebirthSelect;
+  } else if (s.missionView === "onboard-revival" && s.missionSubView === "onboard") {
+    const types = missionTypeOptions(rows);
+    filters = '<label class="mission-filter"><span>Loại quà</span><select id="mission-type" class="field-select"><option value="all">Tất cả loại</option>' + types.map(type =>
+      '<option value="' + esc(type) + '"' + (s.missionType === type ? " selected" : "") + '>' + esc(rewardTypeName(type)) + "</option>").join("") + "</select></label>";
+  } else if (s.missionView === "onboard-revival" && s.missionSubView === "revival") {
+    const rebirths = [...new Set(rows.map(row => row.RebirthLevel).filter(Boolean))].sort((a, b) => Number(a) - Number(b));
+    filters = '<label class="mission-filter"><span>Rebirth</span><select id="mission-rebirth" class="field-select"><option value="all">Tất cả RB</option>' + rebirths.map(value =>
+      '<option value="' + esc(value) + '"' + (s.missionRebirth === value ? " selected" : "") + '>RB ' + esc(value) + "</option>").join("") + "</select></label>";
   }
-  return '<div class="filterbar mission-filterbar">' + typeSelect + extraFilters + '<span id="mission-count" class="small-count"></span></div>';
+  return filters ? '<div class="filterbar mission-filterbar">' + filters + '<span id="mission-count" class="small-count"></span></div>' : "";
 }
 
 function filterMissionRows(rows) {
   return rows.filter(row => {
-    if (s.missionType !== "all" && !missionRowTypes(row).includes(s.missionType)) return false;
-    if (s.missionView === "daily" && s.missionRebirth !== "all" && row.RebirthLevel !== s.missionRebirth) return false;
+    if (s.missionView === "daily") {
+      if (s.missionUserType !== "all" && row.UserType !== s.missionUserType) return false;
+      if (s.missionRebirth !== "all" && row.RebirthLevel !== s.missionRebirth) return false;
+    }
+    if (s.missionView === "onboard-revival" && s.missionSubView === "onboard" && s.missionType !== "all" && !missionRowTypes(row).includes(s.missionType)) return false;
+    if (s.missionView === "onboard-revival" && s.missionSubView === "revival" && s.missionRebirth !== "all" && row.RebirthLevel !== s.missionRebirth) return false;
     return true;
   });
 }
@@ -134,10 +147,10 @@ function missionContent(rows) {
 }
 
 function missionSourceNote() {
-  if (s.missionView === "daily") return note("Quà ngày", "Gift ID được nối tới các Reward ID trong runtime catalog. Dùng filter theo loại quà và Rebirth tối thiểu; user type vẫn hiển thị trên từng quà.", "DailyRewards.csv · MailConfigs.fcg · reward.csv", "info");
+  if (s.missionView === "daily") return note("Quà ngày", "Gift ID được nối tới các Reward ID trong runtime catalog. Lọc theo UserType và Rebirth tối thiểu như cấu hình DailyRewards.", "DailyRewards.csv · MailConfigs.fcg · reward.csv", "info");
   if (s.missionView === "luckyspin") return note("Tỉ lệ Lucky Spin theo Weight", "Runtime chọn Reward ID bằng WeightedRandom theo Weight. Góc MinAngle–MaxAngle chỉ quyết định điểm dừng khi chạy animation.", "loginReward.csv · DailyRewardConfigs.fcg · DailyRewardManager.fcg · WeightedRandom.fcg", missionBalanceData.sourceFacts.luckySpinChoosesByWeight ? "info" : "review");
   if (s.missionSubView === "onboard") return note("Onboard reward", "RewardType/RewardValue là phần thưởng trực tiếp của từng bước; tên pet, mutation và item được nối từ catalog config.", "onboard.csv · OnboardConfigs.fcg · RewardManager.fcg", "info");
-  return note("Revival mission reward", "TargetValue được runtime đưa vào time formatter; trang hiển thị thời lượng dễ đọc và reward theo type/value.", "RevivalMission.csv · RevivalMissionConfigs.fcg · RewardManager.fcg", missionBalanceData.sourceFacts.revivalTargetPassedToTimeFormatter ? "info" : "review");
+  return note("Revival mission reward", "Lọc mốc nhiệm vụ theo Rebirth. TargetValue được runtime đưa vào time formatter; reward hiển thị theo cấu hình trực tiếp.", "RevivalMission.csv · RevivalMissionConfigs.fcg · RewardManager.fcg", missionBalanceData.sourceFacts.revivalTargetPassedToTimeFormatter ? "info" : "review");
 }
 
 function renderMissionsContent() {
@@ -151,7 +164,7 @@ function renderMissionsContent() {
   const revivalCount = t("RevivalMission.csv").rowCount || 0;
   const spinCount = t("loginReward.csv").rowCount || 0;
   target.innerHTML = '<section class="kpi-grid">' +
-    kpi("QUÀ NGÀY", dailyCount, "lọc type · Rebirth tối thiểu") +
+    kpi("QUÀ NGÀY", dailyCount, "lọc user type · Rebirth tối thiểu") +
     kpi("ONBOARD", onboardCount, "bước có quà") +
     kpi("REVIVAL", revivalCount, "mốc nhiệm vụ") +
     kpi("LUCKY SPIN", spinCount, "reward có Weight") +
@@ -180,6 +193,7 @@ document.addEventListener("click", event => {
     s.missionSubView = "onboard";
     s.missionType = "all";
     s.missionRebirth = "all";
+    s.missionUserType = "all";
     renderMissionsContent();
     return;
   }
@@ -194,4 +208,5 @@ document.addEventListener("click", event => {
 document.addEventListener("change", event => {
   if (event.target.id === "mission-type") { s.missionType = event.target.value; updateMissionRows(); }
   if (event.target.id === "mission-rebirth") { s.missionRebirth = event.target.value; updateMissionRows(); }
+  if (event.target.id === "mission-user-type") { s.missionUserType = event.target.value; updateMissionRows(); }
 });

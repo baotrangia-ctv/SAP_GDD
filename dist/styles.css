@@ -603,3 +603,46 @@ td.mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#9db
   .spin-reward-card { grid-template-columns:1fr; }
   .event-pool-entry { grid-template-columns:1fr; }
 }
+
+.game-sprite-icon { display:block; width:44px; height:44px; filter:drop-shadow(0 3px 5px rgba(0,0,0,.24)); }
+.game-sprite-icon-image { object-fit:contain; }
+.reward-art .game-sprite-icon { width:42px; height:42px; }
+.event-shop-art .game-sprite-icon { width:48px; height:48px; }
+.event-pool-art .game-sprite-icon { width:32px; height:32px; }
+.reward-art-moodeng { object-fit:contain; }
+.shop-item-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr)); gap:12px; }
+.shop-item-card { min-width:0; padding:13px; border:1px solid #2b3d51; border-radius:14px; background:linear-gradient(140deg,#182638,#131d2a); }
+.shop-item-card-head { display:grid; grid-template-columns:66px minmax(0,1fr) auto; align-items:center; gap:10px; }
+.shop-item-art { display:grid; place-items:center; width:66px; height:66px; overflow:hidden; border:1px solid #394a60; border-radius:15px; background:radial-gradient(circle,#2b3c50,#182333 75%); }
+.shop-item-art .game-sprite-icon { width:54px; height:54px; }
+.shop-item-art .pet-thumb { width:58px; height:58px; flex:0 0 58px; border:0; background:transparent; }
+.shop-item-title { min-width:0; }
+.shop-item-title h3 { margin:5px 0 2px; color:#e1ebf5; font-size:12px; overflow-wrap:anywhere; }
+.shop-item-title small { color:#8194aa; font-size:8px; overflow-wrap:anywhere; }
+.shop-item-price { min-width:48px; color:#f2d58c; text-align:right; font-size:15px; font-variant-numeric:tabular-nums; }
+.shop-item-price small { display:block; color:#8798aa; font-size:8px; font-weight:500; }
+.shop-item-description { margin:10px 0 7px; color:#aab8c8; font-size:10px; }
+.shop-item-meta { display:flex; flex-wrap:wrap; justify-content:space-between; gap:5px 12px; margin-top:10px; padding-top:9px; border-top:1px solid #293a4d; color:#8194aa; font-size:8px; }
+.shop-item-pet-visual { position:relative; display:grid; place-items:center; width:58px; height:58px; }
+.shop-item-pet { width:56px; height:56px; flex:0 0 56px; border:0; background:transparent; }
+.shop-item-overlay { position:absolute; right:-2px; bottom:-1px; display:grid; place-items:center; width:22px; height:22px; overflow:hidden; border:1px solid #c4a763; border-radius:50%; background:#172334; }
+.shop-item-overlay .system-icon { width:18px; height:18px; }
+.shop-item-overlay .system-icon-fallback { font-size:12px; }
+.shop-item-overlay-weather { top:-2px; right:-2px; bottom:auto; border-color:#70acc5; }
+.shop-item-overlay-weather .game-sprite-icon { width:18px; height:18px; }
+.pool-icon-cell { width:64px; min-width:64px; padding:5px 8px !important; }
+.pool-row-art { display:grid; place-items:center; width:52px; height:52px; overflow:hidden; border:1px solid #34475e; border-radius:12px; background:radial-gradient(circle at 50% 25%,#2b3b50,#172231 78%); }
+.pool-row-art>.pet-thumb { width:46px; height:46px; flex:0 0 46px; border:0; background:transparent; }
+.pool-row-art>.system-icon { width:40px; height:40px; object-fit:contain; }
+.pool-row-art>.game-sprite-icon { width:42px; height:42px; }
+.pool-art-group { display:grid; grid-template-columns:1fr 1fr; gap:2px; width:46px; height:46px; }
+.pool-art-mini { display:grid; place-items:center; width:22px; height:22px; overflow:hidden; border:1px solid #43556b; border-radius:6px; background:#172334; }
+.pool-art-mini img,.pool-art-mini .system-icon { width:20px !important; height:20px !important; flex:0 0 20px !important; object-fit:contain; border:0; background:transparent; }
+.pool-art-mini .game-sprite-icon { width:19px; height:19px; }
+@media (max-width:760px) {
+  .shop-item-grid { grid-template-columns:1fr; }
+  .shop-item-card-head { grid-template-columns:58px minmax(0,1fr) auto; gap:8px; }
+  .shop-item-art { width:58px; height:58px; }
+  .shop-item-art .game-sprite-icon { width:48px; height:48px; }
+  .shop-item-art .pet-thumb { width:50px; height:50px; flex-basis:50px; }
+}

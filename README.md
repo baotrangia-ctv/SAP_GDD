@@ -26,13 +26,15 @@ The model follows `PetParadeManager.CalculateRoadSpawnWeights`, `GetPetsCount`, 
 
 ## Shop Schedule
 
-Use **Lịch shop** to filter the Rotation Shop's fixed item list by wave or item ID/type/value. Rows show the configured `Count`, price fields, and the share of schedule waves containing that item. This is schedule coverage, not a random chance. Event shop can be filtered by `EventType`; its item cards show Gift → Reward details and visualize `TimeAvailable` relative to the scheduled event start when a schedule exists. The normal shop keeps raw CSV fields, including unconfirmed `Requirement`/`TimeLock` units.
+Use **Lịch shop** to filter the Rotation Shop's scheduled items by wave or item ID/type/value. Cards show the pet, mutation or WeatherGen icon, stock, prices, and share of schedule waves containing that item. This is schedule coverage, not a random chance. Standard shop cards use the icon key from `shopItems.csv`. Event shop filters show the event name and Shop ID; item cards map Gift → Reward and visualize `TimeAvailable` relative to the scheduled event start when a schedule exists.
 
 These pages are read-only views of repository CSV and FC config logic. Mutation and WeatherGen rows use the matching sprite from `Assets/Sprites/Mutations`; weather-effect sprites are joined by the `weatherEffects.csv` icon key. Derived rules are refreshed from `MutagenConfigs.fcg`, `WeatherGenConfigs.fcg`, `WeatherConfigs.fcg`, `LuckyBoxConfigs.fcg`, `LuckyBoxManager.fcg`, and `WeatherManager.fcg` by the same sync script.
 
+Core item and reward sprites used by the standalone shop, Activities rewards, and pool views are bundled under `dist/assets/game-sprites` so the displayed icons match the corresponding client UI.
+
 ## Missions & Rewards
 
-Use **Nhiệm vụ & quà** for daily gifts (filter by reward type and minimum Rebirth), onboarding and Revival mission rewards (filter by reward type), and Lucky Spin rewards. Gift IDs resolve to Reward IDs through the runtime gift lookup; reward cards show item art, type, configured quantity, and readable details. Lucky Spin odds are normalized from `loginReward.csv` weights; the wheel angle is shown as presentation data, not as the odds source. Revival target values are formatted as time because the runtime sends them to its time formatter.
+Use **Nhiệm vụ & quà** for daily gifts (filter by UserType and minimum Rebirth), onboarding rewards (filter by reward type), Revival mission rewards (filter by Rebirth), and Lucky Spin odds. Gift IDs resolve to Reward IDs through the runtime gift lookup; reward cards use the corresponding item, pet, mutation or weather icon and show type, configured quantity, and readable details. Lucky Spin odds are normalized from `loginReward.csv` weights; the wheel angle is shown as presentation data, not as the odds source. Revival target values are formatted as time because the runtime sends them to its time formatter.
 
 Serve the site locally:
 
@@ -42,7 +44,7 @@ Then open http://localhost:8080.
 
 ## Pool & phần thưởng
 
-Use **Pool & phần thưởng** to review `PoolRandomItem`, secret reward pools, Dig and Fishing pet/reward pools, GuaranteePool, and Collector/FuseContract schedules. `dist/data/pools.json` stores weight shares precomputed by sync. A share appears only when the `.fcg` load/draw code confirms a weighted selection; Dig/Fishing chest counters, GuaranteePool, and event schedules remain raw where runtime semantics do not establish a per-item probability. Fishing bands follow the runtime Rebirth mapping (RB 0–5 through RB 21+). Large tables are filtered and paginated in the page; IDs and reward values remain raw unless their meaning is confirmed by source code.
+Use **Pool & phần thưởng** to review `PoolRandomItem`, secret reward pools, Dig and Fishing pet/reward pools, GuaranteePool, and Collector/FuseContract schedules. Each row includes its matching pet, reward, item or chest icon. `dist/data/pools.json` stores weight shares precomputed by sync. A share appears only when the `.fcg` load/draw code confirms a weighted selection; Dig/Fishing chest counters, GuaranteePool, and event schedules remain raw where runtime semantics do not establish a per-item probability. Fishing bands follow the runtime Rebirth mapping (RB 0–5 through RB 21+). Large tables are filtered and paginated in the page; IDs and reward values remain raw unless their meaning is confirmed by source code.
 
 ## Data boundaries
 
