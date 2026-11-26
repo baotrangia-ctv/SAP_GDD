@@ -85,6 +85,12 @@
       "rules": "./data/ui/storage-rules.json"
     },
     {
+      "id": "lock-base",
+      "name": "Lock Base",
+      "status": "ready",
+      "sourceScreen": "fusion-confirm"
+    },
+    {
       "id": "mission",
       "name": "Mission",
       "status": "planned"

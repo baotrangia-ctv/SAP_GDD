@@ -1,0 +1,100 @@
+/* Sprite URLs and source slices are resolved from the SAP GDD component library. */
+.bl-dialog::before {
+  border-image-source: var(--sap-frame-image);
+  border-image-slice: var(--sap-frame-slice) fill;
+}
+
+.bl-title::before {
+  border-image-source: var(--sap-title-image);
+  border-image-slice: var(--sap-title-slice) fill;
+}
+
+.bl-title {
+  padding-inline-start: clamp(62px, 15%, 84px);
+  color: var(--sap-title-color, #fffcb7);
+  text-align: var(--sap-title-align, left);
+  text-shadow: 1px 1px var(--sap-title-shadow, #093c78);
+}
+
+.bl-token-wallet, .bl-token-preview {
+  background: none;
+  border: 8px solid transparent;
+  border-image: var(--sap-info-image) var(--sap-info-slice) fill;
+  color: var(--sap-info-color, #103f98);
+}
+
+.bl-token-wallet img,
+.bl-token-preview img {
+  padding: 5px;
+  border: 8px solid transparent;
+  border-image: var(--sap-item-image) var(--sap-item-slice) fill;
+}
+
+.bl-token-wallet img {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  padding: 0;
+}
+
+.bl-token-wallet > div {
+  min-width: 0;
+}
+
+.bl-token-controls button {
+  color: white;
+  background: none;
+  border: solid transparent;
+  border-width: 5px 6px 6px 12px;
+  border-image: var(--sap-secondary-image) var(--sap-secondary-slice) fill;
+}
+
+.bl-token-controls .bl-max {
+  color: #634313;
+  background: none;
+  border-image: var(--sap-primary-image) var(--sap-primary-slice) fill;
+}
+
+.bl-actions .bl-use::before {
+  border-image-source: var(--sap-primary-image);
+  border-image-slice: var(--sap-primary-slice) fill;
+}
+
+.bl-token-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 260px);
+}
+
+.bl-actions .bl-use {
+  color: var(--sap-claim-color, #fff);
+  text-shadow: 1px 1px var(--sap-claim-shadow, #f15a24);
+}
+
+.bl-actions .bl-use:disabled::before {
+  border-image-source: var(--sap-secondary-image);
+  border-image-slice: var(--sap-secondary-slice) fill;
+  filter: brightness(var(--sap-claim-inactive-brightness, .47));
+}
+
+.bl-actions .bl-use:disabled {
+  filter: none;
+  opacity: 1;
+  color: #fff;
+  text-shadow: 0 1px 1px #346294;
+}
+
+.bl-time-row {
+  display: grid;
+  grid-template-rows: auto 1.5rem;
+  justify-items: center;
+  gap: 0;
+}
+
+.bl-time-added {
+  grid-row: 2;
+  line-height: 1.5rem;
+}
+
+@media (max-width: 360px) {
+  .bl-dialog-body { padding-inline: 12px; }
+}

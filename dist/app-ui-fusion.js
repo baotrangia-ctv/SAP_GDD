@@ -47,6 +47,14 @@ function fusionPetWidget(t, el, pet, rules) {
   for (const name of ["HasMW", "Mutation", "Weathers"]) t.visible(child(name), false, "UpdatePetWidgetV3");
 }
 
+function fusionMissingVisual(t, el, color, shape) {
+  const layer = el?.querySelector(":scope > .ui-missing-sprite");
+  if (!layer) return;
+  layer.style.backgroundColor = color;
+  layer.style.clipPath = shape || "";
+  t.record(el, "PreviewFallback", shape ? "CSS arrow" : "Solid source tint", "Web preview");
+}
+
 function initFusionConfirmPreview(screen, rules, rendered) {
   const t = uiSourceTools(screen, rules, rendered), model = fusionPreviewModel(rules), c = rules.constants;
   const state = { a: model.all[0].ID, b: model.all[1].ID, dust: 0, rich: false, walletDust: 0, confirmed: false };
@@ -57,8 +65,12 @@ function initFusionConfirmPreview(screen, rules, rendered) {
     state.confirmed = false; render();
   });
   t.panel.querySelector('[data-fusion-pet="b"]').value = state.b;
+  const dustFill = t.key("DustPercent");
+  const dustTrack = t.child(dustFill.parentElement, "BG");
+  for (const el of [dustTrack, dustFill]) fusionMissingVisual(t, el, t.node(el).image.color);
   t.panel.querySelector("[data-fusion-reopen]").onclick = () => { state.confirmed = false; t.visible(t.key("FusionButton").parentElement, true, "ShowFusionConfirmHUD"); t.visible(t.find("DarkBG"), true, "ShowFusionConfirmHUD"); render(); };
   function render() {
+    t.status("");
     const a = model.byId(state.a), b = model.byId(state.b), data = model.compute(a, b, state.dust);
     state.walletDust = state.rich ? data.cap : 0; state.dust = Math.min(state.dust, state.walletDust);
     const computed = model.compute(a, b, state.dust);
@@ -72,19 +84,39 @@ function initFusionConfirmPreview(screen, rules, rendered) {
       if (!result) continue;
       const percent = result.weight * 100, tier = rules.chances.find(x => x.operator === ">=" ? percent >= x.threshold : percent > x.threshold) || { key: "HUD_FUSION_IMPOSSIBLE", count: 3 };
       t.text(label, uiTranslate(tier.key), "UpdateChanceWidgetV2");
-      [...widget.children].filter(el => el.classList.contains("ui-entity")).forEach((el, j) => { t.visible(el, j < tier.count, "UpdateChanceWidgetV2"); t.color(el, percent >= 60 ? c.GREEN_CHANCE : c.RED_CHANCE, "UpdateChanceWidgetV2"); const visual = el.querySelector(":scope > .ui-image"); if (visual) visual.style.transform = percent >= 60 ? "scaleY(-1)" : ""; t.record(el, "Flip", percent >= 60 ? 2 : 1, "UpdateChanceWidgetV2"); });
+      const high = percent >= 60, color = high ? c.GREEN_CHANCE : c.RED_CHANCE;
+      [...widget.children].filter(el => el.classList.contains("ui-entity")).forEach((el, j) => {
+        t.visible(el, j < tier.count, "UpdateChanceWidgetV2");
+        t.color(el, color, "UpdateChanceWidgetV2");
+        const visual = el.querySelector(":scope > .ui-visual");
+        if (visual) visual.style.transform = high ? "scaleY(-1)" : "";
+        fusionMissingVisual(t, el, color, "polygon(15% 20%, 50% 55%, 85% 20%, 85% 45%, 50% 80%, 15% 45%)");
+        t.record(el, "Flip", high ? 2 : 1, "UpdateChanceWidgetV2");
+      });
     }
     t.text(t.key("DustBalance"), t.money(state.walletDust), "UpdateDustBalance"); t.text(t.key("CostMoneyAmount"), t.money(computed.cost), "UpdateCostAmountWidget");
     t.color(t.key("CostMoneyAmount"), state.rich ? c.ACTIVE_MONEY_COLOR : c.INACTIVE_MONEY_COLOR, "UpdateCostAmountWidget");
     t.text(t.key("CostDustAmount"), t.money(state.dust), "UpdateDustAmount"); t.text(t.key("DustAmount"), `${t.money(state.dust)} / ${t.money(computed.cap)}`, "UpdateDustAmount");
-    uiRenderer.setFillAmount(t.key("DustPercent"), computed.cap ? state.dust / computed.cap : 0, t.node(t.key("DustPercent"))?.image); t.record(t.key("DustPercent"), "FillAmount", computed.cap ? state.dust / computed.cap : 0, "UpdateDustAmount");
+    const fill = computed.cap ? state.dust / computed.cap : 0;
+    uiRenderer.setFillAmount(dustFill, fill, t.node(dustFill)?.image);
+    t.record(dustFill, "FillAmount", fill, "UpdateDustAmount");
     t.visible(t.key("MutationPercentsLayout"), false, "UpdateMutationPercents"); t.refresh();
   }
   rendered.canvas.addEventListener("click", event => {
     const name = event.target.closest("button")?.dataset.uiName; if (!name) return;
     const data = model.compute(model.byId(state.a), model.byId(state.b), state.dust);
     if (name === "CloseButton") { t.visible(t.find("Container"), false, "HideFusionConfirmHUD"); t.visible(t.find("DarkBG"), false, "HideFusionConfirmHUD"); }
-    else if (name === "FusionButton") { if (state.confirmed) return; state.confirmed = true; t.visible(t.find("Container"), false, "HandleFusionPets"); t.visible(t.find("DarkBG"), false, "HideFusionConfirmHUD"); t.status("Đã đóng xác nhận; yêu cầu fusion được mô phỏng cục bộ. Xem tab Fusion Result để thử kết quả."); }
+    else if (name === "FusionButton") {
+      if (state.confirmed) return;
+      if (!state.rich && data.cost > 0n) {
+        t.status(uiPreview.language === "en" ? "Not enough money to fuse." : "Không đủ tiền để dung hợp.");
+        return;
+      }
+      state.confirmed = true;
+      t.visible(t.find("Container"), false, "HandleFusionPets");
+      t.visible(t.find("DarkBG"), false, "HideFusionConfirmHUD");
+      t.status("Đã đóng xác nhận; yêu cầu fusion được mô phỏng cục bộ. Xem tab Fusion Result để thử kết quả.");
+    }
     else if (name === "ExchangeButton") t.status("Game mở Exchange Dust; UI đó ngoài phạm vi lần này.");
     else if (["IncDustButton", "DecDustButton", "MaxDustButton", "MinDustButton"].includes(name)) {
       const next = name === "MaxDustButton" ? Math.min(data.cap, state.walletDust) : name === "MinDustButton" ? 0 : state.dust + (name === "IncDustButton" ? 1 : -1) * c.FUSION_DUST_ADJUSTMENT_STEP;
@@ -100,12 +132,24 @@ function initFusionResultPreview(screen, rules, rendered) {
   const state = { result: computed.results[0]?.pet.ID, rich: false, weekend: false };
   t.controls(`<label>Kết quả (mô phỏng) <select data-fusion-result>${computed.results.map(r => `<option value="${r.pet.ID}">${uiTranslate(r.pet.nameKey)}</option>`).join("")}</select></label><label><input type="checkbox" data-result-rich> Đủ Pet Coin</label><label><input type="checkbox" data-result-weekend> Đủ điều kiện bonus cuối tuần</label><button type="button" data-result-reopen>Mở lại kết quả</button>`, el => { if (el.hasAttribute("data-fusion-result")) state.result = el.value; if (el.hasAttribute("data-result-rich")) state.rich = el.checked; if (el.hasAttribute("data-result-weekend")) state.weekend = el.checked; render(); });
   function render() {
+    t.status("");
     fusionPetWidget(t, t.key("PetMaterial1"), a, rules); fusionPetWidget(t, t.key("PetMaterial2"), b, rules); fusionPetWidget(t, t.key("PetResult"), model.byId(state.result), rules);
     for (const [n, pet] of [[1, a], [2, b]]) { t.text(t.key("CostRetrievePet" + n), rules.rarityIndex[pet.Rarity] * rules.constants.RETRIEVE_COST_MULTIPLIER, "UpdateRetrieveCostWidgets"); t.color(t.key("CostRetrievePet" + n), state.rich ? rules.constants.ACTIVE_COIN_COLOR : rules.constants.INACTIVE_COIN_COLOR, "UpdateRetrieveCostWidgets"); }
     t.visible(t.key("DustResult"), true, "UpdateDustAmount"); t.visible(t.key("WeekendBonus"), state.weekend, "UpdateDustAmount");
     t.text(t.key("DustAmount"), state.weekend ? `[s][1F64C4]${t.money(computed.yield)}[-][/s] [F57C00]${t.money(computed.yield * rules.constants.WEEKEND_DUST_MULTIPLIER)}[-]` : `[1F64C4]${t.money(computed.yield)}[-]`, "UpdateDustAmount"); t.refresh();
   }
   t.panel.querySelector("[data-result-reopen]").onclick = () => { t.visible(t.find("Container"), true, "ShowFusionResultHUD"); t.visible(t.find("DarkBG"), true, "ShowFusionResultHUD"); render(); };
-  rendered.canvas.addEventListener("click", event => { const name = event.target.closest("button")?.dataset.uiName; if (["CloseButton", "DarkBG", "ClaimPetResultButton", "RetrievePet1Button", "RetrievePet2Button"].includes(name)) { t.visible(t.find("Container"), false, "HandleGetPet"); t.visible(t.find("DarkBG"), false, "HideFusionResultHUD"); t.status("Đã đóng kết quả; nhận/retrieve chỉ mô phỏng, không cấp vật phẩm."); } else if (name === "Tooltip") t.status("Tooltip pet ngoài phạm vi popup lần này."); });
+  rendered.canvas.addEventListener("click", event => {
+    const name = event.target.closest("button")?.dataset.uiName;
+    if (["RetrievePet1Button", "RetrievePet2Button"].includes(name) && !state.rich) {
+      t.status(uiPreview.language === "en" ? "Not enough Pet Coins." : "Không đủ Pet Coin để hoàn lại thú cưng.");
+      return;
+    }
+    if (["CloseButton", "DarkBG", "ClaimPetResultButton", "RetrievePet1Button", "RetrievePet2Button"].includes(name)) {
+      t.visible(t.find("Container"), false, "HandleGetPet");
+      t.visible(t.find("DarkBG"), false, "HideFusionResultHUD");
+      t.status("Đã đóng kết quả; nhận/retrieve chỉ mô phỏng, không cấp vật phẩm.");
+    } else if (name === "Tooltip") t.status("Tooltip pet ngoài phạm vi popup lần này.");
+  });
   render(); return { state, render };
 }

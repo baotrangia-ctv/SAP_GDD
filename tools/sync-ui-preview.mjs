@@ -18,6 +18,7 @@ const SOURCE_SCREENS = [shopEventSpec, rebirthSpec, lobbySpec, fusionConfirmSpec
 const UI_FILES = [{ id: "collection", name: "Collection", file: "PetsCollection.ui", status: "ready" }, { id: "activities", name: "Activities", file: "Activities.ui", status: "ready" }, { id: "shop", name: "Shop", file: "Shop.ui", status: "ready" }, { id: "mail", name: "Mail", file: "Mail.ui", status: "ready" }];
 UI_FILES.push(...SOURCE_SCREENS.map(spec => ({ id: spec.id, name: spec.name || "Shop Event", file: spec.ui, status: "ready" })));
 const PLANNED = ["Mission"].map(name => ({ id: name.toLowerCase(), name, status: "planned" }));
+const PROTOTYPES = [{ id: "lock-base", name: "Lock Base", status: "ready", sourceScreen: "fusion-confirm" }];
 const PROP_FIELDS = {
   image: ["source", "color", "reverse", "fillType", "slicedBorder", "tiledBorder", "centerInvisible", "fillDir", "fillAmount", "invertFill", "flip", "gradient", "gradientTop", "gradientBottom", "isApplyAnimation", "animationAtlasID", "animationFrameRate", "animationLoop"],
   button: ["spriteName", "normal", "highlight", "pressed", "disabled", "enableBorderImage", "disableCollider", "fillType", "slicedBorder", "tiledBorder", "centerInvisible", "fillDir", "fillAmount", "invertFill", "reverse", "flip", "gradient", "gradientTop", "gradientBottom"],
@@ -60,7 +61,7 @@ export function syncUiPreview(sourceRoot, gddRoot, screenId = null) {
     if (!isWithin(game, absolute)) throw new Error("Unsafe UI source path: " + rel);
     return absolute;
   }
-  const registry = { screens: [...UI_FILES.map(({ id, name, status }) => ({ id, name, status, data: `./data/ui/${id}.json`, rules: `./data/ui/${id}-rules.json` })), ...PLANNED] };
+  const registry = { screens: [...UI_FILES.map(({ id, name, status }) => ({ id, name, status, data: `./data/ui/${id}.json`, rules: `./data/ui/${id}-rules.json` })), ...PROTOTYPES, ...PLANNED] };
   json(["data", "ui", "registry.json"], registry);
 
   for (const ui of UI_FILES.filter(ui => !screenId || ui.id === screenId)) {

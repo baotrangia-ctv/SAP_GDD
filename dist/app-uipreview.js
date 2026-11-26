@@ -32,14 +32,19 @@ async function updateUiPreviewPage(selectedId = null) {
     const id = selectedId || routeId || savedId || "collection";
     const entry = uiPreview.registry.screens.find(item => item.id === id && item.status === "ready") || uiPreview.registry.screens.find(item => item.id === "collection");
     tabs.innerHTML = uiPreview.registry.screens.map(item => `<button type="button" data-ui-screen="${item.id}" ${item.status === "ready" ? "" : "disabled"} class="${item.id === entry.id ? "active" : ""}">${item.name}${item.status === "ready" ? "" : " · Sắp có"}</button>`).join("");
+    const page = tabs.closest(".ui-preview-page");
+    const lockBase = entry.id === "lock-base";
+    const source = uiPreview.registry.screens.find(item => item.id === (entry.sourceScreen || entry.id));
     const [screen, manifest, rules, i18n] = await Promise.all([
-      fetchUiResource(entry.data).then(checkUiJson),
-      fetchUiResource(`./data/ui/${entry.id}-sprites.json`).then(checkUiJson),
-      fetchUiResource(entry.rules).then(checkUiJson),
-      fetchUiResource(`./data/ui/${entry.id}-i18n.json`).then(checkUiJson)
+      fetchUiResource(source.data).then(checkUiJson),
+      fetchUiResource(`./data/ui/${source.id}-sprites.json`).then(checkUiJson),
+      fetchUiResource(source.rules).then(checkUiJson),
+      fetchUiResource(`./data/ui/${source.id}-i18n.json`).then(checkUiJson)
     ]);
     if (s.page !== "uipreview" || loadToken !== uiPreview.loadToken) return;
     uiPreview.controller?.dispose?.();
+    page.classList.toggle("ui-preview-lock-base", lockBase);
+    if (lockBase) prepareLockBaseScreen(screen);
     uiPreview.screen = screen;
     uiPreview.manifest = manifest;
     uiPreview.rules = rules;
@@ -49,6 +54,8 @@ async function updateUiPreviewPage(selectedId = null) {
     uiPreview.height = screen.referenceSize?.height || 720;
     try { localStorage.setItem("uiPreviewScreen", entry.id); } catch {}
     uiPreview.screenId = entry.id;
+    setScreenBreadcrumb(entry.name);
+    uiPreview.heightReferenceWidth = lockBase ? 800 : null;
     uiPreview.open = true;
     document.getElementById("ui-open-toggle").textContent = "Đóng UI";
     document.getElementById("ui-player-panel").replaceChildren();
@@ -56,12 +63,12 @@ async function updateUiPreviewPage(selectedId = null) {
     const stage = document.getElementById("ui-preview-stage");
     const rendered = uiStageMount(stage, uiPreview);
     uiPreview.rendered = rendered;
-    rendered.canvas.classList.toggle("ui-debug", document.getElementById("ui-debug").checked);
-    rendered.canvas.classList.toggle("ui-show-inactive", document.getElementById("ui-show-inactive").checked);
+    rendered.canvas.classList.toggle("ui-debug", !lockBase && document.getElementById("ui-debug").checked);
+    rendered.canvas.classList.toggle("ui-show-inactive", !lockBase && document.getElementById("ui-show-inactive").checked);
     document.getElementById("ui-preview-aspect").value = uiPreview.aspect;
     document.getElementById("ui-preview-meta").textContent = `${screen.entityCount} entity · ${manifest.missing.length} sprite thiếu · root ${uiPreview.width}×${uiPreview.height} từ .ui · khung ${uiPreview.aspect}; scaler và safe area chưa xác minh`;
     scaleUiPreview();
-    uiPreview.controller = entry.id === "storage" ? initStoragePreview(screen, rules, rendered) : entry.id === "permanent-event" ? initPermanentPreview(screen, rules, rendered) : entry.id === "leaderboard" ? initLeaderboardPreview(screen, rules, rendered) : entry.id === "fusion-confirm" ? initFusionConfirmPreview(screen, rules, rendered) : entry.id === "fusion-result" ? initFusionResultPreview(screen, rules, rendered) : entry.id === "lobby" ? initLobbyPreview(screen, rules, rendered) : entry.id === "rebirth" ? initRebirthPreview(screen, rules, rendered) : entry.id === "shop-event" ? initShopEventPreview(screen, rules, rendered) : entry.id === "mail" ? initMailPreview(screen, rules, rendered) : entry.id === "shop" ? initShopPreview(screen, rules, rendered) : entry.id === "activities" ? initActivitiesPreview(screen, rules, rendered) : initCollectionPreview(screen, rules, rendered);
+    uiPreview.controller = lockBase ? initLockBasePreview(screen, rules, rendered) : entry.id === "storage" ? initStoragePreview(screen, rules, rendered) : entry.id === "permanent-event" ? initPermanentPreview(screen, rules, rendered) : entry.id === "leaderboard" ? initLeaderboardPreview(screen, rules, rendered) : entry.id === "fusion-confirm" ? initFusionConfirmPreview(screen, rules, rendered) : entry.id === "fusion-result" ? initFusionResultPreview(screen, rules, rendered) : entry.id === "lobby" ? initLobbyPreview(screen, rules, rendered) : entry.id === "rebirth" ? initRebirthPreview(screen, rules, rendered) : entry.id === "shop-event" ? initShopEventPreview(screen, rules, rendered) : entry.id === "mail" ? initMailPreview(screen, rules, rendered) : entry.id === "shop" ? initShopPreview(screen, rules, rendered) : entry.id === "activities" ? initActivitiesPreview(screen, rules, rendered) : initCollectionPreview(screen, rules, rendered);
     renderUiResourcePanel();
     const audit = auditUiPreviewDom(screen.tree, rendered.canvas);
     document.getElementById("ui-preview-meta").dataset.uiAudit = JSON.stringify(audit);

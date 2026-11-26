@@ -7,6 +7,7 @@ Ghi chú nhanh để tiếp tục công việc mà không phải đọc lại to
 - `plans/PLAN-features-from-pvz.md`: phạm vi và thứ tự làm.
 - `00-decisions.md`: quyết định đã chốt.
 - `20-dev-action-items.md`: việc kỹ thuật đang chờ xác minh.
+- [GDD Lock Base](21-lock-base-gdd.md): cơ chế Lock Token hiện có trên web, công thức cộng thời gian và các quyết định còn thiếu.
 - `README.md` ở thư mục gốc: chức năng site hiện tại và giới hạn dữ liệu.
 - CSV là nguồn giá trị cấu hình; `.fcg` là nguồn logic được phép đọc để xác nhận cách dùng các giá trị đó.
 

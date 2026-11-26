@@ -1,0 +1,5 @@
+# Local document exports, previews, and authoring support files.
+/outputs/
+
+# Local dependency installations and runtime links.
+node_modules/

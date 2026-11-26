@@ -38,12 +38,16 @@ function uiStageScale(stage, canvas, context) {
   const frameWidth = stage.clientWidth;
   if (!frameWidth) return;
   stage.style.aspectRatio = `${ratioWidth} / ${ratioHeight}`;
-  stage.style.height = `${frameWidth / ratio}px`;
+  const heightReferenceWidth = context.heightReferenceWidth
+    ? Math.min(stage.parentElement.clientWidth, context.heightReferenceWidth)
+    : frameWidth;
+  stage.style.height = `${heightReferenceWidth / ratio}px`;
   const frameHeight = stage.clientHeight;
   const scale = Math.max(frameWidth / context.width, frameHeight / context.height);
-  canvas.style.left = `${(frameWidth - context.width * scale) / 2}px`;
+  const scaleX = context.heightReferenceWidth ? scale * frameWidth / heightReferenceWidth : scale;
+  canvas.style.left = `${(frameWidth - context.width * scaleX) / 2}px`;
   canvas.style.top = `${(frameHeight - context.height * scale) / 2}px`;
-  canvas.style.transform = `scale(${scale})`;
+  canvas.style.transform = `scale(${scaleX}, ${scale})`;
 }
 
 function uiStageMount(stage, context, options = {}) {

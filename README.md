@@ -2,6 +2,14 @@
 
 Private design dashboard generated from the checked-in StealAPet config snapshot and source references.
 
+## Mở dashboard trên Windows
+
+Chạy `start.cmd` ở thư mục project. Launcher dùng Python để phục vụ `dist/`
+qua HTTP tại `127.0.0.1`, rồi tự mở trình duyệt. Nếu server của snapshot này
+đang chạy, launcher dùng lại. Không mở trực tiếp `dist/index.html` bằng
+`file://` vì trình duyệt chặn tải JSON. Snapshot đã có sẵn trong repository;
+không cần sync từ project game để xem dashboard.
+
 ## UI Preview · batch 2026-11-01
 
 Đã adapt từ cây UI/controller/config/sprite nguồn; mỗi nhóm UI một commit local:

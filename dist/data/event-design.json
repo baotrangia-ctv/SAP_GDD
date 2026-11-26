@@ -1,0 +1,425 @@
+{
+  "revival": [
+    {
+      "tab": "Revival Event",
+      "url": "https://docs.google.com/spreadsheets/d/1k0iYk7cTZl2v4rwV2Jp75NCah3kvTCwKlHksj9g08Lg/edit#gid=310028002",
+      "notes": [
+        "v0.6 · 17/11/2026 · Fixed return-RB rows"
+      ],
+      "sections": [
+        {
+          "title": "1. Event Settings",
+          "headers": [
+            "Setting",
+            "Value"
+          ],
+          "rows": [
+            ["Inactive days","7"],
+            ["Minimum return RB","6"],
+            ["Event days","7"],
+            ["Daily points cap","30"],
+            ["Reward row key","RB at event start"],
+            ["Reward row selection count","1"],
+            ["Roster-based reward selection","FALSE"],
+            ["D7 reveal day","2"],
+            ["Pet level","1"],
+            ["Pet mutation","Normal"],
+            ["Pet weather","None"]
+          ]
+        },
+        {
+          "title": "2. Daily Login — Fixed Rewards",
+          "headers": [
+            "Return RB",
+            "D1",
+            "D2",
+            "D3",
+            "D4",
+            "D5",
+            "D6",
+            "D7"
+          ],
+          "rows": [
+            ["6","28 · MOOSE ×1","30 · GIRAFFE ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","92B","76 · KOMODO ×1"],
+            ["7","30 · GIRAFFE ×1","33 · ALIGATOR ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","4T","76 · KOMODO ×1"],
+            ["8","33 · ALIGATOR ×1","36 · ELEPHANT ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","7T","76 · KOMODO ×1"],
+            ["9","36 · ELEPHANT ×1","39 · EAGLE ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","22T","76 · KOMODO ×1"],
+            ["10","39 · EAGLE ×1","41 · RHINO ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","38T","76 · KOMODO ×1"],
+            ["11","41 · RHINO ×1","44 · SMALLWHALE ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","78T","76 · KOMODO ×1"],
+            ["12","44 · SMALLWHALE ×1","49 · GORILLA ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","75Q","76 · KOMODO ×1"],
+            ["13","49 · GORILLA ×1","61 · JAGUAR ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","2Qi","76 · KOMODO ×1"],
+            ["14","61 · JAGUAR ×1","63 · ARCTICFOX ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","2Qi","85 · SERVAL ×1"],
+            ["15","63 · ARCTICFOX ×1","1021 · PEACOCK ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","2Qi","88 · MEERKAT ×1"],
+            ["16","1021 · PEACOCK ×1","1024 · KOALA ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","7Qi","89 · PYTHON ×1"],
+            ["17","1024 · KOALA ×1","1027 · PORCUPINE ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","11Qi","91 · HEDGEHOG ×1"],
+            ["18","1027 · PORCUPINE ×1","1030 · MOUSE ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","11Qi","76 · KOMODO ×1"],
+            ["19","1030 · MOUSE ×1","84 · BABOON ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","17Qi","85 · SERVAL ×1"],
+            ["20","84 · BABOON ×1","1029 · DINGO ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","22Qi","76 · KOMODO ×1"],
+            ["21","1029 · DINGO ×1","89 · PYTHON ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","27Qi","88 · MEERKAT ×1"],
+            ["22","89 · PYTHON ×1","1028 · IGUANA ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","33Qi","91 · HEDGEHOG ×1"],
+            ["23","1028 · IGUANA ×1","1043 · FROG ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","34Qi","97 · JACKAL ×1"],
+            ["24","1043 · FROG ×1","1032 · ORANGUTAN ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","39Qi","98 · DONKEY ×1"],
+            ["25","1032 · ORANGUTAN ×1","98 · DONKEY ×1","Spins ×3","Dust ×500","Clover SS MutaGen ×2","Thundered SS WeatherGen ×2","102 · BEAVER ×1"],
+            ["26","98 · DONKEY ×1","Clover SS MutaGen ×5","Spins ×3","Dust ×500","Clover SS MutaGen ×2","Thundered SS WeatherGen ×2","102 · BEAVER ×1"],
+            ["27","98 · DONKEY ×1","Clover SS MutaGen ×5","Spins ×3","Dust ×500","Clover SS MutaGen ×2","Thundered SS WeatherGen ×2","102 · BEAVER ×1"]
+          ]
+        },
+        {
+          "title": "3. Activity Milestones",
+          "headers": [
+            "Points",
+            "Reward",
+            "Value",
+            "Quantity"
+          ],
+          "rows": [
+            ["15","Money","Cash15","1"],
+            ["40","Pet","Pet40","1"],
+            ["60","MoneyTime","4 hours","1"],
+            ["75","WeatherGen","Thundered SS","5"],
+            ["90","Pet","Pet90","1"]
+          ]
+        },
+        {
+          "title": "4. Fixed Cash by Return RB",
+          "headers": [
+            "Return RB",
+            "Cash15 · raw Money",
+            "CashD6 · raw Money"
+          ],
+          "rows": [
+            ["6","5B","92B"],
+            ["7","26B","4T"],
+            ["8","131B","7T"],
+            ["9","6T","22T"],
+            ["10","11T","38T"],
+            ["11","32T","78T"],
+            ["12","53T","75Q"],
+            ["13","105T","2Qi"],
+            ["14","2Q","2Qi"],
+            ["15","100Q","2Qi"],
+            ["16","578Q","7Qi"],
+            ["17","1Qi","11Qi"],
+            ["18","6Qi","11Qi"],
+            ["19","8Qi","17Qi"],
+            ["20","15Qi","22Qi"],
+            ["21","23Qi","27Qi"],
+            ["22","28Qi","33Qi"],
+            ["23","37Qi","34Qi"],
+            ["24","44Qi","39Qi"],
+            ["25","47Qi","Thundered SS WeatherGen ×2"],
+            ["26","52Qi","Thundered SS WeatherGen ×2"],
+            ["27","Dust ×500","Thundered SS WeatherGen ×2"]
+          ]
+        },
+        {
+          "title": "5. Daily Tasks",
+          "headers": [
+            "Task",
+            "Target",
+            "Points"
+          ],
+          "rows": [
+            ["Login","1","4"],
+            ["Play minutes","10","4"],
+            ["Buy pets","3","4"],
+            ["Upgrade levels","1","4"],
+            ["Steal pets","1","4"],
+            ["Catch fish","3","3"],
+            ["Dig","3","3"],
+            ["Collect income","3","4"],
+            ["Fuse","1","4"]
+          ]
+        },
+        {
+          "title": "6. Activity Milestone Pets — Fixed by Return RB",
+          "headers": [
+            "Return RB",
+            "Pet40 ID",
+            "Pet40",
+            "Pet90 ID",
+            "Pet90"
+          ],
+          "rows": [
+            ["6","32","Snow Owl","33","Alligator"],
+            ["7","32","Snow Owl","36","Elephant"],
+            ["8","35","Tiger","39","Eagle"],
+            ["9","38","Panda","41","Rhino"],
+            ["10","40","Polar Bear","44","Small Whale"],
+            ["11","43","Hippo","49","Gorilla"],
+            ["12","46","Brown Bear","61","Jaguar"],
+            ["13","51","Narwhal","63","Arctic Fox"],
+            ["14","1006","Moodeng","1021","Peacock"],
+            ["15","56","Husky","1024","Koala"],
+            ["16","60","Platypus","1027","Porcupine"],
+            ["17","73","Catfish","1030","Mouse"],
+            ["18","75","Mallard","84","Baboon"],
+            ["19","76","Komodo","1029","Dingo"],
+            ["20","85","Serval","89","Python"],
+            ["21","76","Komodo","1028","Iguana"],
+            ["22","88","Meerkat","1043","Frog"],
+            ["23","1031","Gemsbok","1032","Orangutan"],
+            ["24","97","Jackal","96","Bandicoot"],
+            ["25","96","Bandicoot","100","Badger"],
+            ["26","96","Bandicoot","100","Badger"],
+            ["27","99","Antelope","100","Badger"]
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Revival Reward Plan",
+      "url": "https://docs.google.com/spreadsheets/d/1k0iYk7cTZl2v4rwV2Jp75NCah3kvTCwKlHksj9g08Lg/edit#gid=511144033",
+      "notes": [
+        "Segments locked on return: RB1–7 / RB8–15 / RB16+. One package per account per campaign.",
+        "Status: applied — reward-only configuration. All six MilestoneData lists use Type 4."
+      ],
+      "sections": [
+        {
+          "title": "PLAYTIME GIFTS — cumulative seconds; one-time",
+          "headers": [
+            "Milestone",
+            "RB1–7",
+            "RB8–15",
+            "RB16+",
+            "Cumulative seconds"
+          ],
+          "rows": [
+            ["30 seconds","0.5h MoneyTime","0.5h MoneyTime","1h MoneyTime",null],
+            ["2 minutes","Clover SS x1","Clover SS x2","Clover SS x3",null],
+            ["5 minutes","Spins x2","Spins x3","Spins x5",null],
+            ["10 minutes","Clover SS x1","Clover SS x2","Clover SS x3",null],
+            ["30 minutes","Komodo x1","Komodo x1","Komodo x1",null],
+            ["60 minutes","1h MoneyTime","1h MoneyTime","1h MoneyTime","3600"],
+            ["90 minutes","Clover SS x1","Clover SS x2","Clover SS x3","5400"]
+          ]
+        },
+        {
+          "title": "7-DAY LOGIN",
+          "headers": [
+            "Day",
+            "RB1–7",
+            "RB8–15",
+            "RB16+"
+          ],
+          "rows": [
+            ["1","Small Whale x1","Arctic Fox x1","Komodo x1"],
+            ["2","Thundered SS x1","Thundered SS x2","Thundered SS x3"],
+            ["3","Spins x2","Spins x3","Spins x4"],
+            ["4","100 Dust","300 Dust","500 Dust"],
+            ["5","0.5h MoneyTime","0.5h MoneyTime","1h MoneyTime"],
+            ["6","Thundered SS x3","Thundered SS x4","Thundered SS x5"],
+            ["7","Komodo x1","Komodo x1","Meerkat x1"]
+          ]
+        },
+        {
+          "title": "TOTAL PER COMPLETED PACKAGE",
+          "headers": [
+            "Reward",
+            "RB1–7",
+            "RB8–15",
+            "RB16+"
+          ],
+          "rows": [
+            ["Clover SS MutaGen","3","6","9"],
+            ["Thundered SS WeatherGen","4","6","8"],
+            ["Spins","4","6","9"],
+            ["Dust","100","300","500"],
+            ["MoneyTime (hours)","2","2","3"],
+            ["Fixed pets","Small Whale x1; Komodo x2","Arctic Fox x1; Komodo x2","Komodo x2; Meerkat x1"]
+          ]
+        }
+      ]
+    }
+  ],
+  "snowball": [
+    {
+      "tab": "EventWinterlandRollSnowBall",
+      "url": "https://docs.google.com/spreadsheets/d/1k0iYk7cTZl2v4rwV2Jp75NCah3kvTCwKlHksj9g08Lg/edit#gid=990960163",
+      "notes": [],
+      "sections": [
+        {
+          "title": "WINTERLAND / CONFIG TRIỂN KHAI",
+          "headers": [
+            "Key đề xuất",
+            "Giá trị",
+            "Đơn vị",
+            "Quy tắc"
+          ],
+          "rows": [
+            ["baseRadius","0.5","đơn vị","Bán kính khi tạo cầu."],
+            ["maxRadius","2","đơn vị","Bán kính tối đa."],
+            ["maxSizeRollSeconds","8","giây","Thời gian lăn hợp lệ để đạt bán kính tối đa."],
+            ["minPushMoveFactor","0.45","hệ số","Tốc độ di chuyển khi cầu tối đa."],
+            ["minPushTurnFactor","0.35","hệ số","Tốc độ xoay khi cầu tối đa."],
+            ["weightRadiusStep","0.05","đơn vị","Bước cập nhật hệ số tốc độ."],
+            ["mediumLaunchSpeed","18","đơn vị/giây","Tốc độ phóng cầu vừa, từ 3 đến dưới 6 giây lăn."],
+            ["lifetime","5","giây","Thời gian tồn tại tối đa của projectile."],
+            ["pointsPerRollMilestone","1","Event Token","Cộng tại mỗi mốc lăn hợp lệ."],
+            ["launchCooldown","30","giây","Tính từ lúc phóng hoặc tự nổ, áp dụng cả lượt 0 Event Token."],
+            ["rollPointInterval","3","giây","Dùng mốc bắt đầu di chuyển, 3 giây và 6 giây."],
+            ["maxRollPoints","3","Event Token/lượt","Đạt sau 6 giây lăn hợp lệ."],
+            ["maxHitsScoredPerBall","1","cú/quả","Mỗi projectile chỉ ghi Event Token cho va chạm hợp lệ đầu tiên."],
+            ["dailyPointCap","80","Event Token/ngày","Cộng tối đa phần Event Token còn thiếu."],
+            ["mediumMinRollSeconds","3","giây","Bắt đầu cỡ Vừa, tính cả ngưỡng."],
+            ["largeMinRollSeconds","6","giây","Bắt đầu cỡ Lớn, tính cả ngưỡng."],
+            ["smallHitPoints","1","Event Token","Cộng khi phóng trúng với thời gian lăn từ 0 đến dưới 3 giây."],
+            ["mediumHitPoints","2","Event Token","Từ ngưỡng Vừa đến dưới ngưỡng Lớn."],
+            ["largeHitPoints","3","Event Token","Từ ngưỡng Lớn trở lên."],
+            ["targetCoreSession","30","phút","Thời lượng mô phỏng. Mục tiêu playtest là 20–30 phút để đạt 80 Event Token."],
+            ["maxSizeHoldTimeout","10","giây","Đếm từ lần đầu đạt maxRadius. Đứng yên vẫn đếm. Hết thời gian, cầu tự nổ tại chỗ."]
+          ]
+        },
+        {
+          "title": "LUẬT XỬ LÝ LƯỢT CÓ EVENT TOKEN",
+          "headers": [
+            "Quy tắc"
+          ],
+          "rows": [
+            ["Mỗi lượt dùng cooldown cầu 30 giây sau khi phóng hoặc tự nổ."],
+            ["Cộng Event Token lăn theo mốc thời gian di chuyển hợp lệ, cộng Event Token trúng theo cỡ cầu."],
+            ["Lưu Event Token ngày và thời điểm hết cooldown cầu qua reconnect."],
+            ["Event Token trúng theo thời gian lăn hợp lệ server chốt lúc thả. Thưởng decor người tuyết qua bệ là hướng thiết kế thử; giá shop và thời lượng event còn cần chốt."]
+          ]
+        },
+        {
+          "title": "TỐC ĐỘ PHÓNG THEO CỠ CẦU",
+          "headers": [
+            "Key đề xuất",
+            "Giá trị",
+            "Đơn vị",
+            "Quy tắc"
+          ],
+          "rows": [
+            ["smallLaunchSpeed","14","đơn vị/giây","Cầu nhỏ, dưới 3 giây lăn hợp lệ."],
+            ["largeLaunchSpeed","22","đơn vị/giây","Cầu bự, từ 6 giây lăn hợp lệ. Mốc 8 giây đạt size tối đa."]
+          ]
+        },
+        {
+          "title": "QUÀ SAU TRẦN WINTERLAND",
+          "headers": [
+            "Key đề xuất",
+            "Giá trị",
+            "Đơn vị",
+            "Quy tắc"
+          ],
+          "rows": [
+            ["postCapRewardDailyLimit","2","roll/ngày","Mức thử theo tài khoản. Mỗi quả trúng hợp lệ sau 80 mở một roll."]
+          ]
+        },
+        {
+          "title": "WINTERLAND / ROLL QUÀ SAU 80 ĐIỂM",
+          "headers": [
+            "Phần thưởng",
+            "Gift ID",
+            "Weight",
+            "Xác suất",
+            "Nguồn"
+          ],
+          "rows": [
+            ["100.000 Money","41024","250","25.28%","Master Data / EventDigMeteorite"],
+            ["1.000.000 Money","41025","400","40.44%","Master Data / EventDigMeteorite"],
+            ["30 phút MoneyTime","41026","140","14.16%","Master Data / EventDigMeteorite"],
+            ["10 Dust","41029","150","15.17%","Master Data / EventDigMeteorite"],
+            ["50 Dust","41030","49","4.95%","Master Data / EventDigMeteorite"]
+          ]
+        },
+        {
+          "title": "QUY TẮC VÀ NGHIỆM THU",
+          "headers": [
+            "Quy tắc"
+          ],
+          "rows": [
+            ["Từ 80/80 trước khi xử lý va chạm, mỗi quả cầu phóng trúng hợp lệ roll một quà và cấp ngay. Cú đưa điểm lên 80 mở quyền roll cho quả tiếp theo."],
+            ["Roll theo trọng số tương đối trong pool Winterland. Bản thử lấy 5 dòng Money, MoneyTime và Dust từ Thiên Thạch. Gift ID cần xác nhận khả năng tái sử dụng trong build Winterland."],
+            ["Tối đa 2 lần roll/ngày/tài khoản. Điểm event sau trần cộng 0. Phóng hụt, trúng mục tiêu được bảo vệ hoặc tự nổ không dùng lượt roll."],
+            ["Server ghi và cấp theo DayKey + AccountID + ProjectileID. Retry không roll thêm. Lưu số lượt đã cấp qua reconnect và reset theo ngày event."],
+            ["Nguồn Thiên Thạch: Event Frame dòng 59–60 nói money/dust drop tiếp tục sau cap. EventDigMeteorite dòng 23–29 có bảng trọng số. Chưa xác nhận một bảng xác suất riêng sau cap cho Thiên Thạch."]
+          ]
+        }
+      ]
+    }
+  ],
+  "fishing": [
+    {
+      "tab": "Fishing 1.2.0",
+      "url": "https://docs.google.com/spreadsheets/d/1k0iYk7cTZl2v4rwV2Jp75NCah3kvTCwKlHksj9g08Lg/edit#gid=241987332",
+      "notes": [
+        "Mỗi lần người chơi chọn trúng điểm vàng hay xanh sẽ đc cộng % có mutation đc apply thẳng vào pet sẽ được câu lên, nếu người chơi chọn hụt hết điểm sẽ vẫn câu đc pet lên tuy nhiên sẽ có 0% nhận mutation cho con pet đó",
+        "Ngoài ra độ khó của minigame sẽ tăng theo rarity của pet"
+      ],
+      "sections": [
+        {
+          "title": "Mechanic",
+          "headers": [
+            "Thiết lập",
+            "Giá trị",
+            "Ghi chú"
+          ],
+          "rows": [
+            ["Xanh (green)","50%","GOOD: cộng cơ hội có Gen, không buff rarity pet."],
+            ["Vàng (gold)","100%","EXCELLENT: feedback mạnh hơn xanh."],
+            ["Đỏ (red)","0%","MISS không nhân đc pet"],
+            ["Số tap chấm điểm","1",null],
+            ["Số Gen tối đa","1","Chỉ 0 hoặc 1 Gen, không double mutation."],
+            ["Rebirth mở khóa","9","Chỉ cho bắt đầu câu từ R9."],
+            ["Dừng trước khi hiện cá (s)","0.35","Sau tap dừng chuyển động 0.35 giây rồi hiện offer."],
+            ["Cooldown (s)","0","Không có timer cooldown. Phải xử lý offer trước lượt tiếp theo."]
+          ]
+        },
+        {
+          "title": "Config pool mutation and weather",
+          "headers": [
+            "GenID",
+            "Tên hiển thị",
+            "Rarity",
+            "Enabled",
+            "SAP ID",
+            "SAP Type",
+            "Weight R9–R10",
+            "Weight R11–R12",
+            "Weight R13–R15",
+            "Weight R16–R18",
+            "Weight R19+",
+            "Rate R9–R10",
+            "Rate R11–R12",
+            "Rate R13–R15",
+            "Rate R16–R18",
+            "Rate R19+"
+          ],
+          "rows": [
+            ["gold","Golden","COMMON","1","2","Mutation","322,500","293,125","263,750","234,375","205,000","32.25%","29.31%","26.38%","23.44%","20.50%"],
+            ["soaked","Soaked","COMMON","1","1","WeatherEffect","322,500","293,125","263,750","234,375","205,000","32.25%","29.31%","26.38%","23.44%","20.50%"],
+            ["frost","Frozen","RARE","1","3","Mutation","90,000","97,500","105,000","112,500","120,000","9.00%","9.75%","10.50%","11.25%","12.00%"],
+            ["ice","Frost","RARE","1","2","WeatherEffect","90,000","97,500","105,000","112,500","120,000","9.00%","9.75%","10.50%","11.25%","12.00%"],
+            ["wind","Gale","EPIC","1","3","WeatherEffect","47,500","55,625","63,750","71,875","80,000","4.75%","5.56%","6.38%","7.19%","8.00%"],
+            ["coral","Magma","EPIC","1","4","Mutation","47,500","55,625","63,750","71,875","80,000","4.75%","5.56%","6.38%","7.19%","8.00%"],
+            ["thundered","Thundered","LEGENDARY","1","4","WeatherEffect","30,000","37,500","45,000","52,500","60,000","3.00%","3.75%","4.50%","5.25%","6.00%"],
+            ["clover","Clover","MYTHIC","1","5","Mutation","20,000","25,000","30,000","35,000","40,000","2.00%","2.50%","3.00%","3.50%","4.00%"],
+            ["lunar","Eclipse","MYTHIC","1","5","WeatherEffect","20,000","25,000","30,000","35,000","40,000","2.00%","2.50%","3.00%","3.50%","4.00%"],
+            ["fossilized","Fossilized","APEX","1","6","Mutation","5,000","10,000","15,000","20,000","25,000","0.50%","1.00%","1.50%","2.00%","2.50%"],
+            ["rainbow","Prismatic","APEX","1","6","WeatherEffect","5,000","10,000","15,000","20,000","25,000","0.50%","1.00%","1.50%","2.00%","2.50%"],
+            ["TOTAL",null,null,null,null,null,"1,000,000","1,000,000","1,000,000","1,000,000","1,000,000","100.00%","100.00%","100.00%","100.00%","100.00%"]
+          ]
+        },
+        {
+          "title": "Tốc độ của Indicator",
+          "headers": [
+            "Rarity",
+            "Giây/vòng",
+            "Nhanh so với Common"
+          ],
+          "rows": [
+            ["Common","2,80","×1,00"],
+            ["Rare","2,50","×1,12"],
+            ["Epic","2,25","×1,24"],
+            ["Legendary","2,00","×1,40"],
+            ["Mythic","1,80","×1,56"],
+            ["Apex","1,60","×1,75"]
+          ]
+        }
+      ],
+      "example": "https://truongthinhbui.github.io/UI-StealAPet/"
+    }
+  ]
+}
